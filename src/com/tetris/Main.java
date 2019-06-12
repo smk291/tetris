@@ -4,36 +4,38 @@ import javafx.scene.transform.Affine;
 import sun.plugin.dom.css.Rect;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.awt.geom.*;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 import javax.swing.JComboBox;
 
-//I, O, T, S, Z, J, LPiece
-
-
 class Surface extends JPanel {
-    TetrisPiece piece = new TPiece(new double[] {100, 100}, 0);
+    ArrayList<TetrisPiece> pieces = new ArrayList<TetrisPiece>();
 
-    private void draw (Graphics2D g2d, Color color, Area a) {
-        g2d.setColor(color);
-        g2d.fill(a);
-        g2d.draw(a);
+    void setPieces(ArrayList<TetrisPiece> t) {
+        pieces = t;
+    }
+
+    private void draw (Graphics2D g2d) {
+        for (TetrisPiece p : pieces) {
+            g2d.setColor(p.pieceColor);
+            g2d.fill(p.piece);
+            g2d.draw(p.piece);
+        }
     }
 
     private void doDrawing(Graphics g) throws InterruptedException {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.translate(200,200);
-        draw(g2d, piece.pieceColor, piece.piece);
+        Random r = new Random();
+        g2d.translate(0, 0);
+        draw(g2d);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
 
         try {
@@ -48,56 +50,57 @@ enum Pieces {
     I(), O, T, S, Z, J, L
 }
 
-class PieceCombobox<T> extends JComboBox<T> {
-    Pieces[] options = Pieces.values();
-
-}
-
-
-class Main extends JFrame {
-    Main() {
+class Tetris extends JFrame {
+    Tetris() {
         initUI();
     }
 
     private JLabel label = new JLabel("Piece");
-    private TetrisPiece piece = new TPiece(new double[]{200, 200}, 0);
-    Surface t = new Surface();
+    private Surface t = new Surface();
+    private ArrayList<TetrisPiece> pieces = new ArrayList<>();
+    private ArrayList<Integer> integers = new ArrayList<>();
 
-    private void setPiece(String item) {
-        label.setText(item.toString());
+    private ArrayList<TetrisPiece> addPiece(String item) {
+        label.setText(item);
+        pieces = new ArrayList<>();
 
         switch(item) {
             case "IPiece":
-                piece = new IPiece(new double[] {100,100}, 0);
-                t.piece = piece;
-                t.invalidate();
-                t.validate();
-                t.repaint();
+                pieces.add(new IPiece(new double[] {100d, 100d}));
                 break;
             case "OPiece":
-                piece = new OPiece(new double[] {100,100}, 0);
-                t.piece = piece;
+                pieces.add(new OPiece(new double[] {100d, 100d}));
                 break;
             case "TPiece":
-                piece = new TPiece(new double[] {100,100}, 0);
-                t.piece = piece;
+                pieces.add(new TPiece(new double[] {100d, 100d}));
                 break;
             case "SPiece":
-                piece = new SPiece(new double[] {100,100}, 0);
-                t.piece = piece;
+                pieces.add(new SPiece(new double[] {100d, 100d}));
                 break;
             case "ZPiece":
-                piece = new ZPiece(new double[] {100,100}, 0);
-                t.piece = piece;
+                pieces.add(new ZPiece(new double[] {100d, 100d}));
                 break;
             case "JPiece":
-                piece = new JPiece(new double[] {100,100}, 0);
-                t.piece = piece;
+                pieces.add(new JPiece(new double[] {100d, 100d}));
                 break;
             case "LPiece":
-                piece = new LPiece(new double[] {100,100}, 0);
-                t.piece = piece;
+                pieces.add(new LPiece(new double[] {100d, 100d}));
                 break;
+        }
+
+        this.integers.add(integers.size());
+        this.t.setPieces(pieces);
+        repaint();
+
+        return pieces;
+    }
+
+    private void rotate(RotationDirection r) {
+        for (TetrisPiece p : pieces) {
+            p.rotate(r);
+            label.setText(p.piece.getBounds2D().toString() + " ");
+
+            repaint();
         }
     }
 
@@ -109,20 +112,20 @@ class Main extends JFrame {
 
         JPanel menu = new JPanel();
         menu.setMaximumSize(new Dimension(400, 200));
+        String[] s = new String[]{null, "IPiece", "OPiece", "TPiece", "SPiece", "ZPiece", "JPiece", "LPiece"};
+        JComboBox<String> pieceCombobox = new JComboBox<>(s);
 
-        JComboBox<TetrisEnum> pieceCombobox = new JComboBox<>(TetrisEnum.values());
-
-        pieceCombobox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                setTitle(e.getItem().toString());
-                label.setText(e.getItem().toString());
-            }
+        pieceCombobox.addItemListener(e -> {
+            setTitle(e.getItem().toString());
+            label.setText(e.getItem().toString() + " " + pieces.size() + " " + t.pieces.size() + " " + integers.toString());
+            pieces = addPiece(e.getItem().toString());
         });
-
 
         JButton rotateLeft = new JButton();
         JButton rotateRight = new JButton();
+
+        rotateLeft.addActionListener(e -> rotate(RotationDirection.COUNTERCLOCKWISE));
+        rotateRight.addActionListener(e -> rotate(RotationDirection.CLOCKWISE));
 
         rotateLeft.setText("Rotate left");
         rotateRight.setText("Rotate right");
@@ -130,7 +133,7 @@ class Main extends JFrame {
         menu.add(pieceCombobox);
         menu.add(rotateLeft);
         menu.add(rotateRight);
-        menu.add(this.label);
+        add(this.label, BorderLayout.SOUTH);
 
         add(menu, BorderLayout.NORTH);
         add(t);
@@ -141,42 +144,13 @@ class Main extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+}
 
+class Main{
     public static void main(String[] args) {
-
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                Main ex = new Main();
-                ex.setVisible(true);
-            }
+        EventQueue.invokeLater(() -> {
+            Tetris ex = new Tetris();
+            ex.setVisible(true);
         });
     }
 }
-
-//    double[][] tPoints = new double[][]{
-//            {51, 0},
-//            {101, 0},
-//            {101, 51},
-//            {151, 51},
-//            {151, 101},
-//            {0, 101},
-//            {0, 51},
-//            {51, 51},
-//            {51, 0}
-//    };
-//
-//    setCoords(tStart, tPoints);
-//
-//    GeneralPath tPath = new GeneralPath();
-//
-//        tPath.moveTo(tPoints[0][0], tPoints[0][1]);
-//
-//                for (int k = 1; k < tPoints.length; k++)
-//        tPath.lineTo(tPoints[k][0], tPoints[k][1]);
-//
-//        tPath.closePath();
-//        g2d.fill(tPath);
-//        g2d.draw(tPath);
-
