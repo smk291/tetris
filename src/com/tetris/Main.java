@@ -20,11 +20,11 @@ class Surface extends JPanel {
     }
 
     private void draw (Graphics2D g2d) {
-        for (TetrisPiece p : pieces) {
-            g2d.setColor(p.pieceColor);
-            g2d.fill(p.piece);
-            g2d.draw(p.piece);
-        }
+//        for (TetrisPiece p : pieces) {
+////            g2d.setColor(p.pieceColor);
+////            g2d.fill(p.piece);
+//            g2d.draw(p.piece);
+//        }
     }
 
     private void doDrawing(Graphics g) throws InterruptedException {
@@ -66,25 +66,25 @@ class Tetris extends JFrame {
 
         switch(item) {
             case "IPiece":
-                pieces.add(new IPiece(new double[] {100d, 100d}));
+                pieces.add(new IPiece());
                 break;
             case "OPiece":
-                pieces.add(new OPiece(new double[] {100d, 100d}));
+                pieces.add(new OPiece());
                 break;
             case "TPiece":
-                pieces.add(new TPiece(new double[] {100d, 100d}));
+                pieces.add(new TPiece());
                 break;
             case "SPiece":
-                pieces.add(new SPiece(new double[] {100d, 100d}));
+                pieces.add(new SPiece());
                 break;
             case "ZPiece":
-                pieces.add(new ZPiece(new double[] {100d, 100d}));
+                pieces.add(new ZPiece());
                 break;
             case "JPiece":
-                pieces.add(new JPiece(new double[] {100d, 100d}));
+                pieces.add(new JPiece());
                 break;
             case "LPiece":
-                pieces.add(new LPiece(new double[] {100d, 100d}));
+                pieces.add(new LPiece());
                 break;
         }
 
@@ -97,8 +97,7 @@ class Tetris extends JFrame {
 
     private void rotate(RotationDirection r) {
         for (TetrisPiece p : pieces) {
-            p.rotate(r);
-            label.setText(p.piece.getBounds2D().toString() + " ");
+//            label.setText(p.piece.getBounds2D().toString() + " ");
 
             repaint();
         }

@@ -1,236 +1,261 @@
 package com.tetris;
 
+import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
+import java.util.Map;
 
 enum RotationDirection {
     CLOCKWISE, COUNTERCLOCKWISE
 }
 
 enum TetrisEnum {
-    IPiece(Color.CYAN, "I"),
-    OPiece(Color.RED, "O"),
-    TPiece(Color.GREEN, "T"),
-    SPiece(Color.MAGENTA, "S"),
-    ZPiece(Color.BLUE, "Z"),
-    JPiece(Color.yellow, "J"),
-    LPiece(Color.ORANGE, "L");
+    IPiece(Color.CYAN),
+    OPiece(Color.RED),
+    TPiece(Color.GREEN),
+    SPiece(Color.MAGENTA),
+    ZPiece(Color.BLUE),
+    JPiece(Color.yellow),
+    LPiece(Color.ORANGE);
 
     Color pieceColor;
-    String pieceName;
-    TetrisPiece piece;
 
-    TetrisEnum(Color pieceColor, String pieceName) {
+    TetrisEnum(Color pieceColor) {
         this.pieceColor = pieceColor;
-        this.pieceName = pieceName;
+    }
+}
+
+class TetrisBlock extends JPanel {
+    private Color color = Color.CYAN;
+    private Area a = new Area();
+    private Rectangle2D.Double r = new Rectangle2D.Double();
+
+    TetrisBlock (Color c, Point2D neCorner, Point2D swCorner) {
+        r.setFrameFromDiagonal(neCorner, swCorner);
+        Area a = new Area(r);
     }
 }
 
 abstract class TetrisPiece {
-    Area piece;
-    Color pieceColor;
-    boolean[][] pieceArr;
-    TetrisPiece() { }
-
-    public void rotate(RotationDirection rd) {
-        AffineTransform transformer = new AffineTransform();
-
-        transformer.rotate(
-            Math.PI / 2,
-            piece.getBounds2D().getCenterX(),
-            piece.getBounds2D().getCenterY()
-        );
-
-        piece.transform(transformer);
-    }
+    private Color pieceColor = Color.CYAN;
+    private int[][] pieceArr = {{}};
+    private int[][] pieceArr90 = {{}};
+    private int[][] pieceArr180 = {{}};
+    private int[][] pieceArr270 = {{}};
+    private HashMap<Integer, HashMap<Integer, Boolean>> pieceMap = new HashMap<>();
+    private int rotationPermutations;
+    private int[] leftEdgeByRotationPermutation;
+    private int[] rightEdgeByRotationPermutation;
 }
 
-class TPiece extends TetrisPiece {
-    boolean[][] pieceArr =
-    {{false, true, false},
-     {true,  true, true}};
-
-    TPiece(double[] startingCoords) {
-        super();
-        pieceColor = TetrisEnum.TPiece.pieceColor;
-
-        Area t1 = new Area(
-                new Rectangle2D.Double(
-                        0 + startingCoords[0],
-                        50 + startingCoords[1],
-                        150,
-                        50
-                )
-        );
-        Area t2 = new Area(
-                new Rectangle2D.Double(
-                        50 + startingCoords[0],
-                        0 + startingCoords[1],
-                        50,
-                        50
-                )
-        );
-
-        t1.add(t2);
-
-        piece = t1;
-    }
+abstract class TPiece extends TetrisPiece {
+    final static int[][] pieceArr =
+        {
+                      {0, -1},
+             {-1, 0},/*{0,0},*/{1,  0}
+        };
+    final static int[][] pieceArr90 =
+        {
+                      {0, -1},
+                     /*{0,0},*/{1, -1},
+                      {0,  1}
+        };
+    final static int[][] pieceArr180 =
+        {
+             {-1, 0},/*{0,0},*/{1,  0},
+                      {0,  0}
+        };
+    final static int[][] pieceArr270 =
+        {
+                      {0, -1},
+             {-1, 0},/*{0, 0},*/
+                      {0,  1}
+        };
+    final static int rotationPermutations = 4;
+    final static int[] leftEdgeByRotationPermutation = {-1, 0, -1, -1};
+    final static int[] rightEdgeByRotationPermutation = {1, 1, 1, 0};
+    final static Color pieceColor = TetrisEnum.TPiece.pieceColor;
 }
 
-class OPiece extends TetrisPiece {
-    boolean[][] pieceArr = new boolean[][] {{true, true,}, {true, true}};
-
-    OPiece(double[] startingCoords) {
-        super();
-        pieceColor = TetrisEnum.OPiece.pieceColor;
-        super.piece = new Area(
-                new Rectangle2D.Double(
-                        0 + startingCoords[0],
-                        0 + startingCoords[1],
-                        100,
-                        100
-                )
-        );
-    }
-
-    public void rotate(RotationDirection rd) { }
+abstract class OPiece extends TetrisPiece {
+    final static int[][] pieceArr =
+        {
+                      {0, -1}, {1,  1},
+                    /*{0, 0},*/{0,  1}
+        };
+    final static int rotationPermutations = 1;
+    final static int[] leftEdgeByRotationPermutation = {0};
+    final static int[] rightEdgsByRotationPermutation = {1};
+    final static Color pieceColor = TetrisEnum.OPiece.pieceColor;
 }
 
-class IPiece extends TetrisPiece {
-    boolean[][] pieceArr = new boolean[][] {{true, true, true, true}};
+abstract class IPiece extends TetrisPiece {
+    final static int[][] pieceArr =
+        {
+    {-2, 0}, {-1, 0},/*{0,0},*/{1,  0}
+        };
+    final static int[][] pieceArr90 =
+        {
+                      {0, -2},
+                      {0, -1},
+                    /*{0,  0},*/
+                      {0,  1}
+        };
+    final static int rotationPermutations = 2;
+    final static int[] leftEdgeByRotationPermutation = {-1, 0};
+    final static int[] rightEdgsByRotationPermutation = {2, 0};
+    final static Color pieceColor = TetrisEnum.IPiece.pieceColor;
 
-    IPiece(double[] startingCoords) {
-        super();
-        pieceColor = TetrisEnum.IPiece.pieceColor;
-
-        super.piece = new Area(
-                new Rectangle2D.Double(
-                        0 + startingCoords[0],
-                        0 + startingCoords[1],
-                        200,
-                        50
-                )
-        );
-    }
+    IPiece() { }
 }
 
-class SPiece extends TetrisPiece {
-    boolean[][] pieceArr = new boolean[][]{{false, true, true}, {true, true, false}};
-
-    SPiece(double[] startingCoords) {
-        super();
-        pieceColor = TetrisEnum.SPiece.pieceColor;
-
-        Area s1 = new Area(
-                new Rectangle2D.Double(
-                        50 + startingCoords[0],
-                        0 + startingCoords[1],
-                        100,
-                        50
-                )
-        );
-        Area s2 = new Area(
-                new Rectangle2D.Double(
-                        0 + startingCoords[0],
-                        50 + startingCoords[1],
-                        100,
-                        50
-                )
-        );
-
-        s1.add(s2);
-
-        super.piece = s1;
-    }
+abstract class SPiece extends TetrisPiece {
+    final static int[][] pieceArr =
+        {
+                    /*{0, 0},*/{1,  0},
+             {-1, 1}, {0,  1}
+        };
+    final static int[][] pieceArr90 =
+        {
+                      {0, -1},
+                    /*{0, 0},*/{1,  0},
+                               {1,  1}
+        };
+    final static int rotationPermutations = 2;
+    final static int[] leftEdgeByRotationPermutation = {-1, 0};
+    final static int[] rightEdgsByRotationPermutation = {1, 1};
+    final static Color pieceColor = TetrisEnum.SPiece.pieceColor;
 }
 
-class ZPiece extends TetrisPiece {
-    boolean[][] pieceArr = new boolean[][]{{true, true, false}, {false, true, true}};
-
-    ZPiece(double[] startingCoords) {
-        super();
-        pieceColor = TetrisEnum.ZPiece.pieceColor;
-
-        Area z1 = new Area(
-                new Rectangle2D.Double(
-                        0 + startingCoords[0],
-                        0 + startingCoords[1],
-                        100, 50
-                )
-        );
-        Area z2 = new Area(
-                new Rectangle2D.Double(
-                        50 + startingCoords[0],
-                        50 + startingCoords[1],
-                        100,
-                        50
-                )
-        );
-
-        z1.add(z2);
-
-        super.piece = z1;
-    }
+abstract class ZPiece extends TetrisPiece {
+    final static int[][] pieceArr =
+        {
+             {-1,0},/*{0, 0},*/
+                      {0,  1}, {1,  1}
+        };
+    final static int[][] pieceArr90 =
+       {
+                      {0, -1},
+             {-1, 0},/*{0, 0},*/
+             {-1, 1}
+       };
+    final static int rotationPermutations = 2;
+    final static int[] leftEdgeByRotationPermutation = {-1, 0};
+    final static int[] rightEdgsByRotationPermutation = {1, 1};
+    final static Color pieceColor = TetrisEnum.ZPiece.pieceColor;
 }
 
 class LPiece extends TetrisPiece {
-    boolean[][] pieceArr = new boolean[][]{{true, false}, {true, false}, {true, true}};
-
-    LPiece(double[] startingCoords) {
-        super();
-        pieceColor = TetrisEnum.LPiece.pieceColor;
-
-        Area l1 = new Area(
-                new Rectangle2D.Double(
-                    0 + startingCoords[0],
-                    0 + startingCoords[1],
-                    50,
-                    150
-                )
-        );
-        Area l2 = new Area(
-                new Rectangle2D.Double(
-                50 + startingCoords[0],
-                    100 + startingCoords[1],
-                    50,
-                    50
-                )
-        );
-        l1.add(l2);
-
-        super.piece = l1;
-    }
+    final static int[][] pieceArr =
+        {
+                      {0, -1},
+                    /*{0,  0},*/
+                      {0,  1}, {1,  1}
+        };
+    final static int[][] pieceArr90 =
+        {
+             {-1, 0},/*{0,0},*/{1,  0},
+             {-1, 1}
+        };
+    final static int[][] pieceArr180 =
+        {
+             {-1,-1}, {0, -1},
+                    /*{0,  0},*/
+                      {0,  1}
+        };
+    final static int[][] piece270 =
+        {
+                               {1, -1},
+             {-1, 0},/*{0,0},*/{1,  0}
+        };
+    final static int rotationPermutations = 4;
+    final static int[] leftEdgeByRotationPermutation = {0, -1, 0, -1};
+    final static int[] rightEdgsByRotationPermutation = {1, 1, 1, 1};
+    final static Color pieceColor = TetrisEnum.LPiece.pieceColor;
 }
 
 class JPiece extends TetrisPiece {
-    boolean [][] pieceArr = new boolean[][] {{false, true}, {false, true}, {true, true}};
-
-    JPiece(double[] startingCoords) {
-        super();
-        pieceColor = TetrisEnum.JPiece.pieceColor;
-
-        Area j1 = new Area(
-                new Rectangle2D.Double(
-                    50 + startingCoords[0],
-                    0 + startingCoords[1],
-                    50,
-                    150
-                )
-        );
-        Area j2 = new Area(
-                new Rectangle2D.Double(
-                    0 + startingCoords[0],
-                    100 + startingCoords[1],
-                    50,
-                    50
-                )
-        );
-
-        j1.add(j2);
-
-        super.piece = j1;
-    }
+    final static int[][] pieceArr =
+       {
+                     {0, -1},
+                   /*{0,  0},*/
+            {-1, 1}, {0,  1}
+       };
+    final static int[][] pieceArr90 =
+        {
+            {-1,-1},
+            {-1, 0},/*{0, 0},*/{1,  0}
+        };
+    final static int[][] pieceArr180 =
+        {
+                      {0, -1}, {1, -1},
+                    /*{0,  0},*/
+                      {0,  1}
+        };
+    final static int[][] piece270 =
+        {
+            {-1, 0},/*{0, 0}*/ {1,  0},
+                               {1,  1}
+        };
+    final static int rotationPermutations = 4;
+    final static int[] leftEdgeByRotationPermutation = {0, -1, 0, -1};
+    final static int[] rightEdgsByRotationPermutation = {1, 1, 1, 1};
+    final static Color pieceColor = TetrisEnum.JPiece.pieceColor;
 }
 
+//    private void paintNBorder(Component c, Graphics g, int x, int y, int width, int height) {
+//        this.paint.paintBorder(
+//            c,
+//            g,
+//            (int) r.getMinX(),
+//            (int) r.getMinY(),
+//            (int) r.width,
+//            (int) r.height / 10
+//        );
+//    }
+//
+//    private void paintSBorder(Component c, Graphics g, int x, int y, int width, int height) {
+//        this.paintBorder(
+//                c,
+//                g,
+//                (int) r.getMinX(),
+//                (int) r.getMaxY() - (int) r.height / 10 * 9,
+//                (int) r.width,
+//                (int) r.height / 10
+//        );
+//    }
+//
+//    private void paintEBorder(Component c, Graphics g, int x, int y, int width, int height) {
+//        this.paintBorder(
+//                c,
+//                g,
+//                (int) r.getMinX(),
+//                (int) r.getMinY(),
+//                (int) r.width / 10,
+//                (int) r.height
+//        );
+//    }
+//
+//    private void paintWBorder(Component c, Graphics g, int x, int y, int width, int height) {
+//        this.paintBorder(
+//                c,
+//                g,
+//                (int) r.getMaxX() - (int) r.width / 10,
+//                (int) r.getMinY(),
+//                (int) r.width / 10,
+//                (int) r.height
+//        );
+//    }
+//
+//    public Insets getBorderInsets(Component c) {
+//        return null;
+//    }
+//
+//    public boolean isBorderOpaque() {
+//        return true;
+//    }
