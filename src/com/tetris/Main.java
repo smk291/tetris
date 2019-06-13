@@ -148,8 +148,17 @@ class Tetris extends JFrame {
 class Main{
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            Tetris ex = new Tetris();
-            ex.setVisible(true);
+            Tetris frame = new Tetris();
+            Board newContentPane = new Board(new double[] {100d, 100d}, 20);
+            newContentPane.setOpaque(true);
+            frame.setContentPane(newContentPane);
+
+            //Display the window.
+            frame.pack();
+            frame.setVisible(true);
+            newContentPane.setVisible(true);
+
+            frame.repaint();
         });
     }
 }

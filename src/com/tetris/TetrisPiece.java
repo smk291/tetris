@@ -14,7 +14,7 @@ enum RotationDirection {
     CLOCKWISE, COUNTERCLOCKWISE
 }
 
-enum TetrisEnum {
+enum ColorFromPiece {
     IPiece(Color.CYAN),
     OPiece(Color.RED),
     TPiece(Color.GREEN),
@@ -25,64 +25,99 @@ enum TetrisEnum {
 
     Color pieceColor;
 
-    TetrisEnum(Color pieceColor) {
+     ColorFromPiece (Color pieceColor) {
         this.pieceColor = pieceColor;
     }
 }
 
 class TetrisBlock extends JPanel {
-    private Color color = Color.CYAN;
-    private Area a = new Area();
-    private Rectangle2D.Double r = new Rectangle2D.Double();
+    private Color color;
+    private Area a;
+    private Rectangle2D.Double r;
 
-    TetrisBlock (Color c, Point2D neCorner, Point2D swCorner) {
+    TetrisBlock (Color c, int[][] boardCoordinates, Board board, Point2D.Double neCorner, Point2D.Double swCorner) {
+        r = new Rectangle2D.Double();
         r.setFrameFromDiagonal(neCorner, swCorner);
-        Area a = new Area(r);
+        a = new Area(r);
+        color = c;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Area getArea() {
+        return a;
+    }
+
+    public Rectangle2D.Double getRectangle() {
+        return r;
     }
 }
 
 abstract class TetrisPiece {
-    private Color pieceColor = Color.CYAN;
-    private int[][] pieceArr = {{}};
-    private int[][] pieceArr90 = {{}};
-    private int[][] pieceArr180 = {{}};
-    private int[][] pieceArr270 = {{}};
-    private HashMap<Integer, HashMap<Integer, Boolean>> pieceMap = new HashMap<>();
-    private int rotationPermutations;
-    private int[] leftEdgeByRotationPermutation;
-    private int[] rightEdgeByRotationPermutation;
+    private static Color pieceColor = Color.CYAN;
+    private static int[][] pieceArr = {{}};
+    private static int[][] pieceArr90 = {{}};
+    private static int[][] pieceArr180 = {{}};
+    private static int[][] pieceArr270 = {{}};
+    private static int rotationPermutations;
+    private static int[] leftEdgeByRotationPermutation;
+    private static int[] rightEdgeByRotationPermutation;
 }
 
-abstract class TPiece extends TetrisPiece {
-    final static int[][] pieceArr =
+class TPiece extends TetrisPiece {
+    private final static int[][] pieceArr =
         {
                       {0, -1},
              {-1, 0},/*{0,0},*/{1,  0}
         };
-    final static int[][] pieceArr90 =
+    private final static int[][] pieceArr90 =
         {
                       {0, -1},
                      /*{0,0},*/{1, -1},
                       {0,  1}
         };
-    final static int[][] pieceArr180 =
+    private final static int[][] pieceArr180 =
         {
              {-1, 0},/*{0,0},*/{1,  0},
                       {0,  0}
         };
-    final static int[][] pieceArr270 =
+    private final static int[][] pieceArr270 =
         {
                       {0, -1},
              {-1, 0},/*{0, 0},*/
                       {0,  1}
         };
-    final static int rotationPermutations = 4;
-    final static int[] leftEdgeByRotationPermutation = {-1, 0, -1, -1};
-    final static int[] rightEdgeByRotationPermutation = {1, 1, 1, 0};
-    final static Color pieceColor = TetrisEnum.TPiece.pieceColor;
+
+    private final static int rotationPermutations = 4;
+    private final static int[] leftEdgeByRotationPermutation = {-1, 0, -1, -1};
+    private final static int[] rightEdgeByRotationPermutation = {1, 1, 1, 0};
+    private final static Color pieceColor =  ColorFromPiece.TPiece.pieceColor;
+
+    public static int[][] getPieceByRotation(int rotation) {
+        if (rotation > 0 && rotation < rotationPermutations) {
+            switch(rotation) {
+                case 0:
+                    return pieceArr;
+                case 1:
+                    return pieceArr90;
+                case 2:
+                    return pieceArr180;
+                case 3:
+                    return pieceArr270;
+            }
+        }
+
+        return new int[][]{{}};
+    }
+
+    public static Color getColor() {
+        return pieceColor;
+    }
 }
 
-abstract class OPiece extends TetrisPiece {
+class OPiece extends TetrisPiece {
     final static int[][] pieceArr =
         {
                       {0, -1}, {1,  1},
@@ -91,10 +126,10 @@ abstract class OPiece extends TetrisPiece {
     final static int rotationPermutations = 1;
     final static int[] leftEdgeByRotationPermutation = {0};
     final static int[] rightEdgsByRotationPermutation = {1};
-    final static Color pieceColor = TetrisEnum.OPiece.pieceColor;
+    final static Color pieceColor =  ColorFromPiece.OPiece.pieceColor;
 }
 
-abstract class IPiece extends TetrisPiece {
+class IPiece extends TetrisPiece {
     final static int[][] pieceArr =
         {
     {-2, 0}, {-1, 0},/*{0,0},*/{1,  0}
@@ -109,12 +144,10 @@ abstract class IPiece extends TetrisPiece {
     final static int rotationPermutations = 2;
     final static int[] leftEdgeByRotationPermutation = {-1, 0};
     final static int[] rightEdgsByRotationPermutation = {2, 0};
-    final static Color pieceColor = TetrisEnum.IPiece.pieceColor;
-
-    IPiece() { }
+    final static Color pieceColor =  ColorFromPiece.IPiece.pieceColor;
 }
 
-abstract class SPiece extends TetrisPiece {
+class SPiece extends TetrisPiece {
     final static int[][] pieceArr =
         {
                     /*{0, 0},*/{1,  0},
@@ -129,10 +162,10 @@ abstract class SPiece extends TetrisPiece {
     final static int rotationPermutations = 2;
     final static int[] leftEdgeByRotationPermutation = {-1, 0};
     final static int[] rightEdgsByRotationPermutation = {1, 1};
-    final static Color pieceColor = TetrisEnum.SPiece.pieceColor;
+    final static Color pieceColor =  ColorFromPiece.SPiece.pieceColor;
 }
 
-abstract class ZPiece extends TetrisPiece {
+class ZPiece extends TetrisPiece {
     final static int[][] pieceArr =
         {
              {-1,0},/*{0, 0},*/
@@ -147,7 +180,7 @@ abstract class ZPiece extends TetrisPiece {
     final static int rotationPermutations = 2;
     final static int[] leftEdgeByRotationPermutation = {-1, 0};
     final static int[] rightEdgsByRotationPermutation = {1, 1};
-    final static Color pieceColor = TetrisEnum.ZPiece.pieceColor;
+    final static Color pieceColor =  ColorFromPiece.ZPiece.pieceColor;
 }
 
 class LPiece extends TetrisPiece {
@@ -176,7 +209,7 @@ class LPiece extends TetrisPiece {
     final static int rotationPermutations = 4;
     final static int[] leftEdgeByRotationPermutation = {0, -1, 0, -1};
     final static int[] rightEdgsByRotationPermutation = {1, 1, 1, 1};
-    final static Color pieceColor = TetrisEnum.LPiece.pieceColor;
+    final static Color pieceColor =  ColorFromPiece.LPiece.pieceColor;
 }
 
 class JPiece extends TetrisPiece {
@@ -205,7 +238,7 @@ class JPiece extends TetrisPiece {
     final static int rotationPermutations = 4;
     final static int[] leftEdgeByRotationPermutation = {0, -1, 0, -1};
     final static int[] rightEdgsByRotationPermutation = {1, 1, 1, 1};
-    final static Color pieceColor = TetrisEnum.JPiece.pieceColor;
+    final static Color pieceColor =  ColorFromPiece.JPiece.pieceColor;
 }
 
 //    private void paintNBorder(Component c, Graphics g, int x, int y, int width, int height) {
