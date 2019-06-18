@@ -1,7 +1,7 @@
 package com.newtetris.pieces;
 
-import com.newtetris.BCArrayCreator;
 import com.newtetris.Coords;
+import java.util.stream.IntStream;
 
 public class TetrisPiece {
     private int [][][] pieceCoordsByRotation;
@@ -14,20 +14,20 @@ public class TetrisPiece {
 
     public static int stepRotation(RotationDirection direction, int currentStep, int rotationSteps) {
         if (direction.equals(RotationDirection.LEFT)) {
-            if (currentStep != 0)
+            if (currentStep != 0) {
                 return --currentStep;
-
-            return rotationSteps - 1;
-        }
-
-        if (currentStep != rotationSteps - 1)
+            } else {
+                return rotationSteps - 1;
+            }
+        } else if (currentStep != rotationSteps - 1) {
             return ++currentStep;
-
-        return 0;
+        } else {
+            return 0;
+        }
     }
 
     public Coords[] getPieceByRotation(int currentRotationStep) {
-        return BCArrayCreator.create(pieceCoordsByRotation[currentRotationStep]);
+        return IntStream.range(0, 3).mapToObj(i -> new Coords(pieceCoordsByRotation[currentRotationStep][i])).toArray(Coords[]::new);
     }
 
     public int getRotationSteps() {

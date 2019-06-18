@@ -49,6 +49,10 @@ public class Board {
         cells[x][y].setFull();
     }
 
+    public void setCellFull(Coords c) {
+        cells[c.getX()][c.getY()].setFull();
+    }
+
     public void setCellEmpty(int x, int y) {
         cells[x][y].setEmpty();
     }

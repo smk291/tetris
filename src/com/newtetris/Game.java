@@ -1,6 +1,5 @@
 package com.newtetris;
 
-import com.newtetris.pieces.BoardPiecePlacer;
 import com.newtetris.pieces.RotationDirection;
 import com.newtetris.pieces.TetrisPiecesEnum;
 
@@ -84,7 +83,8 @@ public class Game {
                         ? rotation.rotateLeft()
                         : rotation.rotateRight();
 
-        Coords[] newCurrentPieceBoardCoordinates = BoardPiecePlacer.getPieceCoordinatesOnBoard(user);
+        UserPieceLocationOnBoard pieceOnBoard = (UserPieceLocationOnBoard) user;
+        Coords[] newCurrentPieceBoardCoordinates = pieceOnBoard.get();
 
         if (
                 !(
@@ -97,11 +97,9 @@ public class Game {
             return;
         }
 
-        // set current rotation
         rotation.currentRotation = newCurrentRotation;
         Coords[] newCurrentPieceTemplate = currentPiece.getTemplate();
-        // set current piece coords in user data
-        pieceOnBoard.pieceCoordsOnBoard = newCurrentPieceBoardCoordinates;
+        pieceOnBoard.pieceCoordsOnBoard = pieceOnBoard.LocatePieceOnBoard(newCurrentPieceBoardCoordinates);
     }
 
     public void rotateLeft() {
@@ -120,8 +118,12 @@ public class Game {
     }
 
     public void insertPieceIntoBoard() {
-        Cell[][] newCells = BoardPiecePlacer.insert(board, user);
+        UserPieceLocationOnBoard locationOnBoard = (UserPieceLocationOnBoard) user;
+        Coords[] onBoard = locationOnBoard.get();
+        int length = onBoard.length;
 
-        board.setCells(newCells);
+        for (int i = 0; i < length; i++) {
+            board.setCellFull(onBoard[i]);
+        }
     }
 }

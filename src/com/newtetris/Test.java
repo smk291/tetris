@@ -1,6 +1,5 @@
 package com.newtetris;
 
-import com.newtetris.pieces.BoardPiecePlacer;
 import com.newtetris.pieces.RotationDirection;
 
 import java.util.Arrays;
@@ -50,10 +49,12 @@ class RotationTester {
     static boolean test(Board board, User user, RotationDirection r) {
         UserCurrentPiece currentPiece = (UserCurrentPiece) user;
         UserCurrentRotation rotation = (UserCurrentRotation) user;
+        UserPieceLocationOnBoard pieceOnBoard = (UserPieceLocationOnBoard) user;
 
         int newRotationStep = rotation.apply(r);
         Coords[] newTemplate = currentPiece.getByRotation(newRotationStep);
-        Coords[] tmpNewPieceOnBoard = BoardPiecePlacer.getPieceCoordinatesOnBoard((UserCursor) user, newTemplate);
+
+        Coords[] tmpNewPieceOnBoard = pieceOnBoard.LocatePieceOnBoard(newTemplate);
 
         return new NoOverlap().test(tmpNewPieceOnBoard, board);
     }

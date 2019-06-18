@@ -9,6 +9,11 @@ public class Coords {
         this.y = y;
     }
 
+    public Coords(int[] coords) {
+        this.x = coords[0];
+        this.y = coords[1];
+    }
+
     public int getX() {
         return x;
     }
