@@ -1,7 +1,8 @@
 package com.newtetris;
 
+import com.newtetris.console.DrawBoard;
 import com.newtetris.pieces.RotationDirection;
-import com.newtetris.pieces.TetrisPiecesEnum;
+import com.newtetris.pieces.TetrisPiece;
 
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -11,22 +12,37 @@ import java.util.function.Predicate;
 import static java.util.Collections.*;
 
 public class Game {
-    private User user;
-    private Board board = new Board();
-    private UserCurrentRotation rotation = (UserCurrentRotation) user;
-    private UserCurrentPiece currentPiece = (UserCurrentPiece) user;
-    private UserCursor cursor = (UserCursor) user;
-    private UserNextPiece nextPiece = (UserNextPiece) user;
-    private UserPieceLocationOnBoard pieceOnBoard = (UserPieceLocationOnBoard) user;
+    Board board = new Board();
+    private UserCurrentRotation rotation = new UserCurrentRotation();
+    private UserCurrentPiece currentPiece = new UserCurrentPiece();
+    private UserCursor cursor = new UserCursor();
+    private UserNextPiece nextPiece = new UserNextPiece();
+    private UserPieceLocationOnBoard pieceOnBoard = new UserPieceLocationOnBoard(currentPiece, rotation, cursor);
 
     Game() {
         getCurrentAndNextPiece();
     }
 
     public void executeTurn() {
-        DrawBoardConsole.draw(board);
+        DrawBoard.draw(board);
 
         System.out.println(singletonList(currentPiece.get()).toString());
+    }
+
+    public int getRotation() {
+        return rotation.get();
+    }
+
+    public TetrisPiece getCurrentPiece() {
+        return currentPiece.get();
+    }
+
+    public TetrisPiece getNextPiece() {
+        return nextPiece.get();
+    }
+
+    public UserCursor getCursor() {
+        return cursor;
     }
 
     private void move(
@@ -80,10 +96,9 @@ public class Game {
     private void rotate(RotationDirection r) {
         int newCurrentRotation =
                 r.equals(RotationDirection.LEFT)
-                        ? rotation.rotateLeft()
-                        : rotation.rotateRight();
+                        ? rotation.rotateLeft(currentPiece)
+                        : rotation.rotateRight(currentPiece);
 
-        UserPieceLocationOnBoard pieceOnBoard = (UserPieceLocationOnBoard) user;
         Coords[] newCurrentPieceBoardCoordinates = pieceOnBoard.get();
 
         if (
@@ -98,8 +113,8 @@ public class Game {
         }
 
         rotation.currentRotation = newCurrentRotation;
-        Coords[] newCurrentPieceTemplate = currentPiece.getTemplate();
-        pieceOnBoard.pieceCoordsOnBoard = pieceOnBoard.LocatePieceOnBoard(newCurrentPieceBoardCoordinates);
+        Coords[] newCurrentPieceTemplate = currentPiece.getTemplate(rotation);
+        pieceOnBoard.pieceCoordsOnBoard = pieceOnBoard.LocatePieceOnBoard(newCurrentPieceBoardCoordinates, cursor);
     }
 
     public void rotateLeft() {
@@ -111,15 +126,15 @@ public class Game {
     }
 
     private void getCurrentAndNextPiece() {
-        user = new User();
-        currentPiece.set(TetrisPiecesEnum.getPiece());
-        nextPiece.set(TetrisPiecesEnum.getPiece());
-        rotation.set(0);
+        rotation = new UserCurrentRotation();
+        currentPiece = new UserCurrentPiece();
+        cursor = new UserCursor();
+        nextPiece = new UserNextPiece();
+        pieceOnBoard = new UserPieceLocationOnBoard(currentPiece, rotation, cursor);
     }
 
     public void insertPieceIntoBoard() {
-        UserPieceLocationOnBoard locationOnBoard = (UserPieceLocationOnBoard) user;
-        Coords[] onBoard = locationOnBoard.get();
+        Coords[] onBoard = pieceOnBoard.get();
         int length = onBoard.length;
 
         for (int i = 0; i < length; i++) {

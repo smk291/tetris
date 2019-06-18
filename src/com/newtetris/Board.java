@@ -6,58 +6,66 @@ public class Board {
     int height = 24;
 
     Board() {
-        cells = new Cell[width][height];
-    }
+        cells = new Cell[height][width];
 
-    void fillCells(Coords[] coords) {
-        for (Coords c : coords) {
-            getCell(c).setFull();
+        for (int y = 0; y < cells.length; y++) {
+            for (int x = 0; x < cells[y].length; x++) {
+                cells[y][x] = new Cell(x, y);
+            }
         }
     }
 
-    void deleteRows(int rowsToDelete, int startFromRow) {
-        // Shift rows down
-        if (startFromRow - rowsToDelete + 1 >= 0) {
-            System.arraycopy(
-                    cells,
-                    0,
-                    cells,
-                    rowsToDelete,
-                    startFromRow - rowsToDelete + 1
-            );
-        }
+//    void fillCells(Coords[] coords) {
+//        for (Coords c : coords) {
+//            getCell(c).setFull();
+//        }
+//    }
 
-        // Empty remaining rows
-        for (int i = 0; i < rowsToDelete; i++) {
-            cells[i] = new Cell[width];
-        }
+//    void deleteRows(int rowsToDelete, int startFromRow) {
+//        if (startFromRow - rowsToDelete + 1 >= 0) {
+//            System.arraycopy(
+//                    cells,
+//                    0,
+//                    cells,
+//                    rowsToDelete,
+//                    startFromRow - rowsToDelete + 1
+//            );
+//        }
+//
+//        for (int i = 0; i < rowsToDelete; i++) {
+//            cells[i] = new Cell[width];
+//        }
+//    }
+
+    public Cell[][] getAllCells () {
+        return cells;
     }
 
-    Cell getCell (Coords coords) {
-        return cells[coords.getX()][coords.getY()];
+    public Cell getCell (Coords coords) {
+        return cells[coords.getY()][coords.getX()];
     }
 
-    public Cell[][] getCells() {
-        return this.cells;
-    }
+//    public Cell[][] getCells() {
+//        return this.cells;
+//    }
 
-    Cell[] getCellRow(int idx) {
+    public Cell[] getCellRow(int idx) {
         return cells[idx];
     }
 
-    public void setCellFull(int x, int y) {
-        cells[x][y].setFull();
-    }
+//    public void setCellFull(int x, int y) {
+//        cells[x][y].setFull();
+//    }
 
     public void setCellFull(Coords c) {
-        cells[c.getX()][c.getY()].setFull();
+        cells[c.getY()][c.getX()].setFull();
     }
 
-    public void setCellEmpty(int x, int y) {
-        cells[x][y].setEmpty();
-    }
+//    public void setCellEmpty(int x, int y) {
+//        cells[x][y].setEmpty();
+//    }
 
-    public void setCells(Cell[][] newCells) {
-        cells = newCells;
-    }
+//    public void setCells(Cell[][] newCells) {
+//        cells = newCells;
+//    }
 }

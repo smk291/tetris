@@ -27,7 +27,7 @@ public class TetrisPiece {
     }
 
     public Coords[] getPieceByRotation(int currentRotationStep) {
-        return IntStream.range(0, 3).mapToObj(i -> new Coords(pieceCoordsByRotation[currentRotationStep][i])).toArray(Coords[]::new);
+        return IntStream.range(0, 4).mapToObj(i -> new Coords(pieceCoordsByRotation[currentRotationStep][i])).toArray(Coords[]::new);
     }
 
     public int getRotationSteps() {

@@ -1,8 +1,15 @@
 package com.newtetris;
 
 import com.newtetris.pieces.TetrisPiece;
+import com.newtetris.pieces.TetrisPiecesEnum;
 
-public class UserCurrentPiece extends User {
+public class UserCurrentPiece {
+    TetrisPiece currentPiece;
+
+    UserCurrentPiece() {
+        currentPiece = TetrisPiecesEnum.getPiece();
+    }
+
     public TetrisPiece get() {
         return currentPiece;
     }
@@ -15,8 +22,8 @@ public class UserCurrentPiece extends User {
         return currentPiece.getRotationSteps();
     }
 
-    public Coords[] getTemplate() {
-        return currentPiece.getPieceByRotation(currentRotation);
+    public Coords[] getTemplate(UserCurrentRotation rotation) {
+        return currentPiece.getPieceByRotation(rotation.get());
     }
 
     public Coords[] getByRotation(int r) {

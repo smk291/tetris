@@ -7,7 +7,7 @@ public class Cell extends Coords {
         super(x, y);
     }
 
-    void setEmpty() {
+    public void setEmpty() {
         this.empty = true;
     }
 
@@ -15,11 +15,11 @@ public class Cell extends Coords {
         this.empty = false;
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return this.empty;
     }
 
-    boolean isFull() {
+    public boolean isFull() {
         return !this.empty;
     }
 }

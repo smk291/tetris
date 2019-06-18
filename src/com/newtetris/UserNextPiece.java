@@ -1,8 +1,15 @@
 package com.newtetris;
 
 import com.newtetris.pieces.TetrisPiece;
+import com.newtetris.pieces.TetrisPiecesEnum;
 
-public class UserNextPiece extends User {
+public class UserNextPiece {
+    TetrisPiece nextPiece;
+
+    UserNextPiece() {
+        nextPiece = TetrisPiecesEnum.getPiece();
+    }
+
     public TetrisPiece get() {
         return nextPiece;
     }

@@ -24,4 +24,8 @@ public enum TetrisPiecesEnum {
     public static TetrisPiece getPiece() {
         return piecesArray[r.nextInt(enumSize)].piece;
     }
+
+    public TetrisPiece get() {
+        return this.piece;
+    }
 }

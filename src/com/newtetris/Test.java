@@ -46,15 +46,17 @@ abstract class MovementTester {
 }
 
 class RotationTester {
-    static boolean test(Board board, User user, RotationDirection r) {
-        UserCurrentPiece currentPiece = (UserCurrentPiece) user;
-        UserCurrentRotation rotation = (UserCurrentRotation) user;
-        UserPieceLocationOnBoard pieceOnBoard = (UserPieceLocationOnBoard) user;
+    static boolean test(Board board, RotationDirection r,
+        UserCurrentPiece currentPiece,
+        UserCurrentRotation rotation,
+        UserPieceLocationOnBoard pieceOnBoard,
+        UserCursor cursor
+    ){
 
-        int newRotationStep = rotation.apply(r);
+        int newRotationStep = rotation.apply(r, currentPiece);
         Coords[] newTemplate = currentPiece.getByRotation(newRotationStep);
 
-        Coords[] tmpNewPieceOnBoard = pieceOnBoard.LocatePieceOnBoard(newTemplate);
+        Coords[] tmpNewPieceOnBoard = pieceOnBoard.LocatePieceOnBoard(newTemplate, cursor);
 
         return new NoOverlap().test(tmpNewPieceOnBoard, board);
     }
@@ -109,15 +111,27 @@ public class Test {
     }
 
     class Rotation {
-        class Left implements BiPredicate<Board, User> {
-            public boolean test(Board board, User user) {
-                return RotationTester.test(board, user, RotationDirection.LEFT);
+        class Left {
+            public boolean test(
+                    Board board,
+                    UserCurrentPiece currentPiece,
+                    UserCurrentRotation rotation,
+                    UserPieceLocationOnBoard pieceOnBoard,
+                    UserCursor cursor
+             ) {
+                return RotationTester.test(board, RotationDirection.LEFT, currentPiece, rotation, pieceOnBoard, cursor);
             }
         }
 
-        class Right implements BiPredicate<Board, User> {
-            public boolean test(Board board, User user) {
-                return RotationTester.test(board, user, RotationDirection.RIGHT);
+        class Right {
+            public boolean test(
+                    Board board,
+                    UserCurrentPiece currentPiece,
+                    UserCurrentRotation rotation,
+                    UserPieceLocationOnBoard pieceOnBoard,
+                    UserCursor cursor
+            ) {
+                return RotationTester.test(board, RotationDirection.RIGHT, currentPiece, rotation, pieceOnBoard, cursor);
             }
         }
     }

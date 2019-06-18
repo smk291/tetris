@@ -1,6 +1,15 @@
 package com.newtetris;
 
-public class UserCursor extends User {
+public class UserCursor {
+    Coords currentPosition;
+
+    UserCursor() {
+        currentPosition = new Coords(4, 0);
+    }
+
+    UserCursor (Coords c) {
+        currentPosition = c;
+    }
     public int getX() {
         return currentPosition.getX();
     }
