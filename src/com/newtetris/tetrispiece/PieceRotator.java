@@ -11,11 +11,11 @@ abstract public class PieceRotator {
         }
     }
 
-    public void applyLeft(TetrisPiece t) {
+    public static void applyLeft(TetrisPiece t) {
         apply(RotationDirection.LEFT, t);
     }
 
-    public void applyRight(TetrisPiece t) {
+    public static void applyRight(TetrisPiece t) {
         apply(RotationDirection.RIGHT, t);
     }
 }

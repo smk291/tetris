@@ -16,7 +16,7 @@ public class Tetromino {
         this.orientations = orientations;
     }
 
-    public Coords[] getTemplateOffsetsByRotation(int rotations) {
+    public Coords[] getShapeByRotation(int rotations) {
         List<Coords> list =
                 Arrays.stream(shapeByRotation[rotations])
                         .map(Coords::new)

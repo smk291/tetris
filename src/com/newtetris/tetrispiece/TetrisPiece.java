@@ -7,47 +7,45 @@ import com.newtetris.pieces.Tetromino;
 public class TetrisPiece implements Cloneable {
     private Tetromino tetromino;
     private Coords center;
-    private int rotations;
+    private int orientation;
 
-    public TetrisPiece(Tetromino tetromino, Coords center, int rotations) {
+    public TetrisPiece(Tetromino tetromino, Coords center, int orientation) {
         this.tetromino = tetromino;
         this.center = center;
-        this.rotations = rotations;
+        this.orientation = orientation;
     }
 
     public TetrisPiece(Tetromino tetromino) {
         this.tetromino = tetromino;
         this.center = new Coords(4, 0);
-        this.rotations = 0;
+        this.orientation = 0;
     }
 
     public TetrisPiece() {
         tetromino = TetrisPiecesEnum.getPiece();
         center = new Coords(4, 0);
-        rotations = 0;
+        orientation = 0;
     }
 
     // Clone
-    public TetrisPiece clone() throws
-            CloneNotSupportedException
-    {
+    public TetrisPiece clone() throws CloneNotSupportedException {
         return (TetrisPiece) super.clone();
     }
     // Resets ---
     public void randomizeReset() {
         this.tetromino = TetrisPiecesEnum.getPiece();
         this.center = new Coords(4, 0);
-        this.rotations = 0;
+        this.orientation = 0;
     }
 
     public void reset(Tetromino tetromino) {
         this.tetromino = tetromino;
-        setRotation(0);
+        setOrientation(0);
     }
 
-    public void reset(Tetromino tetromino, int rotation) {
+    public void reset(Tetromino tetromino, int orientation) {
         this.tetromino = tetromino;
-        setRotation(rotation);
+        setOrientation(orientation);
     }
 
     // Getters and setters ---
@@ -61,25 +59,25 @@ public class TetrisPiece implements Cloneable {
     }
 
     // Rotations
-    public void setRotation(int nextRotation) {
-        this.rotations = nextRotation;
+    public void setOrientation(int nextRotation) {
+        this.orientation = nextRotation;
     }
 
-    public int getRotation() {
-        return this.rotations;
+    public int getOrientation() {
+        return this.orientation;
     }
 
-    public int getRotationCount() {
+    public int getOrientationsCount() {
         return tetromino.getRotationCount();
     }
 
     // Piece Template
-    public Coords[] getTemplateOffsets() {
+    public Coords[] getShape() {
         return SpawnOrientation.apply(this);
     }
 
     // Piece insertion Coords[]
-    public Coords[] getInsertionCoords() {
+    public Coords[] pieceCoords() {
         return SpawnOrientationToPlayField.apply(this);
     }
 

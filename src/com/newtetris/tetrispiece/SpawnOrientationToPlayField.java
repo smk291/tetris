@@ -6,7 +6,7 @@ abstract public class SpawnOrientationToPlayField {
     public static Coords[] apply(TetrisPiece t) {
         int pieceSize = t.getPieceSize();
         Coords center = t.getCenter();
-        Coords[] templateOffsets = t.getTemplateOffsets();
+        Coords[] templateOffsets = t.getShape();
         Coords[] newInsertionCoords = new Coords[pieceSize];
 
         for (int i = 0; i < pieceSize; i++) {

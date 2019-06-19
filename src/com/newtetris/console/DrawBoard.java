@@ -1,6 +1,6 @@
 package com.newtetris.console;
 
-import com.newtetris.board.PlayField;
+import com.newtetris.playfield.PlayField;
 import com.newtetris.Cell;
 import com.newtetris.Coords;
 import com.newtetris.tetrispiece.TetrisPiece;
@@ -45,7 +45,7 @@ public class DrawBoard {
 
     public static Cell[][] putPieceOnBoard(TetrisPiece t, int rotation, PlayField playField) {
         Cell[][] cellsCopy = playField.getAllCells().clone();
-        Coords[] a = t.getTemplateOffsets();
+        Coords[] a = t.getShape();
         Coords u = t.getCenter();
 
         for (Coords c : a) {

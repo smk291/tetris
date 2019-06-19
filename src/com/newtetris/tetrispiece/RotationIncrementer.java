@@ -2,8 +2,8 @@ package com.newtetris.tetrispiece;
 
 abstract public class RotationIncrementer {
     public static void apply(TetrisPiece t, int increment) {
-        int rotationCount = t.getRotationCount();
-        int newRotations = t.getRotation() + increment;
+        int rotationCount = t.getOrientationsCount();
+        int newRotations = t.getOrientation() + increment;
 
         if (newRotations < 0) {
             newRotations = rotationCount - 1;
@@ -11,7 +11,7 @@ abstract public class RotationIncrementer {
             newRotations = 0;
         }
 
-        t.setRotation(newRotations);
+        t.setOrientation(newRotations);
     }
 
     public static void left (TetrisPiece t) {

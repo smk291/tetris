@@ -1,4 +1,4 @@
-package com.newtetris.board;
+package com.newtetris.playfield;
 
 import com.newtetris.Coords;
 

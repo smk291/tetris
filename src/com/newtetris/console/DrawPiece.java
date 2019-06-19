@@ -10,7 +10,7 @@ public class DrawPiece {
 
         String[][] a = createContainer(height, width);
 
-        Coords[] pieceOffsets = t.getTemplateOffsetsByRotation(rotation);
+        Coords[] pieceOffsets = t.getShapeByRotation(rotation);
 
         for (Coords coords : pieceOffsets) {
             int y = getAdjustedY(t, coords, rotation);
@@ -31,7 +31,7 @@ public class DrawPiece {
     }
 
     public int getXMax(Tetromino t, int rotationStep) {
-        Coords[] cs = t.getTemplateOffsetsByRotation(rotationStep);
+        Coords[] cs = t.getShapeByRotation(rotationStep);
         int xMax = -3;
 
         for (Coords c : cs) {
@@ -42,7 +42,7 @@ public class DrawPiece {
     }
 
     public int getXMin(Tetromino t, int rotationStep) {
-        Coords[] cs = t.getTemplateOffsetsByRotation(rotationStep);
+        Coords[] cs = t.getShapeByRotation(rotationStep);
         int xMin = 3;
 
         for (Coords c : cs) {
@@ -53,7 +53,7 @@ public class DrawPiece {
     }
 
     public int getYMax(Tetromino t, int rotationStep) {
-        Coords[] cs = t.getTemplateOffsetsByRotation(rotationStep);
+        Coords[] cs = t.getShapeByRotation(rotationStep);
         int yMax = -3;
 
         for (Coords c : cs) {
@@ -64,7 +64,7 @@ public class DrawPiece {
     }
 
     public int getYMin(Tetromino t, int rotationStep) {
-        Coords[] cs = t.getTemplateOffsetsByRotation(rotationStep);
+        Coords[] cs = t.getShapeByRotation(rotationStep);
         int yMin = 3;
 
         for (Coords c : cs) {

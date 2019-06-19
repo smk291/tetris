@@ -1,12 +1,12 @@
-package com.newtetris.board;
+package com.newtetris.playfield;
 
 import com.newtetris.Cell;
 import com.newtetris.Coords;
 
 public class PlayField {
     private Cell[][] cells;
-    int width = 10;
-    int height = 24;
+    private static int width = 10;
+    private static int height = 24;
 
     public PlayField() {
         cells = new Cell[height][width];

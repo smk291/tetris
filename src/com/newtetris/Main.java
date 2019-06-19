@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 public class Main {
     public static void main(String[] args) {
         Game game = new Game();
-//        DrawBoard.draw(game.board);
+//        DrawBoard.draw(game.playfield);
         TetrisPiecesEnum[] vals = TetrisPiecesEnum.values();
         DrawPiece dp = new DrawPiece();
 
@@ -19,7 +19,7 @@ public class Main {
         dp.drawPiece(game.getFallingPiece(), game.getRotation());
         dp.drawPiece(game.getNextPiece(), 0);
 
-//        Cell[][] newBoard = DrawBoard.putPieceOnBoard(game.getFallingPiece(), game.getRotation(), game.getCursor(), game.board.getAllCells());
+//        Cell[][] newBoard = DrawBoard.putPieceOnBoard(game.getFallingPiece(), game.getOrientation(), game.getCursor(), game.playfield.getAllCells());
 
 //        DrawBoard.draw(newBoard);
     }

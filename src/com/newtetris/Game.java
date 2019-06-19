@@ -1,7 +1,12 @@
 package com.newtetris;
 
-import com.newtetris.board.PlayField;
+import com.newtetris.playfield.PlayField;
 import com.newtetris.console.DrawBoard;
+import com.newtetris.test.InBoundsLeft;
+import com.newtetris.test.InBoundsRight;
+import com.newtetris.test.InBoundsY;
+import com.newtetris.test.NoOverlap;
+import com.newtetris.tetrispiece.PieceRotator;
 import com.newtetris.tetrispiece.PieceShifter;
 import com.newtetris.pieces.RotationDirection;
 import com.newtetris.tetrispiece.TetrisPiece;
@@ -26,11 +31,11 @@ public class Game {
     public void executeTurn() {
         DrawBoard.draw(playField);
 
-        System.out.println(singletonList(fallingPiece.getTemplateOffsets()).toString());
+        System.out.println(singletonList(fallingPiece.getShape()).toString());
     }
 
     public int getRotation() {
-        return fallingPiece.getRotation();
+        return fallingPiece.getOrientation();
     }
 
     public Tetromino getFallingPiece() {
@@ -75,13 +80,13 @@ public class Game {
         }
     }
 
-    public TetrisPiece cloneFallingPiece() {
+    private TetrisPiece cloneFallingPiece() {
         TetrisPiece newPiece;
 
         try {
             newPiece = fallingPiece.clone();
         } catch (CloneNotSupportedException e) {
-            newPiece = new TetrisPiece(fallingPiece.getTetromino(), fallingPiece.getCenter(), fallingPiece.getRotation());
+            newPiece = new TetrisPiece(fallingPiece.getTetromino(), fallingPiece.getCenter(), fallingPiece.getOrientation());
         }
 
         return newPiece;
@@ -95,13 +100,14 @@ public class Game {
                new NoOverlap().test(t, playField)
        );
     }
+
     private void rotate(RotationDirection r) {
         TetrisPiece t = cloneFallingPiece();
 
         if (r.equals(RotationDirection.LEFT)) {
-            BoardRotationTester.left(playField, t);
+            PieceRotator.applyLeft(t);
         } else {
-            BoardRotationTester.right(playField, t);
+            PieceRotator.applyRight(t);
         }
 
         if (positionIsValid(t)) {
@@ -118,9 +124,6 @@ public class Game {
     }
 
     public void insertPieceIntoBoard() {
-        Coords[] pieceCoords = fallingPiece.getInsertionCoords();
-        int length = pieceCoords.length;
-
-        Arrays.stream(pieceCoords).forEach(pieceCoord -> playField.setCellFull(pieceCoord));
+        Arrays.stream(fallingPiece.pieceCoords()).forEach(pieceCoord -> playField.setCellFull(pieceCoord));
     }
 }
