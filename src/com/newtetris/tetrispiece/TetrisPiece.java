@@ -1,6 +1,6 @@
 package com.newtetris.tetrispiece;
 
-import com.newtetris.Coords;
+import com.newtetris.coords.Coords;
 import com.newtetris.pieces.TetrisPiecesEnum;
 import com.newtetris.pieces.Tetromino;
 

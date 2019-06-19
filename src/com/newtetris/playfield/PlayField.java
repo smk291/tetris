@@ -1,7 +1,7 @@
 package com.newtetris.playfield;
 
 import com.newtetris.Cell;
-import com.newtetris.Coords;
+import com.newtetris.coords.Coords;
 
 public class PlayField {
     private Cell[][] cells;

@@ -1,6 +1,6 @@
 package com.newtetris.tetrispiece;
 
-import com.newtetris.Coords;
+import com.newtetris.coords.Coords;
 
 abstract public class PieceShifter {
     public static void apply(TetrisPiece t, Coords offset) {

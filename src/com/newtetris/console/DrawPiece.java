@@ -1,6 +1,6 @@
 package com.newtetris.console;
 
-import com.newtetris.Coords;
+import com.newtetris.coords.Coords;
 import com.newtetris.pieces.Tetromino;
 
 public class DrawPiece {

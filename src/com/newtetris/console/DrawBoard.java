@@ -2,7 +2,7 @@ package com.newtetris.console;
 
 import com.newtetris.playfield.PlayField;
 import com.newtetris.Cell;
-import com.newtetris.Coords;
+import com.newtetris.coords.Coords;
 import com.newtetris.tetrispiece.TetrisPiece;
 
 public class DrawBoard {

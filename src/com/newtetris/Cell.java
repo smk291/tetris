@@ -1,5 +1,7 @@
 package com.newtetris;
 
+import com.newtetris.coords.Coords;
+
 public class Cell extends Coords {
     private boolean empty = true;
 
