@@ -15,17 +15,17 @@ public enum TetrisPiecesEnum {
     public static final int enumSize = piecesArray.length;
     public static final Random r = new Random();
 
-    TetrisPiece piece;
+    Tetromino piece;
 
-    TetrisPiecesEnum(TetrisPiece piece) {
+    TetrisPiecesEnum(Tetromino piece) {
         this.piece = piece;
     }
 
-    public static TetrisPiece getPiece() {
+    public static Tetromino getPiece() {
         return piecesArray[r.nextInt(enumSize)].piece;
     }
 
-    public TetrisPiece get() {
+    public Tetromino get() {
         return this.piece;
     }
 }

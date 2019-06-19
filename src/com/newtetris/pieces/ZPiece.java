@@ -1,15 +1,15 @@
 package com.newtetris.pieces;
 
-public class ZPiece extends TetrisPiece {
+public class ZPiece extends Tetromino {
     private final static int[][][] pieceCoordsByRotation =
             {
                     {
-                            {-1,0},  {0,  0},
+                            {-1,0},/*{0,  0},*/
                                      {0,  1}, {1,  1}
                     },
                     {
                                      {0, -1},
-                            {-1, 0}, {0,  0},
+                            {-1, 0},/*{0,  0},*/
                             {-1, 1}
                     }
             };

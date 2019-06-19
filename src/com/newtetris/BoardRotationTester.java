@@ -1,21 +1,32 @@
 package com.newtetris;
 
+import com.newtetris.board.PlayField;
 import com.newtetris.pieces.RotationDirection;
+import com.newtetris.tetrispiece.TetrisPiece;
+import com.newtetris.tetrispiece.PieceRotator;
 
 abstract public class BoardRotationTester {
-    private static boolean rotateTester(Board board, RotationDirection r, UserCurrentRotation rotation, UserCurrentPiece currentPiece, UserPieceLocationOnBoard pieceOnBoard) {
-        int newRotation = rotation.apply(r, currentPiece);
-        Coords[] newPieceTemplate = currentPiece.getByRotation(newRotation);
-        Coords[] tmpNewPieceOnBoard = pieceOnBoard.get();
+    private static boolean rotateTester(
+            PlayField playField,
+            RotationDirection r,
+            TetrisPiece piece
+    ) {
+        PieceRotator tpr = new PieceRotator();
 
-        return new NoOverlap().test(tmpNewPieceOnBoard, board);
+        if (r.equals(RotationDirection.LEFT)) {
+            tpr.applyLeft(piece);
+        } else {
+            tpr.applyRight(piece);
+        }
+
+        return new NoOverlap().test(piece, playField);
     }
 
-    public static boolean left(Board board, UserCurrentRotation rotation, UserCurrentPiece currentPiece, UserPieceLocationOnBoard pieceOnBoard) {
-        return rotateTester(board, RotationDirection.LEFT, rotation, currentPiece, pieceOnBoard);
+    public static boolean left(PlayField playField, TetrisPiece t) {
+        return rotateTester(playField, RotationDirection.LEFT, t);
     }
 
-    public static boolean right(Board board, UserCurrentRotation rotation, UserCurrentPiece currentPiece, UserPieceLocationOnBoard pieceOnBoard) {
-        return rotateTester(board, RotationDirection.RIGHT, rotation, currentPiece, pieceOnBoard);
+    public static boolean right(PlayField playField, TetrisPiece t) {
+        return rotateTester(playField, RotationDirection.RIGHT, t);
     }
 }

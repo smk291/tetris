@@ -20,7 +20,7 @@ class Surface extends JPanel {
     }
 
     private void draw (Graphics2D g2d) {
-//        for (TetrisPiece p : pieces) {
+//        for (Tetromino p : pieces) {
 ////            g2d.setColor(p.pieceColor);
 ////            g2d.fill(p.piece);
 //            g2d.draw(p.piece);

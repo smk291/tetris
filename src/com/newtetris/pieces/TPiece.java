@@ -1,24 +1,24 @@
 package com.newtetris.pieces;
 
-class TPiece extends TetrisPiece {
+class TPiece extends Tetromino {
     private final static int[][][] pieceCoordsByRotation =
             {
                     {
                                      {0, -1},
-                            {-1, 0}, {0,  0}, {1,  0}
+                            {-1, 0},/*{0,  0},*/ {1,  0}
                     },
                     {
                                      {0, -1},
-                                     {0,  0}, {1, 0},
+                                   /*{0,  0},*/{1, 0},
                                      {0,  1}
                     },
                     {
-                            {-1, 0}, {0,  0}, {1, 0},
+                            {-1, 0},/*{0,  0},*/{1, 0},
                                      {0, -1}
                     },
                     {
                                      {0, -1},
-                            {-1, 0}, {0,  0},
+                            {-1, 0},/*{0,  0},*/
                                      {0,  1}
                     }
             };

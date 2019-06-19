@@ -1,18 +1,17 @@
 package com.newtetris.console;
 
-import com.newtetris.Board;
+import com.newtetris.board.PlayField;
 import com.newtetris.Cell;
 import com.newtetris.Coords;
-import com.newtetris.UserCursor;
-import com.newtetris.pieces.TetrisPiece;
+import com.newtetris.tetrispiece.TetrisPiece;
 
 public class DrawBoard {
     private static int y = 24;
     private static int x = 10;
 
-    public static void draw(Board board) {
+    public static void draw(PlayField playField) {
         for (int i = 0; i < y; i++) {
-            drawByRow(board.getCellRow(i));
+            drawByRow(playField.getCellRow(i));
         }
 
         System.out.print("  ");
@@ -44,10 +43,10 @@ public class DrawBoard {
         return isFull ? '*' : ' ';
     }
 
-    public static Cell[][] putPieceOnBoard(TetrisPiece t, int rotation, UserCursor cursor, Cell[][] cells) {
-        Cell[][] cellsCopy = cells.clone();
-        Coords[] a = t.getPieceByRotation(rotation);
-        Coords u = cursor.get();
+    public static Cell[][] putPieceOnBoard(TetrisPiece t, int rotation, PlayField playField) {
+        Cell[][] cellsCopy = playField.getAllCells().clone();
+        Coords[] a = t.getTemplateOffsets();
+        Coords u = t.getCenter();
 
         for (Coords c : a) {
             if (
@@ -57,8 +56,6 @@ public class DrawBoard {
                 cellsCopy[u.getY() + c.getY()][c.getX() + u.getX()].setFull();
             }
         }
-
-        cellsCopy[cursor.getY()][cursor.getX()].setFull();
 
         return cellsCopy;
     }

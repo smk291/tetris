@@ -1,60 +1,111 @@
 package com.newtetris.console;
 
 import com.newtetris.Coords;
-import com.newtetris.pieces.TetrisPiece;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.newtetris.pieces.Tetromino;
 
 public class DrawPiece {
-    public void drawPiece(TetrisPiece t) {
-        int width;
-        int height;
-        int xMin;
-        int yMin;
+    public void drawPiece(Tetromino t, int rotation) {
+        int width = getWidthByRotation(t, rotation);
+        int height = getHeightByRotation(t, rotation);
 
-        for (int i = 0; i < t.getRotationSteps(); i++){
-            width = 5;
-            height = 4;
-            xMin = 2;
-            yMin = 2;
+        String[][] a = createContainer(height, width);
 
-            String[][] a = new String[height][width];
+        Coords[] pieceOffsets = t.getTemplateOffsetsByRotation(rotation);
 
-            for (int j = 0; j < height; j++) {
-                for (int k = 0; k < width; k++) {
-                    a[j][k] = " ";
-                }
-            }
+        for (Coords coords : pieceOffsets) {
+            int y = getAdjustedY(t, coords, rotation);
+            int x = getAdjustedX(t, coords, rotation);
 
-            Coords[] c = t.getPieceByRotation(i);
-
-            for (Coords q : c) {
-                a[yMin + q.getY()][xMin + q.getX()] = "*";
-            }
-
-            a[yMin][xMin] = "*";
-
-            for (String[] as : a) {
-                for (String p  : as) {
-                    System.out.print(" " + p + " ");
-                }
-
-                System.out.println(i);
-            }
+            a[y][x] = "*";
         }
+
+        for (String[] as : a) {
+            for (String p  : as) {
+                System.out.print(p);
+            }
+
+            System.out.println(/* rotation */);
+        }
+
+        System.out.println();
     }
 
-    public void drawPiece(TetrisPiece t, int r) {
+    public int getXMax(Tetromino t, int rotationStep) {
+        Coords[] cs = t.getTemplateOffsetsByRotation(rotationStep);
+        int xMax = -3;
+
+        for (Coords c : cs) {
+            xMax = (c.getX() > xMax) ? c.getX() : xMax;
+        }
+
+        return xMax;
+    }
+
+    public int getXMin(Tetromino t, int rotationStep) {
+        Coords[] cs = t.getTemplateOffsetsByRotation(rotationStep);
+        int xMin = 3;
+
+        for (Coords c : cs) {
+            xMin = (c.getX() < xMin) ? c.getX() : xMin;
+        }
+
+        return xMin;
+    }
+
+    public int getYMax(Tetromino t, int rotationStep) {
+        Coords[] cs = t.getTemplateOffsetsByRotation(rotationStep);
+        int yMax = -3;
+
+        for (Coords c : cs) {
+            yMax = (c.getY() > yMax) ? c.getY() : yMax;
+        }
+
+        return yMax;
+    }
+
+    public int getYMin(Tetromino t, int rotationStep) {
+        Coords[] cs = t.getTemplateOffsetsByRotation(rotationStep);
+        int yMin = 3;
+
+        for (Coords c : cs) {
+            yMin = (c.getY() < yMin) ? c.getY() : yMin;
+        }
+
+        return yMin;
+    }
+
+    public String[][] createContainer(int height, int width) {
+        String[][] a = new String[height][width];
+
+        for (int j = 0; j < height; j++) {
+            for (int k = 0; k < width; k++) {
+                a[j][k] = " ";
+            }
+        }
+
+        return a;
+    }
+
+    public int getAdjustedX(Tetromino t, Coords c, int r) {
+        int xMin = getXMin(t, r);
+
+        return c.getX() - xMin + (xMin == 0 ? 1 : 0);
+    }
+
+    public int getAdjustedY(Tetromino t, Coords c, int r) {
+        int yMin = getYMin(t, r);
+
+        return c.getY() - yMin;
+    }
+
+    public void printInfo(Tetromino t, int r) {
         int xMax = getXMax(t, r);
         int yMax = getYMax(t, r);
         int xMin = getXMin(t, r);
         int yMin = getYMin(t, r);
-        int width = xMax - xMin + 1;
+        int width = xMax - xMin + (xMin == 0 ? 2 : 1);
         int height = yMax - yMin + 1;
         String[][] a = new String[height][width];
-        double centerX = Math.floor(((double) xMax - (double) xMin + 1d) / 2d);
-        double centerY = Math.floor(((double) yMax - (double) yMin + 1d) / 2d);
 
         System.out.println(
                 "class: " + t.getClass() + "\n" +
@@ -66,155 +117,32 @@ public class DrawPiece {
                 "width: " + width + "\n" +
                 "height: " + height + "\n" +
                 "array.length: " + a.length + "\n" +
-                "array[0].length: " + a[0].length + "\n" +
-                "centerX: " + centerX + "\n" +
-                "centerY: " + centerY
+                "array[0].length: " + a[0].length
         );
-
-        for (int j = 0; j < height; j++) {
-            for (int k = 0; k < width; k++) {
-                a[j][k] = " ";
-            }
-        }
-
-        Coords[] c = t.getPieceByRotation(r);
-
-        for (Coords q : c) {
-            int coordX = q.getX();
-            int coordY = q.getY();
-            int centeredX = q.getX() + (int) centerX;
-            int centeredY = q.getY() + (int) centerY;
-
-            System.out.println(
-                    "x: " + coordX + "\n" +
-                    "y: " + coordY + "\n" +
-                    "coord y: " + centeredY + "\n" +
-                    "coord x: " + centeredX
-            );
-
-            a[centeredY][centeredX] = "*";
-        }
-
-        a[yMin + height][xMin + width] = "*";
-
-        for (String[] as : a) {
-            for (String p  : as) {
-                System.out.print("" + p + "");
-            }
-
-            System.out.println(r);
-        }
     }
 
-    public void drawPiece2(TetrisPiece t, int r) {
-        int xMax = getXMax(t, r);
+    public void printMoreInfo() {
+//        System.out.println(
+//                "x: " + coordX + "\n" +
+//                "y: " + coordY + "\n" +
+//                "xMin: " + xMin + "\n" +
+//                "yMin: " + yMin + "\n" +
+//                "adjustedX: " + adjustedX + "\n" +
+//                "adjustedY: " + adjustedY + "\n"
+//        );
+    }
+
+    public int getHeightByRotation(Tetromino t, int r) {
         int yMax = getYMax(t, r);
-        int xMin = getXMin(t, r);
         int yMin = getYMin(t, r);
-        int width = xMax - xMin + 1;
-        int height = yMax - yMin + 1;
-        String[][] a = new String[height][width];
-        double centerX = Math.floor(((double) xMax - (double) xMin) / 2d);
-        double centerY = Math.floor(((double) yMax - (double) yMin) / 2d);
 
-        System.out.println(
-                "class: " + t.getClass() + "\n" +
-                        "rotation: " + r + "\n" +
-                        "xMin: " + xMin + "\n" +
-                        "yMin: " + yMin + "\n" +
-                        "xMax: " + xMax + "\n" +
-                        "yMax: " + yMax + "\n" +
-                        "width: " + width + "\n" +
-                        "height: " + height + "\n" +
-                        "array.length: " + a.length + "\n" +
-                        "array[0].length: " + a[0].length + "\n" +
-                        "centerX: " + centerX + "\n" +
-                        "centerY: " + centerY
-        );
-
-        for (int j = 0; j < height; j++) {
-            for (int k = 0; k < width; k++) {
-                a[j][k] = " ";
-            }
-        }
-
-        Coords[] c = t.getPieceByRotation(r);
-
-        for (Coords q : c) {
-            int coordX = q.getX();
-            int coordY = q.getY();
-//            int centeredX = q.getX() + (int) centerX;
-//            int centeredY = q.getY() + (int) centerY;
-            int adjustedX = q.getX() - xMin;
-            int adjustedY = q.getY() - yMin;
-            System.out.println(
-                    "x: " + coordX + "\n" +
-                            "y: " + coordY + "\n" +
-                            "xMin: " + xMin + "\n" +
-                            "yMin: " + yMin + "\n" +
-//                            "coord y: " + centeredY + "\n" +
-//                            "coord x: " + centeredX
-                            "adjustedX: " + adjustedX + "\n" +
-                            "adjustedY: " + adjustedY + "\n"
-            );
-
-            a[adjustedY][adjustedX] = "*";
-        }
-
-//        a[yMin + height][xMin + width] = "*";
-
-        for (String[] as : a) {
-            for (String p  : as) {
-                System.out.print(p);
-            }
-
-            System.out.println(r);
-        }
+        return yMax - yMin + 1;
     }
 
-    public int getXMax(TetrisPiece t, int rotationStep) {
-        Coords[] cs = t.getPieceByRotation(rotationStep);
-        int xMax = -3;
+    public int getWidthByRotation(Tetromino t, int r) {
+        int xMax = getXMax(t, r);
+        int xMin = getXMin(t, r);
 
-        for (Coords c : cs) {
-            xMax = (c.getX() > xMax) ? c.getX() : xMax;
-        }
-
-        return xMax;
-    }
-
-    public int getXMin(TetrisPiece t, int rotationStep) {
-        Coords[] cs = t.getPieceByRotation(rotationStep);
-        int xMin = 3;
-
-        for (Coords c : cs) {
-            xMin = (c.getX() < xMin) ? c.getX() : xMin;
-        }
-
-        return xMin;
-    }
-
-
-    public int getYMax(TetrisPiece t, int rotationStep) {
-        Coords[] cs = t.getPieceByRotation(rotationStep);
-        int yMax = -3;
-
-        for (Coords c : cs) {
-            yMax = (c.getY() > yMax) ? c.getY() : yMax;
-        }
-
-        return yMax;
-    }
-
-
-    public int getYMin(TetrisPiece t, int rotationStep) {
-        Coords[] cs = t.getPieceByRotation(rotationStep);
-        int yMin = 3;
-
-        for (Coords c : cs) {
-            yMin = (c.getY() < yMin) ? c.getY() : yMin;
-        }
-
-        return yMin;
+        return xMax - xMin + (xMin == 0 ? 2 : 1);
     }
 }

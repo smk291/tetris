@@ -3,7 +3,7 @@ package com.newtetris;
 public class Cell extends Coords {
     private boolean empty = true;
 
-    Cell(int x, int y) {
+    public Cell(int x, int y) {
         super(x, y);
     }
 

@@ -1,6 +1,12 @@
 package com.newtetris;
 
+import com.newtetris.board.PlayField;
+import com.newtetris.board.ShiftDown;
+import com.newtetris.board.ShiftLeft;
+import com.newtetris.board.ShiftRight;
 import com.newtetris.pieces.RotationDirection;
+import com.newtetris.tetrispiece.TetrisPiece;
+import com.newtetris.tetrispiece.PieceRotator;
 
 import java.util.Arrays;
 import java.util.function.BiPredicate;
@@ -25,113 +31,110 @@ abstract class BoundsTesters {
 }
 
 abstract class MovementTester {
-    static boolean left(Board board, Coords c) {
-        Coords tmpC = MoveSingleLeft.apply(c);
+    static boolean left(PlayField playField, Coords c) {
+        Coords tmpC = ShiftLeft.apply(c);
 
-        return BoundsTesters.left(tmpC) && board.getCell(tmpC).isEmpty();
+        return BoundsTesters.left(tmpC) && playField.getCell(tmpC).isEmpty();
     }
 
-    static boolean right(Board board, Coords c) {
-        Coords tmpC = MoveSingleRight.apply(c);
+    static boolean right(PlayField playField, Coords c) {
+        Coords tmpC = ShiftRight.apply(c);
 
-        return BoundsTesters.right(tmpC) && board.getCell(tmpC).isEmpty();
+        return BoundsTesters.right(tmpC) && playField.getCell(tmpC).isEmpty();
     }
 
-    static boolean down(Board board, Coords c) {
-        Coords tmpC = MoveSingleDown.apply(c);
+    static boolean down(PlayField playField, Coords c) {
+        Coords tmpC = ShiftDown.apply(c);
 
-        return BoundsTesters.y(tmpC) && board.getCell(tmpC).isEmpty();
+        return BoundsTesters.y(tmpC) && playField.getCell(tmpC).isEmpty();
     }
 
 }
 
 class RotationTester {
-    static boolean test(Board board, RotationDirection r,
-        UserCurrentPiece currentPiece,
-        UserCurrentRotation rotation,
-        UserPieceLocationOnBoard pieceOnBoard,
-        UserCursor cursor
+    static boolean test(
+        PlayField playField,
+        RotationDirection r,
+        TetrisPiece t
     ){
+        PieceRotator tpr = new PieceRotator();
+        tpr.apply(r, t);
 
-        int newRotationStep = rotation.apply(r, currentPiece);
-        Coords[] newTemplate = currentPiece.getByRotation(newRotationStep);
-
-        Coords[] tmpNewPieceOnBoard = pieceOnBoard.LocatePieceOnBoard(newTemplate, cursor);
-
-        return new NoOverlap().test(tmpNewPieceOnBoard, board);
+        return new NoOverlap().test(t, playField);
     }
 }
 
-class InBoundsLeft implements Predicate<Coords[]> {
-    public  boolean test(Coords[] coords) {
-        return Arrays.stream(coords).allMatch(BoundsTesters::left);
+class InBoundsLeft implements Predicate<TetrisPiece> {
+    public  boolean test(TetrisPiece t) {
+        return Arrays.stream(t.getInsertionCoords()).allMatch(BoundsTesters::left);
     }
 }
 
-class InBoundsRight implements Predicate<Coords[]> {
-    public boolean test(Coords[] coords) {
-        return Arrays.stream(coords).allMatch(BoundsTesters::right);
+class InBoundsRight implements Predicate<TetrisPiece> {
+    public boolean test(TetrisPiece t) {
+        return Arrays.stream(t.getInsertionCoords()).allMatch(BoundsTesters::right);
     }
 }
 
-class InBoundsY implements Predicate<Coords[]>{
-    public boolean test(Coords[] coords) {
-        return Arrays.stream(coords).allMatch(BoundsTesters::y);
+class InBoundsY implements Predicate<TetrisPiece>{
+    public boolean test(TetrisPiece t) {
+        return Arrays.stream(t.getInsertionCoords()).allMatch(BoundsTesters::y);
     }
 }
 
-class NoOverlap implements BiPredicate<Coords [], Board> {
+class NoOverlap implements BiPredicate<TetrisPiece, PlayField> {
     @Override
-    public boolean test(Coords[] coords, Board board) {
-        return Arrays.stream(coords).noneMatch(c -> board.getCell(c).isFull());
+    public boolean test(TetrisPiece t, PlayField playField) {
+        return Arrays.stream(t.getInsertionCoords()).noneMatch(c -> playField.getCell(c).isFull());
     }
 }
 
 public class Test {
-
-
     class Movement {
-        class Left implements BiPredicate<Board, Coords[]> {
-            public boolean test(Board board, Coords[] coords) {
-                return IntStream.range(0, coords.length).allMatch(i -> BoundsTesters.left(coords[i]) && board.getCell(coords[i]).isEmpty());
+        class Left implements BiPredicate<PlayField, TetrisPiece> {
+            public boolean test(PlayField playField, TetrisPiece t) {
+                return IntStream
+                        .range(0, t.getInsertionCoords().length)
+                        .allMatch(i ->
+                                BoundsTesters.left(t.getInsertionCoords()[i]) &&
+                                playField.getCell(t.getInsertionCoords()[i]).isEmpty()
+                        );
             }
         }
 
-        class Right implements BiPredicate<Board, Coords[]> {
-            public boolean test(Board board, Coords[] coords) {
-                return IntStream.range(0, coords.length).allMatch(i -> BoundsTesters.right(coords[i]) && board.getCell(coords[i]).isEmpty());
+        class Right implements BiPredicate<PlayField, TetrisPiece> {
+            public boolean test(PlayField playField, TetrisPiece t) {
+                return IntStream
+                        .range(0, t.getInsertionCoords().length)
+                        .allMatch(i ->
+                                BoundsTesters.right(t.getInsertionCoords()[i]) &&
+                                playField.getCell(t.getInsertionCoords()[i]).isEmpty()
+                        );
             }
         }
 
-        class Down implements BiPredicate<Board, Coords[]> {
-            public boolean test(Board board, Coords[] coords) {
-                return IntStream.range(0, coords.length).allMatch(i -> BoundsTesters.right(coords[i]) && board.getCell(coords[i]).isEmpty());
+        class Down implements BiPredicate<PlayField, TetrisPiece> {
+            public boolean test(PlayField playField, TetrisPiece t) {
+                return IntStream
+                        .range(0, t.getInsertionCoords().length)
+                        .allMatch(i ->
+                                BoundsTesters.right(t.getInsertionCoords()[i]) &&
+                                playField.getCell(t.getInsertionCoords()[i]).isEmpty()
+                        );
             }
         }
     }
 
     class Rotation {
         class Left {
-            public boolean test(
-                    Board board,
-                    UserCurrentPiece currentPiece,
-                    UserCurrentRotation rotation,
-                    UserPieceLocationOnBoard pieceOnBoard,
-                    UserCursor cursor
-             ) {
-                return RotationTester.test(board, RotationDirection.LEFT, currentPiece, rotation, pieceOnBoard, cursor);
+            public boolean test(PlayField playField, TetrisPiece t) {
+                return RotationTester.test(playField, RotationDirection.LEFT, t);
             }
         }
 
         class Right {
-            public boolean test(
-                    Board board,
-                    UserCurrentPiece currentPiece,
-                    UserCurrentRotation rotation,
-                    UserPieceLocationOnBoard pieceOnBoard,
-                    UserCursor cursor
-            ) {
-                return RotationTester.test(board, RotationDirection.RIGHT, currentPiece, rotation, pieceOnBoard, cursor);
+            public boolean test(PlayField playField, TetrisPiece t) {
+                return RotationTester.test(playField, RotationDirection.RIGHT, t);
             }
         }
     }
