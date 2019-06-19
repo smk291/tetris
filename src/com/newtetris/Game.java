@@ -1,6 +1,6 @@
 package com.newtetris;
 
-import com.newtetris.coords.Coords;
+import com.newtetris.playfield.Coords;
 import com.newtetris.playfield.PlayField;
 import com.newtetris.console.DrawBoard;
 import com.newtetris.test.InBoundsLeft;

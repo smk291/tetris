@@ -1,6 +1,6 @@
 package com.newtetris.pieces;
 
-import com.newtetris.coords.Coords;
+import com.newtetris.playfield.Coords;
 
 import java.util.Arrays;
 import java.util.List;

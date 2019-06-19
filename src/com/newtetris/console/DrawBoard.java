@@ -1,8 +1,8 @@
 package com.newtetris.console;
 
 import com.newtetris.playfield.PlayField;
-import com.newtetris.Cell;
-import com.newtetris.coords.Coords;
+import com.newtetris.playfield.Cell;
+import com.newtetris.playfield.Coords;
 import com.newtetris.tetrispiece.TetrisPiece;
 
 public class DrawBoard {

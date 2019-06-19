@@ -1,6 +1,6 @@
 package com.newtetris.tetrispiece;
 
-import com.newtetris.coords.Coords;
+import com.newtetris.playfield.Coords;
 
 abstract public class SpawnOrientationToPlayField {
     public static Coords[] apply(TetrisPiece t) {

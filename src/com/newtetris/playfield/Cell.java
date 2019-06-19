@@ -1,6 +1,4 @@
-package com.newtetris;
-
-import com.newtetris.coords.Coords;
+package com.newtetris.playfield;
 
 public class Cell extends Coords {
     private boolean empty = true;

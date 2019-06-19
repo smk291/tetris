@@ -1,8 +1,5 @@
 package com.newtetris.playfield;
 
-import com.newtetris.Cell;
-import com.newtetris.coords.Coords;
-
 public class PlayField {
     private Cell[][] cells;
     private static int width = 10;

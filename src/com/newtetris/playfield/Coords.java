@@ -1,4 +1,4 @@
-package com.newtetris.coords;
+package com.newtetris.playfield;
 
 public class Coords {
     private int x;
