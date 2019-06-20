@@ -1,1 +1,4 @@
-./out
+out
+out/*
+out/**/*
+out/**/*/*.class
