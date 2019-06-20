@@ -55,7 +55,6 @@ public class Game {
         action.apply(t);
 
         if (invalidPosition(t)) {
-            System.out.println("Invalid!");
             undo.apply(t);
 
             return false;
@@ -117,16 +116,6 @@ public class Game {
     // Put piece on board
     void insertPieceIntoBoard() {
         playField.setCellArrayFull(fallingPiece.playfieldCoords());
-
-        for (Cell[] cs : playField.getAllCells()) {
-            for (Cell c : cs) {
-                if (c.isFull()) {
-                    System.out.print("(" + c.getX() + ", " + c.getY() + "), ");
-                }
-            }
-        }
-
-        System.out.println();
     }
 
     public PlayField getPlayField() {
