@@ -63,6 +63,6 @@ public class PlayField {
     }
 
     public boolean rowIsFull(int row) {
-        return 10 == Arrays.stream(cells[row]).filter(Cell::isFull).count();
+        return cells[row].length - 1 == Arrays.stream(cells[row]).filter(Cell::isFull).count();
     }
 }

@@ -2,121 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_jline_jline_3_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_jline_jline_terminal_3_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/GUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/TurnLogic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/levels/Levels" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/test/XBoundsTester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/test/YBoundsTester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/Manipulator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/rotate/RotateLeft.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/rotate/RotateRight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/shift/Shift.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/shift/ShiftDown.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/shift/ShiftLeft.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/shift/ShiftRight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/shift/ShiftUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/BoardRotationTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/BoundsTesters.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Cell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Coords.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/InBoundsLeft.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/InBoundsRight.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/InBoundsY.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/MovementTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/NoOverlap.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/RotationTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Test$Movement$Down.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Test$Movement$Left.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Test$Movement$Right.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Test$Movement.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Test$Rotation$Left.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Test$Rotation$Right.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Test$Rotation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/board/Board.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/board/MoveArrayDown.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/board/MoveArrayLeft.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/board/MoveArrayRight.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/board/MoveSingleDown.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/board/MoveSingleLeft.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/board/MoveSingleRight.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/board/MoveTemplate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/console/DrawBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/tetris/com/newtetris/console/DrawBoard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/console/DrawPiece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/tetris/com/newtetris/console/DrawPiece.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/IPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/JPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/LPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/OPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/RotationDirection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/SPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/TPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/TetrisPiecesEnum.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/Tetromino.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/pieces/ZPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/tetrispiece/GetPieceCoordinates.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/tetrispiece/PieceMover.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/tetrispiece/PieceTemplateComputer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/tetrispiece/RotationsIncrementer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/tetrispiece/TetrisPiece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/tetris/com/newtetris/tetrispiece/TetrisPiece.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/newtetris/tetrispiece/TetrisPieceRotator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/Board.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/BoardCell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/ColorFromPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/GenerateTetrisPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/IPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/JPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/LPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/OPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/PieceRotator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/Pieces.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/RotationDirection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/SPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/Surface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/TPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/Tetris.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/TetrisBlock.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/TetrisPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/tetris/com/tetris/ZPiece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/001-GUInotes.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Steps.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scratchCode.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/newtetris/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/newtetris/console/DrawBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/console/DrawBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/console/DrawPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/console/DrawPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/IPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/IPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/JPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/JPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/LPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/LPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/OPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/OPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/RotationDirection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/RotationDirection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/SPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/SPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/TPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/TPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/TetrisPiecesEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/TetrisPiecesEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/Tetromino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/Tetromino.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/pieces/ZPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/ZPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/playfield/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/playfield/Cell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/newtetris/playfield/PlayField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/playfield/PlayField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/test/BoundsTesters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/test/BoundsTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/test/InBoundsLeft.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/test/InBoundsRight.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/test/InBoundsY.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/test/NoOverlap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/test/NoOverlap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/PieceRotator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/PieceShifter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/RotationIncrementer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/rotate/Rotate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/SpawnOrientation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/SpawnTetrominoByOrientation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/SpawnOrientationToPlayField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/GetInsertionCoordinates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/TetrisPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/newtetris/tetrispiece/TetrisPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/Board.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/BoardCell.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/GenerateTetrisPiece.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/PieceRotator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/TetrisPiece.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tetris.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tetris.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -130,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/newtetris/TurnLogic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+            <state relative-caret-position="435">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#737#738#0" expanded="true" />
@@ -145,13 +36,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/newtetris/playfield/PlayField.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="529">
+              <caret line="67" column="1" lean-forward="true" selection-start-line="67" selection-start-column="1" selection-end-line="67" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/newtetris/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="45">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -159,8 +56,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/newtetris/console/DrawBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="87" column="38" selection-start-line="87" selection-start-column="38" selection-end-line="87" selection-end-column="38" />
+            <state relative-caret-position="420">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -277,11 +174,11 @@
         <option value="$PROJECT_DIR$/src/com/newtetris/tetrispiece/TetrisPiece.java" />
         <option value="$PROJECT_DIR$/src/com/newtetris/test/NoOverlap.java" />
         <option value="$PROJECT_DIR$/src/com/newtetris/tetrispiece/pieces/OPiece.java" />
-        <option value="$PROJECT_DIR$/src/com/newtetris/playfield/PlayField.java" />
-        <option value="$PROJECT_DIR$/src/com/newtetris/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/newtetris/console/DrawBoard.java" />
         <option value="$PROJECT_DIR$/src/com/newtetris/GUI.java" />
         <option value="$PROJECT_DIR$/src/com/newtetris/TurnLogic.java" />
+        <option value="$PROJECT_DIR$/src/com/newtetris/console/DrawBoard.java" />
+        <option value="$PROJECT_DIR$/src/com/newtetris/playfield/PlayField.java" />
+        <option value="$PROJECT_DIR$/src/com/newtetris/Main.java" />
       </list>
     </option>
   </component>
@@ -322,14 +219,7 @@
               <item name="tetris" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="newtetris" type="462c0819:PsiDirectoryNode" />
-              <item name="console" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tetris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tetris" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="newtetris" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="playfield" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -480,7 +370,7 @@
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20573871" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20573871" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -490,7 +380,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30053475" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.30053475" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -830,19 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/newtetris/playfield/PlayField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
-          <folding>
-            <element signature="e#208#209#0" expanded="true" />
-            <element signature="e#235#236#0" expanded="true" />
-            <element signature="e#1554#1555#0" expanded="true" />
-            <element signature="e#1643#1644#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/GUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -855,18 +732,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/console/DrawBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="87" column="38" selection-start-line="87" selection-start-column="38" selection-end-line="87" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/newtetris/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="420">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -875,13 +742,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/TurnLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+        <state relative-caret-position="435">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#737#738#0" expanded="true" />
             <element signature="e#769#770#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/newtetris/playfield/PlayField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="67" column="1" lean-forward="true" selection-start-line="67" selection-start-column="1" selection-end-line="67" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/newtetris/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>

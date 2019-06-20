@@ -8,17 +8,22 @@ import com.newtetris.playfield.Coords;
 import com.newtetris.tetrispiece.TetrisPiece;
 
 public class DrawBoard implements GUI {
-    private static int y = 24;
-    private static int x = 10;
+    private static int height;
+    private static int width;
+
+    public DrawBoard(int height, int width) {
+        this.height = height;
+        this.width = width;
+    }
 
     public void draw(PlayField playField) {
-        for (int i = 0; i < y; i++) {
+        for (int i = 0; i < height; i++) {
             drawByRow(playField.getCellRow(i));
         }
 
         System.out.print("  ");
 
-        for (int i = 0; i < x; i++) {
+        for (int i = 0; i < width; i++) {
             System.out.print("-");
         }
 
@@ -60,8 +65,8 @@ public class DrawBoard implements GUI {
 
         for (Coords c : a) {
             if (
-                    (c.getX() + u.getX() > -1 && c.getX() + u.getX() < 10) &&
-                    (c.getY() + u.getY() > -1 && c.getY() + u.getY() < 24)
+                    (c.getX() + u.getX() > -1 && c.getX() + u.getX() < width) &&
+                    (c.getY() + u.getY() > -1 && c.getY() + u.getY() < height)
             ) {
                 cellsCopy[u.getY() + c.getY()][c.getX() + u.getX()].setFull();
             }
@@ -77,8 +82,8 @@ public class DrawBoard implements GUI {
 
         for (Coords c : a) {
             if (
-                    (c.getX() + u.getX() > -1 && c.getX() + u.getX() < 10) &&
-                            (c.getY() + u.getY() > -1 && c.getY() + u.getY() < 24)
+                    (c.getX() + u.getX() > -1 && c.getX() + u.getX() < width) &&
+                    (c.getY() + u.getY() > -1 && c.getY() + u.getY() < height)
             ) {
                 cellsCopy[u.getY() + c.getY()][c.getX() + u.getX()].setEmpty();
             }
