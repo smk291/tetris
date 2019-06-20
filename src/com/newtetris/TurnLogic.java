@@ -9,9 +9,9 @@ import java.util.Scanner;
 import java.util.Timer;
 
 public class TurnLogic {
+    private static int[] delayPerLevel = {500, 450, 400, 350, 300, 250, 200, 150, 100, 50};
     private Game g;
     private Timer t;
-    private static int[] delayPerLevel = { 500, 450, 400, 350, 300, 250, 200, 150, 100, 50 };
     private int currentLevel;
     private Timer timer;
     private boolean gameOver = false;
@@ -23,7 +23,7 @@ public class TurnLogic {
         this.gui = gui;
     }
 
-    TurnLogic (Game g, int startingLevel) {
+    TurnLogic(Game g, int startingLevel) {
         this.g = g;
         this.currentLevel = startingLevel;
     }
@@ -49,9 +49,9 @@ public class TurnLogic {
             Arrays.stream(playFieldCoords).map(Coords::getY)
                     .sorted((a, b) -> a - b)
                     .forEach(row -> {
-                            if (g.getPlayField().rowIsFull(row)) {
-                                    g.getPlayField().deleteRows(1, row);
-                            }
+                        if (g.getPlayField().rowIsFull(row)) {
+                            g.getPlayField().deleteRows(1, row);
+                        }
                     });
 
             g.setNextPieceFalling();
@@ -72,7 +72,7 @@ public class TurnLogic {
         System.out.println("Command:");
         String command = keyboard.nextLine();
 
-        switch(command) {
+        switch (command) {
             case "h":
                 g.shiftLeft();
                 break;

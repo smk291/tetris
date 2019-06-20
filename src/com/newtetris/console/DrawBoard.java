@@ -2,14 +2,14 @@ package com.newtetris.console;
 
 import com.newtetris.GUI;
 import com.newtetris.Game;
-import com.newtetris.playfield.PlayField;
 import com.newtetris.playfield.Cell;
 import com.newtetris.playfield.Coords;
+import com.newtetris.playfield.PlayField;
 import com.newtetris.tetrispiece.TetrisPiece;
 
 public class DrawBoard implements GUI {
-    private static int height;
-    private static int width;
+    private int height;
+    private int width;
 
     public DrawBoard(int height, int width) {
         this.height = height;
@@ -66,7 +66,7 @@ public class DrawBoard implements GUI {
         for (Coords c : a) {
             if (
                     (c.getX() + u.getX() > -1 && c.getX() + u.getX() < width) &&
-                    (c.getY() + u.getY() > -1 && c.getY() + u.getY() < height)
+                            (c.getY() + u.getY() > -1 && c.getY() + u.getY() < height)
             ) {
                 cellsCopy[u.getY() + c.getY()][c.getX() + u.getX()].setFull();
             }
@@ -83,7 +83,7 @@ public class DrawBoard implements GUI {
         for (Coords c : a) {
             if (
                     (c.getX() + u.getX() > -1 && c.getX() + u.getX() < width) &&
-                    (c.getY() + u.getY() > -1 && c.getY() + u.getY() < height)
+                            (c.getY() + u.getY() > -1 && c.getY() + u.getY() < height)
             ) {
                 cellsCopy[u.getY() + c.getY()][c.getX() + u.getX()].setEmpty();
             }

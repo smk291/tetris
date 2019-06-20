@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Tetromino {
     // Piece orientation and rotation referenec:
     // https://www.colinfahey.com/tetris/tetris.html
-    private final int [][][] shapeByRotation;
+    private final int[][][] shapeByRotation;
     private final int orientations;
     private final int pieceSize = 4;
 

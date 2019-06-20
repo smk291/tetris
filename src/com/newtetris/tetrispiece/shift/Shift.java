@@ -12,5 +12,6 @@ public class Shift extends Manipulator {
         GetInsertionCoordinates.apply(t);
     }
 
-    public void apply(TetrisPiece t) {}
+    public void apply(TetrisPiece t) {
+    }
 }

@@ -3,10 +3,17 @@ package com.newtetris;
 import com.newtetris.playfield.Cell;
 import com.newtetris.playfield.Coords;
 import com.newtetris.playfield.PlayField;
-import com.newtetris.test.*;
-import com.newtetris.tetrispiece.*;
-import com.newtetris.tetrispiece.rotate.*;
-import com.newtetris.tetrispiece.shift.*;
+import com.newtetris.test.NoOverlap;
+import com.newtetris.test.XBoundsTester;
+import com.newtetris.test.YBoundsTester;
+import com.newtetris.tetrispiece.Manipulator;
+import com.newtetris.tetrispiece.TetrisPiece;
+import com.newtetris.tetrispiece.rotate.RotateLeft;
+import com.newtetris.tetrispiece.rotate.RotateRight;
+import com.newtetris.tetrispiece.shift.ShiftDown;
+import com.newtetris.tetrispiece.shift.ShiftLeft;
+import com.newtetris.tetrispiece.shift.ShiftRight;
+import com.newtetris.tetrispiece.shift.ShiftUp;
 
 import java.util.Arrays;
 
@@ -38,12 +45,12 @@ public class Game {
         return fallingPiece;
     }
 
-    public TetrisPiece getNextPiece() {
-        return nextPiece;
-    }
-
     public void setFallingPiece(TetrisPiece t) {
         this.fallingPiece = t;
+    }
+
+    public TetrisPiece getNextPiece() {
+        return nextPiece;
     }
 
     public void setNextPiece(TetrisPiece t) {
@@ -89,7 +96,7 @@ public class Game {
                 .stream(fallingPiece.playfieldCoords())
                 .allMatch(i ->
                         i.getY() + 1 < 24 &&
-                        playField.getCell(i.sum(0, 1)).isEmpty()
+                                playField.getCell(i.sum(0, 1)).isEmpty()
                 )
         ) {
             fallingPiece.setCenter(fallingPiece.getCenter().sum(0, 1));
@@ -110,13 +117,13 @@ public class Game {
     public boolean invalidPosition(TetrisPiece t) {
         return (
                 !new XBoundsTester().applyArray(t.playfieldCoords()) ||
-                !new YBoundsTester().applyArrayNoMin(t.playfieldCoords()) ||
-                !new NoOverlap().test(t, playField)
+                        !new YBoundsTester().applyArrayNoMin(t.playfieldCoords()) ||
+                        !new NoOverlap().test(t, playField)
         );
     }
 
     public boolean invalidPosition() {
-       return invalidPosition(fallingPiece);
+        return invalidPosition(fallingPiece);
     }
 
     // Put piece on board

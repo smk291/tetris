@@ -3,9 +3,9 @@ package com.newtetris.playfield;
 import java.util.Arrays;
 
 public class PlayField {
-    private Cell[][] cells;
     private static int width = 10;
     private static int height = 24;
+    private Cell[][] cells;
 
     public PlayField() {
         resetCells();
@@ -46,11 +46,11 @@ public class PlayField {
         }
     }
 
-    public Cell[][] getAllCells () {
+    public Cell[][] getAllCells() {
         return cells;
     }
 
-    public Cell getCell (Coords coords) {
+    public Cell getCell(Coords coords) {
         return cells[coords.getY()][coords.getX()];
     }
 
@@ -63,6 +63,6 @@ public class PlayField {
     }
 
     public boolean rowIsFull(int row) {
-        return cells[row].length - 1 == Arrays.stream(cells[row]).filter(Cell::isFull).count();
+        return cells[row].length == Arrays.stream(cells[row]).filter(Cell::isFull).count();
     }
 }

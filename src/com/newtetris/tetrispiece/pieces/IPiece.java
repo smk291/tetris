@@ -9,8 +9,8 @@ public class IPiece extends Tetromino {
                     {
                             {0, -1},
                             /* {0, 0}, */
-                            {0,  1},
-                            {0,  2}
+                            {0, 1},
+                            {0, 2}
                     }
             };
     private final static int orientations = 2;

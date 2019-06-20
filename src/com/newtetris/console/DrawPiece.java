@@ -20,7 +20,7 @@ public class DrawPiece {
         }
 
         for (String[] as : a) {
-            for (String p  : as) {
+            for (String p : as) {
                 System.out.print(p);
             }
 
@@ -109,15 +109,15 @@ public class DrawPiece {
 
         System.out.println(
                 "class: " + t.getClass() + "\n" +
-                "rotation: " + r + "\n" +
-                "xMin: " + xMin + "\n" +
-                "yMin: " + yMin + "\n" +
-                "xMax: " + xMax + "\n" +
-                "yMax: " + yMax + "\n" +
-                "width: " + width + "\n" +
-                "height: " + height + "\n" +
-                "array.length: " + a.length + "\n" +
-                "array[0].length: " + a[0].length
+                        "rotation: " + r + "\n" +
+                        "xMin: " + xMin + "\n" +
+                        "yMin: " + yMin + "\n" +
+                        "xMax: " + xMax + "\n" +
+                        "yMax: " + yMax + "\n" +
+                        "width: " + width + "\n" +
+                        "height: " + height + "\n" +
+                        "array.length: " + a.length + "\n" +
+                        "array[0].length: " + a[0].length
         );
     }
 

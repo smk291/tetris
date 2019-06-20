@@ -10,6 +10,14 @@ public class Cell extends Coords {
         super(x, y);
     }
 
+    public static boolean isValidCell(Coords coords) {
+        return new XBoundsTester().apply(coords) && new YBoundsTester().apply(coords);
+    }
+
+    public static boolean isValidFallingCell(Coords coords) {
+        return new XBoundsTester().apply(coords) && new YBoundsTester().applyNoMin(coords);
+    }
+
     public void setEmpty() {
         this.empty = true;
     }
@@ -24,13 +32,5 @@ public class Cell extends Coords {
 
     public boolean isFull() {
         return !this.empty;
-    }
-
-    public static boolean isValidCell (Coords coords) {
-        return new XBoundsTester().apply(coords) && new YBoundsTester().apply(coords);
-    }
-
-    public static boolean isValidFallingCell (Coords coords) {
-        return new XBoundsTester().apply(coords) && new YBoundsTester().applyNoMin(coords);
     }
 }

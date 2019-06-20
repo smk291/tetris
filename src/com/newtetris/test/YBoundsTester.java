@@ -30,11 +30,11 @@ public class YBoundsTester extends BoundsTester {
 //        return applyTest(minY,maxY + 10, c.getY());
 //    }
 
-    public boolean applyArray (Coords[] c) {
+    public boolean applyArray(Coords[] c) {
         return Arrays.stream(c).allMatch(i -> new YBoundsTester().apply(i));
     }
 
-    public boolean applyArrayNoMin (Coords[] c) {
+    public boolean applyArrayNoMin(Coords[] c) {
         return Arrays.stream(c).allMatch(i -> new YBoundsTester().applyNoMin(i));
     }
 

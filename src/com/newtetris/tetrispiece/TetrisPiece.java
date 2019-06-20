@@ -59,13 +59,13 @@ public class TetrisPiece implements Cloneable {
         this.tetromino = tetromino;
     }
 
+    public int getOrientation() {
+        return this.orientation;
+    }
+
     // Orientation
     public void setOrientation(int nextRotation) {
         this.orientation = nextRotation;
-    }
-
-    public int getOrientation() {
-        return this.orientation;
     }
 
     public int getUniqueOrientations() {

@@ -5,20 +5,20 @@ import com.newtetris.playfield.PlayField;
 import com.newtetris.tetrispiece.TetrisPiece;
 
 public interface GUI {
-    public void draw(PlayField playField);
+    void draw(PlayField playField);
 
-    public void draw(Cell[][] cells);
+    void draw(Cell[][] cells);
 
-    public void draw(Game g);
+    void draw(Game g);
 
-    public void drawByRow(Cell[] row);
+    void drawByRow(Cell[] row);
 
-    public char drawCell(boolean isFull);
+    char drawCell(boolean isFull);
 
-    public Cell[][] putPieceOnBoard(TetrisPiece t, int rotation, PlayField playField);
+    Cell[][] putPieceOnBoard(TetrisPiece t, int rotation, PlayField playField);
 
-    public void removePieceFromBoard(TetrisPiece t, int rotation, PlayField playField);
+    void removePieceFromBoard(TetrisPiece t, int rotation, PlayField playField);
 
-    public void drawBoardIncludingPiece(Game g);
+    void drawBoardIncludingPiece(Game g);
 }
 
