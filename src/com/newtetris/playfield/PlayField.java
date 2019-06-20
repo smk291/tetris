@@ -8,13 +8,13 @@ public class PlayField {
     private Cell[][] cells;
 
     public PlayField(int width, int height) {
-        this.width = width;
-        this.height = height;
+        PlayField.width = width;
+        PlayField.height = height;
 
         resetCells();
     }
 
-    public void resetCells() {
+    private void resetCells() {
         cells = new Cell[height][width];
 
         for (int y = 0; y < cells.length; y++) {
@@ -60,10 +60,6 @@ public class PlayField {
     public Cell[] getCellRow(int idx) {
         return cells[idx];
     }
-
-//    public void setCellFull(Coords c) {
-//        cells[c.getY()][c.getX()].setFull();
-//    }
 
     public boolean rowIsFull(int row) {
         return cells[row].length == Arrays.stream(cells[row]).filter(Cell::isFull).count();

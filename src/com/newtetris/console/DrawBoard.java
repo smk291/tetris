@@ -11,7 +11,7 @@ public class DrawBoard implements GUI {
     private int height;
     private int width;
 
-    public DrawBoard(int height, int width) {
+    public DrawBoard(int width, int height) {
         this.height = height;
         this.width = width;
     }

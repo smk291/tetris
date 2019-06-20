@@ -6,10 +6,8 @@ import com.newtetris.tetrispiece.Manipulator;
 import com.newtetris.tetrispiece.TetrisPiece;
 
 public class Shift extends Manipulator {
-    public static void applyShift(TetrisPiece t, Coords offset) {
+    static void applyShift(TetrisPiece t, Coords offset) {
         t.setCenter(t.getCenter().sum(offset));
-
-        GetInsertionCoordinates.apply(t);
     }
 
     public void apply(TetrisPiece t) {

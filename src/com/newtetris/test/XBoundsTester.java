@@ -8,11 +8,6 @@ public class XBoundsTester extends BoundsTester {
     private int maxX;
     private int minX;
 
-//    public XBoundsTester(int maxX, int minX) {
-//        this.maxX = maxX;
-//        this.minX = minX;
-//    }
-
     public XBoundsTester(int maxX) {
         this.maxX = maxX;
         minX = 0;

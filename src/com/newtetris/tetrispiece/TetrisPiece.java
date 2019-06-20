@@ -24,7 +24,6 @@ public class TetrisPiece implements Cloneable {
     public TetrisPiece clone() throws CloneNotSupportedException {
         return (TetrisPiece) super.clone();
     }
-
     // Reset
 
     // Getters and setters ---
@@ -48,11 +47,11 @@ public class TetrisPiece implements Cloneable {
 
     // Get Shape by Orientation
     public Coords[] getShape() {
-        return SpawnTetrominoByOrientation.apply(this);
+        return this.getTetromino().getShapeByRotation(this.getOrientation());
     }
 
     // Piece insertion Coords[]
-    public Coords[] playfieldCoords() {
+    public Coords[] playFieldCoords() {
         return GetInsertionCoordinates.apply(this);
     }
 

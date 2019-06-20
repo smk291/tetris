@@ -2,9 +2,6 @@ package com.newtetris.tetrispiece;
 
 import com.newtetris.playfield.Coords;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Tetromino {
@@ -18,7 +15,7 @@ public class Tetromino {
         this.orientations = orientations;
     }
 
-    public Coords[] getShapeByRotation(int rotations) {
+    Coords[] getShapeByRotation(int rotations) {
         Coords[] coords = new Coords[4];
 
         switch (rotations) {
@@ -46,11 +43,11 @@ public class Tetromino {
         return coords;
     }
 
-    public int getUniqueOrientations() {
+    int getUniqueOrientations() {
         return this.orientations;
     }
 
-    public int getPieceSize() {
+    int getPieceSize() {
         return this.pieceSize;
     }
 }

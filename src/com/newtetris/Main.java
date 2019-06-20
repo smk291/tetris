@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Game game = new Game(width, height);
         Cell.setWidthAndHeight(width, height);
-        TurnLogic consoleTetris = new TurnLogic(game, new DrawBoard(24, 10));
+        TurnLogic consoleTetris = new TurnLogic(game, new DrawBoard(width, height));
 
         while (consoleTetris.gameInProgress()) {
             consoleTetris.turn1();
@@ -23,3 +23,5 @@ public class Main {
 //   Kick (down, left, right) Fit rotation into available space
 //   Hard drop
 //   Floating pieces drop
+//      Before deleting a row, check for islands
+//   Remove width and height from Cell

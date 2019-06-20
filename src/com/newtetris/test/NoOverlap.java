@@ -11,7 +11,7 @@ public class NoOverlap implements BiPredicate<TetrisPiece, PlayField> {
     @Override
     public boolean test(TetrisPiece t, PlayField playField) {
         return Arrays
-                .stream(t.playfieldCoords())
+                .stream(t.playFieldCoords())
                 .noneMatch(c ->
                         Cell.isValidCell(c) &&
                                 playField.getCell(c).isFull()

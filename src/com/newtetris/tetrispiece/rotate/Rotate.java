@@ -4,7 +4,7 @@ import com.newtetris.tetrispiece.Manipulator;
 import com.newtetris.tetrispiece.TetrisPiece;
 
 abstract public class Rotate extends Manipulator {
-    public static void applyRotate (TetrisPiece t, int increment) {
+    static void applyRotate (TetrisPiece t, int increment) {
         int uniqueOrientations = t.getUniqueOrientations();
         int newOrientation = t.getOrientation() + increment;
 

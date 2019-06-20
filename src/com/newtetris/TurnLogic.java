@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Timer;
 
-public class TurnLogic {
+class TurnLogic {
     private static int[] delayPerLevel = {500, 450, 400, 350, 300, 250, 200, 150, 100, 50};
     private Game g;
     private Timer t;
@@ -15,17 +15,17 @@ public class TurnLogic {
     private boolean gameOver = false;
     private GUI gui;
 
-    public TurnLogic(Game g, GUI gui) {
+    TurnLogic(Game g, GUI gui) {
         this.g = g;
         this.currentLevel = 0;
         this.gui = gui;
     }
 
-    public boolean gameInProgress() {
+    boolean gameInProgress() {
         return !gameOver;
     }
 
-    public void turn1() {
+    void turn1() {
         if (gameOver) {
             return;
         }
@@ -37,7 +37,7 @@ public class TurnLogic {
 
             gui.draw(g.getPlayField());
 
-            Coords[] playFieldCoords = g.getFallingPiece().playfieldCoords();
+            Coords[] playFieldCoords = g.getFallingPiece().playFieldCoords();
 
             Arrays.stream(playFieldCoords).map(Coords::getY)
                     .sorted((a, b) -> a - b)
@@ -60,7 +60,7 @@ public class TurnLogic {
         }
     }
 
-    public void keyboardInput() {
+    void keyboardInput() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Command:");
         String command = keyboard.nextLine();
@@ -92,7 +92,7 @@ public class TurnLogic {
         }
     }
 
-    public void printToConsole() {
+    void printToConsole() {
         gui.drawBoardIncludingPiece(g);
 
         gui.removePieceFromBoard(

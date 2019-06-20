@@ -1,6 +1,5 @@
 package com.newtetris;
 
-import com.newtetris.playfield.Cell;
 import com.newtetris.playfield.PlayField;
 import com.newtetris.test.NoOverlap;
 import com.newtetris.test.XBoundsTester;
@@ -17,8 +16,8 @@ import com.newtetris.tetrispiece.shift.ShiftUp;
 import java.util.Arrays;
 
 public class Game {
-    int width;
-    int height;
+    private int width;
+    private int height;
     private PlayField playField;
     private TetrisPiece fallingPiece;
     private TetrisPiece nextPiece;
@@ -36,12 +35,12 @@ public class Game {
         nextPiece = new TetrisPiece();
     }
 
-    public void setNextPieceFalling() {
+    void setNextPieceFalling() {
         fallingPiece = nextPiece;
         fallingPiece.setCenter(4, 0);
     }
 
-    public void resetNextPiece() {
+    void resetNextPiece() {
         nextPiece = new TetrisPiece();
     }
 
@@ -81,7 +80,7 @@ public class Game {
 
     void hardDrop() {
         while (Arrays
-                .stream(fallingPiece.playfieldCoords())
+                .stream(fallingPiece.playFieldCoords())
                 .allMatch(i ->
                         i.getY() + 1 < 24 &&
                                 playField.getCell(i.sum(0, 1)).isEmpty()
@@ -103,8 +102,8 @@ public class Game {
     // Test validity of piece position
     private boolean invalidPosition(TetrisPiece t) {
         return (
-                !new XBoundsTester(width).applyArray(t.playfieldCoords()) ||
-                        !new YBoundsTester(height).applyArrayNoMin(t.playfieldCoords()) ||
+                !new XBoundsTester(width).applyArray(t.playFieldCoords()) ||
+                        !new YBoundsTester(height).applyArrayNoMin(t.playFieldCoords()) ||
                         !new NoOverlap().test(t, playField)
         );
     }
@@ -115,7 +114,7 @@ public class Game {
 
     // Put piece on board
     void insertPieceIntoBoard() {
-        playField.setCellArrayFull(fallingPiece.playfieldCoords());
+        playField.setCellArrayFull(fallingPiece.playFieldCoords());
     }
 
     public PlayField getPlayField() {
