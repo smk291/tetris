@@ -1,26 +1,48 @@
 package com.newtetris;
 
-import com.newtetris.console.DrawPiece;
-import com.newtetris.pieces.TetrisPiecesEnum;
+import com.newtetris.console.DrawBoard;
 
-import java.util.stream.IntStream;
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
         Game game = new Game();
-//        DrawBoard.draw(game.playfield);
-        TetrisPiecesEnum[] vals = TetrisPiecesEnum.values();
-        DrawPiece dp = new DrawPiece();
+//        GameScheduler gameScheduler = new GameScheduler(game);
+        TurnLogic turnLogic = new TurnLogic(game, new DrawBoard());
 
-        for (TetrisPiecesEnum tpe : vals) {
-            IntStream.range(0, tpe.get().getRotationCount()).forEach(i -> dp.drawPiece(tpe.get(), i));
+        while (turnLogic.gameInProgress()) {
+            empty();
+            turnLogic.turn1();
+            turnLogic.keyboardInput();
+            turnLogic.printToConsole();
+        }
+    }
+
+    public static void empty() {
+        String[] cmd = {"/bin/sh", "-c", "stty raw </dev/tty"};
+
+        try {
+            Runtime.getRuntime().exec(cmd).waitFor();
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
         }
 
-        dp.drawPiece(game.getFallingPiece(), game.getRotation());
-        dp.drawPiece(game.getNextPiece(), 0);
+//        DrawBoard.draw(game.playfield);
+//        TetrisPiecesEnum[] vals = TetrisPiecesEnum.values();
+//        DrawPiece dp = new DrawPiece();
+
+//        for (TetrisPiecesEnum tpe : vals) {
+//            IntStream.range(0, tpe.get().getUniqueOrientations()).forEach(i -> dp.drawPiece(tpe.get(), i));
+//        }
+
+//        System.out.println("==");
+//        dp.drawPiece(game.getFallingPiece().getTetromino(), game.getOrientation());
+//        dp.drawPiece(game.getNextPiece().getTetromino(), 0);
 
 //        Cell[][] newBoard = DrawBoard.putPieceOnBoard(game.getFallingPiece(), game.getOrientation(), game.getCursor(), game.playfield.getAllCells());
 
-//        DrawBoard.draw(newBoard);
     }
 }
+// To do:
+//   Kick (down, left, right) Fit rotation into available space
+//   Hard drop

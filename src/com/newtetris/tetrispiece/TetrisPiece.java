@@ -1,19 +1,19 @@
 package com.newtetris.tetrispiece;
 
 import com.newtetris.playfield.Coords;
-import com.newtetris.pieces.TetrisPiecesEnum;
-import com.newtetris.pieces.Tetromino;
+import com.newtetris.tetrispiece.pieces.TetrisPiecesEnum;
+import com.newtetris.tetrispiece.pieces.Tetromino;
 
 public class TetrisPiece implements Cloneable {
     private Tetromino tetromino;
     private Coords center;
     private int orientation;
 
-    public TetrisPiece(Tetromino tetromino, Coords center, int orientation) {
-        this.tetromino = tetromino;
-        this.center = center;
-        this.orientation = orientation;
-    }
+//    public TetrisPiece(Tetromino tetromino, Coords center, int orientation) {
+//        this.tetromino = tetromino;
+//        this.center = center;
+//        this.orientation = orientation;
+//    }
 
     public TetrisPiece(Tetromino tetromino) {
         this.tetromino = tetromino;
@@ -31,7 +31,8 @@ public class TetrisPiece implements Cloneable {
     public TetrisPiece clone() throws CloneNotSupportedException {
         return (TetrisPiece) super.clone();
     }
-    // Resets ---
+
+    // Reset
     public void randomizeReset() {
         this.tetromino = TetrisPiecesEnum.getPiece();
         this.center = new Coords(4, 0);
@@ -58,7 +59,7 @@ public class TetrisPiece implements Cloneable {
         this.tetromino = tetromino;
     }
 
-    // Rotations
+    // Orientation
     public void setOrientation(int nextRotation) {
         this.orientation = nextRotation;
     }
@@ -67,18 +68,18 @@ public class TetrisPiece implements Cloneable {
         return this.orientation;
     }
 
-    public int getOrientationsCount() {
-        return tetromino.getRotationCount();
+    public int getUniqueOrientations() {
+        return tetromino.getUniqueOrientations();
     }
 
-    // Piece Template
+    // Get Shape by Orientation
     public Coords[] getShape() {
-        return SpawnOrientation.apply(this);
+        return SpawnTetrominoByOrientation.apply(this);
     }
 
     // Piece insertion Coords[]
-    public Coords[] pieceCoords() {
-        return SpawnOrientationToPlayField.apply(this);
+    public Coords[] playfieldCoords() {
+        return GetInsertionCoordinates.apply(this);
     }
 
     // Center
@@ -90,9 +91,8 @@ public class TetrisPiece implements Cloneable {
         this.center = newCenter;
     }
 
-    // Piece size
-    public int getPieceSize() {
-        return this.tetromino.getPieceSize();
+    public void setCenter(int x, int y) {
+        this.center = new Coords(x, y);
     }
 }
 

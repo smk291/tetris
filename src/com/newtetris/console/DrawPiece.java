@@ -1,7 +1,7 @@
 package com.newtetris.console;
 
 import com.newtetris.playfield.Coords;
-import com.newtetris.pieces.Tetromino;
+import com.newtetris.tetrispiece.pieces.Tetromino;
 
 public class DrawPiece {
     public void drawPiece(Tetromino t, int rotation) {

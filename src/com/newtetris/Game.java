@@ -1,20 +1,14 @@
 package com.newtetris;
 
+import com.newtetris.playfield.Cell;
 import com.newtetris.playfield.Coords;
 import com.newtetris.playfield.PlayField;
-import com.newtetris.console.DrawBoard;
-import com.newtetris.test.InBoundsLeft;
-import com.newtetris.test.InBoundsRight;
-import com.newtetris.test.InBoundsY;
-import com.newtetris.test.NoOverlap;
-import com.newtetris.tetrispiece.PieceRotator;
-import com.newtetris.tetrispiece.PieceShifter;
-import com.newtetris.pieces.RotationDirection;
-import com.newtetris.tetrispiece.TetrisPiece;
-import com.newtetris.pieces.Tetromino;
+import com.newtetris.test.*;
+import com.newtetris.tetrispiece.*;
+import com.newtetris.tetrispiece.rotate.*;
+import com.newtetris.tetrispiece.shift.*;
 
 import java.util.Arrays;
-import static java.util.Collections.*;
 
 public class Game {
     private PlayField playField = new PlayField();
@@ -22,109 +16,125 @@ public class Game {
     private TetrisPiece nextPiece;
 
     Game() {
-        getCurrentAndNextPiece();
+        resetCurrentAndNextPiece();
     }
 
-    private void getCurrentAndNextPiece() {
+    private void resetCurrentAndNextPiece() {
         fallingPiece = new TetrisPiece();
+        nextPiece = new TetrisPiece();
     }
 
-    public void executeTurn() {
-        DrawBoard.draw(playField);
-
-        System.out.println(singletonList(fallingPiece.getShape()).toString());
+    public void setNextPieceFalling() {
+        fallingPiece = nextPiece;
+        fallingPiece.setCenter(4, 0);
     }
 
-    public int getRotation() {
-        return fallingPiece.getOrientation();
+    public void resetNextPiece() {
+        nextPiece = new TetrisPiece();
     }
 
-    public Tetromino getFallingPiece() {
-        return fallingPiece.getTetromino();
+    // Get data
+    public TetrisPiece getFallingPiece() {
+        return fallingPiece;
     }
 
-    public Tetromino getNextPiece() {
-        return nextPiece.getTetromino();
+    public TetrisPiece getNextPiece() {
+        return nextPiece;
+    }
+
+    public void setFallingPiece(TetrisPiece t) {
+        this.fallingPiece = t;
+    }
+
+    public void setNextPiece(TetrisPiece t) {
+        this.nextPiece = t;
     }
 
     public Coords getCenter() {
         return fallingPiece.getCenter();
     }
 
-    public void shiftLeft() {
-        TetrisPiece t = cloneFallingPiece();
+    // Manipulate fallingPiece
+    private boolean manipulate(Manipulator action, Manipulator undo, TetrisPiece t) {
+        action.apply(t);
 
-        PieceShifter.applyLeft(t);
+        if (invalidPosition(t)) {
+            System.out.println("Invalid!");
+            undo.apply(t);
 
-        if (positionIsValid(t)) {
-            fallingPiece = t;
-        }
-    }
-
-    public void shiftRight() {
-        TetrisPiece t = cloneFallingPiece();
-
-        PieceShifter.applyRight(t);
-
-        if (positionIsValid(t)) {
-            fallingPiece = t;
-        }
-    }
-
-    public void softDrop() {
-        TetrisPiece t = cloneFallingPiece();
-
-        PieceShifter.applyDown(t);
-
-        if (positionIsValid(t)) {
-            fallingPiece = t;
-        }
-    }
-
-    private TetrisPiece cloneFallingPiece() {
-        TetrisPiece newPiece;
-
-        try {
-            newPiece = fallingPiece.clone();
-        } catch (CloneNotSupportedException e) {
-            newPiece = new TetrisPiece(fallingPiece.getTetromino(), fallingPiece.getCenter(), fallingPiece.getOrientation());
+            return false;
         }
 
-        return newPiece;
+        return true;
     }
 
-    private boolean positionIsValid(TetrisPiece t) {
-       return(
-               new InBoundsRight().test(t) &&
-               new InBoundsLeft().test(t) &&
-               new InBoundsY().test(t) &&
-               new NoOverlap().test(t, playField)
-       );
+    public boolean shiftLeft() {
+        return manipulate(new ShiftLeft(), new ShiftRight(), fallingPiece);
     }
 
-    private void rotate(RotationDirection r) {
-        TetrisPiece t = cloneFallingPiece();
+    public boolean shiftRight() {
+        return manipulate(new ShiftRight(), new ShiftLeft(), fallingPiece);
+    }
 
-        if (r.equals(RotationDirection.LEFT)) {
-            PieceRotator.applyLeft(t);
-        } else {
-            PieceRotator.applyRight(t);
+    public boolean softDrop() {
+        return manipulate(new ShiftDown(), new ShiftUp(), fallingPiece);
+    }
+
+    public boolean shiftUp() {
+        return manipulate(new ShiftUp(), new ShiftDown(), fallingPiece);
+    }
+
+    public boolean hardDrop() {
+        while (Arrays
+                .stream(fallingPiece.playfieldCoords())
+                .allMatch(i ->
+                        i.getY() + 1 < 24 &&
+                        playField.getCell(i.sum(0, 1)).isEmpty()
+                )
+        ) {
+            fallingPiece.setCenter(fallingPiece.getCenter().sum(0, 1));
         }
 
-        if (positionIsValid(t)) {
-            fallingPiece = t;
-        }
+        return true;
     }
 
-    public void rotateLeft() {
-        rotate(RotationDirection.LEFT);
+    public boolean rotateLeft() {
+        return manipulate(new RotateLeft(), new RotateRight(), fallingPiece);
     }
 
-    public void rotateRight() {
-        rotate(RotationDirection.RIGHT);
+    public boolean rotateRight() {
+        return manipulate(new RotateRight(), new RotateLeft(), fallingPiece);
     }
 
+    // Test validity of piece position
+    public boolean invalidPosition(TetrisPiece t) {
+        return (
+                !new XBoundsTester().applyArray(t.playfieldCoords()) ||
+                !new YBoundsTester().applyArrayNoMin(t.playfieldCoords()) ||
+                !new NoOverlap().test(t, playField)
+        );
+    }
+
+    public boolean invalidPosition() {
+       return invalidPosition(fallingPiece);
+    }
+
+    // Put piece on board
     public void insertPieceIntoBoard() {
-        Arrays.stream(fallingPiece.pieceCoords()).forEach(pieceCoord -> playField.setCellFull(pieceCoord));
+        playField.setCellArrayFull(fallingPiece.playfieldCoords());
+
+        for (Cell[] cs : playField.getAllCells()) {
+            for (Cell c : cs) {
+                if (c.isFull()) {
+                    System.out.print("(" + c.getX() + ", " + c.getY() + "), ");
+                }
+            }
+        }
+
+        System.out.println();
+    }
+
+    public PlayField getPlayField() {
+        return this.playField;
     }
 }

@@ -1,11 +1,17 @@
 package com.newtetris.playfield;
 
+import java.util.Arrays;
+
 public class PlayField {
     private Cell[][] cells;
     private static int width = 10;
     private static int height = 24;
 
     public PlayField() {
+        resetCells();
+    }
+
+    public void resetCells() {
         cells = new Cell[height][width];
 
         for (int y = 0; y < cells.length; y++) {
@@ -15,13 +21,13 @@ public class PlayField {
         }
     }
 
-    void fillCells(Coords[] coords) {
+    public void setCellArrayFull(Coords[] coords) {
         for (Coords c : coords) {
             getCell(c).setFull();
         }
     }
 
-    void deleteRows(int rowsToDelete, int startFromRow) {
+    public void deleteRows(int rowsToDelete, int startFromRow) {
         if (startFromRow - rowsToDelete + 1 >= 0) {
             System.arraycopy(
                     cells,
@@ -34,6 +40,9 @@ public class PlayField {
 
         for (int i = 0; i < rowsToDelete; i++) {
             cells[i] = new Cell[width];
+
+            for (int j = 0; j < cells[i].length; j++)
+                cells[i][j] = new Cell(j, i);
         }
     }
 
@@ -51,5 +60,9 @@ public class PlayField {
 
     public void setCellFull(Coords c) {
         cells[c.getY()][c.getX()].setFull();
+    }
+
+    public boolean rowIsFull(int row) {
+        return 10 == Arrays.stream(cells[row]).filter(Cell::isFull).count();
     }
 }

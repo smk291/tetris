@@ -1,5 +1,8 @@
 package com.newtetris.playfield;
 
+import com.newtetris.test.XBoundsTester;
+import com.newtetris.test.YBoundsTester;
+
 public class Cell extends Coords {
     private boolean empty = true;
 
@@ -21,5 +24,13 @@ public class Cell extends Coords {
 
     public boolean isFull() {
         return !this.empty;
+    }
+
+    public static boolean isValidCell (Coords coords) {
+        return new XBoundsTester().apply(coords) && new YBoundsTester().apply(coords);
+    }
+
+    public static boolean isValidFallingCell (Coords coords) {
+        return new XBoundsTester().apply(coords) && new YBoundsTester().applyNoMin(coords);
     }
 }
