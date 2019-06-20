@@ -1,5 +1,7 @@
 package com.newtetris.tetrispiece.pieces;
 
+import com.newtetris.tetrispiece.Tetromino;
+
 import java.util.Random;
 
 public enum TetrisPiecesEnum {

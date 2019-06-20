@@ -8,13 +8,13 @@ public class YBoundsTester extends BoundsTester {
     private int maxY;
     private int minY;
 
-    YBoundsTester(int maxY, int minY) {
-        this.maxY = maxY;
-        this.minY = minY;
-    }
+//    YBoundsTester(int maxY, int minY) {
+//        this.maxY = maxY;
+//        this.minY = minY;
+//    }
 
-    public YBoundsTester() {
-        this.maxY = 24;
+    public YBoundsTester(int maxY) {
+        this.maxY = maxY;
         this.minY = 0;
     }
 
@@ -26,19 +26,11 @@ public class YBoundsTester extends BoundsTester {
         return applyTest(-2, maxY, c.getY());
     }
 
-//    public boolean applyNoMax(Coords c) {
-//        return applyTest(minY,maxY + 10, c.getY());
+//    public boolean applyArray(Coords[] c) {
+//        return Arrays.stream(c).allMatch(i -> new YBoundsTester(maxY).apply(i));
 //    }
-
-    public boolean applyArray(Coords[] c) {
-        return Arrays.stream(c).allMatch(i -> new YBoundsTester().apply(i));
-    }
 
     public boolean applyArrayNoMin(Coords[] c) {
-        return Arrays.stream(c).allMatch(i -> new YBoundsTester().applyNoMin(i));
+        return Arrays.stream(c).allMatch(i -> new YBoundsTester(maxY).applyNoMin(i));
     }
-
-//    public boolean applyArrayNoMax (Coords[] c) {
-//        return Arrays.stream(c).allMatch(i -> new YBoundsTester().applyNoMax(i));
-//    }
 }

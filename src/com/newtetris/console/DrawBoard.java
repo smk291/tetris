@@ -36,13 +36,13 @@ public class DrawBoard implements GUI {
         }
     }
 
-    public void draw(Game g) {
-        Cell[][] cells = g.getPlayField().getAllCells();
-
-        for (Cell[] cell : cells) {
-            drawByRow(cell);
-        }
-    }
+//    public void draw(Game g) {
+//        Cell[][] cells = g.getPlayField().getAllCells();
+//
+//        for (Cell[] cell : cells) {
+//            drawByRow(cell);
+//        }
+//    }
 
     public void drawByRow(Cell[] row) {
         System.out.print(" |");

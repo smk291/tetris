@@ -9,8 +9,6 @@ public interface GUI {
 
     void draw(Cell[][] cells);
 
-    void draw(Game g);
-
     void drawByRow(Cell[] row);
 
     char drawCell(boolean isFull);

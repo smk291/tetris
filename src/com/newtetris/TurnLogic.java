@@ -1,8 +1,6 @@
 package com.newtetris;
 
 import com.newtetris.playfield.Coords;
-import com.newtetris.tetrispiece.TetrisPiece;
-import com.newtetris.tetrispiece.pieces.IPiece;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -21,11 +19,6 @@ public class TurnLogic {
         this.g = g;
         this.currentLevel = 0;
         this.gui = gui;
-    }
-
-    TurnLogic(Game g, int startingLevel) {
-        this.g = g;
-        this.currentLevel = startingLevel;
     }
 
     public boolean gameInProgress() {
@@ -93,22 +86,6 @@ public class TurnLogic {
                 break;
             case "k":
                 g.shiftUp();
-                break;
-            case "itest":
-                g.getPlayField().resetCells();
-
-                for (int i = 20; i < 24; i++) {
-                    for (int j = 0; j < g.getPlayField().getCellRow(i).length; j++) {
-                        if (j != 4) {
-                            g.getPlayField().setCellFull(new Coords(j, i));
-                        }
-                    }
-                }
-
-                TetrisPiece ipiece = new TetrisPiece();
-                ipiece.reset(new IPiece());
-                g.setFallingPiece(ipiece);
-
                 break;
             default:
                 break;

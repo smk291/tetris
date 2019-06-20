@@ -1,7 +1,6 @@
 package com.newtetris;
 
 import com.newtetris.playfield.Cell;
-import com.newtetris.playfield.Coords;
 import com.newtetris.playfield.PlayField;
 import com.newtetris.test.NoOverlap;
 import com.newtetris.test.XBoundsTester;
@@ -18,11 +17,17 @@ import com.newtetris.tetrispiece.shift.ShiftUp;
 import java.util.Arrays;
 
 public class Game {
-    private PlayField playField = new PlayField();
+    int width;
+    int height;
+    private PlayField playField;
     private TetrisPiece fallingPiece;
     private TetrisPiece nextPiece;
 
-    Game() {
+    Game(int width, int height) {
+        this.width = width;
+        this.height = height;
+        playField = new PlayField(width, height);
+
         resetCurrentAndNextPiece();
     }
 
@@ -45,22 +50,6 @@ public class Game {
         return fallingPiece;
     }
 
-    public void setFallingPiece(TetrisPiece t) {
-        this.fallingPiece = t;
-    }
-
-    public TetrisPiece getNextPiece() {
-        return nextPiece;
-    }
-
-    public void setNextPiece(TetrisPiece t) {
-        this.nextPiece = t;
-    }
-
-    public Coords getCenter() {
-        return fallingPiece.getCenter();
-    }
-
     // Manipulate fallingPiece
     private boolean manipulate(Manipulator action, Manipulator undo, TetrisPiece t) {
         action.apply(t);
@@ -75,23 +64,23 @@ public class Game {
         return true;
     }
 
-    public boolean shiftLeft() {
-        return manipulate(new ShiftLeft(), new ShiftRight(), fallingPiece);
+    void shiftLeft() {
+        manipulate(new ShiftLeft(), new ShiftRight(), fallingPiece);
     }
 
-    public boolean shiftRight() {
-        return manipulate(new ShiftRight(), new ShiftLeft(), fallingPiece);
+    void shiftRight() {
+        manipulate(new ShiftRight(), new ShiftLeft(), fallingPiece);
     }
 
-    public boolean softDrop() {
+    boolean softDrop() {
         return manipulate(new ShiftDown(), new ShiftUp(), fallingPiece);
     }
 
-    public boolean shiftUp() {
-        return manipulate(new ShiftUp(), new ShiftDown(), fallingPiece);
+    void shiftUp() {
+        manipulate(new ShiftUp(), new ShiftDown(), fallingPiece);
     }
 
-    public boolean hardDrop() {
+    void hardDrop() {
         while (Arrays
                 .stream(fallingPiece.playfieldCoords())
                 .allMatch(i ->
@@ -102,32 +91,31 @@ public class Game {
             fallingPiece.setCenter(fallingPiece.getCenter().sum(0, 1));
         }
 
-        return true;
     }
 
-    public boolean rotateLeft() {
-        return manipulate(new RotateLeft(), new RotateRight(), fallingPiece);
+    void rotateLeft() {
+        manipulate(new RotateLeft(), new RotateRight(), fallingPiece);
     }
 
-    public boolean rotateRight() {
-        return manipulate(new RotateRight(), new RotateLeft(), fallingPiece);
+    void rotateRight() {
+        manipulate(new RotateRight(), new RotateLeft(), fallingPiece);
     }
 
     // Test validity of piece position
-    public boolean invalidPosition(TetrisPiece t) {
+    private boolean invalidPosition(TetrisPiece t) {
         return (
-                !new XBoundsTester().applyArray(t.playfieldCoords()) ||
-                        !new YBoundsTester().applyArrayNoMin(t.playfieldCoords()) ||
+                !new XBoundsTester(width).applyArray(t.playfieldCoords()) ||
+                        !new YBoundsTester(height).applyArrayNoMin(t.playfieldCoords()) ||
                         !new NoOverlap().test(t, playField)
         );
     }
 
-    public boolean invalidPosition() {
+    boolean invalidPosition() {
         return invalidPosition(fallingPiece);
     }
 
     // Put piece on board
-    public void insertPieceIntoBoard() {
+    void insertPieceIntoBoard() {
         playField.setCellArrayFull(fallingPiece.playfieldCoords());
 
         for (Cell[] cs : playField.getAllCells()) {

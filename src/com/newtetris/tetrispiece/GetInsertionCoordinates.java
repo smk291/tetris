@@ -10,6 +10,8 @@ abstract public class GetInsertionCoordinates {
         Coords center = t.getCenter();
         Coords[] shape = t.getShape();
 
-        return IntStream.range(0, pieceSize).mapToObj(i -> shape[i].sum(center)).toArray(Coords[]::new);
+        return IntStream.range(0, pieceSize)
+                .mapToObj(i -> shape[i].sum(center))
+                .toArray(Coords[]::new);
     }
 }

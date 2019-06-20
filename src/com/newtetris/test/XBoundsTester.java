@@ -8,13 +8,13 @@ public class XBoundsTester extends BoundsTester {
     private int maxX;
     private int minX;
 
-    public XBoundsTester(int maxX, int minX) {
-        this.maxX = maxX;
-        this.minX = minX;
-    }
+//    public XBoundsTester(int maxX, int minX) {
+//        this.maxX = maxX;
+//        this.minX = minX;
+//    }
 
-    public XBoundsTester() {
-        maxX = 10;
+    public XBoundsTester(int maxX) {
+        this.maxX = maxX;
         minX = 0;
     }
 
@@ -23,6 +23,6 @@ public class XBoundsTester extends BoundsTester {
     }
 
     public boolean applyArray(Coords[] c) {
-        return Arrays.stream(c).allMatch(i -> new XBoundsTester().apply(i));
+        return Arrays.stream(c).allMatch(i -> new XBoundsTester(maxX).apply(i));
     }
 }

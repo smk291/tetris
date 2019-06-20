@@ -10,14 +10,6 @@ import java.util.function.BiPredicate;
 public class NoOverlap implements BiPredicate<TetrisPiece, PlayField> {
     @Override
     public boolean test(TetrisPiece t, PlayField playField) {
-//        System.out.println("No overlap?: ");
-
-//        for (Coords c : t.playfieldCoords()) {
-//            System.out.print("(" + c.getX() + ", " + c.getY() + ")");
-//        }
-
-//        System.out.println();
-
         return Arrays
                 .stream(t.playfieldCoords())
                 .noneMatch(c ->

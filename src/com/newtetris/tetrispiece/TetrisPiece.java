@@ -2,18 +2,11 @@ package com.newtetris.tetrispiece;
 
 import com.newtetris.playfield.Coords;
 import com.newtetris.tetrispiece.pieces.TetrisPiecesEnum;
-import com.newtetris.tetrispiece.pieces.Tetromino;
 
 public class TetrisPiece implements Cloneable {
     private Tetromino tetromino;
     private Coords center;
     private int orientation;
-
-//    public TetrisPiece(Tetromino tetromino, Coords center, int orientation) {
-//        this.tetromino = tetromino;
-//        this.center = center;
-//        this.orientation = orientation;
-//    }
 
     public TetrisPiece(Tetromino tetromino) {
         this.tetromino = tetromino;
@@ -33,30 +26,11 @@ public class TetrisPiece implements Cloneable {
     }
 
     // Reset
-    public void randomizeReset() {
-        this.tetromino = TetrisPiecesEnum.getPiece();
-        this.center = new Coords(4, 0);
-        this.orientation = 0;
-    }
-
-    public void reset(Tetromino tetromino) {
-        this.tetromino = tetromino;
-        setOrientation(0);
-    }
-
-    public void reset(Tetromino tetromino, int orientation) {
-        this.tetromino = tetromino;
-        setOrientation(orientation);
-    }
 
     // Getters and setters ---
     // Tetromino
     public Tetromino getTetromino() {
         return this.tetromino;
-    }
-
-    public void setTetromino(Tetromino tetromino) {
-        this.tetromino = tetromino;
     }
 
     public int getOrientation() {
