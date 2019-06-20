@@ -11,10 +11,10 @@ public class PlayField {
         PlayField.width = width;
         PlayField.height = height;
 
-        resetCells();
+        createEmptyField();
     }
 
-    private void resetCells() {
+    private void createEmptyField() {
         cells = new Cell[height][width];
 
         for (int y = 0; y < cells.length; y++) {
@@ -24,10 +24,14 @@ public class PlayField {
         }
     }
 
-    public void setCellArrayFull(Coords[] coords) {
+    public void fillCells(Coords[] coords) {
         for (Coords c : coords) {
             getCell(c).setFull();
         }
+    }
+
+    public void setRow(int row, Cell[] newRow) {
+        cells[row] = newRow;
     }
 
     public void deleteRows(int rowsToDelete, int startFromRow) {
@@ -63,5 +67,9 @@ public class PlayField {
 
     public boolean rowIsFull(int row) {
         return cells[row].length == Arrays.stream(cells[row]).filter(Cell::isFull).count();
+    }
+
+    public boolean rowIsEmpty(int row) {
+        return 0 == Arrays.stream(cells[row]).filter(Cell::isFull).count();
     }
 }

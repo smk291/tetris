@@ -1,5 +1,6 @@
 package com.newtetris;
 
+import com.newtetris.playfield.Coords;
 import com.newtetris.playfield.PlayField;
 import com.newtetris.test.NoOverlap;
 import com.newtetris.test.XBoundsTester;
@@ -16,15 +17,18 @@ import com.newtetris.tetrispiece.shift.ShiftUp;
 import java.util.Arrays;
 
 public class Game {
-    private int width;
-    private int height;
+    static int height;
+    private static int width;
     private PlayField playField;
     private TetrisPiece fallingPiece;
     private TetrisPiece nextPiece;
+    private Coords pieceSpawnPoint = new Coords(4, 0);
 
     Game(int width, int height) {
-        this.width = width;
-        this.height = height;
+        Game.height = height;
+        Game.width = width;
+        XBoundsTester.setWidth(width);
+        YBoundsTester.setHeight(height);
         playField = new PlayField(width, height);
 
         resetCurrentAndNextPiece();
@@ -37,7 +41,7 @@ public class Game {
 
     void setNextPieceFalling() {
         fallingPiece = nextPiece;
-        fallingPiece.setCenter(4, 0);
+        fallingPiece.setCenter(pieceSpawnPoint);
     }
 
     void resetNextPiece() {
@@ -50,7 +54,7 @@ public class Game {
     }
 
     // Manipulate fallingPiece
-    private boolean manipulate(Manipulator action, Manipulator undo, TetrisPiece t) {
+    boolean manipulate(Manipulator action, Manipulator undo, TetrisPiece t) {
         action.apply(t);
 
         if (invalidPosition(t)) {
@@ -62,48 +66,11 @@ public class Game {
         return true;
     }
 
-    void shiftLeft() {
-        manipulate(new ShiftLeft(), new ShiftRight(), fallingPiece);
-    }
-
-    void shiftRight() {
-        manipulate(new ShiftRight(), new ShiftLeft(), fallingPiece);
-    }
-
-    boolean softDrop() {
-        return manipulate(new ShiftDown(), new ShiftUp(), fallingPiece);
-    }
-
-    void shiftUp() {
-        manipulate(new ShiftUp(), new ShiftDown(), fallingPiece);
-    }
-
-    void hardDrop() {
-        while (Arrays
-                .stream(fallingPiece.playFieldCoords())
-                .allMatch(i ->
-                        i.getY() + 1 < 24 &&
-                                playField.getCell(i.sum(0, 1)).isEmpty()
-                )
-        ) {
-            fallingPiece.setCenter(fallingPiece.getCenter().sum(0, 1));
-        }
-
-    }
-
-    void rotateLeft() {
-        manipulate(new RotateLeft(), new RotateRight(), fallingPiece);
-    }
-
-    void rotateRight() {
-        manipulate(new RotateRight(), new RotateLeft(), fallingPiece);
-    }
-
     // Test validity of piece position
     private boolean invalidPosition(TetrisPiece t) {
         return (
-                !new XBoundsTester(width).applyArray(t.playFieldCoords()) ||
-                        !new YBoundsTester(height).applyArrayNoMin(t.playFieldCoords()) ||
+                !new XBoundsTester().applyArray(t.playFieldCoords()) ||
+                        !new YBoundsTester().applyArrayNoMin(t.playFieldCoords()) ||
                         !new NoOverlap().test(t, playField)
         );
     }
@@ -114,7 +81,7 @@ public class Game {
 
     // Put piece on board
     void insertPieceIntoBoard() {
-        playField.setCellArrayFull(fallingPiece.playFieldCoords());
+        playField.fillCells(fallingPiece.playFieldCoords());
     }
 
     public PlayField getPlayField() {

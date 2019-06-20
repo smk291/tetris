@@ -2,6 +2,8 @@ package com.newtetris;
 
 import com.newtetris.console.DrawBoard;
 import com.newtetris.playfield.Cell;
+import com.newtetris.test.XBoundsTester;
+import com.newtetris.test.YBoundsTester;
 
 public class Main {
     public static final int width = 10;
@@ -9,7 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
         Game game = new Game(width, height);
-        Cell.setWidthAndHeight(width, height);
         TurnLogic consoleTetris = new TurnLogic(game, new DrawBoard(width, height));
 
         while (consoleTetris.gameInProgress()) {

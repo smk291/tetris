@@ -13,9 +13,9 @@ public interface GUI {
 
     char drawCell(boolean isFull);
 
-    Cell[][] putPieceOnBoard(TetrisPiece t, int rotation, PlayField playField);
+    Cell[][] putPieceOnBoard(Game g);
 
-    void removePieceFromBoard(TetrisPiece t, int rotation, PlayField playField);
+    void removePieceFromBoard(Game g);
 
     void drawBoardIncludingPiece(Game g);
 }

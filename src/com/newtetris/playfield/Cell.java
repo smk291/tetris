@@ -4,8 +4,6 @@ import com.newtetris.test.XBoundsTester;
 import com.newtetris.test.YBoundsTester;
 
 public class Cell extends Coords {
-    private static int width = 10;
-    private static int height = 24;
     private boolean empty = true;
 
     Cell(int x, int y) {
@@ -13,12 +11,7 @@ public class Cell extends Coords {
     }
 
     public static boolean isValidCell(Coords coords) {
-        return new XBoundsTester(width).apply(coords) && new YBoundsTester(height).apply(coords);
-    }
-
-    public static void setWidthAndHeight(int width, int height) {
-        Cell.width = width;
-        Cell.height = height;
+        return new XBoundsTester().apply(coords) && new YBoundsTester().apply(coords);
     }
 
     public void setEmpty() {

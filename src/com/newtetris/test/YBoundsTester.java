@@ -5,12 +5,17 @@ import com.newtetris.playfield.Coords;
 import java.util.Arrays;
 
 public class YBoundsTester extends BoundsTester {
+    public static int height;
     private int maxY;
     private int minY;
 
-    public YBoundsTester(int maxY) {
-        this.maxY = maxY;
+    public YBoundsTester() {
+        this.maxY = height;
         this.minY = 0;
+    }
+
+    public static void setHeight(int height) {
+        YBoundsTester.height = height;
     }
 
     public boolean apply(Coords c) {
@@ -22,6 +27,6 @@ public class YBoundsTester extends BoundsTester {
     }
 
     public boolean applyArrayNoMin(Coords[] c) {
-        return Arrays.stream(c).allMatch(i -> new YBoundsTester(maxY).applyNoMin(i));
+        return Arrays.stream(c).allMatch(i -> new YBoundsTester().applyNoMin(i));
     }
 }

@@ -36,14 +36,6 @@ public class DrawBoard implements GUI {
         }
     }
 
-//    public void draw(Game g) {
-//        Cell[][] cells = g.getPlayField().getAllCells();
-//
-//        for (Cell[] cell : cells) {
-//            drawByRow(cell);
-//        }
-//    }
-
     public void drawByRow(Cell[] row) {
         System.out.print(" |");
 
@@ -58,7 +50,9 @@ public class DrawBoard implements GUI {
         return isFull ? '*' : ' ';
     }
 
-    public Cell[][] putPieceOnBoard(TetrisPiece t, int rotation, PlayField playField) {
+    public Cell[][] putPieceOnBoard(Game g) {
+        TetrisPiece t = g.getFallingPiece();
+        PlayField playField = g.getPlayField();
         Cell[][] cellsCopy = playField.getAllCells().clone();
         Coords[] a = t.getShape();
         Coords u = t.getCenter();
@@ -75,7 +69,9 @@ public class DrawBoard implements GUI {
         return cellsCopy;
     }
 
-    public void removePieceFromBoard(TetrisPiece t, int rotation, PlayField playField) {
+    public void removePieceFromBoard(Game g) {
+        TetrisPiece t = g.getFallingPiece();
+        PlayField playField = g.getPlayField();
         Cell[][] cellsCopy = playField.getAllCells().clone();
         Coords[] a = t.getShape();
         Coords u = t.getCenter();
@@ -91,6 +87,6 @@ public class DrawBoard implements GUI {
     }
 
     public void drawBoardIncludingPiece(Game g) {
-        draw(putPieceOnBoard(g.getFallingPiece(), g.getFallingPiece().getOrientation(), g.getPlayField()));
+        draw(putPieceOnBoard(g));
     }
 }
