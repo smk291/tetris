@@ -92,7 +92,7 @@ class TurnLogic {
                 g.getPlayField().createEmptyField();
 
                 for (int i = height - 4; i < height; i++) {
-                    for (int j = 0; j < g.getPlayField().getCellRow(i).length; j++) {
+                    for (int j = 0, l = g.getPlayField().getCellRow(i).length; j < l; j++) {
                         if (j != 4) {
                             g.getPlayField().fillCell(new Coords(j, i));
                         }
@@ -107,8 +107,8 @@ class TurnLogic {
 
                 Cell[][] board = g.getPlayField().getAllCells();
 
-                for (int i = 0; i < board.length; i++) {
-                    for (int j = 0; j < board[0].length; j++) {
+                for (int i = 0, boardHeight = board.length; i < boardHeight; i++) {
+                    for (int j = 0, boardWidth = board[0].length; j < boardWidth; j++) {
                         if (j == 0 || j == 9) {
                             board[i][j].setFull();
                         }

@@ -55,6 +55,7 @@ public class Game {
         action.apply(t);
 
         if (invalidPosition(t)) {
+            // Check for possible kick on left, right and bottom
             undo.apply(t);
 
             return false;
@@ -89,7 +90,7 @@ public class Game {
         for (Coords c : fallingPiece.playFieldCoords()) {
             if (
                     new XBoundsTester().apply(c) &&
-                    new YBoundsTester().apply(c)
+                            new YBoundsTester().apply(c)
             ) {
                 playField.fillCell(c);
             }

@@ -17,8 +17,8 @@ public class PlayField {
     public void createEmptyField() {
         cells = new Cell[height][width];
 
-        for (int y = 0; y < cells.length; y++) {
-            for (int x = 0; x < cells[y].length; x++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 cells[y][x] = new Cell(x, y);
             }
         }
@@ -65,7 +65,7 @@ public class PlayField {
     public void createNewEmptyRow(int row) {
         cells[row] = new Cell[width];
 
-        for (int j = 0; j < cells[row].length; j++) {
+        for (int j = 0; j < width; j++) {
             cells[row][j] = new Cell(j, row);
         }
     }
@@ -73,38 +73,27 @@ public class PlayField {
     public void deleteFullRows(Coords[] playFieldCoords) {
         int startAt = -1;
 
-        System.out.println("lowest full row: " + startAt);
+        for (int i = 0, length = playFieldCoords.length; i < length; i++) {
+            Coords c = playFieldCoords[i];
 
-        for (Coords c : playFieldCoords) {
             if (rowIsFull(c.getY()) && c.getY() > startAt) {
-                System.out.println("row " + c.getY() + " is lower than " + startAt);
-
                 startAt = c.getY();
-
-                System.out.println("lowest full row: " + startAt);
             }
         }
 
         if (startAt > -1) {
-            System.out.println("deleting from row: " + startAt);
-
             int shift = 0;
-            while (rowIsFull(startAt + shift)) {
-                System.out.println("row " + startAt + shift + " is full. decrement shift");
-
-                shift--;
-            }
-
             while(!rowIsEmpty(startAt) && (startAt + shift) >= 0) {
-                System.out.println("Swapping" + startAt + " and " + (startAt + shift));
+                while (rowIsFull(startAt + shift)) {
+                    shift--;
+                }
+
                 setRow(startAt, getCellRow(startAt + shift));
 
                 startAt--;
             }
 
-            for (int i = startAt; i >= 0 && i > startAt + shift; i--) {
-                System.out.println("Creating empty row at " + i);
-
+            for (int i = startAt, halt = startAt + shift; i >= 0 && i > halt; i--) {
                 createNewEmptyRow(i);
             }
         }

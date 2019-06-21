@@ -1,9 +1,6 @@
 package com.newtetris;
 
 import com.newtetris.console.DrawBoard;
-import com.newtetris.playfield.Cell;
-import com.newtetris.test.XBoundsTester;
-import com.newtetris.test.YBoundsTester;
 
 public class Main {
     public static final int width = 10;

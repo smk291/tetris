@@ -16,24 +16,36 @@ public class Tetromino {
     }
 
     Coords[] getShapeByRotation(int rotations) {
-        Coords[] coords = new Coords[4];
+        Coords[] coords = new Coords[pieceSize];
 
         switch (rotations) {
             case 1: // 90 -- flip x & y, negate new y
-                IntStream.range(0, shape.length).forEach(i -> coords[i] = new Coords(shape[i][1], -shape[i][0]));
+                int bound = shape.length;
+                for (int i1 = 0; i1 < bound; i1++) {
+                    coords[i1] = new Coords(shape[i1][1], -shape[i1][0]);
+                }
 
                 break;
             case 2: // 180 -- negate both
-                IntStream.range(0, shape.length).forEach(i -> coords[i] = new Coords(-shape[i][0], -shape[i][1]));
+                int bound1 = shape.length;
+                for (int i1 = 0; i1 < bound1; i1++) {
+                    coords[i1] = new Coords(-shape[i1][0], -shape[i1][1]);
+                }
 
                 break;
             case 3: // 270 -- flip x & y, negate new x
-                IntStream.range(0, shape.length).forEach(i -> coords[i] = new Coords(-shape[i][1], shape[i][0]));
+                int bound2 = shape.length;
+                for (int i1 = 0; i1 < bound2; i1++) {
+                    coords[i1] = new Coords(-shape[i1][1], shape[i1][0]);
+                }
 
                 break;
             case 0:
             default:
-                IntStream.range(0, shape.length).forEach(i -> coords[i] = new Coords(shape[i]));
+                int bound3 = shape.length;
+                for (int i = 0; i < bound3; i++) {
+                    coords[i] = new Coords(shape[i]);
+                }
 
                 break;
         }
