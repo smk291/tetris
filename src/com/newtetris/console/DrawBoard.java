@@ -50,43 +50,11 @@ public class DrawBoard implements GUI {
         return isFull ? '*' : ' ';
     }
 
-    public Cell[][] putPieceOnBoard(Game g) {
-        TetrisPiece t = g.getFallingPiece();
-        PlayField playField = g.getPlayField();
-        Cell[][] cellsCopy = playField.getAllCells().clone();
-        Coords[] a = t.getShape();
-        Coords u = t.getCenter();
-
-        for (Coords c : a) {
-            if (
-                    (c.getX() + u.getX() > -1 && c.getX() + u.getX() < width) &&
-                            (c.getY() + u.getY() > -1 && c.getY() + u.getY() < height)
-            ) {
-                cellsCopy[u.getY() + c.getY()][c.getX() + u.getX()].setFull();
-            }
-        }
-
-        return cellsCopy;
-    }
-
-    public void removePieceFromBoard(Game g) {
-        TetrisPiece t = g.getFallingPiece();
-        PlayField playField = g.getPlayField();
-        Cell[][] cellsCopy = playField.getAllCells().clone();
-        Coords[] a = t.getShape();
-        Coords u = t.getCenter();
-
-        for (Coords c : a) {
-            if (
-                    (c.getX() + u.getX() > -1 && c.getX() + u.getX() < width) &&
-                            (c.getY() + u.getY() > -1 && c.getY() + u.getY() < height)
-            ) {
-                cellsCopy[u.getY() + c.getY()][c.getX() + u.getX()].setEmpty();
-            }
-        }
-    }
-
     public void drawBoardIncludingPiece(Game g) {
-        draw(putPieceOnBoard(g));
+        g.putPieceOnBoard(g);
+
+        draw(g.getPlayField());
+
+        g.removePieceFromBoard(g);
     }
 }

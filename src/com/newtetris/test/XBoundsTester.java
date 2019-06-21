@@ -23,6 +23,6 @@ public class XBoundsTester extends BoundsTester {
     }
 
     public boolean applyArray(Coords[] c) {
-        return Arrays.stream(c).allMatch(i -> new XBoundsTester().apply(i));
+        return Arrays.stream(c).allMatch(i -> apply(i));
     }
 }

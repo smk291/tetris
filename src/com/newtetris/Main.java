@@ -11,13 +11,9 @@ public class Main {
 
     public static void main(String[] args) {
         Game game = new Game(width, height);
-        TurnLogic consoleTetris = new TurnLogic(game, new DrawBoard(width, height));
+        TurnLogic consoleTetris = new TurnLogic(game, new DrawBoard(width, height), width, height);
 
-        while (consoleTetris.gameInProgress()) {
-            consoleTetris.turn1();
-            consoleTetris.keyboardInput();
-            consoleTetris.printToConsole();
-        }
+        consoleTetris.playGame();
     }
 }
 // To do:

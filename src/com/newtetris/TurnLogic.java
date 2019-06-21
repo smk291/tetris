@@ -1,8 +1,9 @@
 package com.newtetris;
 
+import com.newtetris.playfield.Cell;
 import com.newtetris.playfield.Coords;
-import com.newtetris.playfield.PlayField;
 import com.newtetris.tetrispiece.TetrisPiece;
+import com.newtetris.tetrispiece.pieces.IPiece;
 import com.newtetris.tetrispiece.rotate.RotateLeft;
 import com.newtetris.tetrispiece.rotate.RotateRight;
 import com.newtetris.tetrispiece.shift.ShiftDown;
@@ -12,10 +13,10 @@ import com.newtetris.tetrispiece.shift.ShiftUp;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.stream.Stream;
 
 class TurnLogic {
+    public static int width;
+    public static int height;
     private static int[] delayPerLevel = {500, 450, 400, 350, 300, 250, 200, 150, 100, 50};
     private Game g;
 //    private Timer t;
@@ -24,60 +25,40 @@ class TurnLogic {
     private boolean gameOver = false;
     private GUI gui;
 
-    TurnLogic(Game g, GUI gui) {
+    TurnLogic(Game g, GUI gui, int width, int height) {
         this.g = g;
 //        this.currentLevel = 0;
         this.gui = gui;
+        TurnLogic.width = width;
+        TurnLogic.height = height;
     }
 
-    boolean gameInProgress() {
-        return !gameOver;
-    }
-
-    void turn1() {
-        if (gameOver) {
-            return;
+    void playGame() {
+        while (continueGame()) {
+            keyboardInput();
         }
+    }
 
+    boolean continueGame() {
         boolean canDrop = softDrop(g.getFallingPiece());
 
         if (!canDrop) {
+            // Wait until timer is up
             g.insertPieceIntoBoard();
-
-            gui.draw(g.getPlayField());
-
-            Coords[] playFieldCoords = g.getFallingPiece().playFieldCoords();
-
-            PlayField field = g.getPlayField();
-
-            Integer[] fullRows = Arrays.stream(playFieldCoords)
-                    .map(Coords::getY)
-                    .filter(field::rowIsFull)
-//                    .sorted(Comparator.comparingInt(a -> a))
-                    .sorted((a, b) -> a - b)
-                    .toArray(Integer[]::new);
-
-            if (fullRows.length > 0) {
-                for (int row = fullRows[0] - 1, shift = 1; !field.rowIsEmpty(row); row--) {
-                    if (field.rowIsFull(row + shift)) {
-                        shift++;
-                    }
-
-                    field.setRow(row + shift, field.getCellRow(row));
-                }
-            }
-
+            g.getPlayField().deleteFullRows(g.getFallingPiece().playFieldCoords());
             g.setNextPieceFalling();
-            g.resetNextPiece();
-
-            gui.draw(g.getPlayField());
 
             if (g.invalidPosition()) {
-                gameOver = true;
+                return false;
             }
+
+            g.resetNextPiece();
+            gui.draw(g.getPlayField());
         } else {
             shiftUp(g.getFallingPiece());
         }
+
+        return true;
     }
 
     void keyboardInput() {
@@ -107,8 +88,51 @@ class TurnLogic {
             case "J":
                 hardDrop(g.getFallingPiece());
                 break;
+            case "itest":
+                g.getPlayField().createEmptyField();
+
+                for (int i = height - 4; i < height; i++) {
+                    for (int j = 0; j < g.getPlayField().getCellRow(i).length; j++) {
+                        if (j != 4) {
+                            g.getPlayField().fillCell(new Coords(j, i));
+                        }
+                    }
+                }
+
+                TetrisPiece ipiece = new TetrisPiece();
+                ipiece.reset(new IPiece());
+                g.setFallingPiece(ipiece);
+            case "floattest":
+                g.getPlayField().createEmptyField();
+
+                Cell[][] board = g.getPlayField().getAllCells();
+
+                for (int i = 0; i < board.length; i++) {
+                    for (int j = 0; j < board[0].length; j++) {
+                        if (j == 0 || j == 9) {
+                            board[i][j].setFull();
+                        }
+
+                        if (i == 20) {
+                            if (j > 4 && j < 8) {
+                                board[i][j].setFull();
+                            }
+                        } else if (i == 21) {
+                            if (j == 6) {
+                                board[i][j].setFull();
+                            }
+                        } else if (i == 22) {
+                            if (j != 2) {
+                                board[i][j].setFull();
+                            }
+                        }
+                    }
+                }
+
             default: break;
         }
+
+        gui.drawBoardIncludingPiece(g);
     }
 
     private void shiftLeft() {
@@ -144,11 +168,5 @@ class TurnLogic {
         ) {
             t.setCenter(t.getCenter().sum(0, 1));
         }
-    }
-
-    void printToConsole() {
-        gui.drawBoardIncludingPiece(g);
-
-        gui.removePieceFromBoard(g);
     }
 }

@@ -13,10 +13,6 @@ public interface GUI {
 
     char drawCell(boolean isFull);
 
-    Cell[][] putPieceOnBoard(Game g);
-
-    void removePieceFromBoard(Game g);
-
     void drawBoardIncludingPiece(Game g);
 }
 

@@ -14,7 +14,7 @@ public class PlayField {
         createEmptyField();
     }
 
-    private void createEmptyField() {
+    public void createEmptyField() {
         cells = new Cell[height][width];
 
         for (int y = 0; y < cells.length; y++) {
@@ -30,27 +30,16 @@ public class PlayField {
         }
     }
 
-    public void setRow(int row, Cell[] newRow) {
-        cells[row] = newRow;
+    public void fillCell(Coords coords) {
+        getCell(coords).setFull();
     }
 
-    public void deleteRows(int rowsToDelete, int startFromRow) {
-        if (startFromRow - rowsToDelete + 1 >= 0) {
-            System.arraycopy(
-                    cells,
-                    0,
-                    cells,
-                    rowsToDelete,
-                    startFromRow - rowsToDelete + 1
-            );
-        }
+    public void emptyCell(Coords coords) {
+        getCell(coords).setEmpty();
+    }
 
-        for (int i = 0; i < rowsToDelete; i++) {
-            cells[i] = new Cell[width];
-
-            for (int j = 0; j < cells[i].length; j++)
-                cells[i][j] = new Cell(j, i);
-        }
+    public void setRow(int row, Cell[] newRow) {
+        cells[row] = newRow.clone();
     }
 
     public Cell[][] getAllCells() {
@@ -70,6 +59,54 @@ public class PlayField {
     }
 
     public boolean rowIsEmpty(int row) {
-        return 0 == Arrays.stream(cells[row]).filter(Cell::isFull).count();
+        return Arrays.stream(cells[row]).noneMatch(Cell::isFull);
+    }
+
+    public void createNewEmptyRow(int row) {
+        cells[row] = new Cell[width];
+
+        for (int j = 0; j < cells[row].length; j++) {
+            cells[row][j] = new Cell(j, row);
+        }
+    }
+
+    public void deleteFullRows(Coords[] playFieldCoords) {
+        int startAt = -1;
+
+        System.out.println("lowest full row: " + startAt);
+
+        for (Coords c : playFieldCoords) {
+            if (rowIsFull(c.getY()) && c.getY() > startAt) {
+                System.out.println("row " + c.getY() + " is lower than " + startAt);
+
+                startAt = c.getY();
+
+                System.out.println("lowest full row: " + startAt);
+            }
+        }
+
+        if (startAt > -1) {
+            System.out.println("deleting from row: " + startAt);
+
+            int shift = 0;
+            while (rowIsFull(startAt + shift)) {
+                System.out.println("row " + startAt + shift + " is full. decrement shift");
+
+                shift--;
+            }
+
+            while(!rowIsEmpty(startAt) && (startAt + shift) >= 0) {
+                System.out.println("Swapping" + startAt + " and " + (startAt + shift));
+                setRow(startAt, getCellRow(startAt + shift));
+
+                startAt--;
+            }
+
+            for (int i = startAt; i >= 0 && i > startAt + shift; i--) {
+                System.out.println("Creating empty row at " + i);
+
+                createNewEmptyRow(i);
+            }
+        }
     }
 }

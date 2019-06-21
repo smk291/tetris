@@ -27,6 +27,6 @@ public class YBoundsTester extends BoundsTester {
     }
 
     public boolean applyArrayNoMin(Coords[] c) {
-        return Arrays.stream(c).allMatch(i -> new YBoundsTester().applyNoMin(i));
+        return Arrays.stream(c).allMatch(i -> applyNoMin(i));
     }
 }

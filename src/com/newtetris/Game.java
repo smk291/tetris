@@ -1,5 +1,6 @@
 package com.newtetris;
 
+import com.newtetris.playfield.Cell;
 import com.newtetris.playfield.Coords;
 import com.newtetris.playfield.PlayField;
 import com.newtetris.test.NoOverlap;
@@ -7,14 +8,6 @@ import com.newtetris.test.XBoundsTester;
 import com.newtetris.test.YBoundsTester;
 import com.newtetris.tetrispiece.Manipulator;
 import com.newtetris.tetrispiece.TetrisPiece;
-import com.newtetris.tetrispiece.rotate.RotateLeft;
-import com.newtetris.tetrispiece.rotate.RotateRight;
-import com.newtetris.tetrispiece.shift.ShiftDown;
-import com.newtetris.tetrispiece.shift.ShiftLeft;
-import com.newtetris.tetrispiece.shift.ShiftRight;
-import com.newtetris.tetrispiece.shift.ShiftUp;
-
-import java.util.Arrays;
 
 public class Game {
     static int height;
@@ -42,6 +35,10 @@ public class Game {
     void setNextPieceFalling() {
         fallingPiece = nextPiece;
         fallingPiece.setCenter(pieceSpawnPoint);
+    }
+
+    public void setFallingPiece(TetrisPiece t) {
+        this.fallingPiece = t;
     }
 
     void resetNextPiece() {
@@ -79,12 +76,34 @@ public class Game {
         return invalidPosition(fallingPiece);
     }
 
-    // Put piece on board
+    // Put piece on
     void insertPieceIntoBoard() {
         playField.fillCells(fallingPiece.playFieldCoords());
     }
 
     public PlayField getPlayField() {
         return this.playField;
+    }
+
+    public void putPieceOnBoard(Game g) {
+        for (Coords c : fallingPiece.playFieldCoords()) {
+            if (
+                    new XBoundsTester().apply(c) &&
+                    new YBoundsTester().apply(c)
+            ) {
+                playField.fillCell(c);
+            }
+        }
+    }
+
+    public void removePieceFromBoard(Game g) {
+        for (Coords c : fallingPiece.playFieldCoords()) {
+            if (
+                    new XBoundsTester().apply(c) &&
+                            new YBoundsTester().apply(c)
+            ) {
+                playField.emptyCell(c);
+            }
+        }
     }
 }

@@ -25,8 +25,23 @@ public class TetrisPiece implements Cloneable {
         return (TetrisPiece) super.clone();
     }
     // Reset
+    public void randomizeReset() {
+        this.tetromino = TetrisPiecesEnum.getPiece();
+        this.center = new Coords(4, 0);
+        this.orientation = 0;
+    }
 
-    // Getters and setters ---
+    public void reset(Tetromino tetromino) {
+        this.tetromino = tetromino;
+        setOrientation(0);
+    }
+
+    public void reset(Tetromino tetromino, int orientation) {
+        this.tetromino = tetromino;
+        setOrientation(orientation);
+    }
+
+        // Getters and setters ---
     // Tetromino
     public Tetromino getTetromino() {
         return this.tetromino;
