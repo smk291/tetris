@@ -19,7 +19,7 @@ public class Tetromino {
         Coords[] coords = new Coords[pieceSize];
 
         switch (rotations) {
-            case 1: // 90 -- flip x & y, negate new y
+            case 3: // 90 -- flip x & y, negate new y
                 int bound = shape.length;
                 for (int i1 = 0; i1 < bound; i1++) {
                     coords[i1] = new Coords(shape[i1][1], -shape[i1][0]);
@@ -33,7 +33,7 @@ public class Tetromino {
                 }
 
                 break;
-            case 3: // 270 -- flip x & y, negate new x
+            case 1: // 270 -- flip x & y, negate new x
                 int bound2 = shape.length;
                 for (int i1 = 0; i1 < bound2; i1++) {
                     coords[i1] = new Coords(-shape[i1][1], shape[i1][0]);

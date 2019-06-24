@@ -2,3 +2,6 @@ out
 out/*
 out/**/*
 out/**/*/*.class
+
+*.diff
+**/*/*.diff
