@@ -56,4 +56,8 @@ public class Coords {
     public Coords negate() {
         return new Coords(-this.x, -this.y);
     }
+
+    public void print() {
+        System.out.print("{ " + this.x + ", " + this.y + " }");
+    }
 }

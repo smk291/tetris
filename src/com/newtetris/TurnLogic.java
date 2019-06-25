@@ -2,6 +2,7 @@ package com.newtetris;
 
 import com.newtetris.playfield.Cell;
 import com.newtetris.playfield.Coords;
+import com.newtetris.playfield.findfloatingpieces.FindFloatingPieces;
 import com.newtetris.tetrispiece.TetrisPiece;
 import com.newtetris.tetrispiece.pieces.IPiece;
 import com.newtetris.tetrispiece.pieces.TetrisPiecesEnum;
@@ -12,6 +13,7 @@ import com.newtetris.tetrispiece.shift.ShiftLeft;
 import com.newtetris.tetrispiece.shift.ShiftRight;
 import com.newtetris.tetrispiece.shift.ShiftUp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -43,10 +45,39 @@ class TurnLogic {
     boolean continueGame() {
         boolean canDrop = softDrop(g.getFallingPiece());
 
+        for (ArrayList<Coords> alc : g.getSinkingPieces()) {
+            System.out.print("Sinking piece: ");
+
+            for (Coords c : alc) {
+                c.print();
+                System.out.print(", ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+        g.dropSinkingPieces(g.getSinkingPieces());
+
+        for (ArrayList<Coords> piece : g.getSinkingPieces()) {
+            g.putPieceOnBoard(piece);
+        }
         if (!canDrop) {
             // Wait until timer is up
             g.insertPieceIntoBoard();
-            g.getPlayField().deleteFullRows(g.getFallingPiece().playFieldCoords());
+            g.getPlayField().deleteFullRows(g.getFallingPiece().playFieldCoords(), this.g);
+
+            for (ArrayList<Coords> alc : g.getSinkingPieces()) {
+                System.out.print("Sinking piece: ");
+
+                for (Coords c : alc) {
+                    c.print();
+                    System.out.print(", ");
+                }
+                System.out.println();
+            }
+
+            System.out.println();
+
             g.setNextPieceFalling();
 
             if (g.invalidPosition()) {
@@ -145,6 +176,47 @@ class TurnLogic {
                     }
                 }
 
+                break;
+            case "betterfloattest":
+                g.getPlayField().createEmptyField();
+
+                Cell[][] allCells = g.getPlayField().getAllCells();
+
+                for (int i = 0, boardHeight = allCells.length; i < boardHeight; i++) {
+                    for (int j = 0, boardWidth = allCells[0].length; j < boardWidth; j++) {
+
+                        if (i == 15) {
+                            if (j != 2) {
+                                allCells[i][j].setFull();
+                            }
+                        }
+
+                        if (i > 15) {
+                            if (j == 2){
+                                allCells[i][j].setFull();
+                            }
+                        }
+
+                        if (i == 14 || i == 13) {
+                            if (j == 4 || j == 6 || j == 8) {
+                                allCells[i][j].setFull();
+                            }
+                        } else if (i == 21) {
+                            if (j == 4) {
+                                allCells[i][j].setFull();
+                            }
+                        } else if (i == 22) {
+                            if (j == 4 || j == 6)
+                                allCells[i][j].setFull();
+                        } else if (i == 23) {
+                            if (j == 4 || j == 6 || j == 8)
+                                allCells[i][j].setFull();
+                        }
+                    }
+                }
+
+                g.getFallingPiece().setCenter(4, 9);
+
             default: break;
         }
 
@@ -168,11 +240,11 @@ class TurnLogic {
     }
 
     private void rotateLeft() {
-        g.manipulate(new RotateLeft(), new RotateRight(), g.getFallingPiece());
+        g.manipulateRotate(new RotateLeft(), new RotateRight(), g.getFallingPiece());
     }
 
     private void rotateRight() {
-        g.manipulate(new RotateRight(), new RotateLeft(), g.getFallingPiece());
+        g.manipulateRotate(new RotateRight(), new RotateLeft(), g.getFallingPiece());
     }
 
     private void hardDrop(TetrisPiece t) {

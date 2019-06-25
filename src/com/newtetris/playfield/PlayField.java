@@ -1,5 +1,8 @@
 package com.newtetris.playfield;
 
+import com.newtetris.Game;
+import com.newtetris.playfield.findfloatingpieces.FindFloatingPieces;
+
 import java.util.Arrays;
 
 public class PlayField {
@@ -22,6 +25,10 @@ public class PlayField {
                 cells[y][x] = new Cell(x, y);
             }
         }
+    }
+
+    public int getWidth() {
+        return width;
     }
 
     public void fillCells(Coords[] coords) {
@@ -50,6 +57,10 @@ public class PlayField {
         return cells[coords.getY()][coords.getX()];
     }
 
+    public Cell getCell (int x, int y) {
+        return cells[y][x];
+    }
+
     public Cell[] getCellRow(int idx) {
         return cells[idx];
     }
@@ -70,7 +81,7 @@ public class PlayField {
         }
     }
 
-    public void deleteFullRows(Coords[] playFieldCoords) {
+    public void deleteFullRows(Coords[] playFieldCoords, Game g) {
         int startAt = -1;
 
         for (int i = 0, length = playFieldCoords.length; i < length; i++) {
@@ -81,8 +92,11 @@ public class PlayField {
             }
         }
 
+
         if (startAt > -1) {
             int shift = 0;
+            int sinkToRow = startAt + 1;
+
             while(!rowIsEmpty(startAt) && (startAt + shift) >= 0) {
                 while (rowIsFull(startAt + shift)) {
                     shift--;
@@ -96,6 +110,8 @@ public class PlayField {
             for (int i = startAt, halt = startAt + shift; i >= 0 && i > halt; i--) {
                 createNewEmptyRow(i);
             }
+
+            new FindFloatingPieces().findFloatingPieces(sinkToRow, g);
         }
     }
 }

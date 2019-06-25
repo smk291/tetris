@@ -22,6 +22,10 @@ public class YBoundsTester extends BoundsTester {
         return applyTest(minY, maxY, c.getY());
     }
 
+    public boolean apply(int y) {
+        return applyTest(minY, maxY, y);
+    }
+
     private boolean applyNoMin(Coords c) {
         return applyTest(-2, maxY, c.getY());
     }

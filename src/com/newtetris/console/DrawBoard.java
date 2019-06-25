@@ -7,6 +7,8 @@ import com.newtetris.playfield.Coords;
 import com.newtetris.playfield.PlayField;
 import com.newtetris.tetrispiece.TetrisPiece;
 
+import java.util.ArrayList;
+
 public class DrawBoard implements GUI {
     private int height;
     private int width;
@@ -51,10 +53,14 @@ public class DrawBoard implements GUI {
     }
 
     public void drawBoardIncludingPiece(Game g) {
-        g.putPieceOnBoard(g);
+        g.putPieceOnBoard(g.getFallingPiece().playFieldCoords());
 
         draw(g.getPlayField());
 
-        g.removePieceFromBoard(g);
+        g.removePieceFromBoard(g.getFallingPiece().playFieldCoords());
+
+        for (ArrayList<Coords> c : g.getSinkingPieces()) {
+            g.removePieceFromBoard(c);
+        }
     }
 }

@@ -8,3 +8,4 @@ public class ShiftDown extends Shift {
         applyShift(t, new Coords(0, 1));
     }
 }
+

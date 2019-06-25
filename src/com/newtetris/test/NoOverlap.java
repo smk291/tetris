@@ -12,11 +12,12 @@ public class NoOverlap implements BiPredicate<TetrisPiece, PlayField> {
     @Override
     public boolean test(TetrisPiece t, PlayField playField) {
         for (Coords c : t.playFieldCoords()) {
-            if (Cell.isValidCell(c) &&
-                    playField.getCell(c).isFull()) {
+            if (Cell.isValidCell(c) && playField.getCell(c).isFull()) {
                 return false;
             }
         }
         return true;
     }
 }
+
+

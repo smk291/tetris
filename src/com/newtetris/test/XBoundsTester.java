@@ -22,6 +22,10 @@ public class XBoundsTester extends BoundsTester {
         return applyTest(minX, maxX, c.getX());
     }
 
+    public boolean apply(int x) {
+        return applyTest(minX, maxX, x);
+    }
+
     public boolean applyArray(Coords[] c) {
         return Arrays.stream(c).allMatch(i -> apply(i));
     }

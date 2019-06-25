@@ -66,6 +66,13 @@ public class Kick {
 
         Integer[][] get = kickData.get(t.getPreviousOrientaton()).get(t.getOrientation());
 
+        if (get == null)
+            get = new Integer[][] {{0, 0}, {0, 0}, {0,0}, {0,0}};
+
+        System.out.println(get);
+        System.out.println(get.length);
+        System.out.println(get[0].length);
+
         for (Integer[] coords : get) {
             t.getCenter().mutateSum(coords);
 
