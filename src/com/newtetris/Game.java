@@ -95,24 +95,18 @@ public class Game {
 
             new ShiftDownCoords().apply(piece);
 
-            System.out.print("Down-shifted piece: ");
-
-            for (Coords c : piece) {
-                c.print();
-            }
-
-            System.out.println();
-
             if (invalidPosition(piece)) {
-                System.out.println("Piece position is invalid");
                 deleteList.add(i);
                 new ShiftUpCoords().apply(piece);
                 putPieceOnBoard(piece);
             }
         }
 
+        System.out.println(deleteList);
         if (deleteList.size() > 0) {
-            pieces.removeAll(deleteList);
+            for (Integer d : deleteList) {
+                sinkingPieces.remove((int) d);
+            }
         }
     }
 
@@ -127,18 +121,6 @@ public class Game {
 
     public boolean invalidPosition(ArrayList<Coords> cs) {
         for (Coords c : cs) {
-                if (!new XBoundsTester().apply(c)) {
-                    System.out.println(c.getX() + " is out of bounds.");
-                }
-
-                if (!new YBoundsTester().apply(c)) {
-                    System.out.println(c.getY() + " is out of bounds");
-                }
-
-                if (!new NoOverlapCoords().test(c, playField)) {
-                    System.out.println("Overlap");
-                }
-
                 if (
                         !(new XBoundsTester().apply(c) &&
                                 new YBoundsTester().apply(c) &&
@@ -229,7 +211,6 @@ public class Game {
     }
 
     public void addSinkingPiece (ArrayList<Coords> piece) {
-        System.out.println("Adding");
         sinkingPieces.add(piece);
     }
 

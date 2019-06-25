@@ -45,39 +45,14 @@ class TurnLogic {
     boolean continueGame() {
         boolean canDrop = softDrop(g.getFallingPiece());
 
-        for (ArrayList<Coords> alc : g.getSinkingPieces()) {
-            System.out.print("Sinking piece: ");
-
-            for (Coords c : alc) {
-                c.print();
-                System.out.print(", ");
-            }
-            System.out.println();
-        }
-
-        System.out.println();
         g.dropSinkingPieces(g.getSinkingPieces());
 
         for (ArrayList<Coords> piece : g.getSinkingPieces()) {
             g.putPieceOnBoard(piece);
         }
         if (!canDrop) {
-            // Wait until timer is up
             g.insertPieceIntoBoard();
             g.getPlayField().deleteFullRows(g.getFallingPiece().playFieldCoords(), this.g);
-
-            for (ArrayList<Coords> alc : g.getSinkingPieces()) {
-                System.out.print("Sinking piece: ");
-
-                for (Coords c : alc) {
-                    c.print();
-                    System.out.print(", ");
-                }
-                System.out.println();
-            }
-
-            System.out.println();
-
             g.setNextPieceFalling();
 
             if (g.invalidPosition()) {
@@ -177,7 +152,7 @@ class TurnLogic {
                 }
 
                 break;
-            case "betterfloattest":
+            case "q":
                 g.getPlayField().createEmptyField();
 
                 Cell[][] allCells = g.getPlayField().getAllCells();
@@ -215,8 +190,12 @@ class TurnLogic {
                     }
                 }
 
-                g.getFallingPiece().setCenter(4, 9);
 
+                TetrisPiece p1 = new TetrisPiece();
+                p1.setTetromino(TetrisPiecesEnum.values()[0].get());
+                g.setFallingPiece(p1);
+                g.getFallingPiece().setOrientation(1);
+                g.getFallingPiece().setCenter(1, 9);
             default: break;
         }
 
