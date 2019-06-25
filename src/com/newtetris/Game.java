@@ -8,6 +8,7 @@ import com.newtetris.test.XBoundsTester;
 import com.newtetris.test.YBoundsTester;
 import com.newtetris.tetrispiece.Manipulator;
 import com.newtetris.tetrispiece.TetrisPiece;
+import com.newtetris.tetrispiece.kick.Kick;
 
 public class Game {
     static int height;
@@ -55,7 +56,11 @@ public class Game {
         action.apply(t);
 
         if (invalidPosition(t)) {
-            // Check for possible kick on left, right and bottom
+            boolean canKick = t.getKick().apply(t, this);
+
+            if (canKick)
+                return true;
+
             undo.apply(t);
 
             return false;
@@ -73,7 +78,7 @@ public class Game {
         );
     }
 
-    boolean invalidPosition() {
+    public boolean invalidPosition() {
         return invalidPosition(fallingPiece);
     }
 

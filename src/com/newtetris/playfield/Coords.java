@@ -14,6 +14,10 @@ public class Coords {
         this.y = coords[1];
     }
 
+    public Coords clone() {
+        return new Coords(x, y);
+    }
+
     public int getX() {
         return x;
     }
@@ -28,5 +32,28 @@ public class Coords {
 
     public Coords sum(int x, int y) {
         return new Coords(this.x + x, this.y + y);
+    }
+
+    public Coords sum(int[] xAndY) {
+        return new Coords(this.x + xAndY[0], this.y + xAndY[1]);
+    }
+
+    public void mutateSum(Integer[] xAndY) {
+        this.x += xAndY[0];
+        this.y += xAndY[1];
+    }
+
+    public void mutateSum(int x, int y) {
+        this.x += x;
+        this.y += y;
+    }
+
+    public void mutateSum() {
+        this.x += x;
+        this.y += y;
+    }
+
+    public Coords negate() {
+        return new Coords(-this.x, -this.y);
     }
 }

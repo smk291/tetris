@@ -4,6 +4,7 @@ import com.newtetris.playfield.Cell;
 import com.newtetris.playfield.Coords;
 import com.newtetris.tetrispiece.TetrisPiece;
 import com.newtetris.tetrispiece.pieces.IPiece;
+import com.newtetris.tetrispiece.pieces.TetrisPiecesEnum;
 import com.newtetris.tetrispiece.rotate.RotateLeft;
 import com.newtetris.tetrispiece.rotate.RotateRight;
 import com.newtetris.tetrispiece.shift.ShiftDown;
@@ -88,6 +89,19 @@ class TurnLogic {
             case "J":
                 hardDrop(g.getFallingPiece());
                 break;
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+                TetrisPiece p = new TetrisPiece();
+                p.setTetromino(TetrisPiecesEnum.values()[Integer.parseInt(command) - 1].get());
+                g.setFallingPiece(p);
+                g.getFallingPiece().setCenter(4, 3);
+
+                break;
             case "itest":
                 g.getPlayField().createEmptyField();
 
@@ -102,6 +116,8 @@ class TurnLogic {
                 TetrisPiece ipiece = new TetrisPiece();
                 ipiece.reset(new IPiece());
                 g.setFallingPiece(ipiece);
+
+                break;
             case "floattest":
                 g.getPlayField().createEmptyField();
 

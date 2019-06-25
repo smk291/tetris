@@ -14,8 +14,5 @@ public class Main {
     }
 }
 // To do:
-//   Kick (down, left, right) Fit rotation into available space
-//   Hard drop
 //   Floating pieces drop
 //      Before deleting a row, check for islands
-//   Remove width and height from Cell

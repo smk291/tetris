@@ -1,13 +1,14 @@
 package com.newtetris.tetrispiece;
 
 import com.newtetris.playfield.Coords;
+import com.newtetris.tetrispiece.kick.Kick;
 import com.newtetris.tetrispiece.pieces.TetrisPiecesEnum;
 
 public class TetrisPiece implements Cloneable {
     private Tetromino tetromino;
     private Coords center;
     private int orientation;
-
+    private int previousOrientation;
     public TetrisPiece(Tetromino tetromino) {
         this.tetromino = tetromino;
         this.center = new Coords(4, 0);
@@ -31,6 +32,10 @@ public class TetrisPiece implements Cloneable {
         this.orientation = 0;
     }
 
+    public void setTetromino (Tetromino t) {
+        this.tetromino = t;
+    }
+
     public void reset(Tetromino tetromino) {
         this.tetromino = tetromino;
         setOrientation(0);
@@ -47,12 +52,17 @@ public class TetrisPiece implements Cloneable {
         return this.tetromino;
     }
 
+    public Kick getKick() {
+        return this.tetromino.kick();
+    }
+
     public int getOrientation() {
         return this.orientation;
     }
 
     // Orientation
     public void setOrientation(int nextRotation) {
+        this.previousOrientation = this.orientation;
         this.orientation = nextRotation;
     }
 
@@ -81,6 +91,10 @@ public class TetrisPiece implements Cloneable {
 
     public void setCenter(int x, int y) {
         this.center = new Coords(x, y);
+    }
+
+    public Integer getPreviousOrientaton() {
+        return this.previousOrientation;
     }
 }
 
