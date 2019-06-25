@@ -13,6 +13,3 @@ public class Main {
         consoleTetris.playGame();
     }
 }
-// To do:
-//   Floating pieces drop
-//      Before deleting a row, check for islands
