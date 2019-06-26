@@ -196,6 +196,41 @@ class TurnLogic {
                 g.setFallingPiece(p1);
                 g.getFallingPiece().setOrientation(1);
                 g.getFallingPiece().setCenter(1, 9);
+            case "bounds":
+                g.getPlayField().createEmptyField();
+
+                Cell[][] gameBoard = g.getPlayField().getAllCells();
+
+                for (int i = 0, boardHeight = gameBoard.length; i < boardHeight; i++) {
+                    for (int j = 0, boardWidth = gameBoard[0].length; j < boardWidth; j++) {
+
+                        if (i == 18) {
+                            if (j != 0 && !(j > 2 && j < 8)) {
+                                gameBoard[i][j].setFull();
+                            }
+                        }
+
+                        if (i == 19 || i == 20 || i == 21) {
+                            if (j != 5){
+                                gameBoard[i][j].setFull();
+                            }
+
+                        }
+
+                        if (i == 22 || i == 23) {
+                            if (j != 0 && j != 5) {
+                                gameBoard[i][j].setFull();
+                            }
+                        }
+                    }
+                }
+
+                TetrisPiece p2 = new TetrisPiece();
+                p2.setTetromino(TetrisPiecesEnum.values()[0].get());
+                g.setFallingPiece(p2);
+                g.getFallingPiece().setOrientation(1);
+                g.getFallingPiece().setCenter(4, 9);
+
             default: break;
         }
 

@@ -69,9 +69,9 @@ public class Kick {
         if (get == null)
             get = new Integer[][] {{0, 0}, {0, 0}, {0,0}, {0,0}};
 
-        System.out.println(get);
-        System.out.println(get.length);
-        System.out.println(get[0].length);
+//        System.out.println(get);
+//        System.out.println(get.length);
+//        System.out.println(get[0].length);
 
         for (Integer[] coords : get) {
             t.getCenter().mutateSum(coords);
