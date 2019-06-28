@@ -7,8 +7,10 @@ import java.util.Set;
 public class RowDeleter {
     private static PlayField p;
 
-    RowDeleter(PlayField p) {
-        this.p = p;
+    RowDeleter() {}
+
+    public static void setStaticVariables(PlayField p) {
+        RowDeleter.p = p;
     }
 
     public int apply(int[] testRows) {

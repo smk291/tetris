@@ -16,15 +16,13 @@ public class TetrisPiece {
     private Point2D center;
     private HashMap<Integer, HashMap<Integer, Integer[][]>> kickData;
 
-    public TetrisPiece(PlayField p, Tetromino tetromino) {
-        TetrisPiece.p = p;
+    public TetrisPiece(Tetromino tetromino) {
         resetOrientationAndLocation();
         setFromTetromino(tetromino);
     }
 
-    public TetrisPiece(Tetromino t) {
-        resetOrientationAndLocation();
-        setFromTetromino(t);
+    public static void setStaticVariables(PlayField p) {
+        TetrisPiece.p = p;
     }
 
     public void reset(Tetromino t) {
@@ -80,7 +78,7 @@ public class TetrisPiece {
     }
 
     public Point[] getPieceLocation() {
-        return Arrays.stream(offsets[orientation]).map(p -> new Point(p[0], p[1])).toArray(Point[]::new);
+        return Arrays.stream(offsets[orientation]).map(p -> new Point((int) this.center.getX() + p[0], (int) this.center.getY() + p[1])).toArray(Point[]::new);
     }
 
     public int getOrientationMax() {

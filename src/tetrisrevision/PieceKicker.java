@@ -1,11 +1,14 @@
 package tetrisrevision;
 
 public class PieceKicker {
-    TetrisPiece falling;
-    PieceLocationValidator tester;
-    PieceKicker(TetrisPiece falling, PieceLocationValidator tester) {
-        this.falling = falling;
-        this.tester = tester;
+    private static TetrisPiece falling;
+    private static PieceLocationValidator tester;
+
+    PieceKicker() {}
+
+    public static void setStaticVariables(TetrisPiece falling, PieceLocationValidator tester) {
+        PieceKicker.falling = falling;
+        PieceKicker.tester = tester;
     }
 
     public boolean tryKick() {

@@ -2,19 +2,32 @@ package tetrisrevision;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class FindSinkingPieces {
     private static PlayField p;
-    private static PieceLocationValidator tester;
+    private static PieceLocationValidator locationValidator;
     private static int width;
-    private static ArrayList<ArrayList<Integer[]>> sinkingPieces;
-    private static ArrayList<Cell> cellsAlreadySearched = new ArrayList<>();
+    private static ArrayList<ArrayList<Point>> sinkingPieces;
+    private static SinkingPieceBuilder f = new SinkingPieceBuilder();
 
-    public boolean cellAlreadySearched(Integer[] t) {
-        for (ArrayList<Integer[]> c : sinkingPieces) {
-            for (Integer[] i : c) {
-                if (Arrays.equals(i, t))
+    public FindSinkingPieces() {}
+
+    public static void setStaticVariables(
+            int width,
+            PlayField p,
+            PieceLocationValidator tester,
+            ArrayList<ArrayList<Point>> sinkingPieces
+    ) {
+        FindSinkingPieces.width = width;
+        FindSinkingPieces.p = p;
+        FindSinkingPieces.locationValidator = tester;
+        FindSinkingPieces.sinkingPieces = sinkingPieces;
+    }
+
+    public boolean cellAlreadySearched(Cell c) {
+        for (ArrayList<Point> ps : sinkingPieces) {
+            for (Point p : ps) {
+                if (p.equals(c.getPoint()))
                     return true;
             }
         }
@@ -23,33 +36,17 @@ public class FindSinkingPieces {
     }
 
 
-    public void setStaticVariables(
-            int width,
-            PlayField p,
-            PieceLocationValidator tester,
-            ArrayList<ArrayList<Integer[]>> sinkingPieces
-    ) {
-        FindSinkingPieces.width = width;
-        FindSinkingPieces.p = p;
-        FindSinkingPieces.tester = tester;
-        FindSinkingPieces.sinkingPieces = sinkingPieces;
-    }
-
-    public boolean cellAlreadySearched(Cell c) {
-        return cellsAlreadySearched.contains(c);
-    }
 
     public void findFloatingPieces(int startingY, int incr) {
         SinkingPieceBuilder.continueRecursing = true;
-        SinkingPieceBuilder f = new SinkingPieceBuilder();
 
-        if (!tester.pointIsValid(new Point(0, startingY)))
+        if (!locationValidator.pointIsValid(new Point(0, startingY)))
             return;
 
         Cell[][] cells = p.getCells();
 
         for (int i = 0; i < width; i++) {
-            f.piece = new ArrayList<Integer[]>();
+            f.piece = new ArrayList<Point>();
             // System.out.println("looking at cells in row " + startingY + ".");
             // System.out.println("Cell " + i + ", " + startingY + ".");
 
@@ -59,15 +56,14 @@ public class FindSinkingPieces {
 
             if (!cellAlreadySearched(currentCell) && currentCell.isEmpty() && cellAbove.isFull()) {
                 // System.out.println("Cell " + i + " is empty and cell above is full.");
-
                 f.store(adjacentRow, i);
 
                 // System.out.print("Floating piece: ");
 
-                ArrayList<Integer[]> newPiece = new ArrayList<Integer[]>();
+                ArrayList<Point> newPiece = new ArrayList<>();
 
-                for (Integer[] c : f.piece) {
-                    newPiece.add(new Integer[]{c[0], c[1]});
+                for (Point c : f.piece) {
+                    newPiece.add(new Point((int) c.getX(), (int) c.getY()));
                     // System.out.print("{ " + c[0] + ", " +  c[1] + " }, ");
                 }
 
@@ -84,7 +80,7 @@ public class FindSinkingPieces {
 
 class SinkingPieceBuilder {
     public static boolean continueRecursing = true;
-    public ArrayList<Integer[]> piece = new ArrayList<>();
+    public ArrayList<Point> piece = new ArrayList<>();
     private static PieceLocationValidator tester;
     private static PlayField p;
 
@@ -119,10 +115,10 @@ class SinkingPieceBuilder {
             } else if (
                     continueRecursing &&
                             !tester.coordinatesAreValid(x, y) &&
-                            piece.stream().noneMatch(i -> i[0] == x && i[1] == y)
+                            piece.stream().noneMatch(i -> (int) i.getX() == x && (int) i.getY() == y)
             ) {
                 // System.out.println("continue recursing. position is valid, piece doesn't contain this cell");
-                this.piece.add(new Integer[]{x, y});
+                this.piece.add(new Point(x, y));
 
                 this.store(y + 1, x);
                 this.store(y - 1, x);

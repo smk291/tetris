@@ -1,24 +1,30 @@
 package tetrisrevision;
 
+import tetrisrevision.tetrominos.Tetromino;
+
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PlayField {
-    private Cell[][] cells = new Cell[][]{};
-    private Point[][] sinking;
-    private TetrisPiece falling;
-    private TetrisPiece[] q;
-    private int width;
-    private int height;
+    private static Cell[][] cells = new Cell[][]{};
+    private static ArrayList<ArrayList<Point>> sinking;
+    private static TetrisPiece falling;
+    private static Tetromino[] q;
+    private static int width;
+    private static int height;
 
-    PlayField(Point[][] s, TetrisPiece f, TetrisPiece[] q, int w, int h) {
-        this.sinking = s;
-        this.falling = f;
-        this.q = q;
-        this.width = w;
-        this.height = h;
-
+    PlayField() {
         createEmpty();
+    }
+
+    public static void setStaticVariables(ArrayList<ArrayList<Point>> s, TetrisPiece f, Tetromino[] q, int w, int h) {
+        PlayField.sinking = s;
+        PlayField.falling = f;
+        PlayField.q = q;
+        PlayField.width = w;
+        PlayField.height = h;
+
     }
 
     private void createEmpty() {
@@ -41,6 +47,10 @@ public class PlayField {
         }
     }
 
+    public void fillCell(Point p) {
+        cells[(int) p.getY()][(int) p.getX()].setEmpty(false);
+    }
+
     public void emptyCells(Point[] ps) {
         for (Point p : ps) {
             cells[(int) p.getY()][(int) p.getX()].setEmpty(true);
@@ -48,11 +58,11 @@ public class PlayField {
     }
 
     public boolean rowIsFull(int row) {
-        return Arrays.stream(cells[row]).allMatch(c -> c.isFull());
+        return Arrays.stream(cells[row]).allMatch(Cell::isFull);
     }
 
     public boolean rowIsEmpty(int row) {
-        return Arrays.stream(cells[row]).allMatch(c -> c.isEmpty());
+        return Arrays.stream(cells[row]).allMatch(Cell::isEmpty);
     }
 
     public void copyRow (int rowFrom, int rowTo) {

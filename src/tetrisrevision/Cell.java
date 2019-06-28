@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 
 public class Cell {
     private static PlayField p;
-    private Point2D pt;
+    private Point pt;
     private boolean empty;
     private Color c;
 
@@ -25,5 +25,17 @@ public class Cell {
 
     public boolean isFull() {
         return !this.empty;
+    }
+
+    public int getX() {
+        return (int) pt.getX();
+    }
+
+    public int getY() {
+        return (int) pt.getY();
+    }
+
+    public Point getPoint() {
+        return pt;
     }
 }

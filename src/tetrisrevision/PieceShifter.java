@@ -4,17 +4,18 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class PieceShifter {
-    TetrisPiece falling;
-    PieceLocationValidator t;
+    private static TetrisPiece falling;
+    private static PieceLocationValidator locationValidator;
 
-    PieceShifter (TetrisPiece t) {
-        this.falling = t;
+    public static void setStaticVariables (TetrisPiece falling, PieceLocationValidator locationValidator) {
+        PieceShifter.falling = falling;
+        PieceShifter.locationValidator = locationValidator;
     }
 
     public boolean softDropSinkingPiece (Point[] s) {
         Arrays.stream(s).forEach(p -> p.translate(0, 1));
 
-        if (Arrays.stream(s).allMatch(p -> t.pointIsValid(p)))
+        if (Arrays.stream(s).allMatch(p -> locationValidator.pointIsValid(p)))
             return true;
 
         Arrays.stream(s).forEach(p -> p.translate(0, -1));
@@ -25,7 +26,7 @@ public class PieceShifter {
     public boolean translateFallingPiece (int x, int y) {
         falling.translateCenter(x, y);
 
-        if (t.positionIsValid()) {
+        if (locationValidator.positionIsValid()) {
             return true;
         }
 

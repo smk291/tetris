@@ -77,7 +77,7 @@
 
 // NoOverlapCoords
     // Takes Coords
-        // return -- cell isn't valid or cell isn't full
+        // return -- cell isn'tester valid or cell isn'tester full
 
 // XBoundsTester
     // setWidth

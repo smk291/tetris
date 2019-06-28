@@ -1,6 +1,6 @@
-package com.newtetris.tetrispiece.pieces;
+package tetrisrevision.tetrominos;
 
-import com.newtetris.tetrispiece.Tetromino;
+import tetrisrevision.tetrominos.Tetromino;
 
 import java.util.Random;
 

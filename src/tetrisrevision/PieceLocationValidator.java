@@ -1,23 +1,26 @@
 package tetrisrevision;
 
+import tetrisrevision.tetrominos.Tetromino;
+
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PieceLocationValidator {
     private static int width;
     private static int height;
     private static PlayField p;
-    private static Point[][] sinking;
+    private static ArrayList<ArrayList<Point>> sinking;
     private static TetrisPiece falling;
-    private static TetrisPiece[] q;
+    private static Tetromino[] q;
 
-    PieceLocationValidator (int w, int h, PlayField p, Point[][] s, TetrisPiece falling, TetrisPiece[] q) {
-        this.width = w;
-        this.height = h;
-        this.p = p;
-        this.sinking = s;
-        this.falling = falling;
-        this.q = q;
+    public static void setStaticVariables(int w, int h, PlayField p, ArrayList<ArrayList<Point>> s, TetrisPiece falling, Tetromino[] q) {
+        width = w;
+        height = h;
+        PieceLocationValidator.p = p;
+        sinking = s;
+        PieceLocationValidator.falling = falling;
+        PieceLocationValidator.q = q;
     }
 
     private boolean xInBounds(Point p) {
@@ -45,7 +48,7 @@ public class PieceLocationValidator {
 //    }
 
     public boolean positionIsValid() {
-        return Arrays.stream(falling.getPieceLocation()).allMatch(p -> pointIsValid(p));
+        return Arrays.stream(falling.getPieceLocation()).allMatch(this::pointIsValid);
     }
 
     public boolean pointIsValid(Point p) {
@@ -55,7 +58,7 @@ public class PieceLocationValidator {
     }
 
     public boolean pointsAreValid(Point[] ps) {
-        return Arrays.stream(ps).allMatch(p -> pointIsValid(p));
+        return Arrays.stream(ps).allMatch(this::pointIsValid);
     }
 
     public boolean coordinatesAreValid(int x, int y) {

@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Kick {
     public static Coords center;
-//        J, L, S, T, Z Tetromino Wall Kick Data
+    //        J, L, S, T, Z Tetromino Wall Kick Data
 //         Test 1   Test 2   Test 3   Test 4   Test 5
 //        -0>>1  {{ 0, 0}, {-1, 0}, {-1, 1}, { 0,-2}, {-1,-2}}
 //        1>>0  {{ 0, 0}, { 1, 0}, { 1,-1}, { 0, 2}, { 1, 2}}
@@ -61,27 +61,27 @@ public class Kick {
         );
     }};
 
-//    public static boolean apply(TetrisPiece t, Game g) {
-//        Kick.center = t.getCenter().clone();
-//
-//        Integer[][] get = kickData.get(t.getPreviousOrientaton()).get(t.getOrientation());
-//
-//        if (get == null)
-//            get = new Integer[][] {{0, 0}, {0, 0}, {0,0}, {0,0}};
-//
+    public static boolean apply(TetrisPiece t, Game g) {
+        Kick.center = t.getCenter().clone();
+
+        Integer[][] get = kickData.get(t.getPreviousOrientaton()).get(t.getOrientation());
+
+        if (get == null)
+            get = new Integer[][] {{0, 0}, {0, 0}, {0,0}, {0,0}};
+
 //        System.out.println(get);
 //        System.out.println(get.length);
 //        System.out.println(get[0].length);
-//
-//        for (Integer[] coords : get) {
-//            t.getCenter().mutateSum(coords);
-//
-//            if (!g.invalidPosition())
-//                return true;
-//
-//            t.getCenter().mutateSum(-coords[0], -coords[1]);
-//        }
-//
-//        return false;
-//    }
+
+        for (Integer[] coords : get) {
+            t.getCenter().mutateSum(coords);
+
+            if (!g.invalidPosition())
+                return true;
+
+            t.getCenter().mutateSum(-coords[0], -coords[1]);
+        }
+
+        return false;
+    }
 }

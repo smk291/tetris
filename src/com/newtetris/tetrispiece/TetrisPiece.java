@@ -9,10 +9,12 @@ public class TetrisPiece implements Cloneable {
     private Coords center;
     private int orientation;
     private int previousOrientation;
+
     public TetrisPiece(Tetromino tetromino) {
         this.tetromino = tetromino;
         this.center = new Coords(4, 0);
         this.orientation = 0;
+        this.tetromino = tetromino;
     }
 
     public TetrisPiece() {
@@ -35,6 +37,7 @@ public class TetrisPiece implements Cloneable {
     public void setTetromino (Tetromino t) {
         this.tetromino = t;
     }
+
 
     public void reset(Tetromino tetromino) {
         this.tetromino = tetromino;

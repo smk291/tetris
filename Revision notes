@@ -17,10 +17,10 @@
                             // -- Thread --
                                 // Start half-second movement clock
                                 // After half-second clock ends
-                                    // If piece can't drop, put on board
+                                    // If piece can'tester drop, put on board
     // ---Thread---
         // Get input
-            // If press down and piece can't move down
+            // If press down and piece can'tester move down
                 // Put piece on board
                 // Reset falling piece
                 // Reset new piece

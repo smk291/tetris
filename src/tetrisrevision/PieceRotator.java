@@ -1,15 +1,15 @@
 package tetrisrevision;
 
 public class PieceRotator {
-    TetrisPiece falling;
-    PieceLocationValidator t;
-    PieceShifter s;
-    PieceKicker kicker;
+    private static TetrisPiece falling;
+    private static PieceLocationValidator tester;
+    private static PieceShifter s;
+    private static PieceKicker kicker;
 
-    PieceRotator(TetrisPiece falling, PieceLocationValidator t, PieceKicker kicker) {
-        this.falling = falling;
-        this.t = t;
-        this.kicker = kicker;
+    public static void setStaticVariables(TetrisPiece falling, PieceLocationValidator tester, PieceKicker kicker) {
+        PieceRotator.falling = falling;
+        PieceRotator.tester = tester;
+        PieceRotator.kicker = kicker;
     }
 
     public boolean rotate (int incr) {
@@ -22,7 +22,7 @@ public class PieceRotator {
             falling.setOrientation(0);
         }
 
-        if (!t.positionIsValid()) {
+        if (!tester.positionIsValid()) {
             if (kicker.tryKick())
                 return true;
 
