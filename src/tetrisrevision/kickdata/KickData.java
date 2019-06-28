@@ -1,14 +1,10 @@
-package com.newtetris.tetrispiece.kick;
+package tetrisrevision.kickdata;
 
-import com.newtetris.Game;
-import com.newtetris.playfield.Coords;
-import com.newtetris.tetrispiece.TetrisPiece;
 
 import java.util.HashMap;
 
-public class Kick {
-    public static Coords center;
-//        J, L, S, T, Z Tetromino Wall Kick Data
+public class KickData {
+    //        J, L, S, T, Z Tetromino Wall Kick Data
 //         Test 1   Test 2   Test 3   Test 4   Test 5
 //        -0>>1  {{ 0, 0}, {-1, 0}, {-1, 1}, { 0,-2}, {-1,-2}}
 //        1>>0  {{ 0, 0}, { 1, 0}, { 1,-1}, { 0, 2}, { 1, 2}}
@@ -30,7 +26,7 @@ public class Kick {
 //        3>>0  { 0, 0}, { 1, 0}, {-2, 0}, { 1,-2}, {-2, 1}}
 //        0>>3  { 0, 0}, {-1, 0}, { 2, 0}, {-1, 2}, { 2,-1)}
 //
-    public static HashMap<Integer, HashMap<Integer, Integer[][]>> kickData = new HashMap<Integer, HashMap<Integer, Integer[][]>>() {{
+    private HashMap<Integer, HashMap<Integer, Integer[][]>> kickData = new HashMap<Integer, HashMap<Integer, Integer[][]>>() {{
         put(
                 0,
                 new HashMap<Integer, Integer[][]>(){{
@@ -61,27 +57,15 @@ public class Kick {
         );
     }};
 
-//    public static boolean apply(TetrisPiece t, Game g) {
-//        Kick.center = t.getCenter().clone();
-//
-//        Integer[][] get = kickData.get(t.getPreviousOrientaton()).get(t.getOrientation());
-//
-//        if (get == null)
-//            get = new Integer[][] {{0, 0}, {0, 0}, {0,0}, {0,0}};
-//
-//        System.out.println(get);
-//        System.out.println(get.length);
-//        System.out.println(get[0].length);
-//
-//        for (Integer[] coords : get) {
-//            t.getCenter().mutateSum(coords);
-//
-//            if (!g.invalidPosition())
-//                return true;
-//
-//            t.getCenter().mutateSum(-coords[0], -coords[1]);
-//        }
-//
-//        return false;
-//    }
+    public Integer[][] get(int prevOrientation, int orientation) {
+        return kickData.get(prevOrientation).get(orientation);
+    }
+
+    public void setKickData (HashMap<Integer, HashMap<Integer, Integer[][]>> kickData) {
+        this.kickData = kickData;
+    }
+
+    public HashMap<Integer, HashMap<Integer, Integer[][]>> get() {
+        return kickData;
+    }
 }
