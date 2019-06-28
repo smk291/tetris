@@ -1,11 +1,11 @@
 package tetrisrevision;
 
-import tetrisrevision.tetrominos.TetrisPiecesEnum;
+import tetrisrevision.console.DrawBoard;
+import tetrisrevision.tetrominos.TetrominoEnum;
 import tetrisrevision.tetrominos.Tetromino;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Game {
     private static int width = 10;
@@ -14,37 +14,48 @@ public class Game {
     private static ArrayList<ArrayList<Point>> sinkingPieces = new ArrayList<>();
     private Tetromino[] q = new Tetromino[7];
     private PlayField p = new PlayField();
-    private TetrisPiece falling = new TetrisPiece(TetrisPiecesEnum.getPiece());
-
-    private FindSinkingPieces findSinkingPieces = new FindSinkingPieces();
-    private MakeNextPieceFallingPiece resetFallingPiece = new MakeNextPieceFallingPiece();
-    private ModifyPlayField playfieldModifier = new ModifyPlayField();
-    private PieceKicker kicker = new PieceKicker();
-    private PieceLocationValidator locationValidator = new PieceLocationValidator();
-    private PieceRotator rotator = new PieceRotator();
-    private PieceShifter shifter = new PieceShifter();
-    private RowDeleter rowDeleter = new RowDeleter();
+    private TetrisPiece falling = new TetrisPiece(TetrominoEnum.getTetromino());
 
     Game() {
+    }
+
+    public void play() {
         initializeVariables();
+
+//        System.out.println("Game play q[0] is null " + q[0]);
+
+        while (RunTetris.continueGame()) {
+            RunTetris.keyboardInput();
+        }
     }
 
     public void initializeVariables() {
-        for (Tetromino t : this.q) {
-           t = TetrisPiecesEnum.getPiece();
+        Tetromino[] tetrominos = this.q;
+        falling.setFromTetromino(TetrominoEnum.getTetromino());
+
+//        System.out.println("Game.java falling length: " + falling.getPieceLocation().length);
+
+        for (int i = 0, tetrominosLength = tetrominos.length; i < tetrominosLength; i++) {
+            Tetromino t = tetrominos[i];
+
+            q[i] = TetrominoEnum.getTetromino();
         }
 
-        PlayField.setStaticVariables(sinkingPieces,falling,q,width,height);
+        PlayField.setStaticVariables(sinkingPieces,falling, q, width, height);
         TetrisPiece.setStaticVariables(p);
 
-        FindSinkingPieces.setStaticVariables(width,p, locationValidator, sinkingPieces);
+        Cell.setStaticVariables(p);
+        Change.setStaticVariables(falling, sinkingPieces);
+        FallingPieceAndQueue.setStaticVariables(falling, q);
+
+        DrawBoard.setStaticVariables(p);
+        FindSinkingPieces.setStaticVariables(p, sinkingPieces);
+        FindSinkingPieces.SinkingPieceBuilder.setPlayField(p);
         MakeNextPieceFallingPiece.setStaticVariables(falling, q);
-        ModifyPlayField.setStaticVariables(p);
-        PieceKicker.setStaticVariables(falling, locationValidator);
-        PieceLocationValidator.setStaticVariables(width, height, p, sinkingPieces, falling, q);
-        PieceRotator.setStaticVariables(falling, locationValidator, kicker);
-        PieceShifter.setStaticVariables(falling, locationValidator);
-        RowDeleter.setStaticVariables(p);
+        ModifyPlayField.setStaticVariables(p, falling, sinkingPieces);
+        PlayField.setStaticVariables(sinkingPieces, falling, q, width, height);
+        RunTetris.setStaticVariables(falling, q, p, sinkingPieces, new DrawBoard());
+        Test.setStaticVariables(p, sinkingPieces, falling, q);
     }
 
 }

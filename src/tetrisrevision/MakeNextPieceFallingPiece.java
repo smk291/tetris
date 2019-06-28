@@ -15,7 +15,4 @@ public class MakeNextPieceFallingPiece {
        MakeNextPieceFallingPiece.q = q;
     }
 
-    public void swap () {
-        falling.reset(this.q[0]);
-    }
 }

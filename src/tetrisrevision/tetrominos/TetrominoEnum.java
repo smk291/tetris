@@ -1,10 +1,8 @@
 package tetrisrevision.tetrominos;
 
-import tetrisrevision.tetrominos.Tetromino;
-
 import java.util.Random;
 
-public enum TetrisPiecesEnum {
+public enum TetrominoEnum {
     I(new IPiece()),
     O(new OPiece()),
     L(new LPiece()),
@@ -13,17 +11,17 @@ public enum TetrisPiecesEnum {
     S(new SPiece()),
     Z(new ZPiece());
 
-    public static final TetrisPiecesEnum[] piecesArray = values();
+    public static final TetrominoEnum[] piecesArray = values();
     public static final int enumSize = piecesArray.length;
     public static final Random r = new Random();
 
     Tetromino piece;
 
-    TetrisPiecesEnum(Tetromino piece) {
+    TetrominoEnum(Tetromino piece) {
         this.piece = piece;
     }
 
-    public static Tetromino getPiece() {
+    public static Tetromino getTetromino() {
         return piecesArray[r.nextInt(enumSize)].piece;
     }
 

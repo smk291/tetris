@@ -9,10 +9,13 @@ public class Cell {
     private boolean empty;
     private Color c;
 
-    Cell (PlayField p, int y, int x) {
-        Cell.p = p;
+    Cell (int y, int x) {
         this.empty = true;
         this.pt = new Point(x, y);
+    }
+
+    public static void setStaticVariables(PlayField p) {
+        Cell.p = p;
     }
 
     public void setEmpty(boolean status) {

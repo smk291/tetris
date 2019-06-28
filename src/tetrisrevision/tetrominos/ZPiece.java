@@ -1,6 +1,6 @@
 package tetrisrevision.tetrominos;
 
-import com.newtetris.tetrispiece.kick.Kick;
+import tetrisrevision.kickdata.KickData;
 
 class ZPiece extends Tetromino {
     private final static int[][][] offsets =
@@ -21,6 +21,6 @@ class ZPiece extends Tetromino {
             };
 
     ZPiece() {
-        super(offsets, new Kick(), "ZPiece");
+        super(offsets, new KickData(), "ZPiece");
     }
 }

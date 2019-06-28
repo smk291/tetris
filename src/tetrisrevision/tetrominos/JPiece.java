@@ -1,7 +1,6 @@
 package tetrisrevision.tetrominos;
 
-import tetrisrevision.tetrominos.Tetromino;
-import com.newtetris.tetrispiece.kick.Kick;
+import tetrisrevision.kickdata.KickData;
 
 class JPiece extends Tetromino {
     private final static int[][][] offsets =
@@ -21,6 +20,6 @@ class JPiece extends Tetromino {
             };
 
     JPiece() {
-        super(offsets, new Kick(), "JPiece");
+        super(offsets, new KickData(), "JPiece");
     }
 }

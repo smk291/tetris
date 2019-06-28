@@ -18,10 +18,7 @@ public class Tetromino {
     }
 
     private TetrisPiece setNewPiece(PlayField p) {
-        return new TetrisPiece(
-               p,
-               this
-        );
+        return new TetrisPiece(this);
     }
 
     private void resetPiece(TetrisPiece t) {

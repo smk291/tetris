@@ -1,6 +1,6 @@
 package tetrisrevision.tetrominos;
 
-import com.newtetris.tetrispiece.kick.Kick;
+import tetrisrevision.kickdata.KickData;
 
 class OPiece extends Tetromino {
     private final static int[][][] offsets =
@@ -11,6 +11,6 @@ class OPiece extends Tetromino {
     private final static int orientations = 1;
 
     OPiece() {
-        super(offsets, new Kick(), "OPiece");
+        super(offsets, new KickData(), "OPiece");
     }
 }

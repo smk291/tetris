@@ -27,6 +27,9 @@ public class TetrisPiece {
 
     public void reset(Tetromino t) {
         resetOrientationAndLocation();
+
+//        System.out.println("TetrisPiece reset Tetromino is null " + t);
+
         setFromTetromino(t);
     }
 
@@ -36,10 +39,10 @@ public class TetrisPiece {
     }
 
     public void setFromTetromino(Tetromino t) {
+//        System.out.println("TetrisPiece setFromTetromino is null " + t);
         this.orientationMax = t.getOffsets().length;
         this.offsets = t.getOffsets();
         this.kickData = t.getKickData();
-
     }
 
 //    public void setCenter(Point2D center) {
@@ -78,7 +81,17 @@ public class TetrisPiece {
     }
 
     public Point[] getPieceLocation() {
-        return Arrays.stream(offsets[orientation]).map(p -> new Point((int) this.center.getX() + p[0], (int) this.center.getY() + p[1])).toArray(Point[]::new);
+        System.out.print("TetrisPiece getPieceLocation ");
+
+        Arrays.stream(offsets[orientation]).forEach(p ->
+            System.out.print(" { " + (p[0] + (int) this.center.getX()) + ", " + ((int) this.center.getY() + p[1]) + " }, ")
+        );
+
+        System.out.println();
+
+        return Arrays.stream(offsets[orientation]).map(p ->
+            new Point((int) this.center.getX() + p[0], (int) this.center.getY() + p[1])
+        ).toArray(Point[]::new);
     }
 
     public int getOrientationMax() {
@@ -91,6 +104,10 @@ public class TetrisPiece {
 
     public HashMap<Integer, HashMap<Integer, Integer[][]>> getKickData() {
         return kickData;
+    }
+
+    public void setCenter(Point pt) {
+        this.center = pt;
     }
 
 //    public void setKickData(HashMap<Integer, HashMap<Integer, Integer[][]>> kickData) {

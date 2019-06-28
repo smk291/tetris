@@ -14,11 +14,28 @@ public class PlayField {
     private static int width;
     private static int height;
 
+    public static int getWidth() {
+        return width;
+    }
+
+//    public static void setWidth(int width) {
+//        PlayField.width = width;
+//    }
+
+    public static int getHeight() {
+        return height;
+    }
+
+//    public static void setHeight(int height) {
+//        PlayField.height = height;
+//    }
+
     PlayField() {
-        createEmpty();
     }
 
     public static void setStaticVariables(ArrayList<ArrayList<Point>> s, TetrisPiece f, Tetromino[] q, int w, int h) {
+        createEmpty();
+
         PlayField.sinking = s;
         PlayField.falling = f;
         PlayField.q = q;
@@ -27,12 +44,12 @@ public class PlayField {
 
     }
 
-    private void createEmpty() {
+    public static void createEmpty() {
         cells = new Cell[height][width];
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                cells[y][x] = new Cell(this, y, x);
+                cells[y][x] = new Cell(y, x);
             }
         }
     }
@@ -78,6 +95,10 @@ public class PlayField {
     }
 
     public Cell[][] getCells() {
-        return this.cells;
+        return cells;
+    }
+
+    public void emptyCell (Point pt) {
+        cells[(int) pt.getY()][(int) pt.getX()].setEmpty(true);
     }
 }
