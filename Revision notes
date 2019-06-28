@@ -1,0 +1,98 @@
+// Game logic
+    // ---Thread---
+        // Timer tick
+            // On timer tick
+                // Drop sinking pieces
+                    // Check if can drop further
+                        // If not,
+                            // Raise piece
+                            // Put piece on board
+                            // Delete piece from list of sinking pieces
+                        // Else
+                            // Put on board(?)
+                                // (To remove again later
+                // Drop falling piece
+                    // Check if can drop further
+                        // If not
+                            // -- Thread --
+                                // Start half-second movement clock
+                                // After half-second clock ends
+                                    // If piece can't drop, put on board
+    // ---Thread---
+        // Get input
+            // If press down and piece can't move down
+                // Put piece on board
+                // Reset falling piece
+                // Reset new piece
+
+
+// Put piece on board
+    // Test for full rows
+    // Delete full rows
+    // Look for floating pieces
+        // Add floating pieces if needed
+
+// Reset falling piece
+    // If position invalid, end game
+
+// Reset new piece
+    // ...?
+
+// Prevent falling piece from moving through sinking piece
+// Reset values of TetrisPiece rather than creating new one in order not to reassign pointer
+// Make them final
+
+Classes
+
+// Abstract class: Data Housing
+    // Static Variables
+        // PlayField
+        // SinkingPieces
+        // TetrisPiece
+
+// Abstract Mechanics Housing: Extends Data Housing, Implements Predicate/BiPredicate
+    // Method to execute action
+        // Parameters
+            // Action
+            // Undo
+
+// TetrisPiece -- extends Data Housing
+    // Instance variables
+        // Tetromino
+    // Methods
+        // Shift
+            // Test whether can drop -- end forced drop timer if so
+        // Rotate
+            // Test whether can drop -- end forced drop timer if so
+        // Kick
+            // Test validity of position
+
+// Tester -- extends Data Housing
+    // Test validity of position
+    // Look at left and right edges
+    // Look at top and bottom
+    // Look at sinking pieces
+    // Can in particular direction
+// Tests --
+
+// Rotator
+    // TetrisPiece
+    // PlayField
+    // SinkingPieces
+
+// Shifter
+    // TetrisPiece
+    // PlayField
+    // SinkingPieces
+
+// DropTimer
+    // TetrisPiece
+    // PlayField
+    // SinkingPieces
+
+// SettleTimers
+
+// Coordinates
+
+// Cell -- Extends coordinates
+// RelativeCoordinates -- Extends Coordinates

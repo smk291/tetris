@@ -113,13 +113,84 @@
         // Get Kick
         // Get orientation
         // Get orientation max value
+        // Get relative coordinates of tetromino
+        // Get coordinates of piece on playField
+        // Get center
+        // Get previous orientation
     // Setter
         // Randomly set new shape/tetromino and move center to default position
         // Set tetromino
         // Reset tetromino and orientation -- not position
         // Set orientation
-        
+        // Set center
     // Test
+// Tetromino
+    // Getter
+        // Get relative coordinates by orientation
+        // Get max number of orientations
+        // Get piece size
+        // Kick
+// Game
+    // Getter
+        // Get falling piece
+        // Get width
+        // Get height
+        // Get sinking pieces
+    // Setter
+        // Reset current and next piece
+        // Set next piece to falling piece
+        // Set falling piece to a given TetrisPiece
+        // Randomly set next piece
+        // Add sinking piece
+        // Remove sinking piece
+        // Set sinking pieces
+    // Test
+        // Invalid position (TetrisPiece)
+        // Invalid position (ArrayList<Coords>)
+        // Invalid position (int, int)
+        // Invalid position ()
+        // Cell already searched
+    // Side effect(?)
+        // manipulate
+        // manipulate rotate
+        // drop sinking pieces
+        // insert piece into board
+            // fill cells
+        // put piece on board (Coords[])
+        // put piece on board (ArrayList<Coords>)
+        // remove piece from board
+
+// TurnLogic
+    // Getters
+    // Setters
+    // Test
+        // continue game
+            // Set-up
+                // Drop falling piece
+                // Test validity of position
+                // Drop sinking pieces
+                // Put sinking pieces on board
+            // If falling piece's position is valid
+                // Put piece on board
+                // Delete rows
+                    // (Create sinking pieces)
+                // Set next piece to falling piece
+                // If position still invalid
+                    // End game
+                // Reset next piece
+                // Draw board
+            // Else
+                // Put falling piece back where it was
+
+            // Return true
+                // To continue game
+
+    // Side effects
+        // Play Game
+            // while continue game
+                // keyboard input
+    // Get Keyboard input
+        // etc...
 
 // Ideas
     // Make playfield available inside Cells and Coords as static variable
