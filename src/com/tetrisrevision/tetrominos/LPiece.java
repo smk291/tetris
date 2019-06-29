@@ -23,6 +23,6 @@ class LPiece extends Tetromino {
     private final static int orientations = 4;
 
     LPiece() {
-        super(offsets, new KickData(), "LPiece");
+        super(offsets, new KickData());
     }
 }

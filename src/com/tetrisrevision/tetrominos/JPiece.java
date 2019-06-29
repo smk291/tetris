@@ -20,6 +20,6 @@ class JPiece extends Tetromino {
             };
 
     JPiece() {
-        super(offsets, new KickData(), "JPiece");
+        super(offsets, new KickData());
     }
 }

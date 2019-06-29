@@ -74,7 +74,11 @@ abstract public class FindSinkingPieces {
                     continueRecursing = false;
 
                     piece = new ArrayList<>();
-                } else if (continueRecursing && Test.Position.pointIsInBounds(currentPoint) && piece.stream().noneMatch(currentPoint::equals)) {
+                } else if (
+                        continueRecursing &&
+                                Test.Position.pointIsInBounds(currentPoint) &&
+                                piece.stream().noneMatch(currentPoint::equals)
+                ) {
                     SinkingPieceFinder.piece.add(currentPoint);
 
                     Point p1 = (Point) currentPoint.clone();
@@ -93,14 +97,6 @@ abstract public class FindSinkingPieces {
                     store(p4);
                 }
             }
-        }
-
-        public static ArrayList<Point> getPiece() {
-            return piece;
-        }
-
-        public static void setPiece(ArrayList<Point> piece) {
-            SinkingPieceFinder.piece = piece;
         }
     }
 }

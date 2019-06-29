@@ -13,11 +13,12 @@ public class TetrisPiece {
     private int prevOrientation;
     private int orientation;
     private int orientationMax;
-    private Point2D center;
+    private Point center;
     private HashMap<Integer, HashMap<Integer, Integer[][]>> kickData;
+    private boolean addToBoard;
 
     public TetrisPiece(Tetromino tetromino) {
-        resetOrientationAndLocation();
+        resetSelf();
         setFromTetromino(tetromino);
     }
 
@@ -26,14 +27,14 @@ public class TetrisPiece {
     }
 
     public void reset(Tetromino t) {
-        resetOrientationAndLocation();
-
+        resetSelf();
         setFromTetromino(t);
     }
 
-    public void resetOrientationAndLocation() {
+    public void resetSelf() {
         this.center = new Point(4, 0);
         this.orientation = 0;
+        addToBoard = false;
     }
 
     public void setFromTetromino(Tetromino t) {
@@ -85,5 +86,17 @@ public class TetrisPiece {
 
     public void setCenter(Point pt) {
         this.center = pt;
+    }
+
+    public void setCenter(int x, int y) {
+        this.center = new Point(x, y);
+    }
+
+    public boolean isAddToBoard() {
+        return addToBoard;
+    }
+
+    public void setAddToBoard(boolean addToBoard) {
+        this.addToBoard = addToBoard;
     }
 }

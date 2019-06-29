@@ -46,11 +46,10 @@ public class Game {
 
         DrawBoard.setStaticVariables(p);
         FindSinkingPieces.setStaticVariables(p, sinkingPieces);
-//        MakeNextPieceFallingPiece.setStaticVariables(falling, q);
         ModifyPlayField.setStaticVariables(p, falling, sinkingPieces);
         PlayField.setStaticVariables(sinkingPieces, falling, q, width, height);
-        RunTetris.setStaticVariables(falling, q, p, sinkingPieces, new DrawBoard());
+        RunTetris.setStaticVariables(falling, p, sinkingPieces, new DrawBoard());
         Test.setStaticVariables(p, sinkingPieces, falling, q);
+        InputTests.setStaticVariables(falling);
     }
-
 }

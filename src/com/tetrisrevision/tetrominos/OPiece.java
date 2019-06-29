@@ -11,6 +11,6 @@ class OPiece extends Tetromino {
     private final static int orientations = 1;
 
     OPiece() {
-        super(offsets, new KickData(), "OPiece");
+        super(offsets, new KickData());
     }
 }

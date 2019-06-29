@@ -50,22 +50,14 @@ public class PlayField {
         return cells[(int) p.getY()][(int) p.getX()].isEmpty();
     }
 
-//    public void fillCells(Point[] ps) {
-//        for (Point p : ps) {
-//            cells[(int) p.getY()][(int) p.getX()].setEmpty(false);
-//        }
-//    }
-//
     public static void fillCell(Point p) {
         cells[(int) p.getY()][(int) p.getX()].setEmpty(false);
     }
 
-//    public void emptyCells(Point[] ps) {
-//        for (Point p : ps) {
-//            cells[(int) p.getY()][(int) p.getX()].setEmpty(true);
-//        }
-//    }
-//
+    public static void fillCell(int x, int y) {
+        cells[y][x].setEmpty(false);
+    }
+
     public static boolean rowIsFull(int row) {
         return Arrays.stream(cells[row]).allMatch(Cell::isFull);
     }

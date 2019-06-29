@@ -21,6 +21,6 @@ class ZPiece extends Tetromino {
             };
 
     ZPiece() {
-        super(offsets, new KickData(), "ZPiece");
+        super(offsets, new KickData());
     }
 }

@@ -13,6 +13,18 @@ public class Change {
     }
 
     public static class Position {
+        public static boolean raiseSinkingPiece (ArrayList<Point> s) {
+            s.stream().forEach(pt -> pt.translate(0, -1));
+
+            if (s.stream().allMatch(Test.Position::pointIsValid)) {
+                return true;
+            }
+
+            s.stream().forEach(p -> p.translate(0, 1));
+
+            return false;
+        }
+
         public static boolean softDropSinkingPiece (ArrayList<Point> s) {
             s.stream().forEach(pt -> pt.translate(0, 1));
 
@@ -25,11 +37,15 @@ public class Change {
             return false;
         }
 
-//        public static void softDropSinkingPieces () {
-//            for (ArrayList<Point> piece : sinkingPieces);
-//        }
-//
+        public static void softDropSinkingPieces () {
+            for (ArrayList<Point> piece : sinkingPieces) {
+                softDropSinkingPiece(piece);
+            }
+        }
+
         public static void hardDrop () {
+            falling.setAddToBoard(true);
+
             while (true) {
                 if (!translateFallingPiece(0, 1)) break;
             }

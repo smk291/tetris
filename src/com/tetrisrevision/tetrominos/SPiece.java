@@ -21,7 +21,7 @@ class SPiece extends Tetromino {
             };
 
     SPiece() {
-        super(offsets, new KickData(), "SPiece");
+        super(offsets, new KickData());
     }
 }
 

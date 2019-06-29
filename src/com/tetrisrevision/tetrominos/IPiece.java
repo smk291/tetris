@@ -21,7 +21,7 @@ class IPiece extends Tetromino {
                       {0, 2}}};
 
     public IPiece(){
-        super(offsets, new KickData(), "IPiece");
+        super(offsets, new KickData());
 
         super.setKickData(new KickIPiece().get());
     }

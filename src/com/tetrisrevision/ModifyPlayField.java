@@ -33,14 +33,6 @@ abstract public class ModifyPlayField {
             }
         }
 
-//        public static void remove(Point[] piece) {
-//            for (Point t : piece) {
-//                if (Test.Position.pointIsValid(t)) {
-//                    p.fillCell(t);
-//                }
-//            }
-//        }
-
         public static void addFallingPiece() {
             apply(falling.getPieceLocation(), i -> p.fillCell(i));
         }
@@ -52,14 +44,6 @@ abstract public class ModifyPlayField {
                 }
             }
         }
-
-//        public static void addSinkingPieces(Collection<Integer> piecesIdx) {
-//            for (Integer idx : piecesIdx) {
-//                apply(sinkingPieces.get(idx), i -> p.fillCell(i));
-//            }
-//
-//            piecesIdx.forEach(idx -> sinkingPieces.remove((int) idx));
-//        }
 
         public static void addAllSinkingPieces() {
             for (ArrayList<Point> piece : sinkingPieces) {
@@ -84,6 +68,10 @@ abstract public class ModifyPlayField {
 
     abstract public static class RowDeleter {
         RowDeleter() {
+        }
+
+        public static int apply(ArrayList<Point> testRows) {
+            return apply(testRows.toArray(new Point[0]));
         }
 
         public static int apply(Point[] testRows) {
