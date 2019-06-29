@@ -53,6 +53,8 @@ public class RunTetris {
                 }
 
                 i--;
+
+                gui.drawBoardIncludingPiece();
             }
 
             Change.Position.raiseSinkingPiece(piece);
