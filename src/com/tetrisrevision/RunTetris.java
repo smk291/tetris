@@ -101,9 +101,7 @@ public class RunTetris {
         softDropSinkingPieces();
         Change.Position.softDropSinkingPieces();
 
-        boolean continueGame = softDropFallingPiece();
-
-        return continueGame;
+        return softDropFallingPiece();
     }
 
     public static void keyboardInput() {
