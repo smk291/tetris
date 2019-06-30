@@ -7,11 +7,11 @@ import java.awt.*;
 class InputTests {
     private static TetrisPiece falling;
 
-    public static void setStaticVariables(TetrisPiece falling) {
+    static void setStaticVariables(TetrisPiece falling) {
         InputTests.falling = falling;
     }
 
-    public static void accept(String command) {
+    static void accept(String command) {
         switch(command){
             case"1":
             case"2":

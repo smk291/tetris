@@ -3,16 +3,14 @@ package com.tetrisrevision;
 import java.awt.*;
 import java.util.ArrayList;
 
-abstract public class FindSinkingPieces {
-    private static PlayField p;
+abstract class FindSinkingPieces {
     private static ArrayList<ArrayList<Point>> sinkingPieces;
 
-    public static void setStaticVariables(PlayField p, ArrayList<ArrayList<Point>> sinkingPieces) {
-        FindSinkingPieces.p = p;
+    static void setStaticVariables(ArrayList<ArrayList<Point>> sinkingPieces) {
         FindSinkingPieces.sinkingPieces = sinkingPieces;
     }
 
-    public static boolean cellAlreadySearched(Point t) {
+    private static boolean cellAlreadySearched(Point t) {
         for (ArrayList<Point> c : sinkingPieces) {
             if (c.contains(t))
                 return true;
@@ -21,7 +19,7 @@ abstract public class FindSinkingPieces {
         return false;
     }
 
-    public static void findFloatingPieces(int startingRow) {
+    static void findFloatingPieces(int startingRow) {
         SinkingPieceFinder.continueRecursing = true;
 
         if (!Test.Position.pointIsInBounds(new Point(0, startingRow))) {
@@ -38,7 +36,7 @@ abstract public class FindSinkingPieces {
         }
     }
 
-    public static void lookForSinkingPiecesByRow(int x, int y) {
+    private static void lookForSinkingPiecesByRow(int x, int y) {
         Cell[][] cells = PlayField.getCells();
         Point currentPoint = new Point(x, y);
 
@@ -57,11 +55,11 @@ abstract public class FindSinkingPieces {
         }
     }
 
-    abstract public static class SinkingPieceFinder {
-        public static boolean continueRecursing = true;
-        public static ArrayList<Point> piece = new ArrayList<>();
+    abstract static class SinkingPieceFinder {
+        static boolean continueRecursing = true;
+        static ArrayList<Point> piece = new ArrayList<>();
 
-        public static void store(Point currentPoint) {
+        static void store(Point currentPoint) {
             if (!Test.Position.pointIsInBounds(currentPoint))
                 return;
 

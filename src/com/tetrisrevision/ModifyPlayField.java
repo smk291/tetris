@@ -6,18 +6,16 @@ import java.util.Collection;
 import java.util.function.Consumer;
 
 abstract public class ModifyPlayField {
-    private static PlayField p;
     private static TetrisPiece falling;
     private static ArrayList<ArrayList<Point>> sinkingPieces;
 
-    public static void setStaticVariables(PlayField p, TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces) {
-        ModifyPlayField.p = p;
+    static void setStaticVariables(TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces) {
         ModifyPlayField.falling = falling;
         ModifyPlayField.sinkingPieces = sinkingPieces;
     }
 
     abstract public static class AddAndRemove {
-        public static void apply(Collection<Point> piece, Consumer<Point> consumer) {
+        static void apply(Collection<Point> piece, Consumer<Point> consumer) {
             for (Point t : piece) {
                 if (Test.Position.pointIsValid(t)) {
                     consumer.accept(t);
@@ -25,7 +23,7 @@ abstract public class ModifyPlayField {
             }
         }
 
-        public static void apply(Point[] piece, Consumer<Point> consumer) {
+        static void apply(Point[] piece, Consumer<Point> consumer) {
             for (Point t : piece) {
                 if (Test.Position.pointIsValid(t)) {
                     consumer.accept(t);
@@ -34,20 +32,20 @@ abstract public class ModifyPlayField {
         }
 
         public static void addFallingPiece() {
-            apply(falling.getPieceLocation(), i -> p.fillCell(i));
+            apply(falling.getPieceLocation(), PlayField::fillCell);
         }
 
         public static void removeFallingPiece() {
             for (Point pt : falling.getPieceLocation()) {
                 if (Test.Position.pointIsInBounds(pt)) {
-                    p.emptyCell(pt);
+                    PlayField.emptyCell(pt);
                 }
             }
         }
 
         public static void addAllSinkingPieces() {
             for (ArrayList<Point> piece : sinkingPieces) {
-                apply(piece, i -> p.fillCell(i));
+                apply(piece, PlayField::fillCell);
             }
         }
 
@@ -55,32 +53,30 @@ abstract public class ModifyPlayField {
             for (ArrayList<Point> piece : sinkingPieces) {
                 for (Point pt : piece) {
                     if (Test.Position.pointIsInBounds(pt)) {
-                        p.emptyCell(pt);
+                        PlayField.emptyCell(pt);
                     }
                 }
             }
         }
 
-        public static void addSinkingPiece(ArrayList<Point> piece) {
-            apply(piece, i -> p.fillCell(i));
+        static void addSinkingPiece(ArrayList<Point> piece) {
+            apply(piece, PlayField::fillCell);
         }
     }
 
-    abstract public static class RowDeleter {
+    abstract static class RowDeleter {
         RowDeleter() {
         }
 
-        public static int apply(ArrayList<Point> testRows) {
+        static int apply(ArrayList<Point> testRows) {
             return apply(testRows.toArray(new Point[0]));
         }
 
-        public static int apply(Point[] testRows) {
+        static int apply(Point[] testRows) {
             int startAt = -1;
 
-            for (int i = 0, length = testRows.length; i < length; i++) {
-                Point c = testRows[i];
-
-                if (p.rowIsFull((int) c.getY()) && c.getY() > startAt) {
+            for (Point c : testRows) {
+                if (PlayField.rowIsFull((int) c.getY()) && c.getY() > startAt) {
                     startAt = (int) c.getY();
                 }
             }
@@ -90,18 +86,18 @@ abstract public class ModifyPlayField {
             if (startAt > -1) {
                 int shift = 0;
 
-                while (!p.rowIsEmpty(startAt) && (startAt + shift) >= 0) {
-                    while (p.rowIsFull(startAt + shift)) {
+                while (!PlayField.rowIsEmpty(startAt) && (startAt + shift) >= 0) {
+                    while (PlayField.rowIsFull(startAt + shift)) {
                         shift--;
                     }
 
-                    p.copyRow(startAt + shift, startAt);
+                    PlayField.copyRow(startAt + shift, startAt);
 
                     startAt--;
                 }
 
                 for (int i = startAt, halt = startAt + shift; i >= 0 && i > halt; i--) {
-                    p.emptyRow(i);
+                    PlayField.emptyRow(i);
                 }
             }
 

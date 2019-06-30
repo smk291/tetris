@@ -3,100 +3,91 @@ package com.tetrisrevision;
 import com.tetrisrevision.tetrominos.Tetromino;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class TetrisPiece {
-    private static PlayField p;
-    private int[][][] offsets;
     private int prevOrientation;
     private int orientation;
-    private int orientationMax;
     private Point center;
-    private HashMap<Integer, HashMap<Integer, Integer[][]>> kickData;
+    private Tetromino tetromino;
     private boolean addToBoard;
 
-    public TetrisPiece(Tetromino tetromino) {
+    public TetrisPiece(Tetromino t) {
         resetSelf();
-        setFromTetromino(tetromino);
+        this.tetromino = t;
     }
 
-    public static void setStaticVariables(PlayField p) {
-        TetrisPiece.p = p;
-    }
-
-    public void reset(Tetromino t) {
+    void reset(Tetromino t) {
         resetSelf();
-        setFromTetromino(t);
+        this.tetromino = t;
     }
 
-    public void resetSelf() {
+    private void resetSelf() {
         this.center = new Point(4, 0);
         this.orientation = 0;
         addToBoard = false;
     }
 
-    public void setFromTetromino(Tetromino t) {
-        this.orientationMax = t.getOffsets().length;
-        this.offsets = t.getOffsets();
-        this.kickData = t.getKickData();
+    void setFromTetromino(Tetromino t) {
+        this.tetromino = t;
     }
 
-    public void translateCenter(int x, int y) {
+    void translateCenter(int x, int y) {
         this.center.setLocation(
                 this.center.getX() + x,
                 this.center.getY() + y
         );
     }
 
-    public int getOrientation() {
+    int getOrientation() {
         return this.orientation;
     }
 
-    public void setOrientation(int o) {
+    void setOrientation(int o) {
         this.orientation = o;
     }
 
-    public void incrOrientation(int i) {
+    void incrOrientation(int i) {
         this.orientation += i;
     }
 
-    public int getPrevOrientation() {
+    int getPrevOrientation() {
         return prevOrientation;
     }
 
-    public void setPrevOrientation(int prevOrientation) {
+    void setPrevOrientation(int prevOrientation) {
         this.prevOrientation = prevOrientation;
     }
 
-    public Point[] getPieceLocation() {
-        return Arrays.stream(offsets[orientation]).map(p ->
-            new Point((int) this.center.getX() + p[0], (int) this.center.getY() + p[1])
-        ).toArray(Point[]::new);
+    Point[] getPieceLocation() {
+        return Arrays.stream(tetromino.getOffsets()[orientation]).map(p -> new Point(
+                (int) this.center.getX() + p[0],
+                (int) this.center.getY() + p[1]
+        )).toArray(Point[]::new);
     }
 
-    public int getOrientationMax() {
-        return orientationMax;
+    int getOrientationMax() {
+        return tetromino.getOffsets().length;
     }
 
-    public HashMap<Integer, HashMap<Integer, Integer[][]>> getKickData() {
-        return kickData;
+    HashMap<Integer, HashMap<Integer, Integer[][]>> getKickData() {
+        return tetromino.getKickData();
     }
 
-    public void setCenter(Point pt) {
+    void setCenter(Point pt) {
         this.center = pt;
     }
 
-    public void setCenter(int x, int y) {
+    void setCenter(int x, int y) {
         this.center = new Point(x, y);
     }
 
-    public boolean isAddToBoard() {
+    boolean isAddToBoard() {
         return addToBoard;
     }
 
-    public void setAddToBoard(boolean addToBoard) {
+    void setAddToBoard(boolean addToBoard) {
         this.addToBoard = addToBoard;
     }
 }

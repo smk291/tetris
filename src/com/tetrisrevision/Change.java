@@ -3,47 +3,44 @@ package com.tetrisrevision;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Change {
+class Change {
     private static TetrisPiece falling;
     private static ArrayList<ArrayList<Point>> sinkingPieces;
 
-    public static void setStaticVariables (TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces) {
+    static void setStaticVariables (TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces) {
         Change.falling = falling;
         Change.sinkingPieces = sinkingPieces;
     }
 
-    public static class Position {
-        public static boolean raiseSinkingPiece (ArrayList<Point> s) {
-            s.stream().forEach(pt -> pt.translate(0, -1));
+    static class Position {
+        static void raiseSinkingPiece(ArrayList<Point> s) {
+            s.forEach(pt -> pt.translate(0, -1));
+
+            if (s.stream().allMatch(Test.Position::pointIsValid)) {
+                return;
+            }
+
+            s.forEach(p -> p.translate(0, 1));
+
+        }
+
+        static boolean softDropSinkingPiece(ArrayList<Point> s) {
+            s.forEach(pt -> pt.translate(0, 1));
 
             if (s.stream().allMatch(Test.Position::pointIsValid)) {
                 return true;
             }
 
-            s.stream().forEach(p -> p.translate(0, 1));
+            s.forEach(p -> p.translate(0, -1));
 
             return false;
         }
 
-        public static boolean softDropSinkingPiece (ArrayList<Point> s) {
-            s.stream().forEach(pt -> pt.translate(0, 1));
-
-            if (s.stream().allMatch(Test.Position::pointIsValid)) {
-                return true;
-            }
-
-            s.stream().forEach(p -> p.translate(0, -1));
-
-            return false;
+        static void softDropSinkingPieces() {
+            sinkingPieces.forEach(Position::softDropSinkingPiece);
         }
 
-        public static void softDropSinkingPieces () {
-            for (ArrayList<Point> piece : sinkingPieces) {
-                softDropSinkingPiece(piece);
-            }
-        }
-
-        public static void hardDrop () {
+        static void hardDrop() {
             falling.setAddToBoard(true);
 
             while (true) {
@@ -51,7 +48,7 @@ public class Change {
             }
         }
 
-        public static boolean translateFallingPiece (int x, int y) {
+        static boolean translateFallingPiece(int x, int y) {
             falling.translateCenter(x, y);
 
             if (Test.Position.fallingPositionIsValidNoMin()) {
@@ -64,12 +61,8 @@ public class Change {
         }
     }
 
-    public static class Orientation {
-        public static void setStaticVariables(TetrisPiece falling) {
-            Change.falling = falling;
-        }
-
-        public static boolean rotate (int incr) {
+    static class Orientation {
+        static void rotate(int incr) {
             int oldPrevOrientation = falling.getPrevOrientation();
             int oldOrientation = falling.getOrientation();
 
@@ -84,20 +77,16 @@ public class Change {
 
             if (!Test.Position.fallingPositionIsValid()) {
                 if (Change.Kick.tryKick())
-                    return true;
+                    return;
 
                 falling.setOrientation(oldOrientation);
                 falling.setPrevOrientation(oldPrevOrientation);
-
-                return false;
             }
-
-            return true;
         }
     }
 
     public static class Kick {
-        public static boolean tryKick() {
+        static boolean tryKick() {
             Integer[][] kickOffsets = falling.getKickData().get(falling.getPrevOrientation()).get(falling.getOrientation());
 
             for (Integer[] offset : kickOffsets) {

@@ -3,25 +3,24 @@ package com.tetrisrevision;
 import java.awt.*;
 
 public class Cell {
-    private static PlayField p;
-    private Point pt;
+//    private Point pt;
     private boolean empty;
-    private Color c;
+//    private Color c;
 
-    Cell (int y, int x) {
+    Cell () {
         this.empty = true;
-        this.pt = new Point(x, y);
     }
 
-    public static void setStaticVariables(PlayField p) {
-        Cell.p = p;
-    }
+//    Cell (int y, int x) {
+//        this.empty = true;
+//        this.pt = new Point(x, y);
+//    }
 
-    public void setEmpty(boolean status) {
+    void setEmpty(boolean status) {
         this.empty = status;
     }
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return this.empty;
     }
 

@@ -7,19 +7,13 @@ import com.tetrisrevision.tetrominos.Tetromino;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Game {
-    private static int width = 10;
-    private static int height = 24;
-
+class Game {
     private static ArrayList<ArrayList<Point>> sinkingPieces = new ArrayList<>();
     private Tetromino[] q = new Tetromino[7];
     private PlayField p = new PlayField();
     private TetrisPiece falling = new TetrisPiece(TetrominoEnum.getTetromino());
 
-    Game() {
-    }
-
-    public void play() {
+    void play() {
         initializeVariables();
 
         while (RunTetris.continueGame()) {
@@ -27,7 +21,7 @@ public class Game {
         }
     }
 
-    public void initializeVariables() {
+    private void initializeVariables() {
         Tetromino[] tetrominos = this.q;
         falling.setFromTetromino(TetrominoEnum.getTetromino());
 
@@ -37,19 +31,18 @@ public class Game {
             q[i] = TetrominoEnum.getTetromino();
         }
 
-        PlayField.setStaticVariables(sinkingPieces,falling, q, width, height);
-        TetrisPiece.setStaticVariables(p);
+        int width = 10;
+        int height = 24;
+        PlayField.setStaticVariables(width, height);
 
-        Cell.setStaticVariables(p);
         Change.setStaticVariables(falling, sinkingPieces);
         FallingPieceAndQueue.setStaticVariables(falling, q);
 
-        DrawBoard.setStaticVariables(p);
-        FindSinkingPieces.setStaticVariables(p, sinkingPieces);
-        ModifyPlayField.setStaticVariables(p, falling, sinkingPieces);
-        PlayField.setStaticVariables(sinkingPieces, falling, q, width, height);
-        RunTetris.setStaticVariables(falling, p, sinkingPieces, new DrawBoard());
-        Test.setStaticVariables(p, sinkingPieces, falling, q);
+        FindSinkingPieces.setStaticVariables(sinkingPieces);
+        ModifyPlayField.setStaticVariables(falling, sinkingPieces);
+        PlayField.setStaticVariables(width, height);
+        RunTetris.setStaticVariables(falling, sinkingPieces, new DrawBoard());
+        Test.setStaticVariables(falling);
         InputTests.setStaticVariables(falling);
     }
 }

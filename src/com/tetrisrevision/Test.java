@@ -1,27 +1,16 @@
 package com.tetrisrevision;
 
-import com.tetrisrevision.tetrominos.Tetromino;
-
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
-abstract public class Test {
-    private static PlayField p;
-    private static ArrayList<ArrayList<Point>> sinking;
+abstract class Test {
     private static TetrisPiece falling;
-    private static Tetromino[] q;
 
-    private Test() {}
-
-    public static void setStaticVariables(PlayField p, ArrayList<ArrayList<Point>> s, TetrisPiece falling, Tetromino[] q){
-        Test.p = p;
-        Test.sinking = s;
+    static void setStaticVariables(TetrisPiece falling){
         Test.falling = falling;
-        Test.q = q;
     }
 
-    public static class Bounds {
+    private static class Bounds {
         private static boolean xInBounds(Point pt) {
             return pt.getX() > -1 && pt.getX() < PlayField.getWidth();
         }
@@ -35,38 +24,36 @@ abstract public class Test {
         }
     }
 
-    public static class Overlap {
-
+    private static class Overlap {
         private static boolean noOverlap(Point pt) {
             return (
                     (!Test.Bounds.xInBounds(pt) || !Test.Bounds.yInBounds(pt)) ||
-                            p.cellIsEmpty(pt)
+                            PlayField.cellIsEmpty(pt)
             );
         }
-
     }
 
-    public static class Position {
-        public static boolean fallingPositionIsValid() {
+    static class Position {
+        static boolean fallingPositionIsValid() {
             return Arrays.stream(falling.getPieceLocation()).allMatch(Position::pointIsValid);
         }
 
-        public static boolean fallingPositionIsValidNoMin () {
+        static boolean fallingPositionIsValidNoMin() {
             return Arrays.stream(falling.getPieceLocation()).allMatch(Position::pointIsValidNoMin);
         }
 
-        public static boolean pointIsValid(Point p) {
+        static boolean pointIsValid(Point p) {
             return Bounds.xInBounds(p) &&
                     Bounds.yInBounds(p) &&
                     Overlap.noOverlap(p);
         }
 
-        public static boolean pointIsInBounds(Point p) {
+        static boolean pointIsInBounds(Point p) {
             return Bounds.xInBounds(p) &&
                     Bounds.yInBounds(p);
         }
 
-        public static boolean pointIsValidNoMin(Point p) {
+        static boolean pointIsValidNoMin(Point p) {
             return Bounds.xInBounds(p) &&
                     Bounds.yInBoundsNoMin(p) &&
                     Overlap.noOverlap(p);

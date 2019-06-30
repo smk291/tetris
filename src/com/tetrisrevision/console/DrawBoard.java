@@ -6,22 +6,12 @@ import com.tetrisrevision.ModifyPlayField;
 import com.tetrisrevision.PlayField;
 
 public class DrawBoard implements GUI {
-    private static PlayField p;
-
-    public DrawBoard() {
-    }
-
-    public static void setStaticVariables(PlayField p) {
-        DrawBoard.p = p;
-    }
-
     public void draw() {
         int bound = PlayField.getHeight();
 
 
-        for (int i1 = 0; i1 < bound; i1++) {
+        for (int i1 = 0; i1 < bound; i1++)
             drawRow(i1);
-        }
 
         System.out.print("  ");
 
@@ -33,12 +23,11 @@ public class DrawBoard implements GUI {
         System.out.println();
     }
 
-    public void drawRow(int row) {
+    private void drawRow(int row) {
             System.out.print(" |");
 
-            for (Cell c : PlayField.getCells()[row]) {
+            for (Cell c : PlayField.getCells()[row])
                 System.out.print(drawCell(c.isFull()));
-            }
 
             System.out.println("| " + row);
     }

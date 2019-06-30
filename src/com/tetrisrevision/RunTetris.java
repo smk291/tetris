@@ -1,7 +1,5 @@
 package com.tetrisrevision;
 
-import com.tetrisrevision.tetrominos.Tetromino;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,16 +11,11 @@ public class RunTetris {
     // private Timer timer;
     private static GUI gui;
     private static TetrisPiece falling;
-    private static PlayField p;
-    private static Tetromino[] q;
     private static ArrayList<ArrayList<Point>> sinkingPieces;
     private static String lastCommand;
 
-    RunTetris() { }
-
-    public static void setStaticVariables(
+    static void setStaticVariables(
             TetrisPiece falling,
-            PlayField p,
             ArrayList<ArrayList<Point>> sinkingPieces,
             GUI gui
     ) {
@@ -92,7 +85,7 @@ public class RunTetris {
         return true;
     }
 
-    public static boolean continueGame() {
+    static boolean continueGame() {
         gui.drawBoardIncludingPiece();
 
         ModifyPlayField.AddAndRemove.removeFallingPiece();
@@ -104,7 +97,7 @@ public class RunTetris {
         return softDropFallingPiece();
     }
 
-    public static void keyboardInput() {
+    static void keyboardInput() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Command:");
         String command = keyboard.nextLine();
