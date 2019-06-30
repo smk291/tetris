@@ -79,7 +79,7 @@ public class RunTetris {
             falling.setAddToBoard(true);
         } else {
             falling.setAddToBoard(false);
-            falling.translateCenter(0, -1);
+            falling.getCenter().translate(0, -1);
         }
 
         return true;
@@ -118,10 +118,10 @@ public class RunTetris {
                 Change.Position.translateFallingPiece(0, -1);
                 break;
             case "[":
-                Change.Orientation.rotate(-1);
+                Change.Rotation.rotate(-1);
                 break;
             case "]":
-                Change.Orientation.rotate(1);
+                Change.Rotation.rotate(1);
                 break;
             case "J":
                 Change.Position.hardDrop();

@@ -49,54 +49,54 @@ class Change {
         }
 
         static boolean translateFallingPiece(int x, int y) {
-            falling.translateCenter(x, y);
+            falling.getCenter().translate(x, y);
 
             if (Test.Position.fallingPositionIsValidNoMin()) {
                 return true;
             }
 
-            falling.translateCenter(-x, -y);
+            falling.getCenter().translate(-x, -y);
 
             return false;
         }
     }
 
-    static class Orientation {
+    static class Rotation {
         static void rotate(int incr) {
-            int oldPrevOrientation = falling.getPrevOrientation();
-            int oldOrientation = falling.getOrientation();
+            int oldPrevOrientation = falling.getPrevRotation();
+            int oldOrientation = falling.getRotation();
 
             falling.incrOrientation(incr);
-            falling.setPrevOrientation(oldOrientation);
+            falling.setPrevRotation(oldOrientation);
 
-            if (falling.getOrientation() < 0) {
-                falling.setOrientation(falling.getOrientationMax() - 1);
-            } else if (falling.getOrientation() >= falling.getOrientationMax()) {
-                falling.setOrientation(0);
+            if (falling.getRotation() < 0) {
+                falling.setRotation(falling.getRotationMax() - 1);
+            } else if (falling.getRotation() >= falling.getRotationMax()) {
+                falling.setRotation(0);
             }
 
             if (!Test.Position.fallingPositionIsValid()) {
                 if (Change.Kick.tryKick())
                     return;
 
-                falling.setOrientation(oldOrientation);
-                falling.setPrevOrientation(oldPrevOrientation);
+                falling.setRotation(oldOrientation);
+                falling.setPrevRotation(oldPrevOrientation);
             }
         }
     }
 
     public static class Kick {
         static boolean tryKick() {
-            Integer[][] kickOffsets = falling.getKickData().get(falling.getPrevOrientation()).get(falling.getOrientation());
+            Integer[][] kickOffsets = falling.getKickData().get(falling.getPrevRotation()).get(falling.getRotation());
 
             for (Integer[] offset : kickOffsets) {
-                falling.translateCenter(offset[0], offset[1]);
+                falling.getCenter().translate(offset[0], offset[1]);
 
                 if (Test.Position.fallingPositionIsValid()) {
                     return true;
                 }
 
-                falling.translateCenter(-offset[0], -offset[1]);
+                falling.getCenter().translate(-offset[0], -offset[1]);
             }
 
             return false;

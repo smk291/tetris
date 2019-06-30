@@ -125,7 +125,7 @@ class InputTests {
                 }
 
                 falling.setFromTetromino(TetrominoEnum.J.get());
-                falling.setOrientation(0);
+                falling.setRotation(0);
                 falling.setCenter(1,19);
 
                 break;
@@ -158,7 +158,7 @@ class InputTests {
                 }
 
                 falling.setFromTetromino(TetrominoEnum.J.get());
-                falling.setOrientation(0);
+                falling.setRotation(0);
                 falling.setCenter(1,12);
 
                 break;

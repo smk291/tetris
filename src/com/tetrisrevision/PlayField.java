@@ -13,7 +13,7 @@ public class PlayField {
 
         PlayField.width = w;
         PlayField.height = h;
-}
+    }
 
     public static int getWidth() {
         return width;
@@ -70,6 +70,9 @@ public class PlayField {
         return cells;
     }
 
+    static Cell getCell(Point pt) {
+        return cells[(int) pt.getY()][(int) pt.getX()];
+    }
     static void emptyCell(Point pt) {
         cells[(int) pt.getY()][(int) pt.getX()].setEmpty(true);
     }

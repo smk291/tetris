@@ -53,6 +53,12 @@ abstract class Test {
                     Bounds.yInBounds(p);
         }
 
+        static boolean pointIsInBounds(int x, int y) {
+            Point pt = new Point(x, y);
+
+            return pointIsInBounds(pt);
+        }
+
         static boolean pointIsValidNoMin(Point p) {
             return Bounds.xInBounds(p) &&
                     Bounds.yInBoundsNoMin(p) &&

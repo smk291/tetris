@@ -2,6 +2,8 @@ package com.tetrisrevision;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 abstract class FindSinkingPieces {
     private static ArrayList<ArrayList<Point>> sinkingPieces;
@@ -11,43 +13,30 @@ abstract class FindSinkingPieces {
     }
 
     private static boolean cellAlreadySearched(Point t) {
-        for (ArrayList<Point> c : sinkingPieces) {
-            if (c.contains(t))
-                return true;
-        }
-
-        return false;
+        return sinkingPieces.stream().anyMatch(c -> c.contains(t));
     }
 
     static void findFloatingPieces(int startingRow) {
-        SinkingPieceFinder.continueRecursing = true;
-
-        if (!Test.Position.pointIsInBounds(new Point(0, startingRow))) {
+        if (!Test.Position.pointIsInBounds(0, startingRow)) {
             return;
         }
 
+        SinkingPieceFinder.continueRecursing = true
+        ;
         int rowAbove = startingRow - 1;
 
-        for (int x = 0; x < PlayField.getWidth(); x++) {
+        IntStream.range(0, PlayField.getWidth()).forEach(x -> {
             SinkingPieceFinder.piece = new ArrayList<>();
-
-            lookForSinkingPiecesByRow(x, rowAbove);
-            lookForSinkingPiecesByRow(x, startingRow);
-        }
+            lookForSinkingPiecesByRow(new Point(x, rowAbove));
+            lookForSinkingPiecesByRow(new Point(x, startingRow));
+        });
     }
 
-    private static void lookForSinkingPiecesByRow(int x, int y) {
-        Cell[][] cells = PlayField.getCells();
-        Point currentPoint = new Point(x, y);
+    private static void lookForSinkingPiecesByRow(Point pt) {
+        if (!cellAlreadySearched(pt) && PlayField.getCell(pt).isFull()) {
+            SinkingPieceFinder.store(pt);
 
-        if (!cellAlreadySearched(currentPoint) && cells[y][x].isFull()) {
-            SinkingPieceFinder.store(currentPoint);
-
-            ArrayList<Point> newPiece = new ArrayList<>();
-
-            for (Point c : SinkingPieceFinder.piece) {
-                newPiece.add((Point) c.clone());
-            }
+            ArrayList<Point> newPiece = SinkingPieceFinder.piece.stream().map(c -> (Point) c.clone()).collect(Collectors.toCollection(ArrayList::new));
 
             if (SinkingPieceFinder.piece.size() > 0) {
                 sinkingPieces.add(newPiece);
@@ -59,30 +48,26 @@ abstract class FindSinkingPieces {
         static boolean continueRecursing = true;
         static ArrayList<Point> piece = new ArrayList<>();
 
-        static void store(Point currentPoint) {
-            if (!Test.Position.pointIsInBounds(currentPoint))
+        static void store(Point pt) {
+            if (!Test.Position.pointIsInBounds(pt))
                 return;
 
-            Cell[][] cells = PlayField.getCells();
-
-            Cell currentCell = cells[(int) currentPoint.getY()][(int) currentPoint.getX()];
-
-            if (currentCell.isFull()) {
-                if (currentPoint.getY() == 0) {
+            if (PlayField.getCell(pt).isFull()) {
+                if (pt.getY() == 0) {
                     continueRecursing = false;
 
                     piece = new ArrayList<>();
                 } else if (
                         continueRecursing &&
-                                Test.Position.pointIsInBounds(currentPoint) &&
-                                piece.stream().noneMatch(currentPoint::equals)
+                                Test.Position.pointIsInBounds(pt) &&
+                                piece.stream().noneMatch(pt::equals)
                 ) {
-                    SinkingPieceFinder.piece.add(currentPoint);
+                    SinkingPieceFinder.piece.add(pt);
 
-                    Point p1 = (Point) currentPoint.clone();
-                    Point p2 = (Point) currentPoint.clone();
-                    Point p3 = (Point) currentPoint.clone();
-                    Point p4 = (Point) currentPoint.clone();
+                    Point p1 = (Point) pt.clone();
+                    Point p2 = (Point) pt.clone();
+                    Point p3 = (Point) pt.clone();
+                    Point p4 = (Point) pt.clone();
 
                     p1.translate(0, 1);
                     p2.translate(0, -1);

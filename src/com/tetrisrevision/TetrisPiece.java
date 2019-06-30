@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class TetrisPiece {
-    private int prevOrientation;
-    private int orientation;
+    private int prevRotation;
+    private int rotation;
     private Point center;
     private Tetromino tetromino;
     private boolean addToBoard;
@@ -25,7 +25,7 @@ public class TetrisPiece {
 
     private void resetSelf() {
         this.center = new Point(4, 0);
-        this.orientation = 0;
+        this.rotation = 0;
         addToBoard = false;
     }
 
@@ -33,41 +33,34 @@ public class TetrisPiece {
         this.tetromino = t;
     }
 
-    void translateCenter(int x, int y) {
-        this.center.setLocation(
-                this.center.getX() + x,
-                this.center.getY() + y
-        );
+    int getRotation() {
+        return this.rotation;
     }
 
-    int getOrientation() {
-        return this.orientation;
-    }
-
-    void setOrientation(int o) {
-        this.orientation = o;
+    void setRotation(int o) {
+        this.rotation = o;
     }
 
     void incrOrientation(int i) {
-        this.orientation += i;
+        this.rotation += i;
     }
 
-    int getPrevOrientation() {
-        return prevOrientation;
+    int getPrevRotation() {
+        return prevRotation;
     }
 
-    void setPrevOrientation(int prevOrientation) {
-        this.prevOrientation = prevOrientation;
+    void setPrevRotation(int r) {
+        this.prevRotation = r;
     }
 
     Point[] getPieceLocation() {
-        return Arrays.stream(tetromino.getOffsets()[orientation]).map(p -> new Point(
+        return Arrays.stream(tetromino.getOffsets()[rotation]).map(p -> new Point(
                 (int) this.center.getX() + p[0],
                 (int) this.center.getY() + p[1]
         )).toArray(Point[]::new);
     }
 
-    int getOrientationMax() {
+    int getRotationMax() {
         return tetromino.getOffsets().length;
     }
 
@@ -89,5 +82,9 @@ public class TetrisPiece {
 
     void setAddToBoard(boolean addToBoard) {
         this.addToBoard = addToBoard;
+    }
+
+    Point getCenter() {
+        return center;
     }
 }

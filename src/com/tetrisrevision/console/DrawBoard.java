@@ -1,35 +1,26 @@
 package com.tetrisrevision.console;
 
 import com.tetrisrevision.GUI;
-import com.tetrisrevision.Cell;
 import com.tetrisrevision.ModifyPlayField;
 import com.tetrisrevision.PlayField;
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class DrawBoard implements GUI {
     public void draw() {
         int bound = PlayField.getHeight();
 
-
-        for (int i1 = 0; i1 < bound; i1++)
-            drawRow(i1);
-
+        IntStream.range(0, bound).forEach(this::drawRow);
         System.out.print("  ");
-
-        for (int i = 0; i < PlayField.getWidth(); i++) {
-            String s = "-";
-            System.out.print(s);
-        }
-
+        IntStream.range(0, PlayField.getWidth()).mapToObj(i -> "-").forEach(System.out::print);
         System.out.println();
     }
 
     private void drawRow(int row) {
-            System.out.print(" |");
-
-            for (Cell c : PlayField.getCells()[row])
-                System.out.print(drawCell(c.isFull()));
-
-            System.out.println("| " + row);
+        System.out.print(" |");
+        Arrays.stream(PlayField.getCells()[row]).map(c -> drawCell(c.isFull())).forEach(System.out::print);
+        System.out.println("| " + row);
     }
 
     public char drawCell(boolean isFull) {

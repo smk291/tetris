@@ -2,6 +2,7 @@ package com.tetrisrevision;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
 
@@ -16,19 +17,11 @@ abstract public class ModifyPlayField {
 
     abstract public static class AddAndRemove {
         static void apply(Collection<Point> piece, Consumer<Point> consumer) {
-            for (Point t : piece) {
-                if (Test.Position.pointIsValid(t)) {
-                    consumer.accept(t);
-                }
-            }
+            piece.stream().filter(Test.Position::pointIsValid).forEach(consumer);
         }
 
         static void apply(Point[] piece, Consumer<Point> consumer) {
-            for (Point t : piece) {
-                if (Test.Position.pointIsValid(t)) {
-                    consumer.accept(t);
-                }
-            }
+            Arrays.stream(piece).filter(Test.Position::pointIsValid).forEach(consumer);
         }
 
         public static void addFallingPiece() {
@@ -36,27 +29,15 @@ abstract public class ModifyPlayField {
         }
 
         public static void removeFallingPiece() {
-            for (Point pt : falling.getPieceLocation()) {
-                if (Test.Position.pointIsInBounds(pt)) {
-                    PlayField.emptyCell(pt);
-                }
-            }
+            Arrays.stream(falling.getPieceLocation()).filter(Test.Position::pointIsInBounds).forEach(PlayField::emptyCell);
         }
 
         public static void addAllSinkingPieces() {
-            for (ArrayList<Point> piece : sinkingPieces) {
-                apply(piece, PlayField::fillCell);
-            }
+            sinkingPieces.forEach(piece -> apply(piece, PlayField::fillCell));
         }
 
         public static void removeSinkingPieces() {
-            for (ArrayList<Point> piece : sinkingPieces) {
-                for (Point pt : piece) {
-                    if (Test.Position.pointIsInBounds(pt)) {
-                        PlayField.emptyCell(pt);
-                    }
-                }
-            }
+            sinkingPieces.forEach(piece -> piece.stream().filter(Test.Position::pointIsInBounds).forEach(PlayField::emptyCell));
         }
 
         static void addSinkingPiece(ArrayList<Point> piece) {
@@ -65,9 +46,6 @@ abstract public class ModifyPlayField {
     }
 
     abstract static class RowDeleter {
-        RowDeleter() {
-        }
-
         static int apply(ArrayList<Point> testRows) {
             return apply(testRows.toArray(new Point[0]));
         }
@@ -76,8 +54,10 @@ abstract public class ModifyPlayField {
             int startAt = -1;
 
             for (Point c : testRows) {
-                if (PlayField.rowIsFull((int) c.getY()) && c.getY() > startAt) {
-                    startAt = (int) c.getY();
+                int y = (int) c.getY();
+
+                if (PlayField.rowIsFull(y) && y > startAt) {
+                    startAt = y;
                 }
             }
 
@@ -105,4 +85,3 @@ abstract public class ModifyPlayField {
         }
     }
 }
-

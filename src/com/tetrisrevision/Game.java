@@ -10,7 +10,6 @@ import java.util.ArrayList;
 class Game {
     private static ArrayList<ArrayList<Point>> sinkingPieces = new ArrayList<>();
     private Tetromino[] q = new Tetromino[7];
-    private PlayField p = new PlayField();
     private TetrisPiece falling = new TetrisPiece(TetrominoEnum.getTetromino());
 
     void play() {
