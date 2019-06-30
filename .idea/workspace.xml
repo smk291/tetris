@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="" />
+    <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickIPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickIPiece.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,7 +18,7 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -72,8 +77,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/tetrisrevision/tetrominos/TPiece.java" />
-        <option value="$PROJECT_DIR$/src/tetrisrevision/tetrominos/ZPiece.java" />
         <option value="$PROJECT_DIR$/src/tetrisrevision/tetrominos/SPiece.java" />
         <option value="$PROJECT_DIR$/src/tetrisrevision/tetrominos/OPiece.java" />
         <option value="$PROJECT_DIR$/src/tetrisrevision/tetrominos/LPiece.java" />
@@ -123,6 +126,8 @@
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/Change.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickIPiece.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickData.java" />
       </list>
     </option>
   </component>
@@ -139,8 +144,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -159,6 +164,27 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="tetrisrevision" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="tetris" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tetris" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="tetrisrevision" type="462c0819:PsiDirectoryNode" />
+              <item name="console" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tetris" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tetris" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="tetrisrevision" type="462c0819:PsiDirectoryNode" />
+              <item name="kickdata" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tetris" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tetris" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="tetrisrevision" type="462c0819:PsiDirectoryNode" />
+              <item name="tetrominos" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -171,7 +197,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -232,6 +258,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.newtetris.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (2)" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.Main" />
+      <module name="tetris" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tetrisrevision.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -326,10 +365,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main (2)" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.BorderDemo" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.LineBorder" />
       </list>
     </recent_temporary>
@@ -348,9 +386,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1351" height="1027" extended-state="0" />
+    <frame x="492" y="28" width="1150" height="1074" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22918259" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19174312" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -360,7 +398,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32857144" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993895" visible="true" weight="0.4224599" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993895" weight="0.64437366" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -434,20 +472,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/test/NoOverlap.java" />
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/stream/MatchOps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="89" selection-start-line="89" selection-end-line="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/stream/ReferencePipeline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="125" column="67" selection-start-line="125" selection-start-column="67" selection-end-line="125" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/stream/MatchOps.java" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/stream/ReferencePipeline.java" />
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/tetrispiece/Manipulator.java" />
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/tetrispiece/shift/Shift.java" />
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/playfield/findfloatingpieces/FindFloatingPieces.java" />
@@ -459,38 +485,12 @@
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/tetrispiece/rotate/RotateLeft.java" />
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/TurnLogic.java" />
     <entry file="file://$PROJECT_DIR$/src/com/newtetris/tetrispiece/rotate/Rotate.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/MakeNextPieceFallingPiece.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="432" column="8" selection-start-line="432" selection-start-column="8" selection-end-line="432" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/MakeNextPieceFallingPiece.java" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/ArrayList.java" />
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/console/DrawBoard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-168">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickIPiece.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
@@ -536,13 +536,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/Tetromino.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/TetrominoEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -568,13 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -634,17 +620,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="962">
-          <caret line="101" selection-start-line="101" selection-end-line="101" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1625">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/Tetromino.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickIPiece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="101" selection-start-line="101" selection-end-line="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/kickdata/KickData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+          <folding>
+            <element signature="e#1752#1753#0" expanded="true" />
+            <element signature="e#1783#1784#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
@@ -705,7 +723,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
