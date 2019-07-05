@@ -1,5 +1,7 @@
 package com.tetrisrevision;
 
+import com.tetrisrevision.Test.Position;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,11 +19,15 @@ abstract public class ModifyPlayField {
 
     abstract public static class AddAndRemove {
         static void apply(Collection<Point> piece, Consumer<Point> consumer) {
-            piece.stream().filter(Test.Position::pointIsValid).forEach(consumer);
+            piece.stream()
+                    .filter(Position::canBeFilled)
+                    .forEach(consumer);
         }
 
         static void apply(Point[] piece, Consumer<Point> consumer) {
-            Arrays.stream(piece).filter(Test.Position::pointIsValid).forEach(consumer);
+            Arrays.stream(piece)
+                    .filter(Position::canBeFilled)
+                    .forEach(consumer);
         }
 
         public static void addFallingPiece() {
@@ -29,7 +35,9 @@ abstract public class ModifyPlayField {
         }
 
         public static void removeFallingPiece() {
-            Arrays.stream(falling.getPieceLocation()).filter(Test.Position::pointIsInBounds).forEach(PlayField::emptyCell);
+            Arrays.stream(falling.getPieceLocation())
+                    .filter(Position::isInBounds)
+                    .forEach(PlayField::emptyCell);
         }
 
         public static void addAllSinkingPieces() {
@@ -37,7 +45,11 @@ abstract public class ModifyPlayField {
         }
 
         public static void removeSinkingPieces() {
-            sinkingPieces.forEach(piece -> piece.stream().filter(Test.Position::pointIsInBounds).forEach(PlayField::emptyCell));
+            sinkingPieces.forEach(
+                    piece -> piece.stream()
+                            .filter(Position::isInBounds)
+                            .forEach(PlayField::emptyCell)
+            );
         }
 
         static void addSinkingPiece(ArrayList<Point> piece) {
@@ -50,26 +62,25 @@ abstract public class ModifyPlayField {
             return apply(testRows.toArray(new Point[0]));
         }
 
-        static int apply(Point[] testRows) {
+        static int apply(Point[] points) {
             int startAt = -1;
 
-            for (Point c : testRows) {
-                int y = (int) c.getY();
+            for (Point c : points) {
+                int row = (int) c.getY();
 
-                if (PlayField.rowIsFull(y) && y > startAt) {
-                    startAt = y;
+                if (PlayField.rowIsFull(row) && row > startAt) {
+                    startAt = row;
                 }
             }
 
-            int sinkToRow = startAt + 1;
+            int lowestRowToDelete = startAt + 1;
 
             if (startAt > -1) {
                 int shift = 0;
 
                 while (!PlayField.rowIsEmpty(startAt) && (startAt + shift) >= 0) {
-                    while (PlayField.rowIsFull(startAt + shift)) {
+                    while (PlayField.rowIsFull(startAt + shift))
                         shift--;
-                    }
 
                     PlayField.copyRow(startAt + shift, startAt);
 
@@ -81,7 +92,7 @@ abstract public class ModifyPlayField {
                 }
             }
 
-            return sinkToRow;
+            return lowestRowToDelete;
         }
     }
 }

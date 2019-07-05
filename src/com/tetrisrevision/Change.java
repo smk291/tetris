@@ -16,7 +16,7 @@ class Change {
         static void raiseSinkingPiece(ArrayList<Point> s) {
             s.forEach(pt -> pt.translate(0, -1));
 
-            if (s.stream().allMatch(Test.Position::pointIsValid)) {
+            if (s.stream().allMatch(Test.Position::pointIsValidNoMin)) {
                 return;
             }
 
@@ -27,7 +27,7 @@ class Change {
         static boolean softDropSinkingPiece(ArrayList<Point> s) {
             s.forEach(pt -> pt.translate(0, 1));
 
-            if (s.stream().allMatch(Test.Position::pointIsValid)) {
+            if (s.stream().allMatch(Test.Position::pointIsValidNoMin)) {
                 return true;
             }
 
@@ -51,7 +51,7 @@ class Change {
         static boolean translateFallingPiece(int x, int y) {
             falling.getCenter().translate(x, y);
 
-            if (Test.Position.fallingPositionIsValidNoMin()) {
+            if (Test.Position.isInBoundsAndEmptyNoRowMin()) {
                 return true;
             }
 
@@ -75,7 +75,7 @@ class Change {
                 falling.setRotation(0);
             }
 
-            if (!Test.Position.fallingPositionIsValid()) {
+            if (!Test.Position.isInBoundsAndEmpty()) {
                 if (Change.Kick.tryKick())
                     return;
 
@@ -92,7 +92,7 @@ class Change {
             for (Integer[] offset : kickOffsets) {
                 falling.getCenter().translate(offset[0], offset[1]);
 
-                if (Test.Position.fallingPositionIsValid()) {
+                if (Test.Position.isInBoundsAndEmpty()) {
                     return true;
                 }
 

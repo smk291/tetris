@@ -17,7 +17,7 @@ abstract class FindSinkingPieces {
     }
 
     static void findFloatingPieces(int startingRow) {
-        if (!Test.Position.pointIsInBounds(0, startingRow)) {
+        if (!Test.Position.isInBounds(0, startingRow)) {
             return;
         }
 
@@ -49,7 +49,7 @@ abstract class FindSinkingPieces {
         static ArrayList<Point> piece = new ArrayList<>();
 
         static void store(Point pt) {
-            if (!Test.Position.pointIsInBounds(pt))
+            if (!Test.Position.isInBounds(pt))
                 return;
 
             if (PlayField.getCell(pt).isFull()) {
@@ -59,7 +59,7 @@ abstract class FindSinkingPieces {
                     piece = new ArrayList<>();
                 } else if (
                         continueRecursing &&
-                                Test.Position.pointIsInBounds(pt) &&
+                                Test.Position.isInBounds(pt) &&
                                 piece.stream().noneMatch(pt::equals)
                 ) {
                     SinkingPieceFinder.piece.add(pt);

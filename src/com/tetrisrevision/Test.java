@@ -26,37 +26,36 @@ abstract class Test {
 
     private static class Overlap {
         private static boolean noOverlap(Point pt) {
-            return (
-                    (!Test.Bounds.xInBounds(pt) || !Test.Bounds.yInBounds(pt)) ||
-                            PlayField.cellIsEmpty(pt)
-            );
+            return !Bounds.xInBounds(pt) ||
+                    !Bounds.yInBounds(pt) ||
+                    PlayField.cellIsEmpty(pt);
         }
     }
 
     static class Position {
-        static boolean fallingPositionIsValid() {
-            return Arrays.stream(falling.getPieceLocation()).allMatch(Position::pointIsValid);
+        static boolean isInBoundsAndEmpty() {
+            return Arrays.stream(falling.getPieceLocation()).allMatch(Position::canBeFilled);
         }
 
-        static boolean fallingPositionIsValidNoMin() {
+        static boolean isInBoundsAndEmptyNoRowMin() {
             return Arrays.stream(falling.getPieceLocation()).allMatch(Position::pointIsValidNoMin);
         }
 
-        static boolean pointIsValid(Point p) {
+        static boolean canBeFilled(Point p) {
             return Bounds.xInBounds(p) &&
                     Bounds.yInBounds(p) &&
                     Overlap.noOverlap(p);
         }
 
-        static boolean pointIsInBounds(Point p) {
+        static boolean isInBounds(Point p) {
             return Bounds.xInBounds(p) &&
                     Bounds.yInBounds(p);
         }
 
-        static boolean pointIsInBounds(int x, int y) {
+        static boolean isInBounds(int x, int y) {
             Point pt = new Point(x, y);
 
-            return pointIsInBounds(pt);
+            return isInBounds(pt);
         }
 
         static boolean pointIsValidNoMin(Point p) {

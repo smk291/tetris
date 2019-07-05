@@ -72,7 +72,7 @@ public class RunTetris {
 
             FallingPieceAndQueue.swap(0);
 
-            if (!Test.Position.fallingPositionIsValidNoMin()) {
+            if (!Test.Position.isInBoundsAndEmptyNoRowMin()) {
                 return false;
             }
         } if (!canDrop) {
