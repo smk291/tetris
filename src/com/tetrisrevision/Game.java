@@ -34,8 +34,8 @@ class Game {
         int height = 24;
         PlayField.setStaticVariables(width, height);
 
-        Change.setStaticVariables(falling, sinkingPieces);
-        FallingPieceAndQueue.setStaticVariables(falling, q);
+        ChangePiece.setStaticVariables(falling, sinkingPieces);
+        ChangePiecesAndQueue.setStaticVariables(falling, q);
 
         FindSinkingPieces.setStaticVariables(sinkingPieces);
         ModifyPlayField.setStaticVariables(falling, sinkingPieces);

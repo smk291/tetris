@@ -32,7 +32,7 @@ public class RunTetris {
         ) {
             ArrayList<Point> piece = sinkingPieces.get(i);
 
-            boolean canSink = Change.Position.softDropSinkingPiece(piece);
+            boolean canSink = ChangePiece.Position.trySoftDropSinkingPiece(piece);
 
             if (!canSink) {
                 ModifyPlayField.AddAndRemove.addSinkingPiece(piece);
@@ -50,12 +50,12 @@ public class RunTetris {
                 gui.drawBoardIncludingPiece();
             }
 
-            Change.Position.raiseSinkingPiece(piece);
+            ChangePiece.Position.tryRaiseSinkingPiece(piece);
         }
     }
 
     private static boolean softDropFallingPiece() {
-        boolean canDrop = Change.Position.translateFallingPiece(0, 1);
+        boolean canDrop = ChangePiece.Position.tryTranslateFallingPiece(0, 1);
 
         if (
                 !canDrop &&
@@ -70,7 +70,7 @@ public class RunTetris {
                 FindSinkingPieces.findFloatingPieces(searchFrom);
             }
 
-            FallingPieceAndQueue.swap(0);
+            ChangePiecesAndQueue.swap(0);
 
             if (!Test.Position.isInBoundsAndEmptyNoRowMin()) {
                 return false;
@@ -92,7 +92,7 @@ public class RunTetris {
         ModifyPlayField.AddAndRemove.removeSinkingPieces();
 
         softDropSinkingPieces();
-        Change.Position.softDropSinkingPieces();
+        ChangePiece.Position.trySoftDropSinkingPieces();
 
         return softDropFallingPiece();
     }
@@ -106,25 +106,25 @@ public class RunTetris {
 
         switch (command) {
             case "h":
-                Change.Position.translateFallingPiece(-1, 0);
+                ChangePiece.Position.tryTranslateFallingPiece(-1, 0);
                 break;
             case "l":
-                Change.Position.translateFallingPiece(1, 0);
+                ChangePiece.Position.tryTranslateFallingPiece(1, 0);
                 break;
             case "j":
-                Change.Position.translateFallingPiece(0, 1);
+                ChangePiece.Position.tryTranslateFallingPiece(0, 1);
                 break;
             case "k":
-                Change.Position.translateFallingPiece(0, -1);
+                ChangePiece.Position.tryTranslateFallingPiece(0, -1);
                 break;
             case "[":
-                Change.Rotation.rotate(-1);
+                ChangePiece.Rotation.tryRotate(-1);
                 break;
             case "]":
-                Change.Rotation.rotate(1);
+                ChangePiece.Rotation.tryRotate(1);
                 break;
             case "J":
-                Change.Position.hardDrop();
+                ChangePiece.Position.hardDrop();
 
                 break;
             default:

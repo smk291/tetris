@@ -73,6 +73,11 @@ public class PlayField {
     static Cell getCell(Point pt) {
         return cells[(int) pt.getY()][(int) pt.getX()];
     }
+
+    static Cell getCell(int x, int y) {
+        return cells[y][x];
+    }
+
     static void emptyCell(Point pt) {
         cells[(int) pt.getY()][(int) pt.getX()].setEmpty(true);
     }

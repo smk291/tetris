@@ -2,6 +2,13 @@ package com.tetrisrevision;
 
 import java.awt.*;
 
+/****
+ *
+ * This represent a unit on the tetris playfield.
+ * Eventually it'll include color.
+ *
+ ****/
+
 public class Cell {
 //    private Point pt;
     private boolean empty;

@@ -3,17 +3,30 @@ package com.tetrisrevision;
 import java.awt.*;
 import java.util.ArrayList;
 
-class Change {
+/****
+ *
+ * ChangePiece class contains all logic for moving and rotating pieces.
+ * sinkingPieces never rotate. They only drop.
+ * the falling piece can rotate, hardDrop or translate (move in any direction).
+ *
+ * The basic logic is:
+ *  - mutates the position of the piece either by translating x/y or rotating
+ *  - test the resulting position for validity
+ *  - undo the rotation or translation if the resulting position is invalid
+ *
+ ****/
+
+class ChangePiece {
     private static TetrisPiece falling;
     private static ArrayList<ArrayList<Point>> sinkingPieces;
 
     static void setStaticVariables (TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces) {
-        Change.falling = falling;
-        Change.sinkingPieces = sinkingPieces;
+        ChangePiece.falling = falling;
+        ChangePiece.sinkingPieces = sinkingPieces;
     }
 
     static class Position {
-        static void raiseSinkingPiece(ArrayList<Point> s) {
+        static void tryRaiseSinkingPiece(ArrayList<Point> s) {
             s.forEach(pt -> pt.translate(0, -1));
 
             if (s.stream().allMatch(Test.Position::pointIsValidNoMin)) {
@@ -24,7 +37,7 @@ class Change {
 
         }
 
-        static boolean softDropSinkingPiece(ArrayList<Point> s) {
+        static boolean trySoftDropSinkingPiece(ArrayList<Point> s) {
             s.forEach(pt -> pt.translate(0, 1));
 
             if (s.stream().allMatch(Test.Position::pointIsValidNoMin)) {
@@ -36,19 +49,19 @@ class Change {
             return false;
         }
 
-        static void softDropSinkingPieces() {
-            sinkingPieces.forEach(Position::softDropSinkingPiece);
+        static void trySoftDropSinkingPieces() {
+            sinkingPieces.forEach(Position::trySoftDropSinkingPiece);
         }
 
         static void hardDrop() {
             falling.setAddToBoard(true);
 
             while (true) {
-                if (!translateFallingPiece(0, 1)) break;
+                if (!tryTranslateFallingPiece(0, 1)) break;
             }
         }
 
-        static boolean translateFallingPiece(int x, int y) {
+        static boolean tryTranslateFallingPiece(int x, int y) {
             falling.getCenter().translate(x, y);
 
             if (Test.Position.isInBoundsAndEmptyNoRowMin()) {
@@ -62,7 +75,7 @@ class Change {
     }
 
     static class Rotation {
-        static void rotate(int incr) {
+        static void tryRotate(int incr) {
             int oldPrevOrientation = falling.getPrevRotation();
             int oldOrientation = falling.getRotation();
 
@@ -76,7 +89,7 @@ class Change {
             }
 
             if (!Test.Position.isInBoundsAndEmpty()) {
-                if (Change.Kick.tryKick())
+                if (ChangePiece.Kick.tryKick())
                     return;
 
                 falling.setRotation(oldOrientation);
