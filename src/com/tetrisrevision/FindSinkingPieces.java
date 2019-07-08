@@ -22,8 +22,8 @@ import java.util.stream.IntStream;
  *
 
  1.                 2.                  3.
- row index
-  ↓↓↓                ↓↓↓
+
+  ↓↓↓     row index  ↓↓↓
  |*↓↓       | 14    |↓↓↓       | 14     |          | 14
  |*** *     | 15    |*↓↓ *     | 15     |↓   ↓     | 15
  |   *******| 16    |**********| 16     |*   *     | 16
@@ -50,6 +50,7 @@ import java.util.stream.IntStream;
  |* * * *   | 23    |* * * *   | 23     |* * * *   | 23
  ----------         ----------          ----------
  0123456789         0123456789          0123456789
+
  *
  * Steps 1-4 show how row deletion can result in floating pieces at the row index (r)
  * where the user just cleared a row: row 16 is deleted; the rows above it shift down
@@ -67,18 +68,14 @@ abstract class FindSinkingPieces {
     private static ArrayList<ArrayList<Point>> sinkingPieces;
     private static int[][] alreadySearchedArr = new int[PlayField.getHeight()][PlayField.getWidth()];
     private static ArrayList<Point> piece = new ArrayList<>();
-    // private static boolean attachedToBottom = false;
-    // private static int counter = 0;
-    // private static int secondCounter = 0;
 
     static void setStaticVariables(ArrayList<ArrayList<Point>> sinkingPieces) {
         FindSinkingPieces.sinkingPieces = sinkingPieces;
     }
 
     static void findFloatingPieces(int startingRow) {
-        if (!Test.Position.isInBounds(0, startingRow)) {
+        if (!Test.Position.isInBounds(0, startingRow))
             return;
-        }
 
         int rowAbove = startingRow - 1;
 
@@ -92,11 +89,7 @@ abstract class FindSinkingPieces {
 
     private static void runSearch(int x, int y) {
         piece = new ArrayList<>();
-        // attachedToBottom = true;
-        // counter = 0;
-        // secondCounter = 0;
         lookForSinkingPiecesByRow(new Point(x, y));
-        // printOut(new Point(x, y));
     }
 
     private static void lookForSinkingPiecesByRow(Point pt) {
@@ -104,27 +97,16 @@ abstract class FindSinkingPieces {
         if (PlayField.getCell(pt).isFull()) {
             store(pt);
 
-            if (piece.size() > 0 && piece.stream().noneMatch(p -> p.getY() == 23)) {
+            if (piece.size() > 0)
                 sinkingPieces.add(piece);
-            }
         }
     }
 
     private static void store(Point pt) {
-        // counter++;
-
-        if (!Test.Position.isInBounds(pt))
+        if (!Test.Position.isInBounds(pt) || alreadySearchedArr[(int) pt.getY()][(int) pt.getX()] == 1)
             return;
 
         if (PlayField.getCell(pt).isFull()) {
-            // secondCounter++;
-
-            if (alreadySearchedArr[(int) pt.getY()][(int) pt.getX()] == 1) {
-                // attachedToBottom = false;
-
-                return;
-            }
-
             alreadySearchedArr[(int) pt.getY()][(int) pt.getX()] = 1;
 
             piece.add(pt);
@@ -145,25 +127,4 @@ abstract class FindSinkingPieces {
             store(p4);
         }
     }
-
-//    static void printOut(Point pt) {
-//        System.out.println("Counter: " + counter);
-//        System.out.println("Second counter: " + secondCounter);
-//        System.out.println(attachedToBottom ? "NO" : "YES");
-//        System.out.println("Sinking Pieces: " + sinkingPieces.size());
-//        System.out.println("{ " + (int) pt.getX() + ", " + (int) pt.getY() + " }");
-//        System.out.print("Piece lengths: ");
-//
-//        for (ArrayList<Point> piece : sinkingPieces) {
-//            System.out.print(piece.size() + " ");
-//        }
-//
-//        for (ArrayList<Point> sinkingPiece : sinkingPieces) {
-//            for (Point point : sinkingPiece) {
-//                System.out.print("{ " + (int) point.getX() + ", " + (int) point.getY() + " }");
-//            }
-//
-//            System.out.println();
-//        }
-//    }
 }
