@@ -3,27 +3,56 @@ package com.tetrisrevision;
 import com.tetrisrevision.tetrominos.Tetromino;
 import com.tetrisrevision.tetrominos.TetrominoEnum;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /****
  *
- * This class will contain the logic that swaps out pieces and randomizes
+ * This class creates piece queues and randomizes
  * the queue according to official tetris guidelines.
  *
- * Currently it just resets the falling piece, using the first tetromino in the seven-tetromino queue
+ * Currently there's no way to switch out a piece.
  *
  */
 
 class ChangePiecesAndQueue {
     private static TetrisPiece falling;
-    private static Tetromino[] q;
+    private static ArrayList<TetrominoEnum> q;
+    private static ArrayList<TetrominoEnum> backupQ;
 
-    static void setStaticVariables(TetrisPiece falling, Tetromino[] q) {
+    static void setStaticVariables(TetrisPiece falling, ArrayList<TetrominoEnum> q, ArrayList<TetrominoEnum> backupQ) {
         ChangePiecesAndQueue.falling = falling;
         ChangePiecesAndQueue.q = q;
+        ChangePiecesAndQueue.backupQ = backupQ;
+
+        setQs();
     }
 
-    static void swap(int i) {
-        falling.reset(q[i]);
+    private static void setQs() {
+        q = getQ();
+        backupQ = getQ();
+    }
 
-        q[i] = TetrominoEnum.getTetromino();
+    private static ArrayList<TetrominoEnum> getQ() {
+        TetrominoEnum[] ts = TetrominoEnum.values();
+        ArrayList<TetrominoEnum> tList1 = new ArrayList<>(Arrays.asList(ts));
+        Collections.shuffle(tList1);
+
+        return tList1;
+    }
+
+    static void getNextPiece() {
+        falling.reset(q.get(0).get());
+
+        q.remove(0);
+
+        if (backupQ.size() == 0) {
+            backupQ = getQ();
+        }
+
+        q.add(backupQ.get(0));
+        backupQ.remove(0);
     }
 }

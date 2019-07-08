@@ -70,7 +70,7 @@ public class RunTetris {
                 FindSinkingPieces.findFloatingPieces(searchFrom);
             }
 
-            ChangePiecesAndQueue.swap(0);
+            ChangePiecesAndQueue.getNextPiece();
 
             if (!Test.Position.isInBoundsAndEmptyNoRowMin()) {
                 return false;

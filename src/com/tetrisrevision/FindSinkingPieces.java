@@ -24,8 +24,9 @@ import java.util.stream.IntStream;
 
  1.                 2.                  3.
  row index
- |*         | 14    |          | 14     |          | 14
- |*** *     | 15    |*   *     | 15     |↓   ↓     | 15
+  ↓↓↓                ↓↓↓
+ |*↓↓       | 14    |↓↓↓       | 14     |          | 14
+ |*** *     | 15    |*↓↓ *     | 15     |↓   ↓     | 15
  |   *******| 16    |**********| 16     |*   *     | 16
  | *** *****| 17    | *** *****| 17     | *** *****| 17
  |* * * * **| 18    |* * * * **| 18     |* * * * **| 18
@@ -37,6 +38,7 @@ import java.util.stream.IntStream;
  ----------         ----------          ----------
  0123456789         0123456789          0123456789
  cell index
+
  4.                 5.                  6.
  |↓   ↓     | 15    |          | 15     |          | 15
  |↓   ↓     | 16    |          | 16     |          | 16
@@ -54,9 +56,9 @@ import java.util.stream.IntStream;
  * where the user just cleared a row: row 16 is deleted; the rows above it shift down
  * and cells 0 and 4 on row 15 drop to 16 and are no longer connected to line 23. Thus they sink.
  *
- * Steps 5-6 show how row deletion can result in floating pieces at r+1. Two cells on
- * row 18 were connected to row 17, hanging from it. When row 17 is deleted, they're no longer
- * connected to any other pieces and so they fall
+ * Steps 5-6 show how row deletion can result in floating pieces at r+1. Cells 8 and 9 on
+ * row 18 are connected to row 17, 'hanging' from it. When row 17 is deleted, they're no longer
+ * connected to any other pieces and so they sink.
  *
  *
  */
@@ -64,7 +66,8 @@ import java.util.stream.IntStream;
 
 abstract class FindSinkingPieces {
     private static ArrayList<ArrayList<Point>> sinkingPieces;
-    private static ArrayList<Point> alreadySearched;
+//    private static ArrayList<Point> alreadySearched;
+    private static int[][] alreadySearchedArr = new int[PlayField.getHeight()][PlayField.getWidth()];
 
     static void setStaticVariables(ArrayList<ArrayList<Point>> sinkingPieces) {
         FindSinkingPieces.sinkingPieces = sinkingPieces;
@@ -83,7 +86,7 @@ abstract class FindSinkingPieces {
 
         int rowAbove = startingRow - 1;
 
-        alreadySearched = new ArrayList<>();
+        alreadySearchedArr = new int[PlayField.getHeight()][PlayField.getWidth()];
 
         // Loop through 0 - 9 -- all possible cell indices -- and look for floating pieces
         IntStream.range(0, PlayField.getWidth()).forEach(x -> {
@@ -93,17 +96,13 @@ abstract class FindSinkingPieces {
     }
 
     private static void runSearch(int x, int y) {
-        resetTrackingVariables();
-        lookForSinkingPiecesByRow(new Point(x, y));
-    }
-
-    private static void resetTrackingVariables() {
         SinkingPieceFinder.piece = new ArrayList<>();
+        lookForSinkingPiecesByRow(new Point(x, y));
     }
 
     private static void lookForSinkingPiecesByRow(Point pt) {
         // If cell isn't in another sinking piece and the cell isn't empty, continue
-        if (!cellAlreadySearched(pt) && PlayField.getCell(pt).isFull()) {
+        if (PlayField.getCell(pt).isFull()) {
             SinkingPieceFinder.store(pt);
 
             ArrayList<Point> newPiece = SinkingPieceFinder.piece.stream().map(c -> (Point) c.clone()).collect(Collectors.toCollection(ArrayList::new));
@@ -118,11 +117,11 @@ abstract class FindSinkingPieces {
         static ArrayList<Point> piece = new ArrayList<>();
 
         static void store(Point pt) {
-            if (!Test.Position.isInBounds(pt) || alreadySearched.stream().anyMatch(pt::equals))
+            if (!Test.Position.isInBounds(pt) || alreadySearchedArr[(int) pt.getY()][(int) pt.getX()] == 1)
                 return;
 
             if (PlayField.getCell(pt).isFull()) {
-                alreadySearched.add(pt);
+                alreadySearchedArr[(int) pt.getY()][(int) pt.getX()] = 1;
 
                 SinkingPieceFinder.piece.add(pt);
 
