@@ -24,6 +24,19 @@ public class RunTetris {
         RunTetris.gui = gui;
     }
 
+    static boolean continueGame() {
+        gui.drawBoardIncludingPiece();
+        // In order to drop the board to the console, I add the falling and sinking piece to the board, draw it, and then remove them again.
+        // It's dumb but also the most efficient way
+        ModifyPlayField.AddAndRemove.removeFallingPiece();
+        ModifyPlayField.AddAndRemove.removeSinkingPieces();
+        softDropSinkingPieces();
+        ChangePiece.Position.trySoftDropSinkingPieces();
+
+        return softDropFallingPiece();
+    }
+
+    // Drop each sinking piece one space -- replace with hard drop
     private static void softDropSinkingPieces() {
         for (
                 int i = 0;
@@ -52,15 +65,23 @@ public class RunTetris {
         }
     }
 
+    // Try lowering the falling piece
+    // If it can't be lowered and addToBoard is true, add it to board
+    // Otherwise it can still move
+    // After it's inserted into the board, piece resets
+    // If position isn't valid after piece resets, game is over
     private static boolean softDropFallingPiece() {
         boolean canDrop = ChangePiece.Position.tryTranslateFallingPiece(0, 1);
 
         if (
                 !canDrop &&
+                        // falling piece can't drop further
                         falling.isAddToBoard() &&
+                        // press 'down' to add the piece to the board immediately if it can't drop further
                         (lastCommand.equals("j") || (lastCommand.equals("J")))
         ) {
             ModifyPlayField.AddAndRemove.addFallingPiece();
+
             int searchFrom = ModifyPlayField.RowDeleter.apply(falling.getPieceLocation());
 
             if (searchFrom > 0)
@@ -78,16 +99,6 @@ public class RunTetris {
         }
 
         return true;
-    }
-
-    static boolean continueGame() {
-        gui.drawBoardIncludingPiece();
-        ModifyPlayField.AddAndRemove.removeFallingPiece();
-        ModifyPlayField.AddAndRemove.removeSinkingPieces();
-        softDropSinkingPieces();
-        ChangePiece.Position.trySoftDropSinkingPieces();
-
-        return softDropFallingPiece();
     }
 
     static void keyboardInput() {

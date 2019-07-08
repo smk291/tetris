@@ -3,6 +3,15 @@ package com.tetrisrevision;
 import com.tetrisrevision.tetrominos.TetrominoEnum;
 
 import java.awt.*;
+import java.util.stream.IntStream;
+
+/****
+ *
+ * These are basically unit tests for various behaviors
+ *
+ *
+ *
+ */
 
 class InputTests {
     private static TetrisPiece falling;
@@ -47,7 +56,7 @@ class InputTests {
                 }
 
                 break;
-            case"q": // sinking-piece motion independent per piece
+            case"q": // multiple sinking pieces, test that each behaves correctly
                 PlayField.createEmpty();
 
                 for (int x = 0, boardWidth = PlayField.getWidth(); x < boardWidth; x++) {
@@ -80,7 +89,7 @@ class InputTests {
                 falling.setCenter(1, 9);
 
                 break;
-            case"bounds": // kick
+            case"bounds": // test kick
                 PlayField.createEmpty();
 
 
@@ -103,7 +112,7 @@ class InputTests {
                 falling.setCenter(4,9);
 
                 break;
-            case"w": // row delete
+            case"w": // test row deletion
                 PlayField.createEmpty();
 
                 for(int i = 0; i<PlayField.getWidth(); i++) {
@@ -112,7 +121,7 @@ class InputTests {
                 }
 
                 break;
-            case"e": // row delete after sink
+            case"e": // test row delete after sink -- on bottom row to test bounds checker
                 PlayField.createEmpty();
 
                 for(int i = 0; i<PlayField.getWidth();i++) {
@@ -129,7 +138,8 @@ class InputTests {
                 falling.setCenter(1,19);
 
                 break;
-            case"r": // recursive sinking blocks
+            case"r": // test recursive sinking pieces -- sinking pieces created when sinking piece fills row and row deletion creates
+                     // another sinking piece
                 PlayField.createEmpty();
 
                 for(int x = 0; x < PlayField.getWidth();x++) {
@@ -162,11 +172,31 @@ class InputTests {
                 falling.setCenter(1,12);
 
                 break;
-            case "t":
-                // Test piece motion after soft drop
-                break;
-            case "y":
+            case "a":
                 // Test t-spin
+                PlayField.createEmpty();
+                falling.setFromTetromino(TetrominoEnum.T.get());
+                falling.setCenter(5, 17);
+
+                for (int x = 0; x < PlayField.getWidth();x++) {
+                    if (x < 4 || x > 5) {
+                        final int finalX = x;
+
+                        IntStream.range(19, 21)
+                            .forEach(y -> PlayField.fillCell(finalX, y));
+                    }
+
+                    if (x < 3 || x > 5) {
+                       PlayField.fillCell(x, 21);
+                    }
+
+                    PlayField.fillCell(x, 22);
+                    PlayField.fillCell(x, 23);
+                }
+
+                PlayField.emptyCell(new Point(4, 22));
+
+                break;
         }
     }
 }
