@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +21,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
-              <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+            <state relative-caret-position="563">
+              <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
             </state>
           </provider>
         </entry>
@@ -348,7 +350,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.4224599" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993895" visible="true" weight="0.28770053" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993895" weight="0.28770053" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -617,8 +619,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+        <state relative-caret-position="563">
+          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
         </state>
       </provider>
     </entry>

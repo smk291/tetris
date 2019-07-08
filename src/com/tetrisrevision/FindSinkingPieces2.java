@@ -16,7 +16,7 @@
 // *
 // * The logic is as follows:
 // *
-// * After deleting a row, I pass the index of the deleted row to findFloatingPieces
+// * After deleting a row, I pass the index of the deleted row to resetVariablesAndRunSearch
 // * After row deletion, there are only two possible locations, in terms of row index, of a floating/sinking piece:
 // * 1. at the row index where a row was just deleted (startingRow)
 // * 2. at the row index below (startingRow + 1).
@@ -85,7 +85,7 @@
 //    //     return sinkingPieces.stream().anyMatch(c -> c.contains(t));
 //    // }
 //
-//    static void findFloatingPieces(int startingRow) {
+//    static void resetVariablesAndRunSearch(int startingRow) {
 //        if (!Test.Position.isInBounds(0, startingRow)) {
 //            return;
 //        }

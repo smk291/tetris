@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
  *
  * The logic is as follows:
  *
- * After deleting a row, I pass the index of the deleted row to findFloatingPieces
+ * After deleting a row, I pass the index of the deleted row to resetVariablesAndRunSearch
  * After row deletion, there are only two possible locations, in terms of row index, of a floating/sinking piece:
  * 1. at the row index where a row was just deleted (startingRow)
  * 2. at the row index below (startingRow + 1).
@@ -73,7 +73,7 @@ abstract class FindSinkingPieces {
         FindSinkingPieces.sinkingPieces = sinkingPieces;
     }
 
-    static void findFloatingPieces(int startingRow) {
+    static void resetVariablesAndRunSearch(int startingRow) {
         if (!Test.Position.isInBounds(0, startingRow))
             return;
 
@@ -95,14 +95,14 @@ abstract class FindSinkingPieces {
     private static void lookForSinkingPiecesByRow(Point pt) {
         // If cell isn't in another sinking piece and the cell isn't empty, continue
         if (PlayField.getCell(pt).isFull()) {
-            store(pt);
+            addConnectedCellsToPiece(pt);
 
             if (piece.size() > 0)
                 sinkingPieces.add(piece);
         }
     }
 
-    private static void store(Point pt) {
+    private static void addConnectedCellsToPiece(Point pt) {
         if (!Test.Position.isInBounds(pt) || alreadySearchedArr[(int) pt.getY()][(int) pt.getX()] == 1)
             return;
 
@@ -121,10 +121,10 @@ abstract class FindSinkingPieces {
             p3.translate(1, 0);
             p4.translate(-1, 0);
 
-            store(p1);
-            store(p2);
-            store(p3);
-            store(p4);
+            addConnectedCellsToPiece(p1);
+            addConnectedCellsToPiece(p2);
+            addConnectedCellsToPiece(p3);
+            addConnectedCellsToPiece(p4);
         }
     }
 }

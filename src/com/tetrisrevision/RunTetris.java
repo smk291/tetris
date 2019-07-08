@@ -41,7 +41,7 @@ public class RunTetris {
                 sinkingPieces.remove(piece);
 
                 if (searchFrom > 0) {
-                    FindSinkingPieces.findFloatingPieces(searchFrom);
+                    FindSinkingPieces.resetVariablesAndRunSearch(searchFrom);
                     softDropSinkingPieces();
                 }
 
@@ -67,7 +67,7 @@ public class RunTetris {
             int searchFrom = ModifyPlayField.RowDeleter.apply(falling.getPieceLocation());
 
             if (searchFrom > 0) {
-                FindSinkingPieces.findFloatingPieces(searchFrom);
+                FindSinkingPieces.resetVariablesAndRunSearch(searchFrom);
             }
 
             ChangePiecesAndQueue.getNextPiece();
