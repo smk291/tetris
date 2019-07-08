@@ -65,10 +65,6 @@ import java.util.stream.IntStream;
 abstract class FindSinkingPieces {
     private static ArrayList<ArrayList<Point>> sinkingPieces;
     private static ArrayList<Point> alreadySearched;
-    private static int i = 0;
-    private static int j = 0;
-    private static int k = 0;
-    private static boolean continueRecursing = true;
 
     static void setStaticVariables(ArrayList<ArrayList<Point>> sinkingPieces) {
         FindSinkingPieces.sinkingPieces = sinkingPieces;
@@ -91,33 +87,18 @@ abstract class FindSinkingPieces {
 
         // Loop through 0 - 9 -- all possible cell indices -- and look for floating pieces
         IntStream.range(0, PlayField.getWidth()).forEach(x -> {
-            runSearch("rowAbove", x, rowAbove);
-            runSearch("startingRow", x, startingRow);
+            runSearch(x, rowAbove);
+            runSearch(x, startingRow);
         });
     }
 
-    static void runSearch(String message, int x, int y) {
+    private static void runSearch(int x, int y) {
         resetTrackingVariables();
-        resetCounters();
         lookForSinkingPiecesByRow(new Point(x, y));
-        printOut("Looking at " + message, x, y);
     }
 
-    static void resetTrackingVariables() {
+    private static void resetTrackingVariables() {
         SinkingPieceFinder.piece = new ArrayList<>();
-        continueRecursing = true;
-    }
-    static void resetCounters() {
-        i = 0;
-        j = 0;
-        k = 0;
-    }
-
-    static void printOut (String message, int x, int y) {
-       System.out.println(message);
-
-       System.out.println("cell: " + x + ", i: + " + i + ", j: " + j + ", k: " + k);
-//        System.out.println("cell: " + x + ", i: + " + i + ", j: " + j + ", k: " + k);
     }
 
     private static void lookForSinkingPiecesByRow(Point pt) {
@@ -137,27 +118,12 @@ abstract class FindSinkingPieces {
         static ArrayList<Point> piece = new ArrayList<>();
 
         static void store(Point pt) {
-            i++;
-
             if (!Test.Position.isInBounds(pt) || alreadySearched.stream().anyMatch(p -> p.getX() == pt.getX() && p.getY() == pt.getY()))
-//            if (!Test.Position.isInBounds(pt) || !continueRecursing)
                 return;
 
-            j++;
-
-//            System.out.println("PT: { " + (int) pt.getX() + ", " + (int) pt.getY() + " }");
-            System.out.println(alreadySearched.stream().noneMatch(p -> p.getX() == pt.getX() && p.getY() == pt.getY()));
-
-            if ((int) pt.getY() == 23) {
-                System.out.println("No floating piece");
-
-//                continueRecursing = false;
-            }  else if (PlayField.getCell(pt).isFull() &&
-//                    continueRecursing &&
-                    piece.stream().noneMatch(pt::equals)
-            ) {
-                k++;
+            if (PlayField.getCell(pt).isFull()) {
                 alreadySearched.add(pt);
+
                 SinkingPieceFinder.piece.add(pt);
 
                 Point p1 = (Point) pt.clone();
