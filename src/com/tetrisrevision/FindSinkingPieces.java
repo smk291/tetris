@@ -118,7 +118,7 @@ abstract class FindSinkingPieces {
         static ArrayList<Point> piece = new ArrayList<>();
 
         static void store(Point pt) {
-            if (!Test.Position.isInBounds(pt) || alreadySearched.stream().anyMatch(p -> p.getX() == pt.getX() && p.getY() == pt.getY()))
+            if (!Test.Position.isInBounds(pt) || alreadySearched.stream().anyMatch(pt::equals))
                 return;
 
             if (PlayField.getCell(pt).isFull()) {
