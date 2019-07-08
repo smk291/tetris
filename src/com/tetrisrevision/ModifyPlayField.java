@@ -73,7 +73,7 @@ abstract public class ModifyPlayField {
                 }
             }
 
-            int lowestRowToDelete = startAt + 1;
+            int rowIdxForFindingFloatingPieces = startAt;
 
             if (startAt > -1) {
                 int shift = 0;
@@ -92,7 +92,7 @@ abstract public class ModifyPlayField {
                 }
             }
 
-            return lowestRowToDelete;
+            return rowIdxForFindingFloatingPieces;
         }
     }
 }

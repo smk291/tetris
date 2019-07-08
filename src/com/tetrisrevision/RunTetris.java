@@ -40,10 +40,8 @@ public class RunTetris {
 
                 sinkingPieces.remove(piece);
 
-                if (searchFrom > 0) {
+                if (searchFrom > 0)
                     FindSinkingPieces.resetVariablesAndRunSearch(searchFrom);
-                    softDropSinkingPieces();
-                }
 
                 i--;
 
@@ -63,18 +61,15 @@ public class RunTetris {
                         (lastCommand.equals("j") || (lastCommand.equals("J")))
         ) {
             ModifyPlayField.AddAndRemove.addFallingPiece();
-
             int searchFrom = ModifyPlayField.RowDeleter.apply(falling.getPieceLocation());
 
-            if (searchFrom > 0) {
+            if (searchFrom > 0)
                 FindSinkingPieces.resetVariablesAndRunSearch(searchFrom);
-            }
 
             ChangePiecesAndQueue.getNextPiece();
 
-            if (!Test.Position.isInBoundsAndEmptyNoRowMin()) {
+            if (!Test.Position.isInBoundsAndEmptyNoRowMin())
                 return false;
-            }
         } if (!canDrop) {
             falling.setAddToBoard(true);
         } else {
