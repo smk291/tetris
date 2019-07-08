@@ -66,7 +66,7 @@ import java.util.stream.IntStream;
 
 abstract class FindSinkingPieces {
     private static ArrayList<ArrayList<Point>> sinkingPieces;
-    private static int[][] alreadySearchedArr = new int[PlayField.getHeight()][PlayField.getWidth()];
+    private static int[][] searched = new int[PlayField.getHeight()][PlayField.getWidth()];
     private static ArrayList<Point> piece = new ArrayList<>();
 
     static void setStaticVariables(ArrayList<ArrayList<Point>> sinkingPieces) {
@@ -79,7 +79,7 @@ abstract class FindSinkingPieces {
 
         int rowAbove = startingRow - 1;
 
-        alreadySearchedArr = new int[PlayField.getHeight()][PlayField.getWidth()];
+        searched = new int[PlayField.getHeight()][PlayField.getWidth()];
 
         IntStream.range(0, PlayField.getWidth()).forEach(x -> {
             runSearch(x, rowAbove);
@@ -103,11 +103,11 @@ abstract class FindSinkingPieces {
     }
 
     private static void addConnectedCellsToPiece(Point pt) {
-        if (!Test.Position.isInBounds(pt) || alreadySearchedArr[(int) pt.getY()][(int) pt.getX()] == 1)
+        if (!Test.Position.isInBounds(pt) || searched[(int) pt.getY()][(int) pt.getX()] == 1)
             return;
 
         if (PlayField.getCell(pt).isFull()) {
-            alreadySearchedArr[(int) pt.getY()][(int) pt.getX()] = 1;
+            searched[(int) pt.getY()][(int) pt.getX()] = 1;
 
             piece.add(pt);
 
