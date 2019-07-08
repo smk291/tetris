@@ -87,10 +87,8 @@ public class RunTetris {
 
     static boolean continueGame() {
         gui.drawBoardIncludingPiece();
-
         ModifyPlayField.AddAndRemove.removeFallingPiece();
         ModifyPlayField.AddAndRemove.removeSinkingPieces();
-
         softDropSinkingPieces();
         ChangePiece.Position.trySoftDropSinkingPieces();
 
