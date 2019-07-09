@@ -7,35 +7,35 @@ import java.awt.*;
 import java.util.ArrayList;
 
 class Game {
-    private static ArrayList<ArrayList<Point>> sinkingPieces = new ArrayList<>();
-    private ArrayList<TetrominoEnum> q = new ArrayList<>();
-    private ArrayList<TetrominoEnum> backupQ = new ArrayList<>();
-    private TetrisPiece falling = new TetrisPiece(TetrominoEnum.getTetromino());
+  private static ArrayList<ArrayList<Point>> sinkingPieces = new ArrayList<>();
+  private ArrayList<TetrominoEnum> q = new ArrayList<>();
+  private ArrayList<TetrominoEnum> backupQ = new ArrayList<>();
+  private TetrisPiece falling = new TetrisPiece(TetrominoEnum.getTetromino());
 
-    void play() {
-        initializeVariables();
+  void play() {
+    initializeVariables();
 
-        while (RunTetris.continueGame()) {
-            RunTetris.keyboardInput();
-        }
+    while (RunTetris.continueGame()) {
+      RunTetris.keyboardInput();
     }
+  }
 
-    private void initializeVariables() {
-        falling.setFromTetromino(TetrominoEnum.getTetromino());
+  private void initializeVariables() {
+    falling.setFromTetromino(TetrominoEnum.getTetromino());
 
-        int width = 10;
-        int height = 24;
+    int width = 10;
+    int height = 24;
 
-        PlayField.setStaticVariables(width, height);
+    PlayField.setStaticVariables(width, height);
 
-        ChangePiece.setStaticVariables(falling, sinkingPieces);
-        ChangePiecesAndQueue.setStaticVariables(falling, q, backupQ);
+    ChangePiece.setStaticVariables(falling, sinkingPieces);
+    ChangePiecesAndQueue.setStaticVariables(falling, q, backupQ);
 
-        FindSinkingPieces.setStaticVariables(sinkingPieces);
-        ModifyPlayField.setStaticVariables(falling, sinkingPieces);
-        PlayField.setStaticVariables(width, height);
-        RunTetris.setStaticVariables(falling, sinkingPieces, new DrawBoard());
-        Test.setStaticVariables(falling);
-        InputTests.setStaticVariables(falling);
-    }
+    FindSinkingPieces.setStaticVariables(sinkingPieces);
+    ModifyPlayField.setStaticVariables(falling, sinkingPieces);
+    PlayField.setStaticVariables(width, height);
+    RunTetris.setStaticVariables(falling, sinkingPieces, new DrawBoard());
+    Test.setStaticVariables(falling);
+    InputTests.setStaticVariables(falling);
+  }
 }

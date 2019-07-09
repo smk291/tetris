@@ -1,10 +1,9 @@
 package com.tetrisrevision;
 
 public interface GUI {
-    void draw();
+  void draw();
 
-    char drawCell(boolean isFull);
+  char drawCell(boolean isFull);
 
-    void drawBoardIncludingPiece();
+  void drawBoardIncludingPiece();
 }
-
