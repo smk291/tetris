@@ -1,0 +1,4 @@
+
+üsquid:S1186	"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ö‰„®8≈…ÌÀæ-
+lsquid:UselessImportCheck"<Remove this unused import 'java.awt.font.FontRenderContext'.(ú®Üã˙ˇˇˇˇ8≈…ÌÀæ-
+fsquid:UselessImportCheck"6Remove this unused import 'java.awt.geom.Rectangle2D'.(≈âêü˝ˇˇˇˇ8≈…ÌÀæ-

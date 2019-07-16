@@ -1,0 +1,5 @@
+
+bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¤òèÏ
+ƒ squid:ForLoopCounterChangedCheck4"XRefactor the code in order to not assign to this loop counter from within the loop body.(¨…ÄK
+Xsquid:S1118":Add a private constructor to hide the implicit public one.(®ÑÂ¨8áë’€¾-
+asquid:S1155'">Use isEmpty() to check whether the collection is empty or not.(Èóüÿÿÿÿ8áë’€¾-

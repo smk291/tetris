@@ -1,0 +1,59 @@
+
+]
+-src/com/tetrisrevision/tetrominos/IPiece.java,d/3/d3932719b3fba5782bcdef4d6690f674d538374c
+d
+4src/com/tetrisrevision/tetrominos/TetrominoEnum.java,d/8/d871bae10d46a3170d2ecc99bb81201b22d92703
+P
+ src/com/tetrisrevision/Cell.java,3/a/3a4f4bf9d0bfd16d122d98b7e74ed504e8ddff94
+W
+'src/com/tetrisrevision/ChangePiece.java,d/5/d55e3fbb6530421c5176dbc0b542a3aa2cb7e71e
+`
+0src/com/tetrisrevision/ChangePiecesAndQueue.java,8/c/8c69c00d7941abf6610f34a06f8866a3e00e13a8
+]
+-src/com/tetrisrevision/FindSinkingPieces.java,9/9/9969829220031dc2175b616b5b3cd495081d7eca
+P
+ src/com/tetrisrevision/Game.java,0/d/0dd57004d8988029ce42e6ff92d6f0d71f126ae1
+V
+&src/com/tetrisrevision/InputTests.java,0/2/026bbeb16eeeb1eb782633ee0a19af9f2026bdb2
+[
++src/com/tetrisrevision/ModifyPlayField.java,6/0/60ebf3a725b4a7766c0ebb87c38a9badd6c520bb
+U
+%src/com/tetrisrevision/PlayField.java,6/a/6a6be924a3cb9c8dbd417d715a34c70aba40910f
+U
+%src/com/tetrisrevision/RunTetris.java,7/b/7b174222f26b3aec770a882dddb9fce7d0874473
+P
+ src/com/tetrisrevision/Test.java,2/2/22656988f0f1cb1b90e9582461b18a974956579a
+O
+src/com/tetrisrevision/GUI.java,2/6/26c0232130e79f99dc5e1ae986a59de9d3f4d290
+]
+-src/com/tetrisrevision/console/DrawBoard.java,7/1/71d408a7a8a0cff5af17e839fdd4f9bfea380626
+]
+-src/com/tetrisrevision/tetrominos/JPiece.java,1/2/12f6887e85a36afe7021ded004c9279219ffb4ae
+]
+-src/com/tetrisrevision/tetrominos/LPiece.java,8/9/89c8f62bddc8c8dd17eaf99571768c797735202a
+]
+-src/com/tetrisrevision/tetrominos/OPiece.java,5/9/597d0ff6f714ad57624824282140307bd974bb44
+]
+-src/com/tetrisrevision/tetrominos/SPiece.java,8/9/89e16b5c8c7bef372a817bd5c904c27a98f1a923
+`
+0src/com/tetrisrevision/tetrominos/Tetromino.java,7/c/7ccba7c024aaf8ddf1d05ac43c8e2fdbe99fb368
+]
+-src/com/tetrisrevision/tetrominos/TPiece.java,d/6/d636a5664a9686ee8a3cc89a72e3031d8e531eb0
+]
+-src/com/tetrisrevision/tetrominos/ZPiece.java,0/3/038c9e9d8f3754b190451f0b03061946c669f604
+W
+'src/com/tetrisrevision/TetrisPiece.java,8/4/84d0fe6144eb66c71add0c84dab8196ef536d747
+U
+%src/com/tetrisrevision/DrawTitle.java,7/8/7865cb06009a9a520a2a1791bb0069008fdb8358
+U
+%src/com/tetrisrevision/TetrisGui.java,a/2/a2cffda3ba6bfd17637ebd66f5f9c4ab790639cf
+S
+#src/com/tetrisrevision/GuiCell.java,5/a/5a1a3f4068662fdb837643c57b7e6fd306571526
+Q
+!src/com/tetrisrevision/Board.java,1/a/1afecf0c2ffe57aae222b6d98e905fcd19efb424
+R
+"src/com/tetrisrevision/Tetris.java,5/1/514f06299c85f68e2b5f893f72de5806bc62157c
+P
+ src/com/composite/Composite.java,2/9/297097124516e2af9ebed86cfb6d3eec576ef73c
+P
+ src/com/transform/Transform.java,4/3/43593d0133755989c23d7fff911d2be6c902a395

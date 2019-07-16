@@ -1,0 +1,36 @@
+
+Zsquid:S2696”"6Make the enclosing method "static" or remove this set.(ÏáÌ£üÿÿÿÿ8…¦…‹¿-
+Lsquid:S1948Õ"(Make "shapes" transient or serializable.(°å°éıÿÿÿÿ8…¦…‹¿-
+asquid:S2184‹"BCast one of the operands of this division operation to a "double".(õÓà‰8…¦…‹¿-
+Asquid:S16597"$Declare "stroke" on a separate line.(á„Òo8…¦…‹¿-
+]"squid:SwitchLastCaseIsDefaultCheck¼""Add a default case to this switch.(±Ş™ûùÿÿÿÿ8…¦…‹¿-
+Hsquid:S14449"*Make this "public static no2D" field final(Ğ´óŸ8…¦…‹¿-
+Ysquid:S2696u"6Make the enclosing method "static" or remove this set.(©¯Õ’ûÿÿÿÿ8…¦…‹¿-
+Ysquid:S1161ò":Add the "@Override" annotation above this method signature(³ıŸê8…¦…‹¿-
+]"squid:SwitchLastCaseIsDefaultCheck’""Add a default case to this switch.(¹¬¯šùÿÿÿÿ8…¦…‹¿-
+W"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(¢¤Ğd8…¦…‹¿-
+@squid:S16597"#Declare "trans" on a separate line.(á„Òo8…¦…‹¿-
+Ysquid:S2696~"6Make the enclosing method "static" or remove this set.(©ä¾ÿÿÿÿÿ8…¦…‹¿-
+Fsquid:S16595"(Declare "transLabel" on a separate line.(ûÍ8…¦…‹¿-
+?squid:S16597""Declare "line" on a separate line.(á„Òo8…¦…‹¿-
+_squid:S2184†"@Cast one of the operands of this integer division to a "double".(üàÛ³8…¦…‹¿-
+\squid:S1197Õ"8Move the array designator from the variable to the type.(°å°éıÿÿÿÿ8…¦…‹¿-
+Xsquid:S1161;":Add the "@Override" annotation above this method signature( Üó8…¦…‹¿-
+\squid:S1197•"8Move the array designator from the variable to the type.(ª¼«áøÿÿÿÿ8…¦…‹¿-
+@squid:S16597"#Declare "paint" on a separate line.(á„Òo8…¦…‹¿-
+>squid:S1659Ô"Declare "h" on a separate line.(Í¤¾‡8…¦…‹¿-
+nsquid:S1192İ"JDefine a constant instead of duplicating this literal "Helvetica" 3 times.(ƒÆ—Âüÿÿÿÿ8…¦…‹¿-
+Zsquid:S2696‰"6Make the enclosing method "static" or remove this set.(íşı§úÿÿÿÿ8…¦…‹¿-
+Esquid:S16595"'Declare "lineLabel" on a separate line.(ûÍ8…¦…‹¿-
+Hsquid:S1948Ö"$Make "bi" transient or serializable.(¼‹õ‹üÿÿÿÿ8…¦…‹¿-
+^squid:S1161Â":Add the "@Override" annotation above this method signature(†§şıÿÿÿÿ8…¦…‹¿-
+fsquid:S2184ç"BCast one of the operands of this division operation to a "double".(Ç¤İşÿÿÿÿ8…¦…‹¿-
+dsquid:S2184"@Cast one of the operands of this integer division to a "double".(ªÎÊóşÿÿÿÿ8…¦…‹¿-
+Ysquid:S2696k"6Make the enclosing method "static" or remove this set.(‡¯ìÿÿÿÿÿ8…¦…‹¿-
+asquid:S2184‹"BCast one of the operands of this division operation to a "double".(õÓà‰8…¦…‹¿-
+ squid:S1186³"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(œ†‰8…¦…‹¿-
+…"squid:ClassVariableVisibilityCheck9"PMake no2D a static final constant or non-public and provide accessors if needed.(Ğ´óŸ8…¦…‹¿-
+fsquid:S2184ç"BCast one of the operands of this division operation to a "double".(Ç¤İşÿÿÿÿ8…¦…‹¿-
+W"squid:SwitchLastCaseIsDefaultCheckå""Add a default case to this switch.(¡Ü²8…¦…‹¿-
+Gsquid:S16595")Declare "strokeLabel" on a separate line.(ûÍ8…¦…‹¿-
+Fsquid:S16595"(Declare "paintLabel" on a separate line.(ûÍ8…¦…‹¿-

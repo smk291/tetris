@@ -1,0 +1,6 @@
+
+bsquid:UselessImportCheck"7Remove this unused import 'java.awt.event.ActionEvent'.(Úù“‘8«ó‘‹¿-
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(·òµ•ùÿÿÿÿ8€¡Ô¼¾-
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(êÔÿ‹8€¡Ô¼¾-
+nsquid:CommentedOutCodeLine="<This block of commented-out lines of code should be removed.(è–Éêúÿÿÿÿ8´Ë¾-
+[squid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8µˆ‹¿-

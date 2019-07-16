@@ -1,0 +1,13 @@
+
+Ksquid:S16595"(Declare "rulesLabel" on a separate line.(Éı³§ûÿÿÿÿ8çÌ‘Ç¾-
+Xsquid:S1854J"5Remove this useless assignment to local variable "c".(‚èê‰ÿÿÿÿÿ8çÌ‘Ç¾-
+Ysquid:S1161”":Add the "@Override" annotation above this method signature(ÀÂ¬‚8çÌ‘Ç¾-
+Asquid:S16596"#Declare "rules" on a separate line.(œ‚Üñ8çÌ‘Ç¾-
+ squid:S1186¥"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(›±°İ8çÌ‘Ç¾-
+]"squid:SwitchLastCaseIsDefaultCheck±""Add a default case to this switch.(–ÆÇìøÿÿÿÿ8çÌ‘Ç¾-
+squid:UselessImportCheck#"QRemove this unnecessary import: java.lang classes are always implicitly imported.(šÆ¿ˆıÿÿÿÿ8çÌ‘Ç¾-
+Csquid:S1948¢"$Make "ac" transient or serializable.(î›÷Ë8çÌ‘Ç¾-
+Isquid:S1481J"&Remove this unused "c" local variable.(‚èê‰ÿÿÿÿÿ8çÌ‘Ç¾-
+Zsquid:S2130©";Use "Float.parseFloat" for this string-to-float conversion.(‘‚üà8çÌ‘Ç¾-
+Xsquid:S1161;":Add the "@Override" annotation above this method signature( Üó8çÌ‘Ç¾-
+Usquid:S1197‘"8Move the array designator from the variable to the type.(˜ƒ|8çÌ‘Ç¾-

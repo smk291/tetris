@@ -26,7 +26,7 @@ public class DrawBoard implements GUI {
   }
 
   public char drawCell(boolean isFull) {
-    return isFull ? '*' : ' ';
+    return isFull ? '□' : ' ';
   }
 
   public void drawBoardIncludingPiece() {
