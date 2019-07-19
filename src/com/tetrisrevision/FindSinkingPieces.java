@@ -72,21 +72,26 @@ import java.util.stream.IntStream;
  ****/
 
 
-abstract class FindSinkingPieces {
-  private static ArrayList<ArrayList<Point>> sinkingPieces;
-  private static int[][] searched = new int[PlayField.getHeight()][PlayField.getWidth()];
-  private static ArrayList<Point> piece = new ArrayList<>();
-  private static boolean attachedToFloor = false;
+class FindSinkingPieces {
+  private PlayField playField;
+  private ArrayList<ArrayList<Point>> sinkingPieces;
+  private ArrayList<Point> piece = new ArrayList<>();
+  private boolean attachedToFloor = false;
+  private int[][] searched;
+  private Test test;
 
-  static void setStaticVariables(ArrayList<ArrayList<Point>> sinkingPieces) {
-    FindSinkingPieces.sinkingPieces = sinkingPieces;
+  FindSinkingPieces(PlayField playField, ArrayList<ArrayList<Point>> sinkingPieces, Test test) {
+    this.playField = playField;
+    this.sinkingPieces = sinkingPieces;
+    this.test = test;
+    searched = new int[PlayField.getHeight()][PlayField.getWidth()];
   }
 
-  private static boolean pointHasBeenTested(Point pt) {
+  private boolean pointHasBeenTested(Point pt) {
     return searched[(int) pt.getY()][(int) pt.getX()] == 1;
   }
 
-  private static void recordPointHasBeenTested(Point pt) {
+  private void recordPointHasBeenTested(Point pt) {
     searched[(int) pt.getY()][(int) pt.getX()] = 1;
   }
 
@@ -103,8 +108,8 @@ abstract class FindSinkingPieces {
    *
    ****/
 
-  static void resetVariablesAndRunSearch(int deletedRowIdx) {
-    if (!Test.Position.isInBounds(0, deletedRowIdx)) return;
+  void resetVariablesAndRunSearch(int deletedRowIdx) {
+    if (!test.position.isInBounds(0, deletedRowIdx)) return;
 
     int rowBelow = deletedRowIdx + 1;
 
@@ -130,7 +135,7 @@ abstract class FindSinkingPieces {
    * Find all filled cells connected to the point
    *
    ****/
-  private static void runSearch(int x, int y) {
+  private void runSearch(int x, int y) {
     piece = new ArrayList<>();
     attachedToFloor = false;
 
@@ -146,8 +151,8 @@ abstract class FindSinkingPieces {
    * or indirectly to a cell that is
    *
    ****/
-  private static void findConnectedFilledCells(Point pt) {
-    if (Test.Position.isInBounds(pt) && PlayField.getCell(pt).isFull() && !pointHasBeenTested(pt)) {
+  private void findConnectedFilledCells(Point pt) {
+    if (test.position.isInBounds(pt) && playField.getCell(pt).isFull() && !pointHasBeenTested(pt)) {
       addConnectedPointsToPiece(pt);
 
       if (!attachedToFloor) sinkingPieces.add(piece);
@@ -166,10 +171,10 @@ abstract class FindSinkingPieces {
    * Look for cells connected in each direction
    **/
 
-  private static void addConnectedPointsToPiece(Point pt) {
-    if (!Test.Position.isInBounds(pt) || pointHasBeenTested(pt)) return;
+  private void addConnectedPointsToPiece(Point pt) {
+    if (!test.position.isInBounds(pt) || pointHasBeenTested(pt)) return;
 
-    if (PlayField.getCell(pt).isFull()) {
+    if (playField.getCell(pt).isFull()) {
       if ((int) pt.getY() == 23) attachedToFloor = true;
 
       recordPointHasBeenTested(pt);
@@ -183,7 +188,7 @@ abstract class FindSinkingPieces {
     }
   }
 
-  private static void searchAdjacent(Point pt, int x, int y) {
+  private void searchAdjacent(Point pt, int x, int y) {
     pt.translate(x, y);
 
     addConnectedPointsToPiece(pt);

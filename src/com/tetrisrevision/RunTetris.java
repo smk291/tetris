@@ -4,57 +4,78 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class RunTetris {
+class RunTetris {
   // private static int[] delayPerLevel = {500, 450, 400, 350, 300, 250, 200, 150, 100, 50};
   // private Timer t;
   // private int currentLevel;
   // private Timer timer;
-  private static GUI gui;
-  private static TetrisPiece falling;
-  private static ArrayList<ArrayList<Point>> sinkingPieces;
-  private static String lastCommand;
+  private GUI gui;
+  private TetrisPiece falling;
+  private ArrayList<ArrayList<Point>> sinkingPieces;
+  private String lastCommand;
+  private ModifyPlayField modifyPlayField;
+  private FindSinkingPieces findSinkingPieces;
+  private InputTests inputTests;
+  private Test test;
+  private ChangePiece changePiece;
+  private ChangePiecesAndQueue changePiecesAndQueue;
 
-  static void setStaticVariables(
-      TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces, GUI gui) {
-    RunTetris.falling = falling;
-    RunTetris.sinkingPieces = sinkingPieces;
-    RunTetris.gui = gui;
+  RunTetris(
+      TetrisPiece falling,
+      ArrayList<ArrayList<Point>> sinkingPieces,
+      GUI gui,
+      ModifyPlayField modifyPlayField,
+      PlayField playField,
+      Test test,
+      FindSinkingPieces findSinkingPieces,
+      ChangePiecesAndQueue changePiecesAndQueue,
+      ChangePiece changePiece
+  ) {
+    this.falling = falling;
+    this.sinkingPieces = sinkingPieces;
+    this.gui = gui;
+    this.modifyPlayField = modifyPlayField;
+    this.findSinkingPieces = findSinkingPieces;
+    this.inputTests = new InputTests(playField, falling);
+    this.test = test;
+    this.changePiece = changePiece;
+    this.changePiecesAndQueue = changePiecesAndQueue;
   }
 
-  static boolean continueGame() {
+  boolean continueGame() {
     gui.drawBoardIncludingPiece();
     // In order to drop the board to the console, I add the falling and sinking piece to the board,
     // draw it, and then remove them again.
     // It's dumb but also the most efficient way
-    ModifyPlayField.AddAndRemove.removeFallingPiece();
-    ModifyPlayField.AddAndRemove.removeSinkingPieces();
+    modifyPlayField.addAndRemove.removeFallingPiece();
+    modifyPlayField.addAndRemove.removeSinkingPieces();
     softDropSinkingPieces();
-    ChangePiece.Position.trySoftDropSinkingPieces();
+    changePiece.position.trySoftDropSinkingPieces();
 
     return softDropFallingPiece();
   }
 
   // Drop each sinking piece one space -- replace with hard drop
-  private static void softDropSinkingPieces() {
+  private void softDropSinkingPieces() {
     for (int i = 0; sinkingPieces.size() > 0 && i < sinkingPieces.size(); i++) {
       ArrayList<Point> piece = sinkingPieces.get(i);
 
-      boolean canSink = ChangePiece.Position.trySoftDropSinkingPiece(piece);
+      boolean canSink = changePiece.position.trySoftDropSinkingPiece(piece);
 
       if (!canSink) {
-        ModifyPlayField.AddAndRemove.addSinkingPiece(piece);
-        int searchFrom = ModifyPlayField.RowDeleter.apply(piece);
+        modifyPlayField.addAndRemove.addSinkingPiece(piece);
+        int searchFrom = modifyPlayField.rowDeleter.apply(piece);
 
         sinkingPieces.remove(piece);
 
-        if (searchFrom > 0) FindSinkingPieces.resetVariablesAndRunSearch(searchFrom);
+        if (searchFrom > 0) findSinkingPieces.resetVariablesAndRunSearch(searchFrom);
 
         i--;
 
         gui.drawBoardIncludingPiece();
       }
 
-      ChangePiece.Position.tryRaiseSinkingPiece(piece);
+      changePiece.position.tryRaiseSinkingPiece(piece);
     }
   }
 
@@ -63,8 +84,8 @@ public class RunTetris {
   // Otherwise it can still move
   // After it's inserted into the board, piece resets
   // If position isn't valid after piece resets, game is over
-  private static boolean softDropFallingPiece() {
-    boolean canDrop = ChangePiece.Position.tryTranslateFallingPiece(0, 1);
+  private boolean softDropFallingPiece() {
+    boolean canDrop = changePiece.position.tryTranslateFallingPiece(0, 1);
 
     if (!canDrop
         &&
@@ -73,15 +94,15 @@ public class RunTetris {
         &&
         // press 'down' to add the piece to the board immediately if it can't drop further
         (lastCommand.equals("j") || (lastCommand.equals("J")))) {
-      ModifyPlayField.AddAndRemove.addFallingPiece();
+      modifyPlayField.addAndRemove.addFallingPiece();
 
-      int searchFrom = ModifyPlayField.RowDeleter.apply(falling.getPieceLocation());
+      int searchFrom = modifyPlayField.rowDeleter.apply(falling.getPieceLocation());
 
-      if (searchFrom > 0) FindSinkingPieces.resetVariablesAndRunSearch(searchFrom);
+      if (searchFrom > 0) findSinkingPieces.resetVariablesAndRunSearch(searchFrom);
 
-      ChangePiecesAndQueue.getNextPiece();
+      changePiecesAndQueue.getNextPiece();
 
-      if (!Test.Position.isInBoundsAndEmptyNoRowMin()) return false;
+      if (!test.position.isInBoundsAndEmptyNoRowMin()) return false;
     }
     if (!canDrop) {
       falling.setAddToBoard(true);
@@ -93,7 +114,7 @@ public class RunTetris {
     return true;
   }
 
-  static void keyboardInput() {
+  void keyboardInput() {
     Scanner keyboard = new Scanner(System.in);
     System.out.println("Command:");
     String command = keyboard.nextLine();
@@ -102,29 +123,29 @@ public class RunTetris {
 
     switch (command) {
       case "h":
-        ChangePiece.Position.tryTranslateFallingPiece(-1, 0);
+        changePiece.position.tryTranslateFallingPiece(-1, 0);
         break;
       case "l":
-        ChangePiece.Position.tryTranslateFallingPiece(1, 0);
+        changePiece.position.tryTranslateFallingPiece(1, 0);
         break;
       case "j":
-        ChangePiece.Position.tryTranslateFallingPiece(0, 1);
+        changePiece.position.tryTranslateFallingPiece(0, 1);
         break;
       case "k":
-        ChangePiece.Position.tryTranslateFallingPiece(0, -1);
+        changePiece.position.tryTranslateFallingPiece(0, -1);
         break;
       case "[":
-        ChangePiece.Rotation.tryRotate(-1);
+        changePiece.rotation.tryRotate(-1);
         break;
       case "]":
-        ChangePiece.Rotation.tryRotate(1);
+        changePiece.rotation.tryRotate(1);
         break;
       case "J":
-        ChangePiece.Position.hardDrop();
+        changePiece.position.hardDrop();
 
         break;
       default:
-        InputTests.accept(command);
+        inputTests.accept(command);
 
         break;
     }

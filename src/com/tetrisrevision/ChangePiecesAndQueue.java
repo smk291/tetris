@@ -15,25 +15,28 @@ import java.util.Collections;
  * <p>Currently there's no way to switch out a piece.
  */
 class ChangePiecesAndQueue {
-  private static TetrisPiece falling;
-  private static ArrayList<TetrominoEnum> q;
-  private static ArrayList<TetrominoEnum> backupQ;
+  private TetrisPiece falling;
+  private ArrayList<TetrominoEnum> q;
+  private ArrayList<TetrominoEnum> backupQ;
 
-  static void setStaticVariables(
-      TetrisPiece falling, ArrayList<TetrominoEnum> q, ArrayList<TetrominoEnum> backupQ) {
-    ChangePiecesAndQueue.falling = falling;
-    ChangePiecesAndQueue.q = q;
-    ChangePiecesAndQueue.backupQ = backupQ;
+  ChangePiecesAndQueue(
+      TetrisPiece falling,
+      ArrayList<TetrominoEnum> q,
+      ArrayList<TetrominoEnum> backupQ
+  ) {
+    this.falling = falling;
+    this.q = q;
+    this.backupQ = backupQ;
 
     setQs();
   }
 
-  private static void setQs() {
+  private void setQs() {
     q = getQ();
     backupQ = getQ();
   }
 
-  private static ArrayList<TetrominoEnum> getQ() {
+  private ArrayList<TetrominoEnum> getQ() {
     TetrominoEnum[] ts = TetrominoEnum.values();
     ArrayList<TetrominoEnum> tList1 = new ArrayList<>(Arrays.asList(ts));
     Collections.shuffle(tList1);
@@ -41,7 +44,7 @@ class ChangePiecesAndQueue {
     return tList1;
   }
 
-  static void getNextPiece() {
+  void getNextPiece() {
     falling.reset(q.get(0).get());
 
     q.remove(0);

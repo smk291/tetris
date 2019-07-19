@@ -8,6 +8,14 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class DrawBoard implements GUI {
+  private PlayField playField;
+  private ModifyPlayField modifyPlayField;
+
+  public DrawBoard(PlayField playField, ModifyPlayField modifyPlayField) {
+    this.playField = playField;
+    this.modifyPlayField = modifyPlayField;
+  }
+
   public void draw() {
     int bound = PlayField.getHeight();
 
@@ -19,7 +27,7 @@ public class DrawBoard implements GUI {
 
   private void drawRow(int row) {
     System.out.print(" |");
-    Arrays.stream(PlayField.getCells()[row])
+    Arrays.stream(playField.getCells()[row])
         .map(c -> drawCell(c.isFull()))
         .forEach(System.out::print);
     System.out.println("| " + row);
@@ -30,12 +38,12 @@ public class DrawBoard implements GUI {
   }
 
   public void drawBoardIncludingPiece() {
-    ModifyPlayField.AddAndRemove.addFallingPiece();
-    ModifyPlayField.AddAndRemove.addAllSinkingPieces();
+    modifyPlayField.addAndRemove.addFallingPiece();
+    modifyPlayField.addAndRemove.addAllSinkingPieces();
 
     draw();
 
-    ModifyPlayField.AddAndRemove.removeFallingPiece();
-    ModifyPlayField.AddAndRemove.removeSinkingPieces();
+    modifyPlayField.addAndRemove.removeFallingPiece();
+    modifyPlayField.addAndRemove.removeSinkingPieces();
   }
 }

@@ -1,5 +1,9 @@
 package com.tetrisrevision;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
 /**
  * **
  *
@@ -7,19 +11,20 @@ package com.tetrisrevision;
  *
  * <p>**
  */
-public class Cell {
-  //    private Point pt;
+public class Cell extends Point {
   private boolean empty;
-  //    private Color c;
+  private Color c;
+  private Rectangle2D.Double rect;
 
   Cell() {
     this.empty = true;
   }
 
-  //    Cell (int y, int x) {
-  //        this.empty = true;
-  //        this.pt = new Point(x, y);
-  //    }
+  Cell (int x, int y) {
+    this.empty = true;
+    this.x = x;
+    this.y = y;
+  }
 
   boolean isEmpty() {
     return this.empty;

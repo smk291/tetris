@@ -3,58 +3,84 @@ package com.tetrisrevision;
 import java.awt.*;
 import java.util.Arrays;
 
-abstract class Test {
-  private static TetrisPiece falling;
+class Test {
+  private TetrisPiece falling;
+  private PlayField playField;
+  Bounds bounds;
+  Overlap overlap;
+  Position position;
 
-  static void setStaticVariables(TetrisPiece falling) {
-    Test.falling = falling;
+  Test(TetrisPiece falling, PlayField playField) {
+    this.falling = falling;
+    this.playField = playField;
+    this.bounds = new Bounds();
+    this.overlap = new Overlap(bounds, playField);
+    this.position = new Position(falling, bounds, overlap);
+  }
+}
+
+class Overlap {
+  private Bounds bounds;
+  private PlayField playField;
+
+  Overlap(Bounds bounds, PlayField playField) {
+    this.bounds = bounds;
+    this.playField = playField;
   }
 
-  private static class Bounds {
-    private static boolean xInBounds(Point pt) {
-      return pt.getX() > -1 && pt.getX() < PlayField.getWidth();
-    }
+  boolean noOverlap(Point pt) {
+    return !bounds.xInBounds(pt) || !bounds.yInBounds(pt) || playField.cellIsEmpty(pt);
+  }
+}
 
-    private static boolean yInBoundsNoMin(Point pt) {
-      return pt.getY() >= -2 && pt.getY() < PlayField.getHeight();
-    }
-
-    private static boolean yInBounds(Point pt) {
-      return pt.getY() >= 0 && pt.getY() < PlayField.getHeight();
-    }
+class Bounds {
+  boolean xInBounds(Point pt) {
+    return pt.getX() > -1 && pt.getX() < PlayField.getWidth();
   }
 
-  private static class Overlap {
-    private static boolean noOverlap(Point pt) {
-      return !Bounds.xInBounds(pt) || !Bounds.yInBounds(pt) || PlayField.cellIsEmpty(pt);
-    }
+  boolean yInBoundsNoMin(Point pt) {
+    return pt.getY() >= -2 && pt.getY() < PlayField.getHeight();
   }
 
-  static class Position {
-    static boolean isInBoundsAndEmpty() {
-      return Arrays.stream(falling.getPieceLocation()).allMatch(Position::canBeFilled);
-    }
+  boolean yInBounds(Point pt) {
+    return pt.getY() >= 0 && pt.getY() < PlayField.getHeight();
+  }
+}
 
-    static boolean isInBoundsAndEmptyNoRowMin() {
-      return Arrays.stream(falling.getPieceLocation()).allMatch(Position::pointIsValidNoMin);
-    }
+class Position {
+  private TetrisPiece falling;
+  private Bounds bounds;
+  private Overlap overlap;
 
-    static boolean canBeFilled(Point p) {
-      return Bounds.xInBounds(p) && Bounds.yInBounds(p) && Overlap.noOverlap(p);
-    }
+  Position(TetrisPiece falling, Bounds bounds, Overlap overlap) {
+    this.falling = falling;
+    this.overlap = overlap;
+    this.bounds = bounds;
+  }
 
-    static boolean isInBounds(Point p) {
-      return Bounds.xInBounds(p) && Bounds.yInBounds(p);
-    }
+  boolean isInBoundsAndEmpty() {
+    return Arrays.stream(falling.getPieceLocation()).allMatch(this::canBeFilled);
+  }
 
-    static boolean isInBounds(int x, int y) {
-      Point pt = new Point(x, y);
+  boolean isInBoundsAndEmptyNoRowMin() {
+    return Arrays.stream(falling.getPieceLocation()).allMatch(this::pointIsValidNoMin);
+  }
 
-      return isInBounds(pt);
-    }
+  boolean canBeFilled(Point p) {
+    return bounds.xInBounds(p) && bounds.yInBounds(p) && overlap.noOverlap(p);
+  }
 
-    static boolean pointIsValidNoMin(Point p) {
-      return Bounds.xInBounds(p) && Bounds.yInBoundsNoMin(p) && Overlap.noOverlap(p);
-    }
+  boolean isInBounds(Point p) {
+    return bounds.xInBounds(p) && bounds.yInBounds(p);
+  }
+
+  boolean isInBounds(int x, int y) {
+    Point pt = new Point(x, y);
+
+    return isInBounds(pt);
+  }
+
+  boolean pointIsValidNoMin(Point p) {
+    return bounds.xInBounds(p) && bounds.yInBoundsNoMin(p) && overlap.noOverlap(p);
   }
 }

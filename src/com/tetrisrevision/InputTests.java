@@ -11,13 +11,15 @@ import java.util.stream.IntStream;
  * <p>These are basically unit tests for various behaviors
  */
 class InputTests {
-  private static TetrisPiece falling;
+  private TetrisPiece falling;
+  private PlayField playField;
 
-  static void setStaticVariables(TetrisPiece falling) {
-    InputTests.falling = falling;
+  InputTests(PlayField playField, TetrisPiece falling) {
+    this.playField = playField;
+    this.falling = falling;
   }
 
-  static void accept(String command) {
+  void accept(String command) {
     switch (command) {
       case "1":
       case "2":
@@ -31,44 +33,44 @@ class InputTests {
 
         break;
       case "itest": // tetris-deletion test
-        PlayField.createEmpty();
+        playField.createEmpty();
         falling.setFromTetromino(TetrominoEnum.I.get());
 
         for (int y = PlayField.getHeight() - 4; y < PlayField.getHeight(); y++)
           for (int x = 0, l = PlayField.getWidth(); x < l; x++)
-            if (x != 4) PlayField.fillCell(x, y);
+            if (x != 4) playField.fillCell(x, y);
 
         break;
       case "floattest": // sink test
-        PlayField.createEmpty();
+        playField.createEmpty();
 
         for (int x = 0, boardWidth = PlayField.getWidth(); x < boardWidth; x++) {
-          if (x > 4 && x < 8) PlayField.fillCell(x, 20);
-          if (x == 6) PlayField.fillCell(x, 21);
-          if (x != 2) PlayField.fillCell(x, 22);
+          if (x > 4 && x < 8) playField.fillCell(x, 20);
+          if (x == 6) playField.fillCell(x, 21);
+          if (x != 2) playField.fillCell(x, 22);
         }
 
         break;
       case "q": // multiple sinking pieces, test that each behaves correctly
-        PlayField.createEmpty();
+        playField.createEmpty();
 
         for (int x = 0, boardWidth = PlayField.getWidth(); x < boardWidth; x++) {
-          if (x != 2) PlayField.fillCell(x, 15);
+          if (x != 2) playField.fillCell(x, 15);
 
-          for (int y = 16; y < PlayField.getHeight(); y++) if (x == 2) PlayField.fillCell(x, y);
+          for (int y = 16; y < PlayField.getHeight(); y++) if (x == 2) playField.fillCell(x, y);
 
-          if (x == 8 || x == 9) PlayField.fillCell(x, 16);
+          if (x == 8 || x == 9) playField.fillCell(x, 16);
 
-          if (x == 8) PlayField.fillCell(x, 17);
+          if (x == 8) playField.fillCell(x, 17);
 
           if (x == 0 || x == 4 || x == 6) {
-            PlayField.fillCell(x, 14);
-            PlayField.fillCell(x, 13);
-            PlayField.fillCell(x, 23);
+            playField.fillCell(x, 14);
+            playField.fillCell(x, 13);
+            playField.fillCell(x, 23);
           }
 
-          if (x == 4) PlayField.fillCell(x, 21);
-          if (x == 3 || x == 4 || x == 6) PlayField.fillCell(x, 22);
+          if (x == 4) playField.fillCell(x, 21);
+          if (x == 3 || x == 4 || x == 6) playField.fillCell(x, 22);
         }
 
         falling.setFromTetromino(TetrominoEnum.values()[0].get());
@@ -76,20 +78,20 @@ class InputTests {
 
         break;
       case "bounds": // test kick
-        PlayField.createEmpty();
+        playField.createEmpty();
 
         for (int x = 0, boardWidth = PlayField.getWidth(); x < boardWidth; x++) {
-          if (x != 0 && !(x > 2 && x < 8)) PlayField.fillCell(new Point(x, 18));
+          if (x != 0 && !(x > 2 && x < 8)) playField.fillCell(new Point(x, 18));
 
           if (x != 5) {
-            PlayField.fillCell(new Point(x, 19));
-            PlayField.fillCell(new Point(x, 20));
-            PlayField.fillCell(new Point(x, 21));
+            playField.fillCell(new Point(x, 19));
+            playField.fillCell(new Point(x, 20));
+            playField.fillCell(new Point(x, 21));
           }
 
           if (x != 0 && x != 5) {
-            PlayField.fillCell(new Point(x, 22));
-            PlayField.fillCell(new Point(x, 23));
+            playField.fillCell(new Point(x, 22));
+            playField.fillCell(new Point(x, 23));
           }
         }
 
@@ -97,20 +99,20 @@ class InputTests {
 
         break;
       case "w": // test row deletion
-        PlayField.createEmpty();
+        playField.createEmpty();
 
         for (int i = 0; i < PlayField.getWidth(); i++) {
-          if (i != 5) PlayField.fillCell(i, 23);
+          if (i != 5) playField.fillCell(i, 23);
         }
 
         break;
       case "e": // test row delete after sink -- on bottom row to test bounds checker
-        PlayField.createEmpty();
+        playField.createEmpty();
 
         for (int i = 0; i < PlayField.getWidth(); i++) {
-          if (i == 4) PlayField.fillCell(i, 21);
-          if (i > 2) PlayField.fillCell(i, 22);
-          if (i > 0 && i < 4 || i > 4) PlayField.fillCell(i, 23);
+          if (i == 4) playField.fillCell(i, 21);
+          if (i > 2) playField.fillCell(i, 22);
+          if (i > 0 && i < 4 || i > 4) playField.fillCell(i, 23);
         }
 
         falling.setFromTetromino(TetrominoEnum.J.get());
@@ -121,25 +123,25 @@ class InputTests {
       case "r": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
                 // row and row deletion creates
         // another sinking piece
-        PlayField.createEmpty();
+        playField.createEmpty();
 
         for (int x = 0; x < PlayField.getWidth(); x++) {
-          if (x == 4) PlayField.fillCell(x, 15);
-          if (x > 2) PlayField.fillCell(x, 16);
-          if (x > 0 && x < 4 || x > 4) PlayField.fillCell(x, 17);
-          if (x > 7) PlayField.fillCell(x, 18);
+          if (x == 4) playField.fillCell(x, 15);
+          if (x > 2) playField.fillCell(x, 16);
+          if (x > 0 && x < 4 || x > 4) playField.fillCell(x, 17);
+          if (x > 7) playField.fillCell(x, 18);
 
           if (x == 2 || x == 0 || x == 4 || x == 6)
-            for (int y = 18; y < 24; y++) PlayField.fillCell(x, y);
+            for (int y = 18; y < 24; y++) playField.fillCell(x, y);
 
           if (x < 8) {
-            PlayField.fillCell(x, 19);
-            PlayField.fillCell(x, 21);
+            playField.fillCell(x, 19);
+            playField.fillCell(x, 21);
           }
 
           if (x >= 8) {
-            PlayField.fillCell(x, 20);
-            PlayField.fillCell(x, 22);
+            playField.fillCell(x, 20);
+            playField.fillCell(x, 22);
           }
         }
 
@@ -150,7 +152,7 @@ class InputTests {
         break;
       case "a":
         // Test t-spin
-        PlayField.createEmpty();
+        playField.createEmpty();
         falling.setFromTetromino(TetrominoEnum.T.get());
         falling.setCenter(5, 17);
 
@@ -158,18 +160,18 @@ class InputTests {
           if (x < 4 || x > 5) {
             final int finalX = x;
 
-            IntStream.range(19, 21).forEach(y -> PlayField.fillCell(finalX, y));
+            IntStream.range(19, 21).forEach(y -> playField.fillCell(finalX, y));
           }
 
           if (x < 3 || x > 5) {
-            PlayField.fillCell(x, 21);
+            playField.fillCell(x, 21);
           }
 
-          PlayField.fillCell(x, 22);
-          PlayField.fillCell(x, 23);
+          playField.fillCell(x, 22);
+          playField.fillCell(x, 23);
         }
 
-        PlayField.emptyCell(new Point(4, 22));
+        playField.emptyCell(new Point(4, 22));
 
         break;
     }

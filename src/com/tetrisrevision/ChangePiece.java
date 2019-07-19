@@ -17,101 +17,136 @@ import java.util.ArrayList;
  * <p>**
  */
 class ChangePiece {
-  private static TetrisPiece falling;
-  private static ArrayList<ArrayList<Point>> sinkingPieces;
+  private TetrisPiece falling;
+  private ArrayList<ArrayList<Point>> sinkingPieces;
+  private Test test;
+  PositionChange position;
+  Rotation rotation;
+  Kick kick;
 
-  static void setStaticVariables(TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces) {
-    ChangePiece.falling = falling;
-    ChangePiece.sinkingPieces = sinkingPieces;
+  ChangePiece(TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces, Test test) {
+    this.falling = falling;
+    this.sinkingPieces = sinkingPieces;
+    this.position = new PositionChange(test, sinkingPieces, falling);
+    this.kick = new Kick(falling, test);
+    this.rotation = new Rotation(falling, test, kick);
+  }
+}
+
+class PositionChange {
+  Test test;
+  ArrayList<ArrayList<Point>> sinkingPieces;
+  TetrisPiece falling;
+
+  PositionChange(Test test, ArrayList<ArrayList<Point>> sinkingPieces, TetrisPiece falling) {
+    this.test = test;
+    this.sinkingPieces = sinkingPieces;
+    this.falling = falling;
   }
 
-  static class Position {
-    static void tryRaiseSinkingPiece(ArrayList<Point> s) {
-      s.forEach(pt -> pt.translate(0, -1));
+  void tryRaiseSinkingPiece(ArrayList<Point> s) {
+    s.forEach(pt -> pt.translate(0, -1));
 
-      if (s.stream().allMatch(Test.Position::pointIsValidNoMin)) {
-        return;
-      }
-
-      s.forEach(p -> p.translate(0, 1));
+    if (s.stream().allMatch(test.position::pointIsValidNoMin)) {
+      return;
     }
 
-    static boolean trySoftDropSinkingPiece(ArrayList<Point> s) {
-      s.forEach(pt -> pt.translate(0, 1));
+    s.forEach(p -> p.translate(0, 1));
+  }
 
-      if (s.stream().allMatch(Test.Position::pointIsValidNoMin)) {
+  boolean trySoftDropSinkingPiece(ArrayList<Point> s) {
+    s.forEach(pt -> pt.translate(0, 1));
+
+    if (s.stream().allMatch(test.position::pointIsValidNoMin)) {
+      return true;
+    }
+
+    s.forEach(p -> p.translate(0, -1));
+
+    return false;
+  }
+
+  void trySoftDropSinkingPieces() {
+    sinkingPieces.forEach(this::trySoftDropSinkingPiece);
+  }
+
+  void hardDrop() {
+    falling.setAddToBoard(true);
+
+    while (true) {
+      if (!tryTranslateFallingPiece(0, 1)) break;
+    }
+  }
+
+  boolean tryTranslateFallingPiece(int x, int y) {
+    falling.getCenter().translate(x, y);
+
+    if (test.position.isInBoundsAndEmptyNoRowMin()) {
+      return true;
+    }
+
+    falling.getCenter().translate(-x, -y);
+
+    return false;
+  }
+}
+
+class Rotation {
+  TetrisPiece falling;
+  Test test;
+  Kick kick;
+
+  Rotation(TetrisPiece falling, Test test, Kick kick) {
+    this.falling = falling;
+    this.test = test;
+    this.kick = kick;
+  }
+
+  void tryRotate(int incr) {
+    int oldPrevOrientation = falling.getPrevRotation();
+    int oldOrientation = falling.getRotation();
+
+    falling.incrOrientation(incr);
+    falling.setPrevRotation(oldOrientation);
+
+    if (falling.getRotation() < 0) {
+      falling.setRotation(falling.getRotationMax() - 1);
+    } else if (falling.getRotation() >= falling.getRotationMax()) {
+      falling.setRotation(0);
+    }
+
+    if (!test.position.isInBoundsAndEmpty()) {
+      if (kick.tryKick()) return;
+
+      falling.setRotation(oldOrientation);
+      falling.setPrevRotation(oldPrevOrientation);
+    }
+  }
+}
+
+class Kick {
+  TetrisPiece falling;
+  Test test;
+
+  Kick(TetrisPiece falling, Test test) {
+    this.falling = falling;
+    this.test = test;
+  }
+
+  boolean tryKick() {
+    Integer[][] kickOffsets =
+        falling.getKickData().get(falling.getPrevRotation()).get(falling.getRotation());
+
+    for (Integer[] offset : kickOffsets) {
+      falling.getCenter().translate(offset[0], offset[1]);
+
+      if (test.position.isInBoundsAndEmpty()) {
         return true;
       }
 
-      s.forEach(p -> p.translate(0, -1));
-
-      return false;
+      falling.getCenter().translate(-offset[0], -offset[1]);
     }
 
-    static void trySoftDropSinkingPieces() {
-      sinkingPieces.forEach(Position::trySoftDropSinkingPiece);
-    }
-
-    static void hardDrop() {
-      falling.setAddToBoard(true);
-
-      while (true) {
-        if (!tryTranslateFallingPiece(0, 1)) break;
-      }
-    }
-
-    static boolean tryTranslateFallingPiece(int x, int y) {
-      falling.getCenter().translate(x, y);
-
-      if (Test.Position.isInBoundsAndEmptyNoRowMin()) {
-        return true;
-      }
-
-      falling.getCenter().translate(-x, -y);
-
-      return false;
-    }
-  }
-
-  static class Rotation {
-    static void tryRotate(int incr) {
-      int oldPrevOrientation = falling.getPrevRotation();
-      int oldOrientation = falling.getRotation();
-
-      falling.incrOrientation(incr);
-      falling.setPrevRotation(oldOrientation);
-
-      if (falling.getRotation() < 0) {
-        falling.setRotation(falling.getRotationMax() - 1);
-      } else if (falling.getRotation() >= falling.getRotationMax()) {
-        falling.setRotation(0);
-      }
-
-      if (!Test.Position.isInBoundsAndEmpty()) {
-        if (ChangePiece.Kick.tryKick()) return;
-
-        falling.setRotation(oldOrientation);
-        falling.setPrevRotation(oldPrevOrientation);
-      }
-    }
-  }
-
-  public static class Kick {
-    static boolean tryKick() {
-      Integer[][] kickOffsets =
-          falling.getKickData().get(falling.getPrevRotation()).get(falling.getRotation());
-
-      for (Integer[] offset : kickOffsets) {
-        falling.getCenter().translate(offset[0], offset[1]);
-
-        if (Test.Position.isInBoundsAndEmpty()) {
-          return true;
-        }
-
-        falling.getCenter().translate(-offset[0], -offset[1]);
-      }
-
-      return false;
-    }
+    return false;
   }
 }

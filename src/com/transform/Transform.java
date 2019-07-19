@@ -56,6 +56,8 @@ public class Transform extends JApplet implements ItemListener,
   public static boolean no2D = false;
 
   public void init() {
+
+    // Setup menus
     GridBagLayout layOut = new GridBagLayout();
     getContentPane().setLayout(layOut);
     GridBagConstraints c = new GridBagConstraints();
@@ -168,7 +170,7 @@ public class Transform extends JApplet implements ItemListener,
     tP.gridwidth = GridBagConstraints.REMAINDER;
     display = new TransPanel();
     layOut.setConstraints(display, tP);
-//    display.setBackground(Color.white);
+    display.setBackground(Color.white);
     getContentPane().add(display);
 
     validate();
