@@ -14,17 +14,15 @@ import java.util.Collections;
  *
  * <p>Currently there's no way to switch out a piece.
  */
-class ChangePiecesAndQueue {
+class TetrominoQueue {
   private TetrisPiece falling;
   private ArrayList<TetrominoEnum> q;
   private ArrayList<TetrominoEnum> backupQ;
 
-  ChangePiecesAndQueue(
-      TetrisPiece falling, ArrayList<TetrominoEnum> q, ArrayList<TetrominoEnum> backupQ
-  ) {
+  TetrominoQueue(TetrisPiece falling) {
     this.falling = falling;
-    this.q = q;
-    this.backupQ = backupQ;
+    this.q = new ArrayList<>();
+    this.backupQ = new ArrayList<>();
 
     setQs();
   }

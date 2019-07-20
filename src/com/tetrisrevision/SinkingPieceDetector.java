@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 /****
  *
- * FindSinkingPieces contains the methods that, after a row is deleted,
+ * SinkingPieceDetector contains the methods that, after a row is deleted,
  * look for sinking pieces. These are pieces that aren't tetrominos
  * and consist of blocks that aren't attached to the lowest row, meaning that
  * no adjacent block to the left, right, top or bottom is connected to row 23.
@@ -26,7 +26,7 @@ import java.util.stream.IntStream;
  |■         | 14     |          | 14     |          | 14     |          | 15     |          | 15     |          | 15
  |■■■ ■     | 15     |■   ■     | 15     |          | 15     |          | 15     |          | 15     |          | 15
  |↓↓↓□□□□□□□| 16     |■■■□□□□□□□| 16     |■   ■     | 16     |          | 16     |          | 16     |          | 16
- | □□□ □□□□□| 17     | □□□ □□□□□| 17     |↓□□□↓□□□□□| 17     |□□□□□□□□□□| 17     |          | 17     |          | 17
+ | □□□ □□□□□| 17     | □□□ □□□□□| 17     |↓□□□↓□□□□□| 17     |■□□□■□□□□□| 17     |          | 17     |          | 17
  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □   | 18
  |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□↓↓| 19     |□□□□□□□□■■| 19
  |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20
@@ -58,18 +58,12 @@ import java.util.stream.IntStream;
  *
  ****/
 
-class FindSinkingPieces {
-  private PlayField playField;
-  private ArrayList<ArrayList<Point>> sinkingPieces;
+class SinkingPieceDetector {
   private ArrayList<Point> piece = new ArrayList<>();
   private boolean attachedToFloor = false;
   private int[][] searched;
-  private Test test;
 
-  FindSinkingPieces(PlayField playField, ArrayList<ArrayList<Point>> sinkingPieces, Test test) {
-    this.playField = playField;
-    this.sinkingPieces = sinkingPieces;
-    this.test = test;
+  SinkingPieceDetector() {
     searched = new int[PlayField.getHeight()][PlayField.getWidth()];
   }
 
@@ -92,8 +86,8 @@ class FindSinkingPieces {
    *
    * <p>**
    */
-  void resetVariablesAndRunSearch(int deletedRowIdx) {
-    if (!test.position.isInBounds(0, deletedRowIdx)) return;
+  void resetVariablesAndRunSearch(int deletedRowIdx, PlayField field, ArrayList<ArrayList<Point>> sinkingPieces) {
+    if (!Position.isInBounds(0, deletedRowIdx)) return;
 
     int rowBelow = deletedRowIdx + 1;
 
@@ -102,8 +96,8 @@ class FindSinkingPieces {
     IntStream.range(0, PlayField.getWidth())
         .forEach(
             x -> {
-              runSearch(x, rowBelow);
-              runSearch(x, deletedRowIdx);
+              runSearch(x, rowBelow, field, sinkingPieces);
+              runSearch(x, deletedRowIdx, field, sinkingPieces);
             });
   }
 
@@ -115,11 +109,11 @@ class FindSinkingPieces {
    *     reasons Find all filled cells connected to the point
    *     <p>**
    */
-  private void runSearch(int x, int y) {
+  private void runSearch(int x, int y, PlayField field, ArrayList<ArrayList<Point>> sinkingPieces) {
     piece = new ArrayList<>();
     attachedToFloor = false;
 
-    findConnectedFilledCells(new Point(x, y));
+    findConnectedFilledCells(new Point(x, y), field, sinkingPieces);
   }
 
   /**
@@ -132,9 +126,9 @@ class FindSinkingPieces {
    *
    * <p>**
    */
-  private void findConnectedFilledCells(Point pt) {
-    if (test.position.isInBounds(pt) && playField.getCell(pt).isFull() && !pointHasBeenTested(pt)) {
-      addConnectedPointsToPiece(pt);
+  private void findConnectedFilledCells(Point pt, PlayField field, ArrayList<ArrayList<Point>> sinkingPieces) {
+    if (Position.isInBounds(pt) && field.getCell(pt).isFull() && !pointHasBeenTested(pt)) {
+      addConnectedPointsToPiece(pt, field);
 
       if (!attachedToFloor) sinkingPieces.add(piece);
     }
@@ -150,26 +144,26 @@ class FindSinkingPieces {
    * cell, because they aren't Found to be connected to row 23 Look for cells connected in each
    * direction
    */
-  private void addConnectedPointsToPiece(Point pt) {
-    if (!test.position.isInBounds(pt) || pointHasBeenTested(pt)) return;
+  private void addConnectedPointsToPiece(Point pt, PlayField field) {
+    if (!Position.isInBounds(pt) || pointHasBeenTested(pt)) return;
 
-    if (playField.getCell(pt).isFull()) {
+    if (field.getCell(pt).isFull()) {
       if ((int) pt.getY() == 23) attachedToFloor = true;
 
       recordPointHasBeenTested(pt);
 
       piece.add(pt);
 
-      searchAdjacent((Point) pt.clone(), 0, 1);
-      searchAdjacent((Point) pt.clone(), 0, -1);
-      searchAdjacent((Point) pt.clone(), 1, 0);
-      searchAdjacent((Point) pt.clone(), -1, 0);
+      searchAdjacent((Point) pt.clone(), field, 0, 1);
+      searchAdjacent((Point) pt.clone(), field, 0, -1);
+      searchAdjacent((Point) pt.clone(), field, 1, 0);
+      searchAdjacent((Point) pt.clone(), field, -1, 0);
     }
   }
 
-  private void searchAdjacent(Point pt, int x, int y) {
+  private void searchAdjacent(Point pt, PlayField field, int x, int y) {
     pt.translate(x, y);
 
-    addConnectedPointsToPiece(pt);
+    addConnectedPointsToPiece(pt, field);
   }
 }

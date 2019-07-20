@@ -6,53 +6,51 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public class AddAndRemove {
-  private PlayField playField;
-  private TetrisPiece falling;
-  private ArrayList<ArrayList<Point>> sinkingPieces;
-  private Position position;
-
-  AddAndRemove(
-      PlayField playField,
-      TetrisPiece falling,
-      ArrayList<ArrayList<Point>> sinkingPieces
-  ) {
-    this.playField = playField;
-    this.falling = falling;
-    this.sinkingPieces = sinkingPieces;
-    Bounds bounds = new Bounds();
-    Overlap overlap = new Overlap(bounds, playField);
-    this.position = new Position(falling, bounds, overlap);
+abstract public class AddAndRemove {
+  static private void apply(Collection<Point> piece, PlayField field, Consumer<Point> consumer) {
+    piece.stream()
+        .filter(pt -> Position.canBeFilled(pt, field))
+        .forEach(consumer);
   }
 
-  private void apply(Collection<Point> piece, Consumer<Point> consumer) {
-    piece.stream().filter(position::canBeFilled).forEach(consumer);
+  static private void apply(Point[] piece, PlayField field, Consumer<Point> consumer) {
+    Arrays.stream(piece)
+        .filter(pt -> Position.canBeFilled(pt, field))
+        .forEach(consumer);
   }
 
-  private void apply(Point[] piece, Consumer<Point> consumer) {
-    Arrays.stream(piece).filter(position::canBeFilled).forEach(consumer);
+  static public void addFallingPiece(TetrisPiece piece, PlayField field) {
+    apply(piece.getPieceLocation(), field, field::fillCell);
   }
 
-  public void addFallingPiece() {
-    apply(falling.getPieceLocation(), playField::fillCell);
+  static public void removeFallingPiece(TetrisPiece piece, PlayField field) {
+    Arrays.stream(piece.getPieceLocation())
+        .filter(Position::isInBounds)
+        .forEach(field::emptyCell);
   }
 
-  public void removeFallingPiece() {
-    Arrays.stream(falling.getPieceLocation())
-        .filter(position::isInBounds)
-        .forEach(playField::emptyCell);
-  }
-
-  public void addAllSinkingPieces() {
-    sinkingPieces.forEach(piece -> apply(piece, playField::fillCell));
-  }
-
-  public void removeSinkingPieces() {
+  static public void addAllSinkingPieces(ArrayList<ArrayList<Point>> sinkingPieces, PlayField field) {
     sinkingPieces.forEach(
-        piece -> piece.stream().filter(position::isInBounds).forEach(playField::emptyCell));
+        piece -> apply(
+            piece,
+            field,
+            field::fillCell
+        )
+    );
   }
 
-  void addSinkingPiece(ArrayList<Point> piece) {
-    apply(piece, playField::fillCell);
+  static public void removeSinkingPieces(ArrayList<ArrayList<Point>> sinkingPieces, PlayField field) {
+    sinkingPieces.forEach(
+        piece -> piece.stream()
+            .filter(Position::isInBounds)
+            .forEach(field::emptyCell));
+  }
+
+  static void addSinkingPiece(ArrayList<Point> piece, PlayField field) {
+    apply(
+        piece,
+        field,
+        field::fillCell
+    );
   }
 }

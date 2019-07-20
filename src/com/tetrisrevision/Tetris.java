@@ -60,10 +60,10 @@ class BoardCompositer extends JPanel {
     gbi.fill(r2d);
 
     gbi.setColor(new Color(0.0f, 0.0f, 1.0f, 1.0f));
-    for (int i = 0; i < cells.length; i++) {
+    for (Cell cell : cells) {
       Rectangle2D innerRect =
           new Rectangle2D.Double(
-              (w / 12) * (int) cells[i].getX(), (h / 26) * (int) cells[i].getY(), w / 12, h / 26);
+              (w / 12) * (int) cell.getX(), (h / 26) * (int) cell.getY(), w / 12, h / 26);
       gbi.fill(innerRect);
     }
 
