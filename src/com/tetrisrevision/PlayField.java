@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PlayField {
-  private Cell[][] cells = new Cell[][] {};
   private static int width;
   private static int height;
+  private Cell[][] cells = new Cell[][] {};
   private ArrayList<Cell> playFieldCells;
 
   PlayField(ArrayList<Cell> playFieldCells, int w, int h) {
@@ -32,7 +32,6 @@ public class PlayField {
 
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        //                cells[y][x] = new Cell(y, x);
         cells[y][x] = new Cell(x, y);
       }
     }

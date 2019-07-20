@@ -4,17 +4,11 @@ import java.awt.*;
 import java.util.Arrays;
 
 class Test {
-  private TetrisPiece falling;
-  private PlayField playField;
-  Bounds bounds;
-  Overlap overlap;
   Position position;
 
   Test(TetrisPiece falling, PlayField playField) {
-    this.falling = falling;
-    this.playField = playField;
-    this.bounds = new Bounds();
-    this.overlap = new Overlap(bounds, playField);
+    Bounds bounds = new Bounds();
+    Overlap overlap = new Overlap(bounds, playField);
     this.position = new Position(falling, bounds, overlap);
   }
 }

@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/CreateInputs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/AddAndRemove.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/AddAndRemove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/AddAndRemove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Cell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/ChangePiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/ChangePiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/ChangePiecesAndQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/ChangePiecesAndQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/DrawTitle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/DrawTitle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java" afterDir="false" />
@@ -20,9 +19,7 @@
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Tetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Tetris.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGui.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/console/DrawBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/console/DrawBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transform/Transform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transform/Transform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,98 +32,7 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Tetris.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="71" column="2" selection-start-line="71" selection-start-column="2" selection-end-line="71" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/GUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/GuiCell.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/ModifyPlayField.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/PlayField.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Test.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -137,8 +43,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getPieceSize</find>
-      <find>SpawnTetrominoByOrientation</find>
       <find>10</find>
       <find>setOrientation</find>
       <find>removePiece</find>
@@ -167,12 +71,15 @@
       <find>playfield</find>
       <find>PlayField</find>
       <find>ChangePiece</find>
+      <find>static</find>
+      <find>*</find>
     </findStrings>
     <replaceStrings>
       <replace>ColorFromPiece</replace>
       <replace>shapeByRotation</replace>
       <replace>getShape</replace>
       <replace>japplet.getContentPane</replace>
+      <replace>□</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/com/newtetris</dir>
@@ -213,7 +120,6 @@
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/ZPiece.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces2.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/Tetromino.java" />
-        <option value="$PROJECT_DIR$/src/com/tetrisrevision/GUI.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/Main.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/GuiCell.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/composite/Composite.java" />
@@ -226,18 +132,19 @@
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/Cell.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" />
-        <option value="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/Tetris.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/console/DrawBoard.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/AddAndRemove.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/ChangePiece.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/ChangePiecesAndQueue.java" />
-        <option value="$PROJECT_DIR$/src/com/tetrisrevision/PlayField.java" />
-        <option value="$PROJECT_DIR$/src/com/tetrisrevision/console/DrawBoard.java" />
-        <option value="$PROJECT_DIR$/src/com/tetrisrevision/AddAndRemove.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/Game.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/GUI.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/ModifyPlayField.java" />
-        <option value="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/PlayField.java" />
         <option value="$PROJECT_DIR$/src/com/tetrisrevision/Test.java" />
-        <option value="$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java" />
+        <option value="$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java" />
       </list>
     </option>
   </component>
@@ -511,9 +418,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1527" height="1027" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1905724" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1905724" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -523,7 +429,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.4224599" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993895" visible="true" weight="0.3764706" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993895" weight="0.40962568" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -745,15 +651,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/console/DrawBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-201">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="135">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/AddAndRemove.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Cell.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="43" column="4" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
+        <state relative-caret-position="217">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
@@ -764,52 +670,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Cell.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/AddAndRemove.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="465">
+          <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1065">
+          <caret line="71" column="2" selection-start-line="71" selection-start-column="2" selection-end-line="71" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/ChangePiece.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1192">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        <state relative-caret-position="915">
+          <caret line="61" column="2" selection-start-line="61" selection-start-column="2" selection-end-line="61" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/ChangePiecesAndQueue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-202">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="26" />
+        <state relative-caret-position="15">
+          <caret line="23" column="2" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/DrawTitle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/FindSinkingPieces.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1517">
-          <caret line="160" lean-forward="true" selection-start-line="160" selection-end-line="160" />
+        <state relative-caret-position="-1292">
+          <caret line="30" column="112" selection-start-line="30" selection-start-column="112" selection-end-line="30" selection-end-column="112" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="150">
+          <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/GUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
@@ -822,57 +735,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
+        <state relative-caret-position="494">
           <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/ModifyPlayField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/PlayField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+        <state relative-caret-position="494">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="660">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        <state relative-caret-position="435">
+          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/Tetris.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        <state relative-caret-position="-518">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
+        <state relative-caret-position="75">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="71" column="2" selection-start-line="71" selection-start-column="2" selection-end-line="71" selection-end-column="2" />
         </state>
       </provider>
     </entry>

@@ -2,7 +2,6 @@ package com.tetrisrevision;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
 /**
  * **
@@ -20,7 +19,7 @@ public class Cell extends Point {
     this.empty = true;
   }
 
-  Cell (int x, int y) {
+  Cell(int x, int y) {
     this.empty = true;
     this.x = x;
     this.y = y;

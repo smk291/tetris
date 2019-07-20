@@ -10,7 +10,7 @@ public class Board extends Component {
   }
 
   @Override
-  public void paint (Graphics g) {
+  public void paint(Graphics g) {
     Graphics2D g2 = (Graphics2D) g;
 
     Rectangle2D r2d = new Rectangle2D.Double(100, 10, 200, 480);
@@ -20,10 +20,10 @@ public class Board extends Component {
     g2.draw(r2d);
   }
 
-//  @Override
-//  public void paint(Graphics g) {
-//    Graphics2D g2 = (Graphics2D) g;
-//    Rectangle2D r = new Rectangle2D.Double(0, 0, 20, 20);
-//    g2.draw(r);
-//  }
+  //  @Override
+  //  public void paint(Graphics g) {
+  //    Graphics2D g2 = (Graphics2D) g;
+  //    Rectangle2D r = new Rectangle2D.Double(0, 0, 20, 20);
+  //    g2.draw(r);
+  //  }
 }

@@ -2,25 +2,13 @@ package com.tetrisrevision;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.function.Consumer;
 
 public class ModifyPlayField {
-  private TetrisPiece falling;
-  private ArrayList<ArrayList<Point>> sinkingPieces;
-  private PlayField playField;
   public AddAndRemove addAndRemove;
-  public RowDeleter rowDeleter;
+  RowDeleter rowDeleter;
 
-  public ModifyPlayField(
-      TetrisPiece falling,
-      ArrayList<ArrayList<Point>> sinkingPieces,
-      PlayField playField
-  ) {
-    this.falling = falling;
-    this.sinkingPieces = sinkingPieces;
-    this.playField = playField;
+  ModifyPlayField(
+      TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces, PlayField playField) {
 
     addAndRemove = new AddAndRemove(playField, falling, sinkingPieces);
     rowDeleter = new RowDeleter(playField);

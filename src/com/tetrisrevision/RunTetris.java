@@ -29,8 +29,7 @@ class RunTetris {
       Test test,
       FindSinkingPieces findSinkingPieces,
       ChangePiecesAndQueue changePiecesAndQueue,
-      ChangePiece changePiece
-  ) {
+      ChangePiece changePiece) {
     this.falling = falling;
     this.sinkingPieces = sinkingPieces;
     this.gui = gui;

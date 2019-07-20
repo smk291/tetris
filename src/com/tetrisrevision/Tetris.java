@@ -1,24 +1,21 @@
 package com.tetrisrevision;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.IntStream;
-import javax.swing.*;
 
 public class Tetris {
   public static void main(String[] args) {
     Game g = new Game();
-//    TetrisGUI tetrisGUI = new TetrisGUI();
+    //    TetrisGUI tetrisGUI = new TetrisGUI();
 
     g.play();
   }
 }
-
 
 class BoardCompositer extends JPanel {
   private AffineTransform at = new AffineTransform();
@@ -54,7 +51,8 @@ class BoardCompositer extends JPanel {
     int titleYOffset = 50;
 
     gbi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    gbi.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    gbi.setRenderingHint(
+        RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     gbi.drawString("Tetris", titleXOffset, titleYOffset);
 
     gbi.setColor(Color.RED);
@@ -63,12 +61,9 @@ class BoardCompositer extends JPanel {
 
     gbi.setColor(new Color(0.0f, 0.0f, 1.0f, 1.0f));
     for (int i = 0; i < cells.length; i++) {
-      Rectangle2D innerRect = new Rectangle2D.Double(
-          (w / 12) * (int) cells[i].getX(),
-          (h / 26) * (int) cells[i].getY(),
-          w / 12,
-          h / 26
-      );
+      Rectangle2D innerRect =
+          new Rectangle2D.Double(
+              (w / 12) * (int) cells[i].getX(), (h / 26) * (int) cells[i].getY(), w / 12, h / 26);
       gbi.fill(innerRect);
     }
 

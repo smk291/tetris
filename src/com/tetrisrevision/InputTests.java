@@ -121,7 +121,7 @@ class InputTests {
 
         break;
       case "r": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
-                // row and row deletion creates
+        // row and row deletion creates
         // another sinking piece
         playField.createEmpty();
 

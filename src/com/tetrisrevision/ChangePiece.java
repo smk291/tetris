@@ -17,26 +17,21 @@ import java.util.ArrayList;
  * <p>**
  */
 class ChangePiece {
-  private TetrisPiece falling;
-  private ArrayList<ArrayList<Point>> sinkingPieces;
-  private Test test;
   PositionChange position;
   Rotation rotation;
-  Kick kick;
+  private Test test;
 
   ChangePiece(TetrisPiece falling, ArrayList<ArrayList<Point>> sinkingPieces, Test test) {
-    this.falling = falling;
-    this.sinkingPieces = sinkingPieces;
     this.position = new PositionChange(test, sinkingPieces, falling);
-    this.kick = new Kick(falling, test);
+    Kick kick = new Kick(falling, test);
     this.rotation = new Rotation(falling, test, kick);
   }
 }
 
 class PositionChange {
-  Test test;
-  ArrayList<ArrayList<Point>> sinkingPieces;
-  TetrisPiece falling;
+  private Test test;
+  private ArrayList<ArrayList<Point>> sinkingPieces;
+  private TetrisPiece falling;
 
   PositionChange(Test test, ArrayList<ArrayList<Point>> sinkingPieces, TetrisPiece falling) {
     this.test = test;
@@ -92,9 +87,9 @@ class PositionChange {
 }
 
 class Rotation {
-  TetrisPiece falling;
-  Test test;
-  Kick kick;
+  private TetrisPiece falling;
+  private Test test;
+  private Kick kick;
 
   Rotation(TetrisPiece falling, Test test, Kick kick) {
     this.falling = falling;
@@ -125,8 +120,8 @@ class Rotation {
 }
 
 class Kick {
-  TetrisPiece falling;
-  Test test;
+  private TetrisPiece falling;
+  private Test test;
 
   Kick(TetrisPiece falling, Test test) {
     this.falling = falling;

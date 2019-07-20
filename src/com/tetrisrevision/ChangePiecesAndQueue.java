@@ -20,9 +20,7 @@ class ChangePiecesAndQueue {
   private ArrayList<TetrominoEnum> backupQ;
 
   ChangePiecesAndQueue(
-      TetrisPiece falling,
-      ArrayList<TetrominoEnum> q,
-      ArrayList<TetrominoEnum> backupQ
+      TetrisPiece falling, ArrayList<TetrominoEnum> q, ArrayList<TetrominoEnum> backupQ
   ) {
     this.falling = falling;
     this.q = q;
