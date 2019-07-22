@@ -1,9 +1,12 @@
 package com.tetrisrevision.tetrominos;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public class Tetromino {
   private int[][][] offsets;
+  private Color color;
+
   private HashMap<Integer, HashMap<Integer, Integer[][]>> kickData =
       new HashMap<Integer, HashMap<Integer, Integer[][]>>() {
         {
@@ -56,5 +59,13 @@ public class Tetromino {
 
   void setKickData(HashMap<Integer, HashMap<Integer, Integer[][]>> kickData) {
     this.kickData = kickData;
+  }
+
+  public Color getColor() {
+    return color;
+  }
+
+  public void setColor(Color color) {
+    this.color = color;
   }
 }

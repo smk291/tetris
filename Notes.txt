@@ -132,14 +132,14 @@
         // Kick
 // Game
     // Getter
-        // Get falling piece
+        // Get currentPiece piece
         // Get width
         // Get height
         // Get sinking pieces
     // Setter
         // Reset current and next piece
-        // Set next piece to falling piece
-        // Set falling piece to a given TetrisPiece
+        // Set next piece to currentPiece piece
+        // Set currentPiece piece to a given TetrisPiece
         // Randomly set next piece
         // Add sinking piece
         // Remove sinking piece
@@ -166,21 +166,21 @@
     // Test
         // continue game
             // Set-up
-                // Drop falling piece
+                // Drop currentPiece piece
                 // Test validity of position
                 // Drop sinking pieces
                 // Put sinking pieces on board
-            // If falling piece's position is valid
+            // If currentPiece piece's position is valid
                 // Put piece on board
                 // Delete rows
                     // (Create sinking pieces)
-                // Set next piece to falling piece
+                // Set next piece to currentPiece piece
                 // If position still invalid
                     // End game
                 // Reset next piece
                 // Draw board
             // Else
-                // Put falling piece back where it was
+                // Put currentPiece piece back where it was
 
             // Return true
                 // To continue game

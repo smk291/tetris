@@ -1,138 +1,269 @@
 package com.tetrisrevision;
 
-import com.tetrisrevision.console.DrawToConsole;
-import com.tetrisrevision.tetrominos.TetrominoEnum;
+import com.tetrisrevision.console.PrintToConsole;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 class RunTetris {
-  // private static int[] delayPerLevel = {500, 450, 400, 350, 300, 250, 200, 150, 100, 50};
-  // private Timer t;
-  // private int currentLevel;
-  // private Timer timer;
-  private TetrisPiece falling;
-  private ArrayList<ArrayList<Point>> sinkingPieces;
-  private String lastCommand;
+  private TetrisPiece currentPiece;
+  private TetrisPiece currentPiece2d;
+  private String prevCommand;
   private TetrominoQueue tetrominoQueue;
   private PlayField playField;
+  private Blocks2d blocks2d;
+  private SinkingPieces sinkingPieces;
+  private SinkingPieces2d sinkingPieces2d;
+  private static int width = 10;
+  private static int height = 24;
+  private static int[] delayPerLevel = {500, 450, 400, 350, 300, 250, 200, 150, 100, 50};
+  private Timer t;
+  private int currentLevel;
+  private TetrisGUI tetrisGUI;
 
   RunTetris(int width, int height) {
     playField = new PlayField(new ArrayList<>(), width, height);
-    sinkingPieces = new ArrayList<>();
-    falling = new TetrisPiece(TetrominoEnum.getTetromino());
-    falling.setFromTetromino(TetrominoEnum.getTetromino());
-    tetrominoQueue = new TetrominoQueue(falling);
+    tetrominoQueue = new TetrominoQueue();
+    currentPiece = new TetrisPiece();
+    currentPiece2d = new TetrisPiece();
+    blocks2d = new Blocks2d(width, height);
+    sinkingPieces = new SinkingPieces();
+    sinkingPieces2d = new SinkingPieces2d();
+
+    tetrominoQueue.resetCurrentPiece(currentPiece);
+    currentPiece2d.reset(currentPiece.getTetromino());
   }
 
-  boolean continueGame() {
-    new DrawToConsole().drawBoardIncludingPiece(falling, sinkingPieces, playField);
-    // In order to drop the board to the console, I add the falling and sinking piece to the board,
-    // draw it, and then remove them again.
-    // It's dumb but also the most efficient way
-    AddAndRemove.removeFallingPiece(falling, playField);
-    AddAndRemove.removeSinkingPieces(sinkingPieces, playField);
-    softDropSinkingPieces();
-    PieceMover.trySoftDropSinkingPieces(sinkingPieces, playField);
+  void play() {
+//    t.start();
 
-    return softDropFallingPiece(falling, playField);
+    while (continueGame()) {
+      keyboardInput();
+    }
   }
 
-  // Drop each sinking piece one space -- replace with hard drop
-  private void softDropSinkingPieces() {
-    for (int i = 0; sinkingPieces.size() > 0 && i < sinkingPieces.size(); i++) {
-      ArrayList<Point> sinkingPiece = sinkingPieces.get(i);
+  // In order to cell the field to the console, I add the currentPiece and sinking piece to the
+  // field,
+  // cell it, and then remove them again. It's dumb but necessary.
+  private boolean continueGame() {
+    new PrintToConsole().field(currentPiece, sinkingPieces, playField);
+    AddAndRemove.remove(currentPiece, playField);
+    AddAndRemove.removeFromList(sinkingPieces, playField);
 
-      boolean canSink = PieceMover.trySoftDropSinkingPiece(sinkingPiece, playField);
+    while (sinkingPieces.getSinkingPieces().size() > 0) {
+      handleSinkingPieces();
+      handleSinkingPieces2d();
+
+      sinkingPieces.softDropSinkingPieces(playField);
+      sinkingPieces2d.softDropPieces(blocks2d);
+
+      tetrisGUI.getBoardCompositor().repaint();
+    }
+
+    handleCurrentPiece2d(currentPiece2d, blocks2d);
+
+    return handleCurrentPiece(currentPiece, playField);
+  }
+
+  // Drop each sinking piece one space if possible or add to field (replace with hard drop)
+  private void handleSinkingPieces() {
+    for (int i = 0; sinkingPieces.getSinkingPieces().size() > 0 && i < sinkingPieces.getSinkingPieces().size(); i++) {
+      ArrayList<Point> sinkingPiece = sinkingPieces.getSinkingPieces().get(i);
+
+      boolean canSink = Translater.translate(sinkingPiece, playField, 0, 1);
 
       if (!canSink) {
-        AddAndRemove.addSinkingPiece(sinkingPiece, playField);
+        AddAndRemove.add(sinkingPiece, playField);
         int searchFrom = RowDeleter.apply(sinkingPiece, playField);
 
-        sinkingPieces.remove(sinkingPiece);
+        sinkingPieces.getSinkingPieces().remove(sinkingPiece);
 
         if (searchFrom > 0)
-          new SinkingPieceDetector().resetVariablesAndRunSearch(searchFrom, playField, sinkingPieces);
+            new SinkingPieceDetector().find(searchFrom, playField, sinkingPieces);
 
         i--;
 
-        new DrawToConsole().drawBoardIncludingPiece(falling, sinkingPieces, playField);
+        new PrintToConsole().field(currentPiece, sinkingPieces, playField);
       }
 
-      PieceMover.tryRaiseSinkingPiece(sinkingPiece, playField);
+      Translater.translate(sinkingPiece, playField, 0, -1);
+    }
+
+  }
+
+  private void handleSinkingPieces2d() {
+    for (int i = 0; sinkingPieces2d.getPieces().size() > 0 && i < sinkingPieces2d.getPieces().size(); i++) {
+      ArrayList<Cell> sinkingPiece = sinkingPieces2d.getPieces().get(i);
+
+      boolean canSink = Translater2d.translate(sinkingPiece, blocks2d, 0, 1);
+
+      if (!canSink) {
+        int searchFrom = RowDeleter2d.apply(sinkingPiece, blocks2d);
+
+        sinkingPieces2d.getPieces().remove(sinkingPiece);
+
+        if (searchFrom > 0)
+          new SinkingPieceDetector2d().find(searchFrom, blocks2d, sinkingPieces2d);
+
+        i--;
+      }
+
+      Translater2d.translate(sinkingPiece, blocks2d, 0, -1);
+
+      tetrisGUI.getBoardCompositor().repaint();
     }
   }
 
-  // Try lowering the falling piece
-  // If it can't be lowered and addToBoard is true, add it to board
-  // Otherwise it can still move
-  // After it's inserted into the board, piece resets
+  // Try lowering currentPiece
+  // If it can't be lowered and addToBoard is true, add it to field
+  // Otherwise user can still move it
+  // After it's inserted into the field, piece resets
   // If position isn't valid after piece resets, game is over
-  private boolean softDropFallingPiece(TetrisPiece piece, PlayField field) {
-    boolean canDrop = PieceMover.tryTranslateFallingPiece(piece, field,0, 1);
+  void dropCurrentPiece() {
+    handleCurrentPiece(currentPiece, playField);
+    handleCurrentPiece2d(currentPiece2d, blocks2d);
 
-    if (!canDrop
-        &&
-        // falling piece can't drop further
-        falling.isAddToBoard()
-        &&
-        // press 'down' to add the piece to the board immediately if it can't drop further
-        (lastCommand.equals("j") || (lastCommand.equals("J")))) {
-      AddAndRemove.addFallingPiece(falling, playField);
+    tetrisGUI.getBoardCompositor().repaint();
+  }
 
-      int searchFrom = RowDeleter.apply(falling.getPieceLocation(), playField);
+  private boolean handleCurrentPiece(TetrisPiece piece, PlayField field) {
+    boolean canDrop = Translater.translate(piece, field, 0, 1);
 
-      if (searchFrom > 0) new SinkingPieceDetector().resetVariablesAndRunSearch(searchFrom, field, sinkingPieces);
+    if (!canDrop &&
+        // currentPiece piece can't drop further
+        piece.getAddToBoard() &&
+        // press 'down' to add the piece to the field immediately if it can't drop further
+        (prevCommand.equals("j") || (prevCommand.equals("J")))) {
+      AddAndRemove.add(piece, field);
 
-      tetrominoQueue.getNextPiece();
+      int searchFrom = RowDeleter.apply(piece.getCells(), field);
 
-      if (!Position.isInBoundsAndEmptyNoRowMin(piece, field)) return false;
+      if (searchFrom > 0)
+        new SinkingPieceDetector().find(searchFrom, field, sinkingPieces);
+
+      tetrominoQueue.resetCurrentPiece(piece);
+      currentPiece2d.reset(piece.getTetromino()); // !----------
+
+      if (!CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, field)) return false;
     }
     if (!canDrop) {
-      falling.setAddToBoard(true);
+      piece.setAddToBoard(true);
     } else {
-      falling.setAddToBoard(false);
-      falling.getCenter().translate(0, -1);
+      piece.setAddToBoard(false);
+      piece.getCenter().translate(0, -1);
     }
 
     return true;
   }
 
-  void keyboardInput() {
+  private boolean handleCurrentPiece2d(TetrisPiece piece, Blocks2d blocks2d) {
+    boolean canDrop = Translater2d.translate(piece, blocks2d, 0, 1);
+
+    if (!canDrop &&
+        piece.getAddToBoard() &&
+        (prevCommand.equals("j") || (prevCommand.equals("J")))
+    ) {
+      blocks2d.addPieceToBlocks(piece);
+
+      int searchFrom = RowDeleter2d.apply(piece.getCells(), blocks2d);
+
+      if (searchFrom > 0)
+        new SinkingPieceDetector2d().find(searchFrom, blocks2d, sinkingPieces2d);
+
+      if (!CellTester2d.emptyAndInBoundsAndNoOverlapNoMin(piece, blocks2d))
+        return false;
+    }
+    if (!canDrop) {
+      piece.setAddToBoard(true);
+    } else {
+      piece.setAddToBoard(false);
+      piece.getCenter().translate(0, -1);
+    }
+
+    tetrisGUI.getBoardCompositor().repaint();
+
+    return true;
+  }
+
+  private void keyboardInput() {
     Scanner keyboard = new Scanner(System.in);
     System.out.println("Command:");
     String command = keyboard.nextLine();
 
-    lastCommand = command;
+    prevCommand = command;
 
     switch (command) {
       case "h":
-        PieceMover.tryTranslateFallingPiece(falling, playField, -1, 0);
+        Translater.translate(currentPiece, playField, -1, 0);
         break;
       case "l":
-        PieceMover.tryTranslateFallingPiece(falling, playField, 1, 0);
+        Translater.translate(currentPiece, playField, 1, 0);
         break;
       case "j":
-        PieceMover.tryTranslateFallingPiece(falling, playField, 0, 1);
+        Translater.translate(currentPiece, playField, 0, 1);
         break;
       case "k":
-        PieceMover.tryTranslateFallingPiece(falling, playField, 0, -1);
+        Translater.translate(currentPiece, playField, 0, -1);
         break;
       case "[":
-        Rotator.tryRotate(-1, falling, playField);
+        Rotator.apply(-1, currentPiece, playField);
         break;
       case "]":
-        Rotator.tryRotate(1, falling, playField);
+        Rotator.apply(1, currentPiece, playField);
         break;
       case "J":
-        PieceMover.hardDrop(falling, playField);
-
+        Translater.hardDrop(currentPiece, playField);
         break;
       default:
-        InputTests.accept(command, falling, playField);
-
+        InputTests.accept(command, currentPiece, playField);
         break;
     }
+
+    switch (command) {
+      case "h":
+        Translater2d.translate(currentPiece2d, blocks2d, -1, 0);
+        break;
+      case "l":
+        Translater2d.translate(currentPiece2d, blocks2d, 1, 0);
+        break;
+      case "j":
+        Translater2d.translate(currentPiece2d, blocks2d, 0, 1);
+        break;
+      case "k":
+        Translater2d.translate(currentPiece2d, blocks2d, 0, -1);
+        break;
+      case "[":
+        Rotator2d.apply(-1, currentPiece2d, blocks2d);
+        break;
+      case "]":
+        Rotator2d.apply(1, currentPiece2d, blocks2d);
+        break;
+      case "J":
+        Translater2d.hardDrop(currentPiece2d, blocks2d);
+        break;
+      default:
+        InputTests2d.accept(command, currentPiece2d, blocks2d);
+        break;
+    }
+
+    tetrisGUI.getBoardCompositor().repaint();
+  }
+
+  TetrisPiece getCurrentPiece2d() {
+    return currentPiece2d;
+  }
+
+  Blocks2d getBlocks2d() {
+    return blocks2d;
+  }
+
+  SinkingPieces2d getSinkingPieces2d() {
+    return sinkingPieces2d;
+  }
+
+  void setTetrisGUI(TetrisGUI t) {
+    this.tetrisGUI = t;
   }
 }

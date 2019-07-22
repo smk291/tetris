@@ -1,5 +1,6 @@
 package com.tetrisrevision.tetrominos;
 
+import java.awt.*;
 import java.util.HashMap;
 
 class IPiece extends Tetromino {
@@ -51,5 +52,6 @@ class IPiece extends Tetromino {
   IPiece() {
     super.setOffsets(offsets);
     super.setKickData(kickData);
+    super.setColor(Color.blue);
   }
 }

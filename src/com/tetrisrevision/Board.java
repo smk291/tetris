@@ -24,6 +24,6 @@ public class Board extends Component {
   //  public void paint(Graphics g) {
   //    Graphics2D g2 = (Graphics2D) g;
   //    Rectangle2D r = new Rectangle2D.Double(0, 0, 20, 20);
-  //    g2.draw(r);
+  //    g2.cell(r);
   //  }
 }

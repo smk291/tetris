@@ -15,12 +15,10 @@ import java.util.Collections;
  * <p>Currently there's no way to switch out a piece.
  */
 class TetrominoQueue {
-  private TetrisPiece falling;
   private ArrayList<TetrominoEnum> q;
   private ArrayList<TetrominoEnum> backupQ;
 
-  TetrominoQueue(TetrisPiece falling) {
-    this.falling = falling;
+  TetrominoQueue() {
     this.q = new ArrayList<>();
     this.backupQ = new ArrayList<>();
 
@@ -33,15 +31,15 @@ class TetrominoQueue {
   }
 
   private ArrayList<TetrominoEnum> getQ() {
-    TetrominoEnum[] ts = TetrominoEnum.values();
-    ArrayList<TetrominoEnum> tList1 = new ArrayList<>(Arrays.asList(ts));
-    Collections.shuffle(tList1);
+    TetrominoEnum[] allTetrominos = TetrominoEnum.values();
+    ArrayList<TetrominoEnum> allTetrominosList = new ArrayList<>(Arrays.asList(allTetrominos));
+    Collections.shuffle(allTetrominosList);
 
-    return tList1;
+    return allTetrominosList;
   }
 
-  void getNextPiece() {
-    falling.reset(q.get(0).get());
+  void resetCurrentPiece(TetrisPiece piece) {
+    piece.reset(q.get(0).get());
 
     q.remove(0);
 

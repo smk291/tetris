@@ -1,5 +1,7 @@
 package com.tetrisrevision.tetrominos;
 
+import java.awt.*;
+
 class SPiece extends Tetromino {
   private static final int[][][] offsets = {
     {{0, -1}, {1, -1}, {-1, 0}, {0, 0}},
@@ -10,5 +12,6 @@ class SPiece extends Tetromino {
 
   SPiece() {
     super.setOffsets(offsets);
+    super.setColor(Color.PINK);
   }
 }

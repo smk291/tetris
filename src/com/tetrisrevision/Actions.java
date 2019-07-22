@@ -11,15 +11,16 @@ package com.tetrisrevision;
  * - test the resulting position for validity - undo the rotation or translation if the resulting
  * position is invalid
  *
+ *
  * <p>**
  */
 
 abstract class Rotator {
-  static void tryRotate(int incr, TetrisPiece piece, PlayField field) {
+  static void apply(int incr, TetrisPiece piece, PlayField field) {
     int oldPrevOrientation = piece.getPrevRotation();
     int oldOrientation = piece.getRotation();
 
-    piece.incrOrientation(incr);
+    piece.incrementRotation(incr);
     piece.setPrevRotation(oldOrientation);
 
     if (piece.getRotation() < 0) {
@@ -28,8 +29,31 @@ abstract class Rotator {
       piece.setRotation(0);
     }
 
-    if (!Position.isInBoundsAndEmpty(piece, field)) {
+    if (!CellTester.emptyAndInBoundsAndNoOverlap(piece, field)) {
       if (Kicker.tryKick(piece, field)) return;
+
+      piece.setRotation(oldOrientation);
+      piece.setPrevRotation(oldPrevOrientation);
+    }
+  }
+}
+
+abstract class Rotator2d {
+  static void apply(int incr, TetrisPiece piece, Blocks2d blocks2d) {
+    int oldPrevOrientation = piece.getPrevRotation();
+    int oldOrientation = piece.getRotation();
+
+    piece.incrementRotation(incr);
+    piece.setPrevRotation(oldOrientation);
+
+    if (piece.getRotation() < 0) {
+      piece.setRotation(piece.getRotationMax() - 1);
+    } else if (piece.getRotation() >= piece.getRotationMax()) {
+      piece.setRotation(0);
+    }
+
+    if (!CellTester2d.emptyAndInBoundsAndNoOverlap(piece, blocks2d)) {
+      if (Kicker2d.tryKick(piece, blocks2d)) return;
 
       piece.setRotation(oldOrientation);
       piece.setPrevRotation(oldPrevOrientation);
@@ -45,7 +69,26 @@ abstract class Kicker {
     for (Integer[] offset : kickOffsets) {
       piece.getCenter().translate(offset[0], offset[1]);
 
-      if (Position.isInBoundsAndEmpty(piece, field)) {
+      if (CellTester.emptyAndInBoundsAndNoOverlap(piece, field)) {
+        return true;
+      }
+
+      piece.getCenter().translate(-offset[0], -offset[1]);
+    }
+
+    return false;
+  }
+}
+
+abstract class Kicker2d {
+  static boolean tryKick(TetrisPiece piece, Blocks2d field) {
+    Integer[][] kickOffsets =
+        piece.getKickData().get(piece.getPrevRotation()).get(piece.getRotation());
+
+    for (Integer[] offset : kickOffsets) {
+      piece.getCenter().translate(offset[0], offset[1]);
+
+      if (CellTester2d.emptyAndInBoundsAndNoOverlap(piece, field)) {
         return true;
       }
 

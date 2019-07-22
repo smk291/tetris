@@ -11,7 +11,7 @@
                         // Else
                             // Put on board(?)
                                 // (To remove again later
-                // Drop falling piece
+                // Drop currentPiece piece
                     // Check if can drop further
                         // If not
                             // -- Thread --
@@ -22,7 +22,7 @@
         // Get input
             // If press down and piece can'tester move down
                 // Put piece on board
-                // Reset falling piece
+                // Reset currentPiece piece
                 // Reset new piece
 
 
@@ -32,13 +32,13 @@
     // Look for floating pieces
         // Add floating pieces if needed
 
-// Reset falling piece
+// Reset currentPiece piece
     // If position invalid, end game
 
 // Reset new piece
     // ...?
 
-// Prevent falling piece from moving through sinking piece
+// Prevent currentPiece piece from moving through sinking piece
 // Reset values of TetrisPiece rather than creating new one in order not to reassign pointer
 // Make them final
 

@@ -4,9 +4,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public interface GUI {
-  void draw(PlayField field);
+  void field(PlayField field);
 
-  char drawCell(boolean isFull);
+  char cell(boolean isFull);
 
-  void drawBoardIncludingPiece(TetrisPiece piece, ArrayList<ArrayList<Point>> sinkingPieces, PlayField field);
+  void field(TetrisPiece piece, SinkingPieces sinkingPieces, PlayField field);
 }

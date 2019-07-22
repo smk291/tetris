@@ -3,10 +3,15 @@ package com.tetrisrevision;
 import javax.swing.*;
 import java.awt.*;
 
-public class TetrisGUI {
-  public static boolean RIGHT_TO_LEFT = false;
+class TetrisGUI {
+  private boolean RIGHT_TO_LEFT = false;
+  private RunTetris runTetris;
+  BoardCompositer bc = new BoardCompositer(runTetris);
 
-  public static void addComponentsToPane(Container pane) {
+  TetrisGUI(RunTetris runTetris) {
+    this.runTetris = runTetris;
+  }
+  private void addComponentsToPane(Container pane) {
 
     if (!(pane.getLayout() instanceof BorderLayout)) {
       pane.add(new JLabel("Container doesn't use BorderLayout!"));
@@ -22,11 +27,11 @@ public class TetrisGUI {
 
     // Make the center component big, since that's the
     // typical usage of BorderLayout.
-    BoardCompositer app = new BoardCompositer();
-    app.setSize(new Dimension(400, 700));
+    bc = new BoardCompositer(runTetris);
+    bc.setSize(new Dimension(400, 700));
     //    button = new JButton("Button 2 (CENTER)");
     //    button.setPreferredSize(new Dimension(200, 100));
-    pane.add(app, BorderLayout.CENTER);
+    pane.add(bc, BorderLayout.CENTER);
 
     button = new JButton("START");
     pane.add(button, BorderLayout.LINE_START);
@@ -44,7 +49,6 @@ public class TetrisGUI {
    * dispatch thread.
    */
   private void createAndShowGUI() {
-
     // Create and set up the window.
     JFrame frame = new JFrame("BorderLayoutDemo");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +62,7 @@ public class TetrisGUI {
     frame.setVisible(true);
   }
 
-  public void init() {
+  void init() {
     /* Use an appropriate Look and Feel */
     try {
       //      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -75,5 +79,9 @@ public class TetrisGUI {
     // Schedule a job for the event dispatch thread:
     // creating and showing this application's GUI.
     SwingUtilities.invokeLater(this::createAndShowGUI);
+  }
+
+  BoardCompositer getBoardCompositor() {
+    return bc;
   }
 }
