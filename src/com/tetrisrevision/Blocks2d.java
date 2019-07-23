@@ -1,40 +1,63 @@
 package com.tetrisrevision;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.stream.IntStream;
+import java.util.Arrays;
 
 class Blocks2d {
-  private HashMap<Integer, ArrayList<Cell>> blocksByRow = new HashMap<>();
+  private Cell[][] blocksByRow;
   private static int width;
   private static int height;
 
   Blocks2d(int width, int height) {
     Blocks2d.width = width;
     Blocks2d.height = height;
+    blocksByRow = new Cell[height][width];
 
     createEmpty();
   }
 
   void createEmpty() {
-    IntStream.range(-20, height).forEach(i -> blocksByRow.put(i, new ArrayList<>()));
+    for (int y = 0; y < blocksByRow.length; y++) {
+      for (int x = 0; x < blocksByRow[y].length; x++) {
+        blocksByRow[y][x] = new Cell(x, y);
+      }
+    }
   }
 
   Cell getCell(Cell cell) {
-    Cell tmpC = new Cell(-1, -1);
-
-    for (Cell c : blocksByRow.get((int) cell.getY())) {
-      if (c.getX() == cell.getX()) {
-        tmpC = c;
-      }
-    }
-
-    return tmpC;
+    return blocksByRow[(int) cell.getY()][(int) cell.getX()];
   }
 
-  ArrayList<Cell> getRow(int i) {
-    return blocksByRow.get(i);
+  void setCell(Cell cell) {
+    if (CellTester.inBounds(cell)) {
+      Cell tmpCell = blocksByRow[(int) cell.getY()][(int) cell.getX()];
+
+      tmpCell.setEmpty(false);
+      tmpCell.setColor(cell.getColor());
+    }
+  }
+
+  void copyCell(Cell cellFrom, Cell cellTo) {
+    cellTo.setColor(cellFrom.getColor());
+    cellTo.setEmpty(cellFrom.isEmpty());
+
+    cellFrom.setColor(null);
+    cellFrom.setEmpty(true);
+  }
+
+  void copyCell(Cell cellFrom, int x, int y) {
+    int newY = (int) cellFrom.getY() + y;
+    int newX = (int) cellFrom.getX() + x;
+
+    if (CellTester.inBounds(x, y)) {
+      Cell cellTo = blocksByRow[newY][newX];
+
+      copyCell(cellFrom, cellTo);
+    }
+  }
+
+  Cell[] getRow(int i) {
+    return blocksByRow[i];
   }
 
   static int getWidth() {
@@ -45,73 +68,43 @@ class Blocks2d {
     return height;
   }
 
-  void remove(ArrayList<Cell> piece) {
+  void addPieceToBlocks(Cell[] piece) {
     for (Cell cell : piece) {
-      ArrayList<Cell> row = blocksByRow.get((int) cell.getY());
-
-      for (Cell c : row) {
-        if (c.getX() == cell.getX()) {
-          row.remove(c);
-        }
-      }
-
-      blocksByRow.put((int) cell.getY(), row);
+      setCell(cell);
     }
   }
 
-  void addPieceToBlocks(TetrisPiece piece) {
-    Cell[] cells = piece.getCells();
-
-    for (Cell cell : cells) {
-      System.out.println((int) cell.getX() + ", " + (int) cell.getY());
-      ArrayList<Cell> tmpCells = blocksByRow.get((int) cell.getY());
-      tmpCells.add(cell);
-
-      if (CellTester2d.inBounds(cell))
-        blocksByRow.put((int) cell.getY(), tmpCells);
-    }
-  }
-
-  boolean spaceIsEmpty(Point pt) {
-    return blocksByRow.get((int) pt.getY()).stream().noneMatch(c -> c.getX() == pt.getX());
+  boolean cellIsEmpty(Point pt) {
+    return blocksByRow[(int) pt.getY()][(int) pt.getX()].isEmpty();
   }
 
   boolean rowIsFull(int i) {
-    return 10 == blocksByRow.get(i).size();
+    return Arrays.stream(blocksByRow[i]).allMatch(Cell::isFull);
   }
 
   boolean rowIsEmpty(int i) {
-    return blocksByRow.get(i).isEmpty();
+    return Arrays.stream(blocksByRow[i]).allMatch(Cell::isEmpty);
   }
 
-  void copyRow(int keyTo, int keyFrom) {
-    ArrayList<Cell> rowFrom = (ArrayList<Cell>) blocksByRow.get(keyFrom).clone();
-
-    blocksByRow.put(keyTo, rowFrom);
+  void copyRow(int rowFrom, int rowTo) {
+    for (int i = 0; i < width; i++) {
+      blocksByRow[rowTo][i].setEmpty(blocksByRow[rowFrom][i].isEmpty());
+      blocksByRow[rowTo][i].setColor(blocksByRow[rowFrom][i].getColor());
+    }
   }
 
-  void emptyRow(int key) {
-    blocksByRow.put(key, new ArrayList<>());
+  void emptyRow(int row) {
+    for (Cell c : blocksByRow[row]) {
+      c.setEmpty(true);
+      c.setColor(Color.white);
+    }
   }
 
   void addCell(Cell cell) {
-    ArrayList<Cell> tmpRow = blocksByRow.get((int) cell.getY());
-
-    tmpRow.add(cell);
-
-    blocksByRow.put((int) cell.getY(), tmpRow);
+    setCell(cell);
   }
 
-  void deleteCell(Cell cell) {
-    ArrayList<Cell> tmpRow = blocksByRow.get((int) cell.getY());
-
-    for (int i = 0; i < tmpRow.size(); i++) {
-      if (tmpRow.get(i).getX() == cell.getX() && tmpRow.get(i).getY() == cell.getY()) {
-        tmpRow.remove(i);
-        break;
-      }
-    }
-
-    blocksByRow.put((int) cell.getY(), tmpRow);
+  Cell[][] getBlocksByRow() {
+    return blocksByRow;
   }
 }

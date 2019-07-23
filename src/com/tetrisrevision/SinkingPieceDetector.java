@@ -1,8 +1,6 @@
 package com.tetrisrevision;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.stream.IntStream;
 
 /****
@@ -60,126 +58,11 @@ import java.util.stream.IntStream;
  ****/
 
 class SinkingPieceDetector {
-  private ArrayList<Point> piece = new ArrayList<>();
+  private ArrayList<Cell> piece = new ArrayList<>();
   private boolean attachedToRow23 = false;
   private int[][] searched;
 
   SinkingPieceDetector() {
-    searched = new int[PlayField.getHeight()][PlayField.getWidth()];
-  }
-
-  private boolean getCellHasBeenTested(Point pt) {
-    return searched[(int) pt.getY()][(int) pt.getX()] == 1;
-  }
-
-  private void setCellHasBeenTested(Point pt) {
-    searched[(int) pt.getY()][(int) pt.getX()] = 1;
-  }
-
-  /**
-   * **
-   *
-   * <p>Search all cells in both the deleted row and the row below. See comments above for
-   * explanation and example Reset variable Reset once to prevent each call to runSearch from doing
-   * duplicate work If a cell has been searched in a previous call to findConnectedBlocks,
-   * there's no reason to test it again because it's already in a sinking piece that has been stored
-   * or is known not to be part of a sinking piece
-   *
-   * <p>**
-   */
-  void find(int deletedRowIdx, PlayField field, SinkingPieces sinkingPieces) {
-    if (!CellTester.inBounds(0, deletedRowIdx)) return;
-
-    int rowBelow = deletedRowIdx + 1;
-
-    searched = new int[PlayField.getHeight()][PlayField.getWidth()];
-
-    IntStream.range(0, PlayField.getWidth())
-        .forEach(
-            x -> {
-              runSearch(x, rowBelow, field, sinkingPieces);
-              runSearch(x, deletedRowIdx, field, sinkingPieces);
-            });
-  }
-
-  /**
-   * @param x x coord
-   * @param y y coord
-   * Reset variable Reset for each call to findConnectedFill Because each cell searched
-   *     could be part of a new, separate, sinking piece Reset variable Reset for each call for same
-   *     reasons Find all filled cells connected to the point
-   *     <p>**
-   */
-  private void runSearch(int x, int y, PlayField field, SinkingPieces sinkingPieces) {
-    piece = new ArrayList<>();
-    attachedToRow23 = false;
-
-    findConnectedBlocks(new Point(x, y), field, sinkingPieces);
-  }
-
-  /**
-   * **
-   *
-   * <p>Starting from particular cell, look for connected pieces If point is in bounds, is full, and
-   * hasn't already been examined by this method Find and add all connected points Add to list of
-   * sinking pieces if it isn't itself attached to bottom row or attached direcetly or indirectly to
-   * a cell that is
-   *
-   * <p>**
-   */
-  private void findConnectedBlocks(Point pt, PlayField field, SinkingPieces sinkingPieces) {
-    if (CellTester.inBounds(pt) && field.getCell(pt).isFull() && !getCellHasBeenTested(pt)) {
-      addConnectedBlocksToPiece(pt, field);
-
-      if (!attachedToRow23) {
-        sinkingPieces.getSinkingPieces().add(piece);
-      }
-    }
-  }
-
-  /**
-   * ** Recursive method looks to left, right, up, and down for connected, filled cells If any
-   * connected is on row 23, then the cells connected to it aren't a sinking piece I don't stop all
-   * calls to the recursive function here, because doing so creates problems: If I stop the search,
-   * a row may be incompletely searched. If it's incompletely searched The method won't re-search
-   * the cells that were already searched And thus may be unable to see that it's connected to those
-   * already-searched cells As a result, it may incorrectly identify cells as part of a sinking
-   * cell, because they aren't Found to be connected to row 23 Look for cells connected in each
-   * direction
-   */
-  private void addConnectedBlocksToPiece(Point pt, PlayField field) {
-    if (!CellTester.inBounds(pt) || getCellHasBeenTested(pt)) return;
-
-    if (field.getCell(pt).isFull()) {
-      if ((int) pt.getY() == 23) attachedToRow23 = true;
-
-      setCellHasBeenTested(pt);
-
-      piece.add(pt);
-//      Cell cell = cells.get((int) pt.getY()).get((int) pt.getX());
-
-//      piece2d.add(cell);
-
-      searchAdjacent((Point) pt.clone(), field, 0, 1);
-      searchAdjacent((Point) pt.clone(), field, 0, -1);
-      searchAdjacent((Point) pt.clone(), field, 1, 0);
-      searchAdjacent((Point) pt.clone(), field, -1, 0);
-    }
-  }
-
-  private void searchAdjacent(Point pt, PlayField field, int x, int y) {
-    pt.translate(x, y);
-
-    addConnectedBlocksToPiece(pt, field);
-  }
-}
-
-class SinkingPieceDetector2d {
-  private ArrayList<Cell> piece2d = new ArrayList<>();
-  private boolean attachedToRow23 = false;
-  private int[][] searched;
-
-  SinkingPieceDetector2d() {
     searched = new int[Blocks2d.getHeight()][Blocks2d.getWidth()];
   }
 
@@ -191,19 +74,9 @@ class SinkingPieceDetector2d {
     searched[(int) cell.getY()][(int) cell.getX()] = 1;
   }
 
-  /**
-   * **
-   *
-   * <p>Search all cells in both the deleted row and the row below. See comments above for
-   * explanation and example Reset variable Reset once to prevent each call to runSearch from doing
-   * duplicate work If a cell has been searched in a previous call to findConnectedBlocks,
-   * there's no reason to test it again because it's already in a sinking piece that has been stored
-   * or is known not to be part of a sinking piece
-   *
-   * <p>**
-   */
-  void find(int deletedRowIdx, Blocks2d blocks2d, SinkingPieces2d sinkingPieces2d) {
-    if (!CellTester2d.inBounds(0, deletedRowIdx)) return;
+  void find(int deletedRowIdx, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
+    if (!CellTester.inBounds(0, deletedRowIdx))
+      return;
 
     int rowBelow = deletedRowIdx + 1;
 
@@ -212,85 +85,66 @@ class SinkingPieceDetector2d {
     IntStream.range(0, Blocks2d.getWidth())
         .forEach(
             x -> {
-              runSearch(x, rowBelow, blocks2d, sinkingPieces2d);
-              runSearch(x, deletedRowIdx, blocks2d, sinkingPieces2d);
+              runSearch(x, rowBelow, blocks2d, sinkingPieces);
+              runSearch(x, deletedRowIdx, blocks2d, sinkingPieces);
             });
   }
 
-  /**
-   * @param x x coord
-   * @param y y coord
-   * Reset variable Reset for each call to findConnectedFill Because each cell searched
-   *     could be part of a new, separate, sinking piece Reset variable Reset for each call for same
-   *     reasons Find all filled cells connected to the point
-   *     <p>**
-   */
-  private void runSearch(int x, int y, Blocks2d blocks2d, SinkingPieces2d sinkingPieces2d) {
-    piece2d = new ArrayList<>();
+  private void runSearch(int x, int y, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
+    piece = new ArrayList<>();
     attachedToRow23 = false;
-
-    findConnectedBlocks(new Cell(x, y), blocks2d, sinkingPieces2d);
+    Cell tmpCell = new Cell(x, y);
+    
+    if (CellTester.inBounds(tmpCell)) {
+      Cell cell = (Cell) blocks2d.getCell(tmpCell).clone();
+      findConnectedBlocks(cell, blocks2d, sinkingPieces);
+    }
   }
 
-  /**
-   * **
-   *
-   * <p>Starting from particular cell, look for connected pieces If point is in bounds, is full, and
-   * hasn't already been examined by this method Find and add all connected points Add to list of
-   * sinking pieces if it isn't itself attached to bottom row or attached direcetly or indirectly to
-   * a cell that is
-   *
-   * <p>**
-   */
-  private void findConnectedBlocks(Cell cell, Blocks2d blocks2d, SinkingPieces2d sinkingPieces2d) {
-    if (CellTester2d.inBounds(cell) && blocks2d.getCell(cell).isFull() && !getCellHasBeenTested(cell)) {
-      addConnectedBlocksToPiece(cell, blocks2d);
+  private void findConnectedBlocks(Cell pt, Blocks2d field, SinkingPieces sinkingPieces) {
+    if (field.getCell(pt).isFull() && !getCellHasBeenTested(pt)) {
+      addConnectedBlocksToPiece(pt, field);
 
       if (!attachedToRow23) {
-        sinkingPieces2d.getPieces().add(piece2d);
+        sinkingPieces.getPieces().add(piece);
+
+        piece.forEach(cell -> {
+          field.getCell(cell).setEmpty(true);
+        });
       }
     }
   }
 
-  /**
-   * ** Recursive method looks to left, right, up, and down for connected, filled cells If any
-   * connected is on row 23, then the cells connected to it aren't a sinking piece I don't stop all
-   * calls to the recursive function here, because doing so creates problems: If I stop the search,
-   * a row may be incompletely searched. If it's incompletely searched The method won't re-search
-   * the cells that were already searched And thus may be unable to see that it's connected to those
-   * already-searched cells As a result, it may incorrectly identify cells as part of a sinking
-   * cell, because they aren't Found to be connected to row 23 Look for cells connected in each
-   * direction
-   */
-  private void addConnectedBlocksToPiece(Cell tmpCell, Blocks2d blocks2d) {
-//    System.out.println(tmpCell);
-//    System.out.println(tmpCell.getX() + ", " + tmpCell.getY());
-//    System.out.println(CellTester2d.inBounds(tmpCell));
+  private void addConnectedBlocksToPiece(Cell pt, Blocks2d field) {
+    if (getCellHasBeenTested(pt)) return;
 
-    if (!CellTester2d.inBounds(tmpCell) || getCellHasBeenTested(tmpCell))
-      return;
+    if (field.getCell(pt).isFull()) {
+      if ((int) pt.getY() == 23) attachedToRow23 = true;
 
-    Cell cell = blocks2d.getCell(tmpCell);
+      setCellHasBeenTested(pt);
 
-    if (!CellTester2d.inBounds(cell) || getCellHasBeenTested(cell))
-      return;
+      piece.add(pt);
 
-    if ((int) cell.getY() == 23)
-      attachedToRow23 = true;
+      int y = (int) pt.getY();
+      int x = (int) pt.getX();
 
-    setCellHasBeenTested(cell);
+      if (CellTester.inBounds(x, y + 1))
+        searchAdjacent((Cell) pt.clone(), field, 0, 1);
 
-    piece2d.add(cell);
+      if (CellTester.inBounds(x, y - 1))
+        searchAdjacent((Cell) pt.clone(), field, 0, -1);
 
-    searchAdjacent((Cell) cell.clone(), blocks2d, 0, 1);
-    searchAdjacent((Cell) cell.clone(), blocks2d, 0, -1);
-    searchAdjacent((Cell) cell.clone(), blocks2d, 1, 0);
-    searchAdjacent((Cell) cell.clone(), blocks2d, -1, 0);
+      if (CellTester.inBounds(x + 1, y))
+        searchAdjacent((Cell) pt.clone(), field, 1, 0);
+
+      if (CellTester.inBounds(x - 1, y))
+        searchAdjacent((Cell) pt.clone(), field, -1, 0);
+    }
   }
 
-  private void searchAdjacent(Cell cell, Blocks2d blocks2d, int x, int y) {
-    cell.translate(x, y);
+  private void searchAdjacent(Cell pt, Blocks2d blocks2d, int x, int y) {
+    pt.translate(x, y);
 
-    addConnectedBlocksToPiece(cell, blocks2d);
+    addConnectedBlocksToPiece(pt, blocks2d);
   }
 }

@@ -1,5 +1,7 @@
 package com.tetrisrevision;
 
+import java.util.HashMap;
+
 /**
  * **
  *
@@ -16,29 +18,6 @@ package com.tetrisrevision;
  */
 
 abstract class Rotator {
-  static void apply(int incr, TetrisPiece piece, PlayField field) {
-    int oldPrevOrientation = piece.getPrevRotation();
-    int oldOrientation = piece.getRotation();
-
-    piece.incrementRotation(incr);
-    piece.setPrevRotation(oldOrientation);
-
-    if (piece.getRotation() < 0) {
-      piece.setRotation(piece.getRotationMax() - 1);
-    } else if (piece.getRotation() >= piece.getRotationMax()) {
-      piece.setRotation(0);
-    }
-
-    if (!CellTester.emptyAndInBoundsAndNoOverlap(piece, field)) {
-      if (Kicker.tryKick(piece, field)) return;
-
-      piece.setRotation(oldOrientation);
-      piece.setPrevRotation(oldPrevOrientation);
-    }
-  }
-}
-
-abstract class Rotator2d {
   static void apply(int incr, TetrisPiece piece, Blocks2d blocks2d) {
     int oldPrevOrientation = piece.getPrevRotation();
     int oldOrientation = piece.getRotation();
@@ -52,8 +31,8 @@ abstract class Rotator2d {
       piece.setRotation(0);
     }
 
-    if (!CellTester2d.emptyAndInBoundsAndNoOverlap(piece, blocks2d)) {
-      if (Kicker2d.tryKick(piece, blocks2d)) return;
+    if (!CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, blocks2d)) {
+      if (Kicker.tryKick(piece, blocks2d)) return;
 
       piece.setRotation(oldOrientation);
       piece.setPrevRotation(oldPrevOrientation);
@@ -62,33 +41,23 @@ abstract class Rotator2d {
 }
 
 abstract class Kicker {
-  static boolean tryKick(TetrisPiece piece, PlayField field) {
-    Integer[][] kickOffsets =
-        piece.getKickData().get(piece.getPrevRotation()).get(piece.getRotation());
-
-    for (Integer[] offset : kickOffsets) {
-      piece.getCenter().translate(offset[0], offset[1]);
-
-      if (CellTester.emptyAndInBoundsAndNoOverlap(piece, field)) {
-        return true;
-      }
-
-      piece.getCenter().translate(-offset[0], -offset[1]);
-    }
-
-    return false;
-  }
-}
-
-abstract class Kicker2d {
   static boolean tryKick(TetrisPiece piece, Blocks2d field) {
-    Integer[][] kickOffsets =
-        piece.getKickData().get(piece.getPrevRotation()).get(piece.getRotation());
+    HashMap<Integer, HashMap<Integer, Integer[][]>> kickData = piece.getKickData();
 
-    for (Integer[] offset : kickOffsets) {
+    if (null == kickData)
+      return false;
+
+    HashMap<Integer, Integer[][]> kickOffsets1 = kickData.get(piece.getPrevRotation());
+
+    if (kickOffsets1 == null)
+      return false;
+
+    Integer[][] kickOffsets2 = kickOffsets1.get(piece.getRotation());
+
+    for (Integer[] offset : kickOffsets2) {
       piece.getCenter().translate(offset[0], offset[1]);
 
-      if (CellTester2d.emptyAndInBoundsAndNoOverlap(piece, field)) {
+      if (CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, field)) {
         return true;
       }
 

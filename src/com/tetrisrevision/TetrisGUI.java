@@ -2,17 +2,24 @@ package com.tetrisrevision;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 class TetrisGUI {
   private boolean RIGHT_TO_LEFT = false;
   private RunTetris runTetris;
   BoardCompositer bc = new BoardCompositer(runTetris);
+  Timer timer;
+  Timer timer2;
+  JFrame frame = new JFrame("BorderLayoutDemo");
+  double score = 0;
 
   TetrisGUI(RunTetris runTetris) {
     this.runTetris = runTetris;
   }
   private void addComponentsToPane(Container pane) {
-
     if (!(pane.getLayout() instanceof BorderLayout)) {
       pane.add(new JLabel("Container doesn't use BorderLayout!"));
       return;
@@ -50,7 +57,6 @@ class TetrisGUI {
    */
   private void createAndShowGUI() {
     // Create and set up the window.
-    JFrame frame = new JFrame("BorderLayoutDemo");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     // Set up the content pane.
     addComponentsToPane(frame.getContentPane());
@@ -60,12 +66,11 @@ class TetrisGUI {
     frame.pack();
     frame.setSize(new Dimension(500, 800));
     frame.setVisible(true);
+    frame.setFocusable(true);
   }
 
   void init() {
-    /* Use an appropriate Look and Feel */
     try {
-      //      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
       UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
     } catch (UnsupportedLookAndFeelException
         | IllegalAccessException
@@ -73,12 +78,33 @@ class TetrisGUI {
         | ClassNotFoundException ex) {
       ex.printStackTrace();
     }
-    /* Turn off metal's use bold fonts */
     UIManager.put("swing.boldMetal", Boolean.FALSE);
-
-    // Schedule a job for the event dispatch thread:
-    // creating and showing this application's GUI.
     SwingUtilities.invokeLater(this::createAndShowGUI);
+
+    frame.addKeyListener(new KeyListener() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        runTetris.keyboardInput(e.getKeyChar());
+        runTetris.continueGame();
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+      }
+    });
+
+    timer = new Timer(500, e -> {
+      runTetris.keyboardInput('j');
+      runTetris.continueGame();
+    });
+    timer.start();
+
+    timer2 = new Timer(10, e -> runTetris.handleSinkingPieces2d());
+    timer2.start();
   }
 
   BoardCompositer getBoardCompositor() {

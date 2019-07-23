@@ -12,23 +12,24 @@ import java.awt.geom.Rectangle2D;
  */
 public class Cell extends Point {
   private boolean empty;
-  private Color c;
-  private Rectangle2D.Double rect;
+  private Color color;
 
-  Cell() {
-    this.empty = true;
-  }
-
-  Cell(Point pt, Color c) {
+  Cell(Point pt, Color color) {
     this.x = (int) pt.getX();
     this.y = (int) pt.getY();
-    this.c = c;
+    this.color = color;
   }
 
   Cell(int x, int y) {
     this.empty = true;
     this.x = x;
     this.y = y;
+  }
+
+  Cell(int x, int y, Color c) {
+    this.x = x;
+    this.y = y;
+    this.color = c;
   }
 
   boolean isEmpty() {
@@ -41,5 +42,17 @@ public class Cell extends Point {
 
   public boolean isFull() {
     return !this.empty;
+  }
+
+  public void setColor(Color color) {
+    this.color = color;
+  }
+
+  public Color getColor() {
+    return color;
+  }
+
+  public String printCell() {
+    return "{ " + x + ", " + y + " }";
   }
 }
