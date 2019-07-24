@@ -12,6 +12,6 @@ class TPiece extends Tetromino {
 
   TPiece() {
     super.setOffsets(offsets);
-    super.setColor(Color.green);
+    super.setColor(new Color(147, 112, 219));
   }
 }

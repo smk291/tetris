@@ -12,6 +12,6 @@ class ZPiece extends Tetromino {
 
   ZPiece() {
     super.setOffsets(offsets);
-    super.setColor(Color.black);
+    super.setColor(new Color(237, 41, 57));
   }
 }

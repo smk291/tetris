@@ -7,6 +7,6 @@ class OPiece extends Tetromino {
 
   OPiece() {
     super.setOffsets(offsets);
-    super.setColor(Color.orange);
+    super.setColor(new Color	(238, 237, 9));
   }
 }

@@ -12,6 +12,6 @@ class JPiece extends Tetromino {
 
   JPiece() {
     super.setOffsets(offsets);
-    super.setColor(Color.lightGray);
+    super.setColor(new Color(	31, 117, 254));
   }
 }

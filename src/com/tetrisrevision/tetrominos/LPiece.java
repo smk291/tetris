@@ -12,6 +12,6 @@ class LPiece extends Tetromino {
 
   LPiece() {
     super.setOffsets(offsets);
-    super.setColor(Color.cyan);
+    super.setColor(new Color(255, 117, 56));
   }
 }
