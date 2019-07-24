@@ -3,7 +3,6 @@ package com.tetrisrevision;
 import com.tetrisrevision.tetrominos.TetrominoEnum;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.stream.IntStream;
 
 /**
@@ -11,7 +10,6 @@ import java.util.stream.IntStream;
  *
  * <p>These are basically unit tests for various behaviors
  */
-
 abstract class InputTests {
   private static void createCell(int x, int y, Blocks2d blocks2d) {
     Cell cell = new Cell(x, y, Color.blue);
@@ -167,8 +165,7 @@ abstract class InputTests {
             createCell(x, 21, blocks2d);
           }
 
-          if (x != 4)
-            createCell(x, 22, blocks2d);
+          if (x != 4) createCell(x, 22, blocks2d);
 
           createCell(x, 23, blocks2d);
         }

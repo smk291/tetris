@@ -1,7 +1,6 @@
 package com.tetrisrevision;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 /**
  * **
@@ -44,12 +43,12 @@ public class Cell extends Point {
     return !this.empty;
   }
 
-  public void setColor(Color color) {
-    this.color = color;
-  }
-
   public Color getColor() {
     return color;
+  }
+
+  public void setColor(Color color) {
+    this.color = color;
   }
 
   public String printCell() {

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class Blocks2d {
-  private Cell[][] blocksByRow;
   private static int width;
   private static int height;
+  private Cell[][] blocksByRow;
 
   Blocks2d(int width, int height) {
     Blocks2d.width = width;
@@ -15,6 +15,14 @@ class Blocks2d {
     blocksByRow = new Cell[height][width];
 
     createEmpty();
+  }
+
+  static int getWidth() {
+    return width;
+  }
+
+  static int getHeight() {
+    return height;
   }
 
   void createEmpty() {
@@ -59,14 +67,6 @@ class Blocks2d {
 
   Cell[] getRow(int i) {
     return blocksByRow[i];
-  }
-
-  static int getWidth() {
-    return width;
-  }
-
-  static int getHeight() {
-    return height;
   }
 
   void insert(TetrisPiece piece) {

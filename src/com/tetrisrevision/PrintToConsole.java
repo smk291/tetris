@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 interface TriConsumer<T> {
   void accept(Integer x, Integer y, T t);
-
 }
 
 interface TriConsumerString<T> {
@@ -39,47 +38,50 @@ public class PrintToConsole {
   }
 
   private void paintAndPrint(Blocks2d blocks2d, SinkingPieces sinkingPieces, TetrisPiece piece) {
-    printBoardCustom(blocks2d, (Integer x, Integer y, Cell cell) -> {
-      if ((int) cell.getX() != x || (int) cell.getY() != y) {
-        System.out.print(
-            "(" +
-                printCoords(x, y) +
-                ") -> (" +
-                printCoords(cell) +
-                ") :: "
-        );
-      } else {
-        System.out.print("(      ) -> (      ) :: ");
-      }
-    });
+    printBoardCustom(
+        blocks2d,
+        (Integer x, Integer y, Cell cell) -> {
+          if ((int) cell.getX() != x || (int) cell.getY() != y) {
+            System.out.print("(" + printCoords(x, y) + ") -> (" + printCoords(cell) + ") :: ");
+          } else {
+            System.out.print("(      ) -> (      ) :: ");
+          }
+        });
 
     getBoard(blocks2d, sinkingPieces, piece);
 
-    printStringBoardCustom((Integer x, Integer y, String[] cell) -> {
-      String s = "";
+    printStringBoardCustom(
+        (Integer x, Integer y, String[] cell) -> {
+          String s = "";
 
-      for (String element : cell) {
-        s = s.concat(element);
-      }
+          for (String element : cell) {
+            s = s.concat(element);
+          }
 
-      return s;
-    });
+          return s;
+        });
 
-    printStringBoardCustom((Integer x, Integer y, String[] cell) -> {
-      if (cell[2].equals("s") && cell[3].equals("!"))
-        return cell[2] + cell[3];
-      else
-        return "  ";
-    });
-
+    printStringBoardCustom(
+        (Integer x, Integer y, String[] cell) -> {
+          if (cell[2].equals("s") && cell[3].equals("!")) return cell[2] + cell[3];
+          else return "  ";
+        });
 
     Cell cell1 = blocks2d.getBlocksByRow()[22][0];
     Cell cell2 = blocks2d.getBlocksByRow()[22][4];
 
     if (cell1 != null)
-      System.out.println("22, 0" + cell1.printCell() + " " + (cell1.getColor() != null ? cell1.getColor().toString() : "NC"));
+      System.out.println(
+          "22, 0"
+              + cell1.printCell()
+              + " "
+              + (cell1.getColor() != null ? cell1.getColor().toString() : "NC"));
     if (cell2 != null)
-      System.out.println("22, 4" + cell2.printCell() + " " + (cell2.getColor() != null ? cell2.getColor().toString() : "NC"));
+      System.out.println(
+          "22, 4"
+              + cell2.printCell()
+              + " "
+              + (cell2.getColor() != null ? cell2.getColor().toString() : "NC"));
   }
 
   private void getBoard(Blocks2d blocks2d, SinkingPieces sinkingPieces, TetrisPiece piece) {
@@ -87,7 +89,7 @@ public class PrintToConsole {
 
     for (String[][] row : board) {
       for (int x = 0; x < row.length; x++) {
-        row[x] = new String[]{" ", " ", " ", " ", " "};
+        row[x] = new String[] {" ", " ", " ", " ", " "};
       }
     }
 
@@ -126,9 +128,8 @@ public class PrintToConsole {
 
   private boolean sinkingPiecesContainCell(int x, int y, SinkingPieces sinkingPieces) {
     for (ArrayList<Cell> piece : sinkingPieces.getPieces()) {
-      for (Cell cell: piece) {
-        if ((int) cell.getX() == x && (int) cell.getY() == y)
-          return true;
+      for (Cell cell : piece) {
+        if ((int) cell.getX() == x && (int) cell.getY() == y) return true;
       }
     }
 
@@ -137,9 +138,8 @@ public class PrintToConsole {
 
   private boolean sinkingPiecesContainCell(Cell c, SinkingPieces sinkingPieces) {
     for (ArrayList<Cell> piece : sinkingPieces.getPieces()) {
-      for (Cell cell: piece) {
-        if (cell.getX() == c.getX() && cell.getY() == c.getY())
-          return true;
+      for (Cell cell : piece) {
+        if (cell.getX() == c.getX() && cell.getY() == c.getY()) return true;
       }
     }
 
@@ -147,10 +147,8 @@ public class PrintToConsole {
   }
 
   private boolean fallingPieceContainsCell(int x, int y, TetrisPiece currentPiece2d) {
-    return Arrays.stream(currentPiece2d.getCells()).anyMatch(
-        c ->
-            (int) c.getX() == x && (int) c.getY() == y
-    );
+    return Arrays.stream(currentPiece2d.getCells())
+        .anyMatch(c -> (int) c.getX() == x && (int) c.getY() == y);
   }
 
   private <T> void printBoardCustom(Blocks2d blocks2d, TriConsumer<Cell> print) {

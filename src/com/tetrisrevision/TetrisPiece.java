@@ -13,7 +13,7 @@ public class TetrisPiece {
   private Tetromino tetromino;
   private boolean addToBoard;
 
-  public TetrisPiece () {}
+  public TetrisPiece() {}
 
   public TetrisPiece(Tetromino t) {
     reset();
@@ -29,10 +29,6 @@ public class TetrisPiece {
     this.center = new Point(4, 0);
     this.rotation = 0;
     addToBoard = false;
-  }
-
-  void setTetromino(Tetromino t) {
-    this.tetromino = t;
   }
 
   int getRotation() {
@@ -55,7 +51,7 @@ public class TetrisPiece {
     this.prevRotation = r;
   }
 
-  Point[] getPoints() {
+  private Point[] getPoints() {
     return Arrays.stream(tetromino.getOffsets()[rotation])
         .map(p -> new Point((int) this.center.getX() + p[0], (int) this.center.getY() + p[1]))
         .toArray(Point[]::new);
@@ -73,10 +69,6 @@ public class TetrisPiece {
     this.center = new Point(x, y);
   }
 
-  boolean getAddToBoard() {
-    return addToBoard;
-  }
-
   void setAddToBoard(boolean addToBoard) {
     this.addToBoard = addToBoard;
   }
@@ -90,11 +82,17 @@ public class TetrisPiece {
   }
 
   Cell[] getCells() {
-    return Arrays.stream(getPoints()).map(pt -> new Cell(pt, tetromino.getColor())).toArray(Cell[]::new);
+    return Arrays.stream(getPoints())
+        .map(pt -> new Cell(pt, tetromino.getColor()))
+        .toArray(Cell[]::new);
   }
 
   Tetromino getTetromino() {
     return tetromino;
+  }
+
+  void setTetromino(Tetromino t) {
+    this.tetromino = t;
   }
 
   boolean pieceIsAtEdge() {

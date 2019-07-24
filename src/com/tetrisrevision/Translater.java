@@ -19,8 +19,7 @@ abstract class Translater {
     piece.getCenter().translate(x, y);
 
     if (CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, field)) {
-      if (testDrop)
-        piece.getCenter().translate(-x, -y);
+      if (testDrop) piece.getCenter().translate(-x, -y);
 
       return true;
     }

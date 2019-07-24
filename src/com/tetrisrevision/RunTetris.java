@@ -10,18 +10,22 @@ class RunTetris {
   private SinkingPieces sinkingPieces;
   private TetrisGUI tetrisGUI;
   private boolean continueGame = true;
-  private Timer movementTimer = new Timer(1000, e -> {
-    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
+  private Timer movementTimer =
+      new Timer(
+          1000,
+          e -> {
+            boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
 
-    if (!canDrop)
-      addPieceToBoard(currentPiece);
-  });
-  private Timer rotationTimer = new Timer(2500, e-> {
-    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
+            if (!canDrop) addPieceToBoard(currentPiece);
+          });
+  private Timer rotationTimer =
+      new Timer(
+          2500,
+          e -> {
+            boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
 
-    if (!canDrop)
-      addPieceToBoard(currentPiece);
-  });
+            if (!canDrop) addPieceToBoard(currentPiece);
+          });
 
   RunTetris(int width, int height) {
     tetrominoQueue = new TetrominoQueue();
@@ -53,10 +57,12 @@ class RunTetris {
   }
 
   void dropSinkingPieces() {
-    for(int i = 0; sinkingPieces.getPieces().size() > 0 && i < sinkingPieces.getPieces().size(); i++) {
+    for (int i = 0;
+        sinkingPieces.getPieces().size() > 0 && i < sinkingPieces.getPieces().size();
+        i++) {
       ArrayList<Cell> sinkingPiece = sinkingPieces.getPieces().get(i);
 
-      boolean canSink = Translater.translate(sinkingPiece, blocks2d,  1);
+      boolean canSink = Translater.translate(sinkingPiece, blocks2d, 1);
 
       if (!canSink) {
         addSinkingPieceToBoard(sinkingPiece);
@@ -73,27 +79,23 @@ class RunTetris {
   private void addSinkingPieceToBoard(ArrayList<Cell> sinkingPiece) {
     blocks2d.insert(sinkingPiece);
 
-    int startFrom = RowDeleter.apply(sinkingPiece, blocks2d);
+    int deletedRowIdx = RowDeleter.apply(sinkingPiece, blocks2d);
 
     sinkingPieces.getPieces().remove(sinkingPiece);
 
-    if (startFrom > 0)
-      new SinkingPieceFinder().find(startFrom, blocks2d, sinkingPieces);
+    if (deletedRowIdx > 0) new SinkingPieceFinder().find(deletedRowIdx, blocks2d, sinkingPieces);
   }
 
   private void addPieceToBoard(TetrisPiece piece) {
     blocks2d.insert(piece);
 
-    int searchFrom = RowDeleter.apply(piece, blocks2d);
+    int deletedRowIdx = RowDeleter.apply(piece, blocks2d);
 
-    if (searchFrom > 0)
-      new SinkingPieceFinder().find(searchFrom, blocks2d, sinkingPieces);
+    if (deletedRowIdx > 0) new SinkingPieceFinder().find(deletedRowIdx, blocks2d, sinkingPieces);
 
     tetrominoQueue.resetCurrentPiece(piece);
 
-    if (CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, blocks2d))
-      continueGame = false;
-
+    if (CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, blocks2d)) continueGame = false;
   }
 
   void dropCurrentPiece() {
@@ -117,8 +119,7 @@ class RunTetris {
 
     boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
 
-    if (!canDrop && !movementTimer.isRunning())
-      movementTimer.start();
+    if (!canDrop && !movementTimer.isRunning()) movementTimer.start();
     else {
       movementTimer.stop();
 
@@ -128,13 +129,13 @@ class RunTetris {
 
   private void rotate(int incr) {
     boolean canRotate = Rotator.apply(incr, currentPiece, blocks2d);
+
     tetrisGUI.getBoardCompositor().repaint();
 
     if (!canRotate) {
-      boolean canLift = Translater.translate(currentPiece, blocks2d, 0, -1, false);
+      boolean canLift = Translater.translate(currentPiece, blocks2d, 0, -1, false); // superfluous?
 
-      if (canLift)
-        canRotate = Rotator.apply(incr, currentPiece, blocks2d);
+      if (canLift) canRotate = Rotator.apply(incr, currentPiece, blocks2d);
     }
 
     rotationTimer.restart();
@@ -157,10 +158,10 @@ class RunTetris {
         translateCurrentPiece(1, 0);
         break;
       case "j":
-        translateCurrentPiece( 0, 1);
+        translateCurrentPiece(0, 1);
         break;
       case "k":
-       translateCurrentPiece( 0, -1);
+        translateCurrentPiece(0, -1);
         break;
       case "[":
         rotate(-1);

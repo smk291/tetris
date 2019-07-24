@@ -28,11 +28,14 @@ abstract class CellTester {
   }
 
   static boolean emptyAndInBoundsAndNoOverlapNoMin(TetrisPiece piece, Blocks2d field) {
-    return Arrays.stream(piece.getCells()).allMatch(pt -> emptyAndInBoundsAndNoOverlapNoMin(pt, field));
+    return Arrays.stream(piece.getCells())
+        .allMatch(pt -> emptyAndInBoundsAndNoOverlapNoMin(pt, field));
   }
 
   static boolean emptyAndInBoundsAndNoOverlap(Cell p, Blocks2d field) {
-    return BoundsTester.xInBounds(p) && BoundsTester.yInBounds(p) && OverlapTester.noOverlap(p, field);
+    return BoundsTester.xInBounds(p)
+        && BoundsTester.yInBounds(p)
+        && OverlapTester.noOverlap(p, field);
   }
 
   static boolean inBounds(Cell p) {
@@ -46,6 +49,8 @@ abstract class CellTester {
   }
 
   static boolean emptyAndInBoundsAndNoOverlapNoMin(Cell p, Blocks2d field) {
-    return BoundsTester.xInBounds(p) && BoundsTester.yInBoundsNoMin(p) && OverlapTester.noOverlap(p, field);
+    return BoundsTester.xInBounds(p)
+        && BoundsTester.yInBoundsNoMin(p)
+        && OverlapTester.noOverlap(p, field);
   }
 }

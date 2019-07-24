@@ -43,7 +43,8 @@ public class BoardCompositer extends JPanel {
     int titleYOffset = 50;
 
     gbi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    gbi.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    gbi.setRenderingHint(
+        RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     gbi.drawString("Tetris", titleXOffset, titleYOffset);
   }
 
@@ -53,44 +54,41 @@ public class BoardCompositer extends JPanel {
     int h = d.height;
 
     for (Cell cell : cells) {
-      if (!printAll && cell.isEmpty())
-        continue;
+      if (!printAll && cell.isEmpty()) continue;
 
-      if (null != cell.getColor())
-        gbi.setColor(cell.getColor());
-      else
-        gbi.setColor(Color.black);
+      if (null != cell.getColor()) gbi.setColor(cell.getColor());
+      else gbi.setColor(Color.black);
 
       Rectangle2D innerRect =
           new Rectangle2D.Double(
-              (w / 12) * (int) cell.getX(),
-              (h / 26) * (int) cell.getY(),
-              w / 12,
-              h / 26
-          );
+              (w / 12) * (int) cell.getX(), (h / 26) * (int) cell.getY(), w / 12, h / 26);
 
       gbi.fill(innerRect);
     }
   }
 
   private void drawBoard(Graphics2D gbi) {
-    if (null == runTetris)
-      return;
+    if (null == runTetris) return;
 
     if (null != runTetris.getCurrentPiece().getCells())
       drawBlocks(gbi, runTetris.getCurrentPiece().getCells(), true);
 
     if (null != runTetris.getBlocks2d())
-      IntStream.range(0, 24).forEach(i -> {
-        Cell[] row = runTetris.getBlocks2d().getRow(i);
-        if (null != row)
-          drawBlocks(gbi, row, false);
-      });
+      IntStream.range(0, 24)
+          .forEach(
+              i -> {
+                Cell[] row = runTetris.getBlocks2d().getRow(i);
+                if (null != row) drawBlocks(gbi, row, false);
+              });
 
     if (null != runTetris.getSinkingPieces().getPieces())
-     runTetris.getSinkingPieces().getPieces().forEach(piece -> {
-       drawBlocks(gbi, piece.toArray(new Cell[0]), true);
-     });
+      runTetris
+          .getSinkingPieces()
+          .getPieces()
+          .forEach(
+              piece -> {
+                drawBlocks(gbi, piece.toArray(new Cell[0]), true);
+              });
   }
 
   @Override

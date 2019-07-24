@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
  * Ex:
  *
  1.                 2.                  3.                  4.                 5.                  6.
-          row index
+           row index
  |■         | 14     |↓   ↓     | 14     |          | 14     |          | 15     |          | 15     |          | 15
  |■■■ ■     | 15     |■↓↓↓■↓↓↓↓↓| 15     |          | 15     |          | 15     |          | 15     |          | 15
  |↓↓↓□□□□□□□| 16     |■■■□□□□□□□| 16     |■   ■     | 16     |↓↓↓↓↓↓↓↓↓↓| 16     |          | 16     |          | 16
@@ -56,7 +56,6 @@ import java.util.stream.IntStream;
  * attachedToRow23 - if this is true, a piece isn't sinking
  *
  ****/
-
 class SinkingPieceFinder {
   private ArrayList<Cell> piece = new ArrayList<>();
   private boolean attachedToRow23 = false;
@@ -75,8 +74,7 @@ class SinkingPieceFinder {
   }
 
   void find(int deletedRowIdx, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
-    if (!CellTester.inBounds(0, deletedRowIdx))
-      return;
+    if (!CellTester.inBounds(0, deletedRowIdx)) return;
 
     int rowBelow = deletedRowIdx + 1;
 
@@ -94,9 +92,10 @@ class SinkingPieceFinder {
     piece = new ArrayList<>();
     attachedToRow23 = false;
     Cell tmpCell = new Cell(x, y);
-    
+
     if (CellTester.inBounds(tmpCell)) {
       Cell cell = (Cell) blocks2d.getCell(tmpCell).clone();
+
       findConnectedBlocks(cell, blocks2d, sinkingPieces);
     }
   }
@@ -108,9 +107,7 @@ class SinkingPieceFinder {
       if (!attachedToRow23) {
         sinkingPieces.getPieces().add(piece);
 
-        piece.forEach(cell -> {
-          field.getCell(cell).setEmpty(true);
-        });
+        piece.forEach(cell -> field.getCell(cell).setEmpty(true));
       }
     }
   }
@@ -125,24 +122,19 @@ class SinkingPieceFinder {
 
       piece.add(pt);
 
-      int y = (int) pt.getY();
-      int x = (int) pt.getX();
-
-      if (CellTester.inBounds(x, y + 1))
-        searchAdjacent((Cell) pt.clone(), field, 0, 1);
-
-      if (CellTester.inBounds(x, y - 1))
-        searchAdjacent((Cell) pt.clone(), field, 0, -1);
-
-      if (CellTester.inBounds(x + 1, y))
-        searchAdjacent((Cell) pt.clone(), field, 1, 0);
-
-      if (CellTester.inBounds(x - 1, y))
-        searchAdjacent((Cell) pt.clone(), field, -1, 0);
+      searchAdjacent((Cell) pt.clone(), field, 0, 1);
+      searchAdjacent((Cell) pt.clone(), field, 0, -1);
+      searchAdjacent((Cell) pt.clone(), field, 1, 0);
+      searchAdjacent((Cell) pt.clone(), field, -1, 0);
     }
   }
 
   private void searchAdjacent(Cell pt, Blocks2d blocks2d, int x, int y) {
+    int yCell = (int) pt.getY();
+    int xCell = (int) pt.getX();
+
+    if (!CellTester.inBounds(xCell + x, y + yCell)) return;
+
     pt.translate(x, y);
 
     addConnectedBlocksToPiece(pt, blocks2d);

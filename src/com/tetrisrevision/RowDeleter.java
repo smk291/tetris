@@ -1,6 +1,5 @@
 package com.tetrisrevision;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 abstract class RowDeleter {
@@ -18,8 +17,7 @@ abstract class RowDeleter {
     for (Cell c : points) {
       int row = (int) c.getY();
 
-      if (field.rowIsFull(row) && row > startAt)
-        startAt = row;
+      if (field.rowIsFull(row) && row > startAt) startAt = row;
     }
 
     int rowIdxForFindingFloatingPieces = startAt;
@@ -35,8 +33,7 @@ abstract class RowDeleter {
         startAt--;
       }
 
-      for (int i = startAt, halt = startAt + shift; i >= 0 && i > halt; i--)
-        field.emptyRow(i);
+      for (int i = startAt, halt = startAt + shift; i >= 0 && i > halt; i--) field.emptyRow(i);
     }
 
     return rowIdxForFindingFloatingPieces;

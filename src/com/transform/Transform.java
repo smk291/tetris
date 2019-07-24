@@ -31,29 +31,47 @@ package com.transform;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.font.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.*;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 
 /*
  * This applet renders a shape, selected by the user, with a paint,stroke, and rendering method,
  * also selected by the user.
  */
 
-public class Transform extends JApplet implements ItemListener,
-    ActionListener {
-  private TransPanel display;
-  static JComboBox primitive, line, paint, trans, stroke;
-  private JButton redraw;
+public class Transform extends JApplet implements ItemListener, ActionListener {
   public static boolean no2D = false;
+  static JComboBox primitive, line, paint, trans, stroke;
+  private TransPanel display;
+  private JButton redraw;
+
+  public static void main(String[] argv) {
+    if (argv.length > 0 && argv[0].equals("-no2d")) {
+      Transform.no2D = true;
+    }
+
+    JFrame frame = new JFrame("Transform");
+    frame.addWindowListener(
+        new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+            System.exit(0);
+          }
+        });
+
+    JApplet applet = new Transform();
+    frame.getContentPane().add(BorderLayout.CENTER, applet);
+
+    applet.init();
+
+    frame.setSize(550, 400);
+    frame.setVisible(true);
+  }
 
   public void init() {
 
@@ -105,29 +123,20 @@ public class Transform extends JApplet implements ItemListener,
     GridBagConstraints ls = new GridBagConstraints();
     ls.weightx = 1.0;
     ls.fill = GridBagConstraints.BOTH;
-    primitive = new JComboBox<>( new String[]{
-        "rectangle",
-        "ellipse",
-        "text"});
+    primitive = new JComboBox<>(new String[] {"rectangle", "ellipse", "text"});
     primitive.addItemListener(this);
     newFont = newFont.deriveFont(0, 14.0f);
     primitive.setFont(newFont);
     layOut.setConstraints(primitive, ls);
     getContentPane().add(primitive);
 
-    line = new JComboBox<>( new Object []{
-        "thin",
-        "thick",
-        "dashed"});
+    line = new JComboBox<>(new Object[] {"thin", "thick", "dashed"});
     line.addItemListener(this);
     line.setFont(newFont);
     layOut.setConstraints(line, ls);
     getContentPane().add(line);
 
-    paint = new JComboBox<>( new Object[]{
-        "solid",
-        "gradient",
-        "polka"});
+    paint = new JComboBox<>(new Object[] {"solid", "gradient", "polka"});
     paint.addItemListener(this);
     paint.setFont(newFont);
     layOut.setConstraints(paint, ls);
@@ -135,21 +144,14 @@ public class Transform extends JApplet implements ItemListener,
 
     ls.gridwidth = GridBagConstraints.RELATIVE;
 
-    trans = new JComboBox<>( new Object[]{
-        "Identity",
-        "rotate",
-        "scale",
-        "shear"});
+    trans = new JComboBox<>(new Object[] {"Identity", "rotate", "scale", "shear"});
     trans.addItemListener(this);
     trans.setFont(newFont);
     layOut.setConstraints(trans, ls);
     getContentPane().add(trans);
 
     ls.gridwidth = GridBagConstraints.REMAINDER;
-    stroke = new JComboBox<>( new Object[]{
-        "Stroke",
-        "Fill",
-        "Stroke & Fill"});
+    stroke = new JComboBox<>(new Object[] {"Stroke", "Fill", "Stroke & Fill"});
     stroke.addItemListener(this);
     stroke.setFont(newFont);
     layOut.setConstraints(stroke, ls);
@@ -174,65 +176,51 @@ public class Transform extends JApplet implements ItemListener,
     getContentPane().add(display);
 
     validate();
-
   }
 
-  public void itemStateChanged(ItemEvent e){}
+  public void itemStateChanged(ItemEvent e) {}
 
   public void actionPerformed(ActionEvent e) {
     display.setTrans(trans.getSelectedIndex());
     display.renderShape();
   }
-
-
-  public static void main( String[] argv ) {
-    if ( argv.length > 0 && argv[0].equals( "-no2d" ) ) {
-      Transform.no2D = true;
-    }
-
-    JFrame frame = new JFrame( "Transform" );
-    frame.addWindowListener( new WindowAdapter(){
-      public void windowClosing( WindowEvent e ){
-        System.exit( 0 );
-      }
-    });
-
-    JApplet applet = new Transform();
-    frame.getContentPane().add( BorderLayout.CENTER, applet );
-
-    applet.init();
-
-    frame.setSize( 550, 400 );
-    frame.setVisible(true);
-  }
-
 }
 
 class TransPanel extends JPanel {
+  BufferedImage bi;
   private AffineTransform at = new AffineTransform();
   private int w, h;
   private Shape[] shapes = new Shape[3];
-  BufferedImage bi;
   private boolean firstTime = true;
 
-  TransPanel(){
+  TransPanel() {
     setBackground(Color.white);
     shapes[0] = new Rectangle(0, 0, 100, 100);
     shapes[1] = new Ellipse2D.Double(0.0, 0.0, 100.0, 100.0);
-    TextLayout textTl = new TextLayout("Text", new Font("Helvetica", 1, 96), new FontRenderContext(null, false, false));
+    TextLayout textTl =
+        new TextLayout(
+            "Text", new Font("Helvetica", 1, 96), new FontRenderContext(null, false, false));
     AffineTransform textAt = new AffineTransform();
-    textAt.translate(0, (float)textTl.getBounds().getHeight());
+    textAt.translate(0, (float) textTl.getBounds().getHeight());
     shapes[2] = textTl.getOutline(textAt);
   }
 
   void setTrans(int transIndex) {
     // Sets the AffineTransform.
-    switch ( transIndex ) {
-      case 0 : at.setToIdentity();
-        at.translate(w/2, h/2); break;
-      case 1 : at.rotate(Math.toRadians(45)); break;
-      case 2 : at.scale(0.5, 0.5); break;
-      case 3 : at.shear(0.5, 0.0); break;
+    switch (transIndex) {
+      case 0:
+        at.setToIdentity();
+        at.translate(w / 2, h / 2);
+        break;
+      case 1:
+        at.rotate(Math.toRadians(45));
+        break;
+      case 2:
+        at.scale(0.5, 0.5);
+        break;
+      case 3:
+        at.shear(0.5, 0.0);
+        break;
     }
   }
 
@@ -243,64 +231,72 @@ class TransPanel extends JPanel {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
 
-    if ( !Transform.no2D ) {
+    if (!Transform.no2D) {
       Graphics2D g2 = (Graphics2D) g;
       Dimension d = getSize();
       w = d.width;
       h = d.height;
 
-
       // Prints out the intructions.
       String instruct = "Pick a primitive, line style, paint, transform,";
-      TextLayout thisTl = new TextLayout(instruct, new Font("Helvetica", 0, 10), g2.getFontRenderContext());
-      float width = (float)thisTl.getBounds().getWidth();
-      float height = (float)thisTl.getBounds().getHeight();
-      thisTl.draw(g2, w/2-width/2, 15);
+      TextLayout thisTl =
+          new TextLayout(instruct, new Font("Helvetica", 0, 10), g2.getFontRenderContext());
+      float width = (float) thisTl.getBounds().getWidth();
+      float height = (float) thisTl.getBounds().getHeight();
+      thisTl.draw(g2, w / 2 - width / 2, 15);
 
       instruct = "and rendering method and click the Redraw button.";
       thisTl = new TextLayout(instruct, new Font("Helvetica", 0, 10), g2.getFontRenderContext());
-      width = (float)thisTl.getBounds().getWidth();
-      thisTl.draw(g2, w/2-width/2, height + 17);
+      width = (float) thisTl.getBounds().getWidth();
+      thisTl.draw(g2, w / 2 - width / 2, height + 17);
 
       // Initialize the transform.
       if (firstTime) {
         at.setToIdentity();
-        at.translate(w/2, h/2);
+        at.translate(w / 2, h / 2);
         firstTime = false;
       }
 
       // Sets the Stroke.
       Stroke oldStroke = g2.getStroke();
 
-      switch ( Transform.line.getSelectedIndex() ) {
-        case 0 : g2.setStroke(new BasicStroke(3.0f)); break;
-        case 1 : g2.setStroke(new BasicStroke(8.0f)); break;
-        case 2 :
+      switch (Transform.line.getSelectedIndex()) {
+        case 0:
+          g2.setStroke(new BasicStroke(3.0f));
+          break;
+        case 1:
+          g2.setStroke(new BasicStroke(8.0f));
+          break;
+        case 2:
           float[] dash = {10.0f};
-          g2.setStroke(new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
+          g2.setStroke(
+              new BasicStroke(
+                  3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
           break;
       }
 
       // Sets the Paint.
       Paint oldPaint = g2.getPaint();
 
-      switch ( Transform.paint.getSelectedIndex() ) {
-        case 0 : g2.setPaint(Color.blue);break;
-        case 1 : g2.setPaint(new GradientPaint(0, 0, Color.lightGray, w-250, h, Color.blue, false));
+      switch (Transform.paint.getSelectedIndex()) {
+        case 0:
+          g2.setPaint(Color.blue);
           break;
-        case 2 : BufferedImage buffi = new BufferedImage(15, 15, BufferedImage.TYPE_INT_RGB);
+        case 1:
+          g2.setPaint(new GradientPaint(0, 0, Color.lightGray, w - 250, h, Color.blue, false));
+          break;
+        case 2:
+          BufferedImage buffi = new BufferedImage(15, 15, BufferedImage.TYPE_INT_RGB);
           Graphics2D buffig = buffi.createGraphics();
           buffig.setColor(Color.blue);
           buffig.fillRect(0, 0, 15, 15);
           buffig.setColor(Color.lightGray);
-          buffig.translate((15/2)-(5/2), (15/2)-(5/2));
+          buffig.translate((15 / 2) - (5 / 2), (15 / 2) - (5 / 2));
           buffig.fillOval(0, 0, 7, 7);
-          Rectangle r = new Rectangle(0,0,25,25);
+          Rectangle r = new Rectangle(0, 0, 25, 25);
           g2.setPaint(new TexturePaint(buffi, r));
           break;
       }
-
-
 
       // Sets the Shape.
       Shape shape = shapes[Transform.primitive.getSelectedIndex()];
@@ -310,25 +306,30 @@ class TransPanel extends JPanel {
       AffineTransform saveXform = g2.getTransform();
       AffineTransform toCenterAt = new AffineTransform();
       toCenterAt.concatenate(at);
-      toCenterAt.translate(-(r.width/2), -(r.height/2));
+      toCenterAt.translate(-(r.width / 2), -(r.height / 2));
 
       g2.transform(toCenterAt);
 
       // Sets the rendering method.
-      switch ( Transform.stroke.getSelectedIndex() ) {
-        case 0 : g2.draw(shape); break;
-        case 1 : g2.fill(shape); break;
-        case 2 : Graphics2D tempg2 = g2;
+      switch (Transform.stroke.getSelectedIndex()) {
+        case 0:
+          g2.draw(shape);
+          break;
+        case 1:
+          g2.fill(shape);
+          break;
+        case 2:
+          Graphics2D tempg2 = g2;
           g2.fill(shape);
           g2.setColor(Color.darkGray);
           g2.draw(shape);
-          g2.setPaint(tempg2.getPaint()); break;
+          g2.setPaint(tempg2.getPaint());
+          break;
       }
 
       g2.setStroke(oldStroke);
       g2.setPaint(oldPaint);
       g2.setTransform(saveXform);
-
     }
   }
 }
