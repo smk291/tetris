@@ -3,6 +3,7 @@ package com.tetrisrevision;
 import com.tetrisrevision.tetrominos.TetrominoEnum;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.stream.IntStream;
 
 /**
@@ -18,8 +19,8 @@ abstract class InputTests {
     blocks2d.setCell(cell);
   }
 
-  static void accept(String command, TetrisPiece piece, Blocks2d blocks2d) {
-    switch (command) {
+  static void accept(String e, TetrisPiece piece, Blocks2d blocks2d) {
+    switch (e) {
       case "1":
       case "2":
       case "3":
@@ -27,11 +28,11 @@ abstract class InputTests {
       case "5":
       case "6":
       case "7":
-        piece.setTetromino(TetrominoEnum.values()[Integer.parseInt(command) - 1].get());
+        piece.setTetromino(TetrominoEnum.values()[Integer.parseInt(e) - 1].get());
         piece.setCenter(new Point(4, 3));
 
         break;
-      case "itest": // tetris-deletion test
+      case "a": // tetris-deletion test
         blocks2d.createEmpty();
         piece.setTetromino(TetrominoEnum.I.get());
 
@@ -40,7 +41,7 @@ abstract class InputTests {
             if (x != 4) createCell(x, y, blocks2d);
 
         break;
-      case "floattest": // sink test
+      case "s": // sink test
         blocks2d.createEmpty();
 
         for (int x = 0, boardWidth = Blocks2d.getWidth(); x < boardWidth; x++) {
@@ -50,7 +51,7 @@ abstract class InputTests {
         }
 
         break;
-      case "q": // multiple sinking pieces, test that each behaves correctly
+      case "d": // multiple sinking pieces, test that each behaves correctly
         blocks2d.createEmpty();
 
         for (int x = 0, boardWidth = Blocks2d.getWidth(); x < boardWidth; x++) {
@@ -76,7 +77,7 @@ abstract class InputTests {
         piece.setCenter(1, 9);
 
         break;
-      case "bounds": // test kick
+      case "f": // test kick
         blocks2d.createEmpty();
 
         for (int x = 0, boardWidth = Blocks2d.getWidth(); x < boardWidth; x++) {
@@ -97,7 +98,7 @@ abstract class InputTests {
         piece.setCenter(4, 9);
 
         break;
-      case "w": // test row deletion
+      case "z": // test row deletion
         blocks2d.createEmpty();
 
         for (int i = 0; i < Blocks2d.getWidth(); i++) {
@@ -105,7 +106,7 @@ abstract class InputTests {
         }
 
         break;
-      case "e": // test row delete after sink -- on bottom row to test bounds checker
+      case "x": // test row delete after sink -- on bottom row to test bounds checker
         blocks2d.createEmpty();
 
         for (int i = 0; i < Blocks2d.getWidth(); i++) {
@@ -119,7 +120,7 @@ abstract class InputTests {
         piece.setCenter(1, 19);
 
         break;
-      case "r": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
+      case "c": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
         // row and row deletion creates
         // another sinking piece
         blocks2d.createEmpty();
@@ -149,7 +150,7 @@ abstract class InputTests {
         piece.setCenter(1, 12);
 
         break;
-      case "a":
+      case "v":
         // Test t-spin
         blocks2d.createEmpty();
         piece.setTetromino(TetrominoEnum.T.get());

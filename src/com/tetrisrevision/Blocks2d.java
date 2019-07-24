@@ -1,6 +1,7 @@
 package com.tetrisrevision;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 class Blocks2d {
@@ -68,7 +69,15 @@ class Blocks2d {
     return height;
   }
 
-  void addPieceToBlocks(Cell[] piece) {
+  void insert(TetrisPiece piece) {
+    insert(piece.getCells());
+  }
+
+  void insert(ArrayList<Cell> piece) {
+    insert(piece.toArray(new Cell[0]));
+  }
+
+  private void insert(Cell[] piece) {
     for (Cell cell : piece) {
       setCell(cell);
     }

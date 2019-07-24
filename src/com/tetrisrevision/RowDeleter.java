@@ -8,16 +8,18 @@ abstract class RowDeleter {
     return apply(testRows.toArray(new Cell[0]), field);
   }
 
-  static int apply(Cell[] points, Blocks2d field) {
+  static int apply(TetrisPiece piece, Blocks2d field) {
+    return apply(piece.getCells(), field);
+  }
 
+  private static int apply(Cell[] points, Blocks2d field) {
     int startAt = -1;
 
     for (Cell c : points) {
       int row = (int) c.getY();
 
-      if (field.rowIsFull(row) && row > startAt) {
+      if (field.rowIsFull(row) && row > startAt)
         startAt = row;
-      }
     }
 
     int rowIdxForFindingFloatingPieces = startAt;
@@ -33,9 +35,8 @@ abstract class RowDeleter {
         startAt--;
       }
 
-      for (int i = startAt, halt = startAt + shift; i >= 0 && i > halt; i--) {
+      for (int i = startAt, halt = startAt + shift; i >= 0 && i > halt; i--)
         field.emptyRow(i);
-      }
     }
 
     return rowIdxForFindingFloatingPieces;

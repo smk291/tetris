@@ -7,9 +7,6 @@ abstract class Translater {
     cells.forEach(p -> p.translate(0, y));
 
     if (cells.stream().allMatch(p -> CellTester.emptyAndInBoundsAndNoOverlapNoMin(p, field))) {
-//      cells.forEach(cell -> cell.translate(0, -y));
-//      cells.forEach(cell -> field.copyCell(cell, 0, y));
-
       return true;
     }
 
@@ -18,11 +15,15 @@ abstract class Translater {
     return false;
   }
 
-  static boolean translate(TetrisPiece piece, Blocks2d field, int x, int y) {
+  static boolean translate(TetrisPiece piece, Blocks2d field, int x, int y, boolean testDrop) {
     piece.getCenter().translate(x, y);
 
-    if (CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, field))
+    if (CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, field)) {
+      if (testDrop)
+        piece.getCenter().translate(-x, -y);
+
       return true;
+    }
 
     piece.getCenter().translate(-x, -y);
 
@@ -33,7 +34,7 @@ abstract class Translater {
     piece.setAddToBoard(true);
 
     while (true) {
-      if (!translate(piece, field, 0, 1)) break;
+      if (!translate(piece, field, 0, 1, false)) break;
     }
   }
 }

@@ -2,8 +2,6 @@ package com.tetrisrevision;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -85,7 +83,6 @@ class TetrisGUI {
       @Override
       public void keyTyped(KeyEvent e) {
         runTetris.keyboardInput(e.getKeyChar());
-        runTetris.continueGame();
       }
 
       @Override
@@ -97,13 +94,10 @@ class TetrisGUI {
       }
     });
 
-    timer = new Timer(500, e -> {
-      runTetris.keyboardInput('j');
-      runTetris.continueGame();
-    });
+    timer = new Timer(5000, e -> runTetris.dropCurrentPiece());
     timer.start();
 
-    timer2 = new Timer(10, e -> runTetris.handleSinkingPieces2d());
+    timer2 = new Timer(200, e -> runTetris.dropSinkingPieces());
     timer2.start();
   }
 

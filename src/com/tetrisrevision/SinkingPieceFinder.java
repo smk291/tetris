@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 /****
  *
- * SinkingPieceDetector contains the methods that, after a row is deleted,
+ * SinkingPieceFinder contains the methods that, after a row is deleted,
  * look for sinking pieces. These are pieces that aren't tetrominos
  * and consist of blocks that aren't attached to the lowest row, meaning that
  * no adjacent block to the left, right, top or bottom is connected to row 23.
@@ -57,12 +57,12 @@ import java.util.stream.IntStream;
  *
  ****/
 
-class SinkingPieceDetector {
+class SinkingPieceFinder {
   private ArrayList<Cell> piece = new ArrayList<>();
   private boolean attachedToRow23 = false;
   private int[][] searched;
 
-  SinkingPieceDetector() {
+  SinkingPieceFinder() {
     searched = new int[Blocks2d.getHeight()][Blocks2d.getWidth()];
   }
 

@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 
 abstract class Rotator {
-  static void apply(int incr, TetrisPiece piece, Blocks2d blocks2d) {
+  static boolean apply(int incr, TetrisPiece piece, Blocks2d blocks2d) {
     int oldPrevOrientation = piece.getPrevRotation();
     int oldOrientation = piece.getRotation();
 
@@ -32,15 +32,25 @@ abstract class Rotator {
     }
 
     if (!CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, blocks2d)) {
-      if (Kicker.tryKick(piece, blocks2d)) return;
+      if (piece.pieceIsAtEdge() && WallKicker.tryKick(piece, blocks2d))
+        return true;
+
+      boolean canDrop = Translater.translate(piece, blocks2d, 0, 1, true);
+
+      if (!canDrop && Translater.translate(piece, blocks2d, 0, -1, false))
+        return true;
 
       piece.setRotation(oldOrientation);
       piece.setPrevRotation(oldPrevOrientation);
+
+      return false;
     }
+
+    return true;
   }
 }
 
-abstract class Kicker {
+abstract class WallKicker {
   static boolean tryKick(TetrisPiece piece, Blocks2d field) {
     HashMap<Integer, HashMap<Integer, Integer[][]>> kickData = piece.getKickData();
 

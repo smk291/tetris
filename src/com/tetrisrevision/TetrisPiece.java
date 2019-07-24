@@ -96,4 +96,8 @@ public class TetrisPiece {
   Tetromino getTetromino() {
     return tetromino;
   }
+
+  boolean pieceIsAtEdge() {
+    return Arrays.stream(getCells()).anyMatch(c -> (int) c.getX() == 0 || (int) c.getX() == 9);
+  }
 }

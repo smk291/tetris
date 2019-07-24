@@ -77,8 +77,8 @@ public class BoardCompositer extends JPanel {
     if (null == runTetris)
       return;
 
-    if (null != runTetris.getCurrentPiece2d().getCells())
-      drawBlocks(gbi, runTetris.getCurrentPiece2d().getCells(), true);
+    if (null != runTetris.getCurrentPiece().getCells())
+      drawBlocks(gbi, runTetris.getCurrentPiece().getCells(), true);
 
     if (null != runTetris.getBlocks2d())
       IntStream.range(0, 24).forEach(i -> {
