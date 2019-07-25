@@ -9,23 +9,9 @@ class RunTetris {
   private Blocks2d blocks2d;
   private SinkingPieces sinkingPieces;
   private TetrisGUI tetrisGUI;
-  private boolean continueGame = true;
-  private Timer movementTimer =
-      new Timer(
-          1000,
-          e -> {
-            boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
-
-            if (!canDrop) addPieceToBoard(currentPiece);
-          });
-  private Timer rotationTimer =
-      new Timer(
-          2500,
-          e -> {
-            boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
-
-            if (!canDrop) addPieceToBoard(currentPiece);
-          });
+  private Timer movementTimer;
+  private Timer rotationTimer;
+  private GameRecordKeeping recordKeeping;
 
   RunTetris(int width, int height) {
     tetrominoQueue = new TetrominoQueue();
@@ -33,11 +19,11 @@ class RunTetris {
     blocks2d = new Blocks2d(width, height);
     sinkingPieces = new SinkingPieces();
     tetrominoQueue.resetCurrentPiece(currentPiece);
+    recordKeeping = new GameRecordKeeping();
+  }
 
-    movementTimer.setDelay(1000);
-    movementTimer.setRepeats(false);
-    rotationTimer.setDelay(2500);
-    rotationTimer.setRepeats(false);
+  GameRecordKeeping getRecordKeeping() {
+    return recordKeeping;
   }
 
   TetrisPiece getCurrentPiece() {
@@ -79,7 +65,7 @@ class RunTetris {
   private void addSinkingPieceToBoard(ArrayList<Cell> sinkingPiece) {
     blocks2d.insert(sinkingPiece);
 
-    int deletedRowIdx = RowDeleter.apply(sinkingPiece, blocks2d);
+    int deletedRowIdx = RowDeleter.apply(sinkingPiece, currentPiece, blocks2d, recordKeeping, tetrisGUI);
 
     sinkingPieces.getPieces().remove(sinkingPiece);
 
@@ -89,79 +75,93 @@ class RunTetris {
   private void addPieceToBoard(TetrisPiece piece) {
     blocks2d.insert(piece);
 
-    int deletedRowIdx = RowDeleter.apply(piece, blocks2d);
+    int deletedRowIdx = RowDeleter.apply(piece, blocks2d, recordKeeping, tetrisGUI);
 
     if (deletedRowIdx > 0) new SinkingPieceFinder().find(deletedRowIdx, blocks2d, sinkingPieces);
 
     tetrominoQueue.resetCurrentPiece(piece);
 
-    if (CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, blocks2d)) continueGame = false;
+    if (CellTester.cellsCanBeOccupied(piece, blocks2d)) tetrisGUI.endGame();
   }
 
   void dropCurrentPiece() {
-    translateCurrentPiece(0, 1);
+    translatePiece(0, 1);
   }
 
   void keyboardInput(char command) {
-    swingCommand(Character.toString(command));
+    keyCommands(Character.toString(command));
 
     tetrisGUI.getBoardCompositor().repaint();
   }
 
-  private void translateCurrentPiece(int x, int y) {
+  private void translatePiece(int x, int y) {
     boolean dropping = y == 1;
 
     if (Translater.translate(currentPiece, blocks2d, x, y, false)) {
       tetrisGUI.getBoardCompositor().repaint();
+
+      if (dropping) currentPiece.gettSpinTracker().reset();
     } else if (dropping) {
       addPieceToBoard(currentPiece);
     }
 
-    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
-
-    if (!canDrop && !movementTimer.isRunning()) movementTimer.start();
-    else {
-      movementTimer.stop();
-
-      movementTimer.restart();
-    }
+//    handleMovementTimer();
   }
+
+//  private void handleMovementTimer() {
+//    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
+//
+//    if (canDrop) {
+//      if (null != movementTimer && movementTimer.isRunning())
+//        movementTimer.stop();
+//
+//      return;
+//    }
+//
+//    if (null == movementTimer || !movementTimer.isRunning()) {
+//      movementTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
+//      movementTimer.setRepeats(false);
+//      movementTimer.start();
+//    }
+//  }
 
   private void rotate(int incr) {
     boolean canRotate = Rotator.apply(incr, currentPiece, blocks2d);
 
-    tetrisGUI.getBoardCompositor().repaint();
+    if (canRotate) tetrisGUI.getBoardCompositor().repaint();
+    else return;
 
-    if (!canRotate) {
-      boolean canLift = Translater.translate(currentPiece, blocks2d, 0, -1, false); // superfluous?
-
-      if (canLift) canRotate = Rotator.apply(incr, currentPiece, blocks2d);
-    }
-
-    rotationTimer.restart();
-
-    if (canRotate && rotationTimer.isRunning()) {
-      rotationTimer.stop();
-    } else if (canRotate && !rotationTimer.isRunning()) {
-      rotationTimer.start();
-    } else {
-      rotationTimer.stop();
-    }
+//    handleRotationTimer();
   }
 
-  private void swingCommand(String command) {
+//  private void handleRotationTimer() {
+//    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
+//
+//    if (canDrop) {
+//      if (null != rotationTimer && rotationTimer.isRunning())
+//        rotationTimer.stop();
+//
+//      return;
+//    }
+//
+//    rotationTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
+//    rotationTimer.setRepeats(false);
+//    rotationTimer.start();
+//  }
+
+  private void keyCommands(String command) {
     switch (command) {
       case "h":
-        translateCurrentPiece(-1, 0);
+        translatePiece(-1, 0);
         break;
       case "l":
-        translateCurrentPiece(1, 0);
+        translatePiece(1, 0);
         break;
       case "j":
-        translateCurrentPiece(0, 1);
+        translatePiece(0, 1);
         break;
       case "k":
-        translateCurrentPiece(0, -1);
+        translatePiece(0, -1);
         break;
       case "[":
         rotate(-1);
@@ -181,3 +181,4 @@ class RunTetris {
     }
   }
 }
+

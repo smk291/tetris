@@ -23,19 +23,9 @@ abstract class BoundsTester {
 }
 
 abstract class CellTester {
-  static boolean emptyAndInBoundsAndNoOverlap(TetrisPiece piece, Blocks2d field) {
-    return Arrays.stream(piece.getCells()).allMatch(pt -> emptyAndInBoundsAndNoOverlap(pt, field));
-  }
-
-  static boolean emptyAndInBoundsAndNoOverlapNoMin(TetrisPiece piece, Blocks2d field) {
+  static boolean cellsCanBeOccupied(TetrisPiece piece, Blocks2d field) {
     return Arrays.stream(piece.getCells())
-        .allMatch(pt -> emptyAndInBoundsAndNoOverlapNoMin(pt, field));
-  }
-
-  static boolean emptyAndInBoundsAndNoOverlap(Cell p, Blocks2d field) {
-    return BoundsTester.xInBounds(p)
-        && BoundsTester.yInBounds(p)
-        && OverlapTester.noOverlap(p, field);
+        .allMatch(pt -> cellCanBeOccupied(pt, field));
   }
 
   static boolean inBounds(Cell p) {
@@ -48,7 +38,7 @@ abstract class CellTester {
     return inBounds(pt);
   }
 
-  static boolean emptyAndInBoundsAndNoOverlapNoMin(Cell p, Blocks2d field) {
+  static boolean cellCanBeOccupied(Cell p, Blocks2d field) {
     return BoundsTester.xInBounds(p)
         && BoundsTester.yInBoundsNoMin(p)
         && OverlapTester.noOverlap(p, field);

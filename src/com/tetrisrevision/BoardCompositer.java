@@ -61,7 +61,7 @@ public class BoardCompositer extends JPanel {
 
       Rectangle2D innerRect =
           new Rectangle2D.Double(
-              (w / 12) * (int) cell.getX(), (h / 26) * (int) cell.getY(), w / 12, h / 26);
+              (w / 12) * (int) cell.getX(), (w / 12) * (int) cell.getY(), w / 12, w / 12);
 
       gbi.fill(innerRect);
     }

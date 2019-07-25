@@ -14,31 +14,57 @@ package com.tetrisrevision;
  */
 abstract class Rotator {
   static boolean apply(int incr, TetrisPiece piece, Blocks2d blocks2d) {
-    int oldPrevOrientation = piece.getPrevRotation();
-    int oldOrientation = piece.getRotation();
-
     piece.incrementRotation(incr);
-    piece.setPrevRotation(oldOrientation);
 
-    if (piece.getRotation() < 0) {
-      piece.setRotation(piece.getRotationMax() - 1);
-    } else if (piece.getRotation() >= piece.getRotationMax()) {
-      piece.setRotation(0);
-    }
+    if (!CellTester.cellsCanBeOccupied(piece, blocks2d)) {
+      if (tryKick(piece, blocks2d) || tryLift(piece, blocks2d)) return true;
 
-    if (!CellTester.emptyAndInBoundsAndNoOverlapNoMin(piece, blocks2d)) {
-      if (piece.pieceIsAtEdge() && WallKicker.tryKick(piece, blocks2d)) return true;
-
-      boolean canDrop = Translater.translate(piece, blocks2d, 0, 1, true);
-
-      if (!canDrop && Translater.translate(piece, blocks2d, 0, -1, false)) return true;
-
-      piece.setRotation(oldOrientation);
-      piece.setPrevRotation(oldPrevOrientation);
+      piece.incrementRotation(-incr);
 
       return false;
     }
 
+    if (piece.getTetromino().isTPiece())
+      setTSpinData(piece,null, false);
+
     return true;
+  }
+
+  private static boolean tryKick(TetrisPiece piece, Blocks2d blocks2d) {
+    boolean testTranslateLeft = Translater.translate(piece, blocks2d, -1, 0, true);
+    boolean testTranslateRight = Translater.translate(piece, blocks2d, 1, 0, true);
+
+    if (testTranslateLeft && testTranslateRight)
+      return false;
+
+    Integer kickIdx = WallKicker.tryKick(piece, blocks2d);
+
+    if (null != kickIdx) {
+      if (piece.getTetromino().isTPiece())
+        setTSpinData(piece, kickIdx, true);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private static boolean tryLift(TetrisPiece piece, Blocks2d blocks2d) {
+    boolean canDrop = Translater.translate(piece, blocks2d, 0, 1, true);
+
+    if (!canDrop && Translater.translate(piece, blocks2d, 0, -1, false)) {
+      if (piece.getTetromino().isTPiece())
+        setTSpinData(piece, null, false);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private static void setTSpinData(TetrisPiece piece, Integer kickIdx, boolean lastActionIsKick) {
+    piece.gettSpinTracker().setLastKick(kickIdx);
+    piece.gettSpinTracker().setLastActionIsRotation(true);
+    piece.gettSpinTracker().setLastActionIsKick(lastActionIsKick);
   }
 }

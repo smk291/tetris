@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class Blocks2d {
+public class Blocks2d {
   private static int width;
   private static int height;
   private Cell[][] blocksByRow;
@@ -35,6 +35,17 @@ class Blocks2d {
 
   Cell getCell(Cell cell) {
     return blocksByRow[(int) cell.getY()][(int) cell.getX()];
+  }
+
+  Cell getCell(int x, int y) {
+    return blocksByRow[y][x];
+  }
+
+  boolean cellIsFull(int x, int y) {
+    if (!CellTester.inBounds(x, y))
+      return false;
+
+    return getCell(x, y).isFull();
   }
 
   void setCell(Cell cell) {
@@ -87,8 +98,11 @@ class Blocks2d {
     return blocksByRow[(int) pt.getY()][(int) pt.getX()].isEmpty();
   }
 
-  boolean rowIsFull(int i) {
-    return Arrays.stream(blocksByRow[i]).allMatch(Cell::isFull);
+  boolean rowIsFull(int y) {
+    if (!BoundsTester.yInBounds(new Cell(0, y)))
+      return false;
+
+    return Arrays.stream(blocksByRow[y]).allMatch(Cell::isFull);
   }
 
   boolean rowIsEmpty(int i) {

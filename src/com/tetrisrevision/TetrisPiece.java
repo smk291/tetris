@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class TetrisPiece {
-  private int prevRotation;
   private int rotation;
+  private int prevRotation;
   private Point center;
   private Tetromino tetromino;
-  private boolean addToBoard;
+  private TSpinTracker tSpinTracker;
 
   public TetrisPiece() {}
 
@@ -28,7 +28,8 @@ public class TetrisPiece {
   private void reset() {
     this.center = new Point(4, 0);
     this.rotation = 0;
-    addToBoard = false;
+    this.prevRotation = 0;
+    this.tSpinTracker = new TSpinTracker();
   }
 
   int getRotation() {
@@ -39,8 +40,15 @@ public class TetrisPiece {
     this.rotation = o;
   }
 
-  void incrementRotation(int i) {
-    this.rotation += i;
+  void incrementRotation(int incr) {
+    prevRotation = rotation;
+    rotation += incr;
+
+    if (rotation < 0) {
+      rotation = getRotationMax() - 1;
+    } else if (rotation >= getRotationMax()) {
+      rotation = 0;
+    }
   }
 
   int getPrevRotation() {
@@ -57,7 +65,7 @@ public class TetrisPiece {
         .toArray(Point[]::new);
   }
 
-  int getRotationMax() {
+  private int getRotationMax() {
     return tetromino.getOffsets().length;
   }
 
@@ -67,10 +75,6 @@ public class TetrisPiece {
 
   void setCenter(int x, int y) {
     this.center = new Point(x, y);
-  }
-
-  void setAddToBoard(boolean addToBoard) {
-    this.addToBoard = addToBoard;
   }
 
   Point getCenter() {
@@ -95,7 +99,12 @@ public class TetrisPiece {
     this.tetromino = t;
   }
 
-  boolean pieceIsAtEdge() {
-    return Arrays.stream(getCells()).anyMatch(c -> (int) c.getX() == 0 || (int) c.getX() == 9);
+  public TSpinTracker gettSpinTracker() {
+    return tSpinTracker;
+  }
+
+  public void settSpinTracker(TSpinTracker tSpinTracker) {
+    this.tSpinTracker = tSpinTracker;
   }
 }
+

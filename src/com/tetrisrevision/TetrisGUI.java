@@ -6,10 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 class TetrisGUI {
-  Timer timer;
-  Timer timer2;
-  JFrame frame = new JFrame("BorderLayoutDemo");
-  double score = 0;
+  private Timer timer;
+  private Timer timer2;
+  private JFrame frame = new JFrame("Tetris");
   private boolean RIGHT_TO_LEFT = false;
   private RunTetris runTetris;
   BoardCompositer bc = new BoardCompositer(runTetris);
@@ -91,14 +90,25 @@ class TetrisGUI {
           public void keyReleased(KeyEvent e) {}
         });
 
-    timer = new Timer(5000, e -> runTetris.dropCurrentPiece());
+    timer = new Timer(1000, e -> runTetris.dropCurrentPiece());
     timer.start();
 
     timer2 = new Timer(200, e -> runTetris.dropSinkingPieces());
     timer2.start();
   }
 
+  void setDropTimerDelay(int ms) {
+    timer.setDelay(ms);
+  }
+
+  void endGame() {
+//    timer.stop();
+//    timer2.stop();
+  }
+
   BoardCompositer getBoardCompositor() {
     return bc;
   }
 }
+
+

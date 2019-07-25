@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class Tetromino {
   private int[][][] offsets;
   private Color color;
+  private boolean tPiece = false;
 
   private HashMap<Integer, HashMap<Integer, Integer[][]>> kickData =
       new HashMap<Integer, HashMap<Integer, Integer[][]>>() {
@@ -67,5 +68,13 @@ public class Tetromino {
 
   public void setColor(Color color) {
     this.color = color;
+  }
+
+  public void setTPiece(boolean b) {
+    this.tPiece = b;
+  }
+
+  public boolean isTPiece() {
+    return this.tPiece;
   }
 }
