@@ -16,7 +16,7 @@ abstract class Rotator {
   static boolean apply(int incr, TetrisPiece piece, Blocks2d blocks2d) {
     piece.incrementRotation(incr);
 
-    if (!CellTester.cellsCanBeOccupied(piece, blocks2d)) {
+    if (!PlacementTester.cellsCanBeOccupied(piece, blocks2d)) {
       if (tryKick(piece, blocks2d) || tryLift(piece, blocks2d)) return true;
 
       piece.incrementRotation(-incr);
@@ -24,8 +24,7 @@ abstract class Rotator {
       return false;
     }
 
-    if (piece.getTetromino().isTPiece())
-      setTSpinData(piece,null, false);
+    if (piece.getTetromino().isTPiece()) setTSpinData(piece, null, false);
 
     return true;
   }
@@ -34,14 +33,12 @@ abstract class Rotator {
     boolean testTranslateLeft = Translater.translate(piece, blocks2d, -1, 0, true);
     boolean testTranslateRight = Translater.translate(piece, blocks2d, 1, 0, true);
 
-    if (testTranslateLeft && testTranslateRight)
-      return false;
+    if (testTranslateLeft && testTranslateRight) return false;
 
     Integer kickIdx = WallKicker.tryKick(piece, blocks2d);
 
     if (null != kickIdx) {
-      if (piece.getTetromino().isTPiece())
-        setTSpinData(piece, kickIdx, true);
+      if (piece.getTetromino().isTPiece()) setTSpinData(piece, kickIdx, true);
 
       return true;
     }
@@ -53,8 +50,7 @@ abstract class Rotator {
     boolean canDrop = Translater.translate(piece, blocks2d, 0, 1, true);
 
     if (!canDrop && Translater.translate(piece, blocks2d, 0, -1, false)) {
-      if (piece.getTetromino().isTPiece())
-        setTSpinData(piece, null, false);
+      if (piece.getTetromino().isTPiece()) setTSpinData(piece, null, false);
 
       return true;
     }

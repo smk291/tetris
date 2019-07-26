@@ -55,10 +55,6 @@ public class TetrisPiece {
     return prevRotation;
   }
 
-  void setPrevRotation(int r) {
-    this.prevRotation = r;
-  }
-
   private Point[] getPoints() {
     return Arrays.stream(tetromino.getOffsets()[rotation])
         .map(p -> new Point((int) this.center.getX() + p[0], (int) this.center.getY() + p[1]))
@@ -99,7 +95,7 @@ public class TetrisPiece {
     this.tetromino = t;
   }
 
-  public TSpinTracker gettSpinTracker() {
+  TSpinTracker gettSpinTracker() {
     return tSpinTracker;
   }
 
@@ -107,4 +103,3 @@ public class TetrisPiece {
     this.tSpinTracker = tSpinTracker;
   }
 }
-

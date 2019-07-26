@@ -22,10 +22,6 @@ class RunTetris {
     recordKeeping = new GameRecordKeeping();
   }
 
-  GameRecordKeeping getRecordKeeping() {
-    return recordKeeping;
-  }
-
   TetrisPiece getCurrentPiece() {
     return currentPiece;
   }
@@ -65,7 +61,8 @@ class RunTetris {
   private void addSinkingPieceToBoard(ArrayList<Cell> sinkingPiece) {
     blocks2d.insert(sinkingPiece);
 
-    int deletedRowIdx = RowDeleter.apply(sinkingPiece, currentPiece, blocks2d, recordKeeping, tetrisGUI);
+    int deletedRowIdx =
+        RowDeleter.apply(sinkingPiece, currentPiece, blocks2d, recordKeeping, tetrisGUI);
 
     sinkingPieces.getPieces().remove(sinkingPiece);
 
@@ -81,7 +78,7 @@ class RunTetris {
 
     tetrominoQueue.resetCurrentPiece(piece);
 
-    if (CellTester.cellsCanBeOccupied(piece, blocks2d)) tetrisGUI.endGame();
+    if (!PlacementTester.cellsCanBeOccupied(piece, blocks2d)) tetrisGUI.endGame();
   }
 
   void dropCurrentPiece() {
@@ -105,49 +102,48 @@ class RunTetris {
       addPieceToBoard(currentPiece);
     }
 
-//    handleMovementTimer();
+    //    handleMovementTimer();
   }
 
-//  private void handleMovementTimer() {
-//    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
-//
-//    if (canDrop) {
-//      if (null != movementTimer && movementTimer.isRunning())
-//        movementTimer.stop();
-//
-//      return;
-//    }
-//
-//    if (null == movementTimer || !movementTimer.isRunning()) {
-//      movementTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
-//      movementTimer.setRepeats(false);
-//      movementTimer.start();
-//    }
-//  }
+  //  private void handleMovementTimer() {
+  //    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
+  //
+  //    if (canDrop) {
+  //      if (null != movementTimer && movementTimer.isRunning())
+  //        movementTimer.stop();
+  //
+  //      return;
+  //    }
+  //
+  //    if (null == movementTimer || !movementTimer.isRunning()) {
+  //      movementTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
+  //      movementTimer.setRepeats(false);
+  //      movementTimer.start();
+  //    }
+  //  }
 
   private void rotate(int incr) {
     boolean canRotate = Rotator.apply(incr, currentPiece, blocks2d);
 
     if (canRotate) tetrisGUI.getBoardCompositor().repaint();
-    else return;
 
-//    handleRotationTimer();
+    //    handleRotationTimer();
   }
 
-//  private void handleRotationTimer() {
-//    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
-//
-//    if (canDrop) {
-//      if (null != rotationTimer && rotationTimer.isRunning())
-//        rotationTimer.stop();
-//
-//      return;
-//    }
-//
-//    rotationTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
-//    rotationTimer.setRepeats(false);
-//    rotationTimer.start();
-//  }
+  //  private void handleRotationTimer() {
+  //    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
+  //
+  //    if (canDrop) {
+  //      if (null != rotationTimer && rotationTimer.isRunning())
+  //        rotationTimer.stop();
+  //
+  //      return;
+  //    }
+  //
+  //    rotationTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
+  //    rotationTimer.setRepeats(false);
+  //    rotationTimer.start();
+  //  }
 
   private void keyCommands(String command) {
     switch (command) {
@@ -159,6 +155,8 @@ class RunTetris {
         break;
       case "j":
         translatePiece(0, 1);
+        recordKeeping.softDrop();
+
         break;
       case "k":
         translatePiece(0, -1);
@@ -170,15 +168,19 @@ class RunTetris {
         rotate(1);
         break;
       case "J":
-        Translater.hardDrop(currentPiece, blocks2d);
+        int rowsTraversed = Translater.hardDrop(currentPiece, blocks2d);
+
+        recordKeeping.hardDrop(rowsTraversed);
         addPieceToBoard(currentPiece);
 
         break;
       default:
         InputTests.accept(command, currentPiece, blocks2d);
-
         break;
     }
   }
-}
 
+  public TetrominoQueue getTetrominoQueue() {
+    return tetrominoQueue;
+  }
+}

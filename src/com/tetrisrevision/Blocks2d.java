@@ -42,14 +42,15 @@ public class Blocks2d {
   }
 
   boolean cellIsFull(int x, int y) {
-    if (!CellTester.inBounds(x, y))
+    if (PlacementTester.isOutOfBounds(x, y)) {
       return false;
+    }
 
-    return getCell(x, y).isFull();
+    return !getCell(x, y).isEmpty();
   }
 
   void setCell(Cell cell) {
-    if (CellTester.inBounds(cell)) {
+    if (PlacementTester.inBounds(cell)) {
       Cell tmpCell = blocksByRow[(int) cell.getY()][(int) cell.getX()];
 
       tmpCell.setEmpty(false);
@@ -63,17 +64,6 @@ public class Blocks2d {
 
     cellFrom.setColor(null);
     cellFrom.setEmpty(true);
-  }
-
-  void copyCell(Cell cellFrom, int x, int y) {
-    int newY = (int) cellFrom.getY() + y;
-    int newX = (int) cellFrom.getX() + x;
-
-    if (CellTester.inBounds(x, y)) {
-      Cell cellTo = blocksByRow[newY][newX];
-
-      copyCell(cellFrom, cellTo);
-    }
   }
 
   Cell[] getRow(int i) {
@@ -99,8 +89,7 @@ public class Blocks2d {
   }
 
   boolean rowIsFull(int y) {
-    if (!BoundsTester.yInBounds(new Cell(0, y)))
-      return false;
+    if (!BoundsTester.yInBounds(new Cell(0, y))) return false;
 
     return Arrays.stream(blocksByRow[y]).allMatch(Cell::isFull);
   }
@@ -121,10 +110,6 @@ public class Blocks2d {
       c.setEmpty(true);
       c.setColor(Color.white);
     }
-  }
-
-  void addCell(Cell cell) {
-    setCell(cell);
   }
 
   Cell[][] getBlocksByRow() {

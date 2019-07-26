@@ -12,6 +12,6 @@ class SPiece extends Tetromino {
 
   SPiece() {
     super.setOffsets(offsets);
-    super.setColor(new Color(0, 158, 96));
+    super.setColor(Color.GREEN);
   }
 }

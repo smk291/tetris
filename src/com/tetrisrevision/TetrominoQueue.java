@@ -1,5 +1,6 @@
 package com.tetrisrevision;
 
+import com.tetrisrevision.tetrominos.Tetromino;
 import com.tetrisrevision.tetrominos.TetrominoEnum;
 
 import java.util.ArrayList;
@@ -15,39 +16,42 @@ import java.util.Collections;
  * <p>Currently there's no way to switch out a piece.
  */
 class TetrominoQueue {
-  private ArrayList<TetrominoEnum> q;
-  private ArrayList<TetrominoEnum> backupQ;
+  private ArrayList<TetrominoEnum> queue;
+  private ArrayList<TetrominoEnum> backupQueue;
 
   TetrominoQueue() {
-    this.q = new ArrayList<>();
-    this.backupQ = new ArrayList<>();
+    this.queue = new ArrayList<>();
+    this.backupQueue = new ArrayList<>();
 
     setQs();
   }
 
   private void setQs() {
-    q = getQ();
-    backupQ = getQ();
+    queue = getQ();
+    backupQueue = getQ();
   }
 
   private ArrayList<TetrominoEnum> getQ() {
-    TetrominoEnum[] allTetrominos = TetrominoEnum.values();
-    ArrayList<TetrominoEnum> allTetrominosList = new ArrayList<>(Arrays.asList(allTetrominos));
-    Collections.shuffle(allTetrominosList);
+    TetrominoEnum[] tetrominos = TetrominoEnum.values();
+    ArrayList<TetrominoEnum> tetrominosAsList = new ArrayList<>(Arrays.asList(tetrominos));
+    Collections.shuffle(tetrominosAsList);
 
-    return allTetrominosList;
+    return tetrominosAsList;
   }
 
   void resetCurrentPiece(TetrisPiece piece) {
-    piece.reset(q.get(0).get());
+    piece.reset(queue.get(0).get());
 
-    q.remove(0);
+    queue.remove(0);
 
-    if (backupQ.size() == 0) {
-      backupQ = getQ();
-    }
+    if (backupQueue.size() == 0)
+      backupQueue = getQ();
 
-    q.add(backupQ.get(0));
-    backupQ.remove(0);
+    queue.add(backupQueue.get(0));
+    backupQueue.remove(0);
+  }
+
+  public ArrayList<TetrominoEnum> getQueue() {
+    return queue;
   }
 }

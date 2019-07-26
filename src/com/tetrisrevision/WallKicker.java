@@ -19,8 +19,7 @@ abstract class WallKicker {
 
       piece.getCenter().translate(offset[0], offset[1]);
 
-      if (CellTester.cellsCanBeOccupied(piece, field))
-        return i;
+      if (PlacementTester.cellsCanBeOccupied(piece, field)) return i;
 
       piece.getCenter().translate(-offset[0], -offset[1]);
     }

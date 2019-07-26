@@ -70,11 +70,11 @@ public class Tetromino {
     this.color = color;
   }
 
-  public void setTPiece(boolean b) {
-    this.tPiece = b;
-  }
-
   public boolean isTPiece() {
     return this.tPiece;
+  }
+
+  public void setTPiece(boolean b) {
+    this.tPiece = b;
   }
 }

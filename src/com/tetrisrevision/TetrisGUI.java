@@ -31,7 +31,6 @@ class TetrisGUI {
     pane.add(button, BorderLayout.PAGE_START);
 
     bc = new BoardCompositer(runTetris);
-    bc.setSize(new Dimension(400, 700));
 
     pane.add(bc, BorderLayout.CENTER);
 
@@ -54,12 +53,14 @@ class TetrisGUI {
     // Create and set up the window.
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     // Set up the content pane.
+    frame.setBackground(Color.black);
     addComponentsToPane(frame.getContentPane());
     // Use the content pane's default BorderLayout. No need for
     // setLayout(new BorderLayout());
     // Display the window.
+
     frame.pack();
-    frame.setSize(new Dimension(500, 800));
+    frame.setSize(new Dimension(700, 800));
     frame.setVisible(true);
     frame.setFocusable(true);
   }
@@ -102,13 +103,11 @@ class TetrisGUI {
   }
 
   void endGame() {
-//    timer.stop();
-//    timer2.stop();
+    //    timer.stop();
+    //    timer2.stop();
   }
 
   BoardCompositer getBoardCompositor() {
     return bc;
   }
 }
-
-

@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
  * SinkingPieceFinder contains the methods that, after a row is deleted,
  * look for sinking pieces. These are pieces that aren't tetrominos
  * and consist of blocks that aren't attached to the lowest row, meaning that
- * no adjacent block to the left, right, top or bottom is connected to row 23.
+ * no adjacent block to the left, right, top or bottom is connected to last row.
  * Blocks that lack a connection to row 23 are necessarily floating above it. Thus they sink.
  *
  * The logic is as follows:
@@ -58,7 +58,7 @@ import java.util.stream.IntStream;
  ****/
 class SinkingPieceFinder {
   private ArrayList<Cell> piece = new ArrayList<>();
-  private boolean attachedToRow23 = false;
+  private boolean connectedToLastRow = false;
   private int[][] searched;
 
   SinkingPieceFinder() {
@@ -74,7 +74,7 @@ class SinkingPieceFinder {
   }
 
   void find(int deletedRowIdx, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
-    if (!CellTester.inBounds(0, deletedRowIdx)) return;
+    if (PlacementTester.isOutOfBounds(0, deletedRowIdx)) return;
 
     int rowBelow = deletedRowIdx + 1;
 
@@ -90,10 +90,10 @@ class SinkingPieceFinder {
 
   private void runSearch(int x, int y, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
     piece = new ArrayList<>();
-    attachedToRow23 = false;
+    connectedToLastRow = false;
     Cell tmpCell = new Cell(x, y);
 
-    if (CellTester.inBounds(tmpCell)) {
+    if (PlacementTester.inBounds(tmpCell)) {
       Cell cell = (Cell) blocks2d.getCell(tmpCell).clone();
 
       findConnectedBlocks(cell, blocks2d, sinkingPieces);
@@ -104,7 +104,7 @@ class SinkingPieceFinder {
     if (field.getCell(pt).isFull() && !getCellHasBeenTested(pt)) {
       addConnectedBlocksToPiece(pt, field);
 
-      if (!attachedToRow23) {
+      if (!connectedToLastRow) {
         sinkingPieces.getPieces().add(piece);
 
         piece.forEach(cell -> field.getCell(cell).setEmpty(true));
@@ -116,7 +116,7 @@ class SinkingPieceFinder {
     if (getCellHasBeenTested(pt)) return;
 
     if (field.getCell(pt).isFull()) {
-      if ((int) pt.getY() == 23) attachedToRow23 = true;
+      if ((int) pt.getY() == Blocks2d.getHeight() - 1) connectedToLastRow = true;
 
       setCellHasBeenTested(pt);
 
@@ -133,7 +133,7 @@ class SinkingPieceFinder {
     int yCell = (int) pt.getY();
     int xCell = (int) pt.getX();
 
-    if (!CellTester.inBounds(xCell + x, y + yCell)) return;
+    if (PlacementTester.isOutOfBounds(xCell + x, y + yCell)) return;
 
     pt.translate(x, y);
 

@@ -22,20 +22,19 @@ abstract class BoundsTester {
   }
 }
 
-abstract class CellTester {
+abstract class PlacementTester {
   static boolean cellsCanBeOccupied(TetrisPiece piece, Blocks2d field) {
-    return Arrays.stream(piece.getCells())
-        .allMatch(pt -> cellCanBeOccupied(pt, field));
+    return Arrays.stream(piece.getCells()).allMatch(pt -> cellCanBeOccupied(pt, field));
   }
 
   static boolean inBounds(Cell p) {
     return BoundsTester.xInBounds(p) && BoundsTester.yInBounds(p);
   }
 
-  static boolean inBounds(int x, int y) {
+  static boolean isOutOfBounds(int x, int y) {
     Cell pt = new Cell(x, y);
 
-    return inBounds(pt);
+    return !inBounds(pt);
   }
 
   static boolean cellCanBeOccupied(Cell p, Blocks2d field) {
