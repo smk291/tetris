@@ -9,7 +9,7 @@ abstract class OverlapTester {
 }
 
 abstract class BoundsTester {
-  static boolean xInBounds(int x) {
+  static boolean xInBounds(double x) {
     return x >= 0 && x < Blocks2d.getWidth();
   }
 
@@ -21,7 +21,7 @@ abstract class BoundsTester {
     return cell.getY() >= -2 && cell.getY() < Blocks2d.getHeight();
   }
 
-  static boolean yInBounds(int y) {
+  static boolean yInBounds(double y) {
     return y >= 0 && y < Blocks2d.getHeight();
   }
 
@@ -35,7 +35,7 @@ abstract class PlacementTester {
     return Arrays.stream(piece.getCells()).allMatch(pt -> cellCanBeOccupied(pt, field));
   }
 
-  static boolean inBounds(int x, int y) {
+  static boolean inBounds(double x, double y) {
     return BoundsTester.xInBounds(x) && BoundsTester.yInBounds(y);
   }
 
@@ -43,10 +43,8 @@ abstract class PlacementTester {
     return BoundsTester.xInBounds(p) && BoundsTester.yInBounds(p);
   }
 
-  static boolean isOutOfBounds(int x, int y) {
-    Cell pt = new Cell(x, y);
-
-    return !inBounds(pt);
+  static boolean isOutOfBounds(double x, double y) {
+    return !inBounds(x, y);
   }
 
   static boolean cellCanBeOccupied(Cell p, Blocks2d field) {

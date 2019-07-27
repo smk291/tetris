@@ -65,12 +65,12 @@ class SinkingPieceFinder {
     searched = new int[Blocks2d.getHeight()][Blocks2d.getWidth()];
   }
 
-  private boolean getCellHasBeenTested(Cell cell) {
-    return searched[(int) cell.getY()][(int) cell.getX()] == 1;
+  private boolean getCellHasBeenTested(double x, double y) {
+    return searched[(int) y][(int) x] == 1;
   }
 
-  private void setCellHasBeenTested(Cell cell) {
-    searched[(int) cell.getY()][(int) cell.getX()] = 1;
+  private void setCellHasBeenTested(double x, double y) {
+    searched[(int) y][(int) x] = 1;
   }
 
   void find(int deletedRowIdx, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
@@ -88,55 +88,46 @@ class SinkingPieceFinder {
             });
   }
 
-  private void runSearch(int x, int y, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
+  private void runSearch(double x, double y, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
     piece = new ArrayList<>();
     connectedToLastRow = false;
-    Cell tmpCell = new Cell(x, y);
 
-    if (PlacementTester.inBounds(tmpCell)) {
-      Cell cell = (Cell) blocks2d.getCell(tmpCell).clone();
-
-      findConnectedBlocks(cell, blocks2d, sinkingPieces);
+    if (PlacementTester.inBounds(x, y)) {
+      findConnectedBlocks(x, y, blocks2d, sinkingPieces);
     }
   }
 
-  private void findConnectedBlocks(Cell pt, Blocks2d field, SinkingPieces sinkingPieces) {
-    if (field.getCell(pt).isFull() && !getCellHasBeenTested(pt)) {
-      addConnectedBlocksToPiece(pt, field);
+  private void findConnectedBlocks(double x, double y, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
+    if (blocks2d.getCell(x, y).isFull() && !getCellHasBeenTested(x, y)) {
+      addConnectedBlocksToPiece(x, y, blocks2d);
 
       if (!connectedToLastRow) {
         sinkingPieces.getPieces().add(piece);
 
-        piece.forEach(cell -> field.getCell(cell).setEmpty(true));
+        piece.forEach(c -> blocks2d.getCell(c).setEmpty(true));
       }
     }
   }
 
-  private void addConnectedBlocksToPiece(Cell pt, Blocks2d field) {
-    if (getCellHasBeenTested(pt)) return;
+  private void addConnectedBlocksToPiece(double x, double y, Blocks2d blocks2d) {
+    if (getCellHasBeenTested(x, y)) return;
 
-    if (field.getCell(pt).isFull()) {
-      if ((int) pt.getY() == Blocks2d.getHeight() - 1) connectedToLastRow = true;
+    if (blocks2d.getCell(x, y).isFull()) {
+      if ((int) y == Blocks2d.getHeight() - 1) connectedToLastRow = true;
 
-      setCellHasBeenTested(pt);
+      setCellHasBeenTested(x, y);
 
-      piece.add(pt);
+      piece.add((Cell) blocks2d.getCell(x, y).clone());
 
-      searchAdjacent((Cell) pt.clone(), field, 0, 1);
-      searchAdjacent((Cell) pt.clone(), field, 0, -1);
-      searchAdjacent((Cell) pt.clone(), field, 1, 0);
-      searchAdjacent((Cell) pt.clone(), field, -1, 0);
+      searchAdjacent(x, y + 1, blocks2d);
+      searchAdjacent(x, y - 1, blocks2d);
+      searchAdjacent(x + 1, y, blocks2d);
+      searchAdjacent(x - 1, y, blocks2d);
     }
   }
 
-  private void searchAdjacent(Cell pt, Blocks2d blocks2d, int x, int y) {
-    int yCell = (int) pt.getY();
-    int xCell = (int) pt.getX();
-
-    if (PlacementTester.isOutOfBounds(xCell + x, y + yCell)) return;
-
-    pt.translate(x, y);
-
-    addConnectedBlocksToPiece(pt, blocks2d);
+  private void searchAdjacent(double x, double y, Blocks2d blocks2d) {
+    if (!PlacementTester.isOutOfBounds(x, y ))
+      addConnectedBlocksToPiece(x, y, blocks2d);
   }
 }

@@ -19,10 +19,22 @@ public class Cell extends Point {
     this.color = color;
   }
 
+  Cell(double x, double y) {
+    this.x = (int) x;
+    this.y = (int) y;
+  }
+
   Cell(int x, int y) {
     this.empty = true;
     this.x = x;
     this.y = y;
+  }
+
+  Cell(Cell cell) {
+    this.x = (int) cell.getX();
+    this.y = (int) cell.getY();
+    this.color = cell.getColor();
+    this.empty = cell.isEmpty();
   }
 
   Cell(int x, int y, Color c) {
