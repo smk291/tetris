@@ -34,6 +34,9 @@ class RunTetris {
     return sinkingPieces;
   }
 
+  GameRecordKeeping getRecordKeeping() {
+    return recordKeeping;
+  }
   void setTetrisGUI(TetrisGUI t) {
     this.tetrisGUI = t;
   }
@@ -101,49 +104,48 @@ class RunTetris {
     } else if (dropping) {
       addPieceToBoard(currentPiece);
     }
-
-    //    handleMovementTimer();
   }
+    private void handleMovementTimer() {
+      boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
 
-  //  private void handleMovementTimer() {
-  //    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
-  //
-  //    if (canDrop) {
-  //      if (null != movementTimer && movementTimer.isRunning())
-  //        movementTimer.stop();
-  //
-  //      return;
-  //    }
-  //
-  //    if (null == movementTimer || !movementTimer.isRunning()) {
-  //      movementTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
-  //      movementTimer.setRepeats(false);
-  //      movementTimer.start();
-  //    }
-  //  }
+      if (canDrop) {
+        if (null != movementTimer && movementTimer.isRunning())
+          movementTimer.stop();
+
+        return;
+      }
+
+      if (null == movementTimer || !movementTimer.isRunning()) {
+        movementTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
+        movementTimer.setRepeats(false);
+        movementTimer.start();
+      }
+    }
 
   private void rotate(int incr) {
     boolean canRotate = Rotator.apply(incr, currentPiece, blocks2d);
 
     if (canRotate) tetrisGUI.getBoardCompositor().repaint();
 
-    //    handleRotationTimer();
+    handleRotationTimer();
   }
 
-  //  private void handleRotationTimer() {
-  //    boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
-  //
-  //    if (canDrop) {
-  //      if (null != rotationTimer && rotationTimer.isRunning())
-  //        rotationTimer.stop();
-  //
-  //      return;
-  //    }
-  //
-  //    rotationTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
-  //    rotationTimer.setRepeats(false);
-  //    rotationTimer.start();
-  //  }
+    private void handleRotationTimer() {
+      boolean canDrop = Translater.translate(currentPiece, blocks2d, 0, 1, true);
+
+      if (null != rotationTimer) {
+        rotationTimer.restart();
+        rotationTimer.stop();
+      }
+
+      if (canDrop) {
+        return;
+      }
+
+      rotationTimer = new Timer(500, e -> addPieceToBoard(currentPiece));
+      rotationTimer.setRepeats(false);
+      rotationTimer.start();
+    }
 
   private void keyCommands(String command) {
     switch (command) {
@@ -168,6 +170,9 @@ class RunTetris {
         rotate(1);
         break;
       case "J":
+        while (sinkingPieces.getPieces().size() > 0)
+          dropSinkingPieces();
+
         int rowsTraversed = Translater.hardDrop(currentPiece, blocks2d);
 
         recordKeeping.hardDrop(rowsTraversed);

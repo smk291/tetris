@@ -9,22 +9,34 @@ abstract class OverlapTester {
 }
 
 abstract class BoundsTester {
+  static boolean xInBounds(int x) {
+    return x >= 0 && x < Blocks2d.getWidth();
+  }
+
   static boolean xInBounds(Cell cell) {
-    return cell.getX() >= 0 && cell.getX() < Blocks2d.getWidth();
+    return xInBounds((int) cell.getX());
   }
 
   static boolean yInBoundsNoMin(Cell cell) {
     return cell.getY() >= -2 && cell.getY() < Blocks2d.getHeight();
   }
 
+  static boolean yInBounds(int y) {
+    return y >= 0 && y < Blocks2d.getHeight();
+  }
+
   static boolean yInBounds(Cell pt) {
-    return pt.getY() >= 0 && pt.getY() < Blocks2d.getHeight();
+    return yInBounds((int) pt.getY());
   }
 }
 
 abstract class PlacementTester {
   static boolean cellsCanBeOccupied(TetrisPiece piece, Blocks2d field) {
     return Arrays.stream(piece.getCells()).allMatch(pt -> cellCanBeOccupied(pt, field));
+  }
+
+  static boolean inBounds(int x, int y) {
+    return BoundsTester.xInBounds(x) && BoundsTester.yInBounds(y);
   }
 
   static boolean inBounds(Cell p) {

@@ -30,10 +30,10 @@ abstract class Rotator {
   }
 
   private static boolean tryKick(TetrisPiece piece, Blocks2d blocks2d) {
-    boolean testTranslateLeft = Translater.translate(piece, blocks2d, -1, 0, true);
-    boolean testTranslateRight = Translater.translate(piece, blocks2d, 1, 0, true);
+    boolean canTranslateLeft = Translater.translate(piece, blocks2d, -1, 0, true);
+    boolean canTranslateRight = Translater.translate(piece, blocks2d, 1, 0, true);
 
-    if (testTranslateLeft && testTranslateRight) return false;
+    if (canTranslateLeft && canTranslateRight) return false;
 
     Integer kickIdx = WallKicker.tryKick(piece, blocks2d);
 

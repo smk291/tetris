@@ -11,7 +11,7 @@ interface TriConsumerString<T> {
   String accept(Integer x, Integer y, T t);
 }
 
-public class PrintToConsole {
+class PrintToConsole {
   private static int height;
   private static int width;
   private String[][][] board;
@@ -21,7 +21,7 @@ public class PrintToConsole {
     PrintToConsole.width = width;
   }
 
-  String pad(int i) {
+  private String pad(int i) {
     if (i > 9) {
       return Integer.toString(i);
     }
@@ -29,11 +29,11 @@ public class PrintToConsole {
     return " " + i;
   }
 
-  String printCoords(int x, int y) {
+  private String printCoords(int x, int y) {
     return pad(x) + ", " + pad(y);
   }
 
-  String printCoords(Cell c) {
+  private String printCoords(Cell c) {
     return pad((int) c.getX()) + ", " + pad((int) c.getY());
   }
 
@@ -67,8 +67,8 @@ public class PrintToConsole {
           else return "  ";
         });
 
-    Cell cell1 = blocks2d.getBlocksByRow()[22][0];
-    Cell cell2 = blocks2d.getBlocksByRow()[22][4];
+    Cell cell1 = blocks2d.getBlocksByRow()[22].get(0);
+    Cell cell2 = blocks2d.getBlocksByRow()[22].get(4);
 
     if (cell1 != null)
       System.out.println(
@@ -95,11 +95,11 @@ public class PrintToConsole {
 
     for (int y = 0; y < board.length; y++) {
       String[][] row = board[y];
-      Cell[] fieldRow = blocks2d.getBlocksByRow()[y];
+      ArrayList<Cell> fieldRow = blocks2d.getBlocksByRow()[y];
 
       for (int x = 0; x < row.length; x++) {
         String[] space = row[x];
-        Cell cell = fieldRow[x];
+        Cell cell = fieldRow.get(x);
 
         if (cell.isFull()) {
           space[0] = "x";
@@ -153,10 +153,10 @@ public class PrintToConsole {
 
   private <T> void printBoardCustom(Blocks2d blocks2d, TriConsumer<Cell> print) {
     for (int y = 0; y < blocks2d.getBlocksByRow().length; y++) {
-      Cell[] row = blocks2d.getBlocksByRow()[y];
+      ArrayList<Cell> row = blocks2d.getBlocksByRow()[y];
 
-      for (int x = 0; x < row.length; x++) {
-        print.accept(x, y, row[x]);
+      for (int x = 0; x < row.size(); x++) {
+        print.accept(x, y, row.get(x));
 
         System.out.print(" ");
       }

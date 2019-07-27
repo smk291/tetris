@@ -20,6 +20,22 @@ class GameRecordKeeping {
     linesCleared = 0;
   }
 
+  double getScore() {
+    return score;
+  }
+
+  double getLinesCleared() {
+    return linesCleared;
+  }
+
+  double getLevel() {
+    return level;
+  }
+
+  void setLevel(int i, TetrisGUI gui) {
+    level = i;
+    gui.setDropTimerDelay(800);
+  }
   void softDrop() {
     score++;
   }

@@ -5,33 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/wavy.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/borders/BorderDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/border/BorderLayoutDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/box1/BoxLayoutDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/box2/BLDComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/box2/BoxLayoutDemo2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/card/CardLayoutDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/flow/FlowLayoutDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/grid/GridLayoutDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/gridbag/GridBagLayoutDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/SpringUtilities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/spring1/SpringDemo1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/spring2/SpringLayoutDemo2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/spring3/SpringDemo3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/spring4/SpringDemo4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/springbox/SpringBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/springcompactgrid/SpringCompactGrid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/springform/SpringForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/layoutdemos/spring/springgrid/SpringGrid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Blocks2d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Blocks2d.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/BoardCompositer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/BoardCompositer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/GameRecordKeeping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/GameRecordKeeping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/PrintToConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/PrintToConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Rotator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Rotator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RowDeleter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RowDeleter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/SinkingPieceFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/SinkingPieceFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/SinkingPieces.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/SinkingPieces.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TSpinTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TSpinTracker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Tetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Tetris.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrominoQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrominoQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Translater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/WallKicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/WallKicker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/JPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/JPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/LPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/LPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/OPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/OPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/SPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/SPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/TPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/TPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/Tetromino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/Tetromino.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/ZPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/ZPiece.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,24 +69,25 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA&#10;TEXT" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.newtetris.tetrispiece.kick" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.tetrisrevision.swinggui" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/com/tetrisrevision" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.layoutdemos.border" />
+      <recent name="com.tetrisrevision.swinggui" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.newtetris.tetrispiece.kick" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -100,39 +102,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Tetris">
-    <configuration name="BorderDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.borders.BorderDemo" />
-      <module name="tetris" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.borders.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Composite">
     <configuration name="Composite" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.composite.Composite" />
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.composite.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.Main" />
-      <module name="tetris" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -192,12 +168,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tetris" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.Tetris" />
+    <configuration name="SpringBox" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.layoutdemos.spring.springbox.SpringBox" />
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.swinggui.*" />
+          <option name="PATTERN" value="com.layoutdemos.spring.springbox.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -205,12 +181,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Transform (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.transform.Transform" />
+    <configuration name="SpringCompactGrid" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.layoutdemos.spring.springcompactgrid.SpringCompactGrid" />
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.transform.*" />
+          <option name="PATTERN" value="com.layoutdemos.spring.springcompactgrid.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -218,20 +194,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Transform" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Transform" />
+    <configuration name="SpringForm" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.layoutdemos.spring.springform.SpringForm" />
       <module name="tetris" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.layoutdemos.spring.springform.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringGrid" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.layoutdemos.spring.springgrid.SpringGrid" />
+      <module name="tetris" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.layoutdemos.spring.springgrid.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Tetris" />
-        <item itemvalue="Application.Transform (1)" />
-        <item itemvalue="Application.BorderDemo" />
-        <item itemvalue="Application.Transform" />
         <item itemvalue="Application.Composite" />
+        <item itemvalue="Application.SpringGrid" />
+        <item itemvalue="Application.SpringForm" />
+        <item itemvalue="Application.SpringCompactGrid" />
+        <item itemvalue="Application.SpringBox" />
       </list>
     </recent_temporary>
   </component>
@@ -260,92 +255,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>tetris</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>org.jline:jline:3.10.0</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

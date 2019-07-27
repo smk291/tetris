@@ -1,15 +1,14 @@
 package com.tetrisrevision;
 
-import com.tetrisrevision.tetrominos.Tetromino;
 import com.tetrisrevision.tetrominos.TetrominoEnum;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 public class BoardCompositer extends JPanel {
@@ -34,31 +33,31 @@ public class BoardCompositer extends JPanel {
 
 //    drawTitle(gbi);
     drawBoard(gbi);
-    drawQueue(g2, runTetris.getTetrominoQueue());
 
+    if (null != runTetris) {
+      drawQueue(g2, runTetris.getTetrominoQueue());
+      drawText(gbi, runTetris.getRecordKeeping().getScore());
+      drawText(gbi, runTetris.getRecordKeeping().getLinesCleared());
+      drawText(gbi, runTetris.getRecordKeeping().getLevel());
+    }
+
+    validate();
     g2.drawImage(buffImg, null, 50, 100);
   }
 
-//  private void outlineBoard(Graphics2D gbi) {
-//    Rectangle2D boardOutline = new Rectangle2D.Double(400 / 18 * 12, 400 / 18 * 24, 0, 0);
-//
-//
-//    gbi.fill(comp);
-//  }
-
-  private void drawTitle(Graphics2D gbi) {
-    gbi.setColor(Color.black);
+  private void drawText(Graphics2D gbi, double s) {
+    gbi.setColor(Color.lightGray);
     Font font = new Font("Serif", Font.BOLD, 20);
     gbi.setFont(font);
     FontRenderContext frc = gbi.getFontRenderContext();
-    Rectangle2D titleBounds = font.getStringBounds("Tetris", frc);
+    Rectangle2D titleBounds = font.getStringBounds(Double.toString(s), frc);
     int titleXOffset = (int) (getWidth() - titleBounds.getWidth()) / 2;
     int titleYOffset = 50;
 
     gbi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     gbi.setRenderingHint(
-        RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-    gbi.drawString("Tetris", titleXOffset, titleYOffset);
+    RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    gbi.drawString(String.valueOf(s), titleXOffset, titleYOffset);
   }
 
   private void drawBlocks(Graphics2D gbi, Cell[] cells, boolean printAll) {
@@ -74,7 +73,7 @@ public class BoardCompositer extends JPanel {
         gbi.setColor(Color.black);
 
       Rectangle2D innerRect =
-          new Rectangle2D.Double(w * (int) cell.getX() + 1, w * (int) cell.getY() + 1, w, w);
+          new Rectangle2D.Double(w * cell.getX() + 1, w * cell.getY() + 1, w, w);
 
       gbi.fill(innerRect);
     }
@@ -83,10 +82,7 @@ public class BoardCompositer extends JPanel {
   private void drawBoard(Graphics2D gbi) {
     if (null == runTetris) return;
 
-    gbi.setColor(Color.lightGray);
-    Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, 400 / 18 * Blocks2d.getWidth() + 2, 400 / 18 * Blocks2d.getHeight() + 2);
 
-    gbi.draw(boardOutline);
 
     if (null != runTetris.getCurrentPiece().getCells())
       drawBlocks(gbi, runTetris.getCurrentPiece().getCells(), true);
@@ -95,9 +91,9 @@ public class BoardCompositer extends JPanel {
       IntStream.range(0, Blocks2d.getHeight())
           .forEach(
               i -> {
-                Cell[] row = runTetris.getBlocks2d().getRow(i);
+                ArrayList<Cell> row = runTetris.getBlocks2d().getRow(i);
 
-                if (null != row) drawBlocks(gbi, row, false);
+                if (null != row) drawBlocks(gbi, row.toArray(new Cell[0]), false);
               });
 
     if (null != runTetris.getSinkingPieces().getPieces())
@@ -105,6 +101,12 @@ public class BoardCompositer extends JPanel {
           .getSinkingPieces()
           .getPieces()
           .forEach(piece -> drawBlocks(gbi, piece.toArray(new Cell[0]), true));
+
+    gbi.setColor(Color.lightGray);
+
+    Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, 400 / 18 * Blocks2d.getWidth() + 1, 400 / 18 * Blocks2d.getHeight() + 1);
+
+    gbi.draw(boardOutline);
   }
 
   private void drawQueue(Graphics2D g2, TetrominoQueue queue) {
@@ -145,6 +147,10 @@ public class BoardCompositer extends JPanel {
     drawBoard(gbi);
 
     if (g2 != null && null != runTetris && runTetris.getTetrominoQueue() != null) {
+      drawText(gbi, runTetris.getRecordKeeping().getScore());
+      drawText(gbi, runTetris.getRecordKeeping().getLinesCleared());
+      drawText(gbi, runTetris.getRecordKeeping().getLevel());
+
       drawQueue(gbi, runTetris.getTetrominoQueue());
 
     }
