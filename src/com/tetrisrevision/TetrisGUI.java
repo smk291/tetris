@@ -2,11 +2,8 @@ package com.tetrisrevision;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.beans.PropertyChangeListener;
 
 class TetrisGUI {
   private Timer timer;
@@ -14,7 +11,7 @@ class TetrisGUI {
   private JFrame frame = new JFrame("Tetris");
   private boolean RIGHT_TO_LEFT = false;
   private RunTetris runTetris;
-  BoardCompositer bc = new BoardCompositer(runTetris);
+  BoardGUI bc = new BoardGUI(runTetris);
 
   TetrisGUI(RunTetris runTetris) {
     this.runTetris = runTetris;
@@ -27,7 +24,7 @@ class TetrisGUI {
       return;
     }
 
-    bc = new BoardCompositer(runTetris);
+    bc = new BoardGUI(runTetris);
 
     pane.add(bc, BorderLayout.CENTER);
 
@@ -99,7 +96,7 @@ class TetrisGUI {
         timer2.stop();
   }
 
-  BoardCompositer getBoardCompositor() {
+  BoardGUI getBoardCompositor() {
     return bc;
   }
 }

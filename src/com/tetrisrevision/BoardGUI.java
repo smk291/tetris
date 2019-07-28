@@ -11,11 +11,11 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-public class BoardCompositer extends JPanel {
+public class BoardGUI extends JPanel {
   private AffineTransform at = new AffineTransform();
   private RunTetris runTetris;
 
-  BoardCompositer(RunTetris runTetris) {
+  BoardGUI(RunTetris runTetris) {
     this.runTetris = runTetris;
 
     validate();
@@ -25,13 +25,11 @@ public class BoardCompositer extends JPanel {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    Dimension d = getSize();
 
     setBackground(Color.black);
     BufferedImage buffImg = new BufferedImage(1000, 600, BufferedImage.TYPE_INT_ARGB);
     Graphics2D gbi = buffImg.createGraphics();
 
-//    drawTitle(gbi);
     drawBoard(gbi);
 
     if (null != runTetris) {
@@ -60,13 +58,11 @@ public class BoardCompositer extends JPanel {
     gbi.drawString(String.valueOf(s), titleXOffset, titleYOffset);
   }
 
-  private void drawBlocks(Graphics2D gbi, Block[] blocks, boolean printAll) {
+  private void drawBlocks(Graphics2D gbi, Block[] blocks) {
     Dimension d = getSize();
     int w = 400 / 18;
 
     for (Block block : blocks) {
-//      if (!printAll && cell.isEmpty()) continue;
-
       if (null != block.getColor())
         gbi.setColor(block.getColor());
       else
@@ -85,26 +81,21 @@ public class BoardCompositer extends JPanel {
 
 
     if (null != runTetris.getCurrentPiece().getCells())
-      drawBlocks(gbi, runTetris.getCurrentPiece().getCells(), true);
+      drawBlocks(gbi, runTetris.getCurrentPiece().getCells());
 
-    if (null != runTetris.getBlocks2d())
-      IntStream.range(0, Blocks2d.getHeight())
-          .forEach(
-              i -> {
-                ArrayList<Block> row = runTetris.getBlocks2d().getRow(i);
-
-                if (null != row) drawBlocks(gbi, row.toArray(new Block[0]), false);
-              });
+    if (null != runTetris.getPlayField())
+      IntStream.range(0, PlayField.getHeight())
+          .forEach(i -> drawBlocks(gbi, runTetris.getPlayField().getRow(i).toArray(new Block[0])));
 
     if (null != runTetris.getSinkingPieces().getPieces())
       runTetris
           .getSinkingPieces()
           .getPieces()
-          .forEach(piece -> drawBlocks(gbi, piece.toArray(new Block[0]), true));
+          .forEach(piece -> drawBlocks(gbi, piece.toArray(new Block[0])));
 
     gbi.setColor(Color.lightGray);
 
-    Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, 400 / 18 * Blocks2d.getWidth() + 1, 400 / 18 * Blocks2d.getHeight() + 1);
+    Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, 400 / 18 * PlayField.getWidth() + 1, 400 / 18 * PlayField.getHeight() + 1);
 
     gbi.draw(boardOutline);
   }
@@ -122,14 +113,10 @@ public class BoardCompositer extends JPanel {
 
       tp.setCenter(1, 2 + i * 5);
 
-      drawBlocks(gbi, tp.getCells(), true);
+      drawBlocks(gbi, tp.getCells());
 
       g2.drawImage(buffImg, null, 300, 140);
     }
-  }
-
-  private void drawScore() {
-
   }
 
   @Override
@@ -139,14 +126,12 @@ public class BoardCompositer extends JPanel {
     Graphics g = getGraphics();
     Graphics2D g2 = (Graphics2D) g;
 
-    Dimension d = getSize();
-
     BufferedImage buffImg = new BufferedImage(1000,  400, BufferedImage.TYPE_INT_ARGB);
     Graphics2D gbi = buffImg.createGraphics();
 
     drawBoard(gbi);
 
-    if (g2 != null && null != runTetris && runTetris.getTetrominoQueue() != null) {
+    if (null != g2 && null != runTetris && null != runTetris.getTetrominoQueue()) {
       drawText(gbi, runTetris.getRecordKeeping().getScore());
       drawText(gbi, runTetris.getRecordKeeping().getLinesCleared());
       drawText(gbi, runTetris.getRecordKeeping().getLevel());

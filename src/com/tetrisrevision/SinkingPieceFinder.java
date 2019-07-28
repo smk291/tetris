@@ -7,27 +7,27 @@ import java.util.stream.IntStream;
  *
  * SinkingPieceFinder contains the methods that, after a row is deleted,
  * look for sinking pieces. These are pieces that aren't tetrominos
- * and consist of blocks that aren't attached to the lowest row, meaning that
- * no adjacent block to the left, right, top or bottom is connected to last row.
- * Blocks that lack a connection to row 23 are necessarily floating above it. Thus they sink.
+ * and consist of blocks that aren't attached to a block on the lowest row.
+ * Blocks that lack a connection to the lowest row are necessarily floating above it. Thus they sink.
  *
  * The logic is as follows:
  *
- * After deleting a row, I pass the index of the deleted row to find
+ * After deleting a row, I pass the index of the deleted row to SinkingPieceFinder
  * After row deletion, there are only two possible locations, in terms of row index, where the deletion could result in a floating/sinking piece:
  *   Either at the row index where a row was just deleted (startingRow)
- *   or at the row index below (startingRow + 1).
+ *   or at the row index below (startingRow + 1). See diagram below for illustration
  *
  * Ex:
  *
  1.                 2.                  3.                  4.                 5.                  6.
            row index
- |■         | 14     |↓   ↓     | 14     |          | 14     |          | 15     |          | 15     |          | 15
- |■■■ ■     | 15     |■↓↓↓■↓↓↓↓↓| 15     |          | 15     |          | 15     |          | 15     |          | 15
- |↓↓↓□□□□□□□| 16     |■■■□□□□□□□| 16     |■   ■     | 16     |↓↓↓↓↓↓↓↓↓↓| 16     |          | 16     |          | 16
- | □□□ □□□□□| 17     | □□□ □□□□□| 17     |↓□□□↓□□□□□| 17     |■□□□■□□□□□| 17     |          | 17     |          | 17
+  ↓↓↓
+ |■↓↓       | 14     |↓   ↓     | 14     |          | 14     |          | 15     |          | 15     |          | 15
+ |□□□ ■     | 15     |■↓↓↓■↓↓↓↓↓| 15     |↓   ↓       | 15     |          | 15     |          | 15     |          | 15
+ |   □□□□□□□| 16     |□□□□□□□□□□| 16     |■   ■     | 16     |↓↓↓↓↓↓↓↓↓↓| 16     |          | 16     |          | 16
+ | □□□ □□□□□| 17     | □□□ □□□□□| 17     | □□□ □□□□□| 17     |■□□□■□□□□□| 17     |        ↓↓| 17     |          | 17
  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □   | 18
- |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□↓↓| 19     |□□□□□□□□■■| 19
+ |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□■■| 19
  |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20
  |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21
  |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22
@@ -45,16 +45,6 @@ import java.util.stream.IntStream;
  * row 18 are connected to row 17, 'hanging' from it. When row 17 is deleted, they're no longer
  * connected to any other cells and so they sink.
  *
- * A piece is sinking if and only if it is a filled cell and is directly connected (via connections to
- * cells to left, right, top, and bottom) to the bottom row.
- *
- *
- *
- * sinkingPieces - is the List of sinking pieces
- * searched - keeps track of points that have been searched and either added to the possible sinking piece or ignored
- * piece - is cleared every time findSinkingPieceRuns; it stores all filled cells connected to a given point
- * attachedToRow23 - if this is true, a piece isn't sinking
- *
  ****/
 class SinkingPieceFinder {
   private ArrayList<Block> piece = new ArrayList<>();
@@ -62,7 +52,7 @@ class SinkingPieceFinder {
   private int[][] searched;
 
   SinkingPieceFinder() {
-    searched = new int[Blocks2d.getHeight()][Blocks2d.getWidth()];
+    searched = new int[PlayField.getHeight()][PlayField.getWidth()];
   }
 
   private boolean getCellHasBeenTested(double x, double y) {
@@ -73,60 +63,58 @@ class SinkingPieceFinder {
     searched[(int) y][(int) x] = 1;
   }
 
-  void find(int deletedRowIdx, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
+  void find(int deletedRowIdx, PlayField playField, SinkingPieces sinkingPieces) {
     if (PlacementTester.isOutOfBounds(0, deletedRowIdx)) return;
 
     int rowBelow = deletedRowIdx + 1;
 
-    searched = new int[Blocks2d.getHeight()][Blocks2d.getWidth()];
+    searched = new int[PlayField.getHeight()][PlayField.getWidth()];
 
-    IntStream.range(0, Blocks2d.getWidth())
+    IntStream.range(0, PlayField.getWidth())
         .forEach(
             x -> {
-              runSearch(x, rowBelow, blocks2d, sinkingPieces);
-              runSearch(x, deletedRowIdx, blocks2d, sinkingPieces);
+              runSearch(x, rowBelow, playField, sinkingPieces);
+              runSearch(x, deletedRowIdx, playField, sinkingPieces);
             });
   }
 
-  private void runSearch(double x, double y, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
+  private void runSearch(double x, double y, PlayField playField, SinkingPieces sinkingPieces) {
     piece = new ArrayList<>();
     connectedToLastRow = false;
 
-    if (PlacementTester.inBounds(x, y)) {
-      findConnectedBlocks(x, y, blocks2d, sinkingPieces);
-    }
+    if (PlacementTester.inBounds(x, y)) findConnectedBlocks(x, y, playField, sinkingPieces);
   }
 
-  private void findConnectedBlocks(double x, double y, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
-    if (blocks2d.getCell(x, y).isPresent() && !getCellHasBeenTested(x, y)) {
-      addConnectedBlocksToPiece(x, y, blocks2d);
+  private void findConnectedBlocks(double x, double y, PlayField playField, SinkingPieces sinkingPieces) {
+    if (playField.getCell(x, y).isPresent() && !getCellHasBeenTested(x, y)) {
+      addConnectedBlocksToPiece(x, y, playField);
 
       if (!connectedToLastRow) {
         sinkingPieces.getPieces().add(piece);
 
-        piece.forEach(blocks2d::removeCell);
+        piece.forEach(playField::removeCell);
       }
     }
   }
 
-  private void addConnectedBlocksToPiece(double x, double y, Blocks2d blocks2d) {
+  private void addConnectedBlocksToPiece(double x, double y, PlayField playField) {
     if (getCellHasBeenTested(x, y)) return;
 
-    if (blocks2d.getCell(x, y).isPresent()) {
-      if ((int) y == Blocks2d.getHeight() - 1) connectedToLastRow = true;
+    if (playField.getCell(x, y).isPresent()) {
+      if ((int) y == PlayField.getHeight() - 1) connectedToLastRow = true;
 
       setCellHasBeenTested(x, y);
 
-      piece.add((Block) blocks2d.getCell(x, y).get().clone());
+      piece.add((Block) playField.getCell(x, y).get().clone());
 
-      searchAdjacent(x, y + 1, blocks2d);
-      searchAdjacent(x, y - 1, blocks2d);
-      searchAdjacent(x + 1, y, blocks2d);
-      searchAdjacent(x - 1, y, blocks2d);
+      searchAdjacent(x, y + 1, playField);
+      searchAdjacent(x, y - 1, playField);
+      searchAdjacent(x + 1, y, playField);
+      searchAdjacent(x - 1, y, playField);
     }
   }
 
-  private void searchAdjacent(double x, double y, Blocks2d blocks2d) {
-    if (!PlacementTester.isOutOfBounds(x, y )) addConnectedBlocksToPiece(x, y, blocks2d);
+  private void searchAdjacent(double x, double y, PlayField playField) {
+    if (PlacementTester.inBounds(x, y )) addConnectedBlocksToPiece(x, y, playField);
   }
 }

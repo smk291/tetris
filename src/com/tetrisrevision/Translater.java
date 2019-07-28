@@ -3,7 +3,7 @@ package com.tetrisrevision;
 import java.util.ArrayList;
 
 abstract class Translater {
-  static boolean translate(ArrayList<Block> blocks, Blocks2d field, int y) {
+  static boolean translate(ArrayList<Block> blocks, PlayField field, int y) {
     blocks.forEach(p -> p.translate(0, y));
 
     if (blocks.stream().allMatch(p -> PlacementTester.cellCanBeOccupied(p, field))) return true;
@@ -13,7 +13,7 @@ abstract class Translater {
     return false;
   }
 
-  static boolean translate(TetrisPiece piece, Blocks2d field, int x, int y, boolean test) {
+  static boolean translate(TetrisPiece piece, PlayField field, int x, int y, boolean test) {
     piece.getCenter().translate(x, y);
 
     if (PlacementTester.cellsCanBeOccupied(piece, field)) {
@@ -28,7 +28,7 @@ abstract class Translater {
     return false;
   }
 
-  static int hardDrop(TetrisPiece piece, Blocks2d field) {
+  static int hardDrop(TetrisPiece piece, PlayField field) {
     int cells = 0;
 
     while (true) {

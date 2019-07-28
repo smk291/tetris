@@ -22,6 +22,11 @@ class PrintToConsole {
     PrintToConsole.width = width;
   }
 
+
+  public String printCell(Block cell) {
+    return "{ " + cell.getX() + ", " + cell.getY() + " }";
+  }
+
   private String pad(int i) {
     if (i > 9) {
       return Integer.toString(i);
@@ -38,9 +43,9 @@ class PrintToConsole {
     return pad((int) c.getX()) + ", " + pad((int) c.getY());
   }
 
-  private void paintAndPrint(Blocks2d blocks2d, SinkingPieces sinkingPieces, TetrisPiece piece) {
+  private void paintAndPrint(PlayField playField, SinkingPieces sinkingPieces, TetrisPiece piece) {
     printBoardCustom(
-        blocks2d,
+            playField,
         (Integer x, Integer y, Block block) -> {
           if ((int) block.getX() != x || (int) block.getY() != y) {
             System.out.print("(" + printCoords(x, y) + ") -> (" + printCoords(block) + ") :: ");
@@ -49,7 +54,7 @@ class PrintToConsole {
           }
         });
 
-    getBoard(blocks2d, sinkingPieces, piece);
+    getBoard(playField, sinkingPieces, piece);
 
     printStringBoardCustom(
         (Integer x, Integer y, String[] cell) -> {
@@ -68,24 +73,24 @@ class PrintToConsole {
           else return "  ";
         });
 
-    Block block1 = blocks2d.getBlocksByRow()[22].get(0);
-    Block block2 = blocks2d.getBlocksByRow()[22].get(4);
+    Block block1 = playField.getBlocksByRow()[22].get(0);
+    Block block2 = playField.getBlocksByRow()[22].get(4);
 
     if (block1 != null)
       System.out.println(
           "22, 0"
-              + block1.printCell()
+              + printCell(block1)
               + " "
               + (block1.getColor() != null ? block1.getColor().toString() : "NC"));
     if (block2 != null)
       System.out.println(
           "22, 4"
-              + block2.printCell()
+              + printCell(block2)
               + " "
               + (block2.getColor() != null ? block2.getColor().toString() : "NC"));
   }
 
-  private void getBoard(Blocks2d blocks2d, SinkingPieces sinkingPieces, TetrisPiece piece) {
+  private void getBoard(PlayField playField, SinkingPieces sinkingPieces, TetrisPiece piece) {
     String[][][] board = new String[height][width][5];
 
     for (String[][] row : board) {
@@ -96,11 +101,11 @@ class PrintToConsole {
 
     for (int y = 0; y < board.length; y++) {
       String[][] row = board[y];
-      ArrayList<Block> fieldRow = blocks2d.getBlocksByRow()[y];
+      ArrayList<Block> fieldRow = playField.getBlocksByRow()[y];
 
       for (int x = 0; x < row.length; x++) {
         String[] space = row[x];
-        Optional<Block> cell = blocks2d.getCell(x, y);
+        Optional<Block> cell = playField.getCell(x, y);
 
         if (cell.isPresent()) {
           space[0] = "x";
@@ -152,9 +157,9 @@ class PrintToConsole {
         .anyMatch(c -> (int) c.getX() == x && (int) c.getY() == y);
   }
 
-  private <T> void printBoardCustom(Blocks2d blocks2d, TriConsumer<Block> print) {
-    for (int y = 0; y < blocks2d.getBlocksByRow().length; y++) {
-      ArrayList<Block> row = blocks2d.getBlocksByRow()[y];
+  private <T> void printBoardCustom(PlayField playField, TriConsumer<Block> print) {
+    for (int y = 0; y < playField.getBlocksByRow().length; y++) {
+      ArrayList<Block> row = playField.getBlocksByRow()[y];
 
       for (int x = 0; x < row.size(); x++) {
         print.accept(x, y, row.get(x));

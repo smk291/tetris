@@ -11,23 +11,23 @@ class TSpinTracker {
     reset();
   }
 
-  private static boolean areThreeOrMoreCornersFilled(TetrisPiece piece, Blocks2d blocks2d) {
+  private static boolean areThreeOrMoreCornersFilled(TetrisPiece piece, PlayField playField) {
     int cornersFilled = 0;
     Point center = piece.getCenter();
 
     int x = (int) center.getX();
     int y = (int) center.getY();
 
-    cornersFilled += cornerFilled(blocks2d, x, y, -1, -1);
-    cornersFilled += cornerFilled(blocks2d, x, y, -1, 1);
-    cornersFilled += cornerFilled(blocks2d, x, y, 1, -1);
-    cornersFilled += cornerFilled(blocks2d, x, y, 1, 1);
+    cornersFilled += cornerFilled(playField, x, y, -1, -1);
+    cornersFilled += cornerFilled(playField, x, y, -1, 1);
+    cornersFilled += cornerFilled(playField, x, y, 1, -1);
+    cornersFilled += cornerFilled(playField, x, y, 1, 1);
 
     return cornersFilled >= 3;
   }
 
-  private static int cornerFilled(Blocks2d blocks2d, int x, int y, int x2, int y2) {
-    return blocks2d.cellIsFull(x + x2, y + y2) ? 1 : 0;
+  private static int cornerFilled(PlayField playField, int x, int y, int x2, int y2) {
+    return playField.cellIsFull(x + x2, y + y2) ? 1 : 0;
   }
 
   void reset() {
@@ -48,12 +48,12 @@ class TSpinTracker {
     this.lastKick = nullableInteger;
   }
 
-  boolean isTSpin(TetrisPiece piece, Blocks2d blocks2d) {
-    return areThreeOrMoreCornersFilled(piece, blocks2d) || (null != lastKick && lastKick == 4)
-        || (!areThreeOrMoreCornersFilled(piece, blocks2d) && lastKick != null && lastKick == 4);
+  boolean isTSpin(TetrisPiece piece, PlayField playField) {
+    return areThreeOrMoreCornersFilled(piece, playField) || (null != lastKick && lastKick == 4)
+        || (!areThreeOrMoreCornersFilled(piece, playField) && lastKick != null && lastKick == 4);
   }
 
-  boolean isTSpinMini(TetrisPiece piece, Blocks2d blocks2d) {
-    return areThreeOrMoreCornersFilled(piece, blocks2d) && (lastKick == null || lastKick != 4);
+  boolean isTSpinMini(TetrisPiece piece, PlayField playField) {
+    return areThreeOrMoreCornersFilled(piece, playField) && (lastKick == null || lastKick != 4);
   }
 }

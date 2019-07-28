@@ -13,11 +13,11 @@ package com.tetrisrevision;
  * <p>**
  */
 abstract class Rotator {
-  static boolean apply(int incr, TetrisPiece piece, Blocks2d blocks2d) {
+  static boolean apply(int incr, TetrisPiece piece, PlayField playField) {
     piece.incrementRotation(incr);
 
-    if (!PlacementTester.cellsCanBeOccupied(piece, blocks2d)) {
-      if (tryKick(piece, blocks2d) || tryLift(piece, blocks2d)) return true;
+    if (!PlacementTester.cellsCanBeOccupied(piece, playField)) {
+      if (tryKick(piece, playField) || tryLift(piece, playField)) return true;
 
       piece.incrementRotation(-incr);
 
@@ -29,13 +29,13 @@ abstract class Rotator {
     return true;
   }
 
-  private static boolean tryKick(TetrisPiece piece, Blocks2d blocks2d) {
-    boolean canTranslateLeft = Translater.translate(piece, blocks2d, -1, 0, true);
-    boolean canTranslateRight = Translater.translate(piece, blocks2d, 1, 0, true);
+  private static boolean tryKick(TetrisPiece piece, PlayField playField) {
+    boolean canTranslateLeft = Translater.translate(piece, playField, -1, 0, true);
+    boolean canTranslateRight = Translater.translate(piece, playField, 1, 0, true);
 
     if (canTranslateLeft && canTranslateRight) return false;
 
-    Integer kickIdx = WallKicker.tryKick(piece, blocks2d);
+    Integer kickIdx = WallKicker.tryKick(piece, playField);
 
     if (null != kickIdx) {
       if (piece.getTetromino().isTPiece()) setTSpinData(piece, kickIdx, true);
@@ -46,10 +46,10 @@ abstract class Rotator {
     return false;
   }
 
-  private static boolean tryLift(TetrisPiece piece, Blocks2d blocks2d) {
-    boolean canDrop = Translater.translate(piece, blocks2d, 0, 1, true);
+  private static boolean tryLift(TetrisPiece piece, PlayField playField) {
+    boolean canDrop = Translater.translate(piece, playField, 0, 1, true);
 
-    if (!canDrop && Translater.translate(piece, blocks2d, 0, -1, false)) {
+    if (!canDrop && Translater.translate(piece, playField, 0, -1, false)) {
       if (piece.getTetromino().isTPiece()) setTSpinData(piece, null, false);
 
       return true;

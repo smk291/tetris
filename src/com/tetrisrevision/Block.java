@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * **
  *
- * <p>This represent a unit on the tetris playfield. Eventually it'll include color.
+ * <p>A Block is a colored square that fills a cell on the tetris play field.
  *
  * <p>**
  */
@@ -27,9 +27,5 @@ public class Block extends Point {
 
   public void setColor(Color color) {
     this.color = color;
-  }
-
-  public String printCell() {
-    return "{ " + x + ", " + y + " }";
   }
 }

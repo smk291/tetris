@@ -56,12 +56,12 @@ class GameRecordKeeping {
     score += (level == 0 ? 1 : level) * increment * (comboCount > 1 ? 50 * comboCount : 1);
   }
 
-  void scoreDeletion(int rows, TetrisPiece piece, Blocks2d blocks2d) {
+  void scoreDeletion(int rows, TetrisPiece piece, PlayField playField) {
     TSpinTracker tst = piece.gettSpinTracker();
 
-    if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpinMini(piece, blocks2d))
+    if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpinMini(piece, playField))
       scoreDeletionTSpinMini(rows);
-    else if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpin(piece, blocks2d))
+    else if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpin(piece, playField))
       scoreDeletionTSpin(rows);
     else scoreDeletion(rows);
   }
@@ -127,7 +127,7 @@ class GameRecordKeeping {
   }
 
   private void tSpin(double score) {
-    incrementScore(score * level * (last.equals("tspin") ? 1.5 : 1));
+    incrementScore(score * (last.equals("tspin") ? 1.5 : 1));
 
     last = "tspin";
   }
@@ -162,8 +162,6 @@ class GameRecordKeeping {
 
   void incrLinesCleared(int lines, TetrisGUI gui) {
     linesCleared += lines;
-
-    System.out.println(score);
 
     if (computeLevel() > level) {
       level = (int) Math.floor(computeLevel());

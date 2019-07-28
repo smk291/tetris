@@ -3,14 +3,14 @@ package com.tetrisrevision;
 import java.util.Arrays;
 
 abstract class OverlapTester {
-  static boolean noOverlap(Block pt, Blocks2d field) {
+  static boolean noOverlap(Block pt, PlayField field) {
     return !BoundsTester.xInBounds(pt) || !BoundsTester.yInBounds(pt) || field.cellIsEmpty(pt);
   }
 }
 
 abstract class BoundsTester {
   static boolean xInBounds(double x) {
-    return x >= 0 && x < Blocks2d.getWidth();
+    return x >= 0 && x < PlayField.getWidth();
   }
 
   static boolean xInBounds(Block block) {
@@ -18,11 +18,11 @@ abstract class BoundsTester {
   }
 
   static boolean yInBoundsNoMin(Block block) {
-    return block.getY() >= -2 && block.getY() < Blocks2d.getHeight();
+    return block.getY() >= -2 && block.getY() < PlayField.getHeight();
   }
 
   static boolean yInBounds(double y) {
-    return y >= 0 && y < Blocks2d.getHeight();
+    return y >= 0 && y < PlayField.getHeight();
   }
 
   static boolean yInBounds(Block pt) {
@@ -31,7 +31,7 @@ abstract class BoundsTester {
 }
 
 abstract class PlacementTester {
-  static boolean cellsCanBeOccupied(TetrisPiece piece, Blocks2d field) {
+  static boolean cellsCanBeOccupied(TetrisPiece piece, PlayField field) {
     return Arrays.stream(piece.getCells()).allMatch(pt -> cellCanBeOccupied(pt, field));
   }
 
@@ -51,7 +51,7 @@ abstract class PlacementTester {
     return !inBounds(c.getX(), c.getY());
   }
 
-  static boolean cellCanBeOccupied(Block p, Blocks2d field) {
+  static boolean cellCanBeOccupied(Block p, PlayField field) {
     return BoundsTester.xInBounds(p)
         && BoundsTester.yInBoundsNoMin(p)
         && OverlapTester.noOverlap(p, field);
