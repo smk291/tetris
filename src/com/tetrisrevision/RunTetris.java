@@ -45,7 +45,7 @@ class RunTetris {
     for (int i = 0;
         sinkingPieces.getPieces().size() > 0 && i < sinkingPieces.getPieces().size();
         i++) {
-      ArrayList<Cell> sinkingPiece = sinkingPieces.getPieces().get(i);
+      ArrayList<Block> sinkingPiece = sinkingPieces.getPieces().get(i);
 
       boolean canSink = Translater.translate(sinkingPiece, blocks2d, 1);
 
@@ -61,7 +61,7 @@ class RunTetris {
     }
   }
 
-  private void addSinkingPieceToBoard(ArrayList<Cell> sinkingPiece) {
+  private void addSinkingPieceToBoard(ArrayList<Block> sinkingPiece) {
     blocks2d.insert(sinkingPiece);
 
     int deletedRowIdx =

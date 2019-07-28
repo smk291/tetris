@@ -57,7 +57,7 @@ import java.util.stream.IntStream;
  *
  ****/
 class SinkingPieceFinder {
-  private ArrayList<Cell> piece = new ArrayList<>();
+  private ArrayList<Block> piece = new ArrayList<>();
   private boolean connectedToLastRow = false;
   private int[][] searched;
 
@@ -98,13 +98,13 @@ class SinkingPieceFinder {
   }
 
   private void findConnectedBlocks(double x, double y, Blocks2d blocks2d, SinkingPieces sinkingPieces) {
-    if (blocks2d.getCell(x, y).isFull() && !getCellHasBeenTested(x, y)) {
+    if (blocks2d.getCell(x, y).isPresent() && !getCellHasBeenTested(x, y)) {
       addConnectedBlocksToPiece(x, y, blocks2d);
 
       if (!connectedToLastRow) {
         sinkingPieces.getPieces().add(piece);
 
-        piece.forEach(c -> blocks2d.getCell(c).setEmpty(true));
+        piece.forEach(blocks2d::removeCell);
       }
     }
   }
@@ -112,12 +112,12 @@ class SinkingPieceFinder {
   private void addConnectedBlocksToPiece(double x, double y, Blocks2d blocks2d) {
     if (getCellHasBeenTested(x, y)) return;
 
-    if (blocks2d.getCell(x, y).isFull()) {
+    if (blocks2d.getCell(x, y).isPresent()) {
       if ((int) y == Blocks2d.getHeight() - 1) connectedToLastRow = true;
 
       setCellHasBeenTested(x, y);
 
-      piece.add((Cell) blocks2d.getCell(x, y).clone());
+      piece.add((Block) blocks2d.getCell(x, y).get().clone());
 
       searchAdjacent(x, y + 1, blocks2d);
       searchAdjacent(x, y - 1, blocks2d);
@@ -127,7 +127,6 @@ class SinkingPieceFinder {
   }
 
   private void searchAdjacent(double x, double y, Blocks2d blocks2d) {
-    if (!PlacementTester.isOutOfBounds(x, y ))
-      addConnectedBlocksToPiece(x, y, blocks2d);
+    if (!PlacementTester.isOutOfBounds(x, y )) addConnectedBlocksToPiece(x, y, blocks2d);
   }
 }

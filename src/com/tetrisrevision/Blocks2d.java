@@ -2,17 +2,17 @@ package com.tetrisrevision;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Optional;
 
 public class Blocks2d {
   private static int width;
   private static int height;
-  private ArrayList<Cell>[] blocksByRow;
+  private ArrayList<Block>[] blocksByRow;
 
   Blocks2d(int width, int height) {
     Blocks2d.width = width;
     Blocks2d.height = height;
-    blocksByRow = (ArrayList<Cell>[]) new ArrayList[height];
+    blocksByRow = (ArrayList<Block>[]) new ArrayList[height];
 
     createEmpty();
   }
@@ -26,95 +26,109 @@ public class Blocks2d {
   }
 
   void createEmpty() {
-    for (int y = 0; y < height; y++) {
-      blocksByRow[y] = new ArrayList<>();
-
-      for (int x = 0; x < width; x++) {
-        blocksByRow[y].add(new Cell(x, y));
-      }
-    }
+    for (int y = 0; y < height; y++) blocksByRow[y] = new ArrayList<>();
   }
 
-  Cell getCell(Cell cell) {
-    return blocksByRow[(int) cell.getY()].get((int) cell.getX());
-  }
+  Optional<Block> getCell(double x, double y) {
+    for (Block c : getRow(y)) if (c.getX() == x) return Optional.of(c);
 
-  Cell getCell(double x, double y) {
-    return blocksByRow[(int) y].get((int) x);
+    return Optional.empty();
   }
 
   boolean cellIsFull(int x, int y) {
-    if (PlacementTester.isOutOfBounds(x, y)) {
-      return false;
+    return !cellIsEmpty(x, y);
+  }
+
+  void setCell(Block block) {
+    if (PlacementTester.isOutOfBounds(block)) return;
+
+    Optional<Block> tmpCell = getCell(block.getX(), block.getY());
+
+    if (tmpCell.isPresent()) {
+      tmpCell.get().setColor(block.getColor());
+    } else {
+      insert(block);
     }
-
-    return !getCell(x, y).isEmpty();
   }
 
-  void setCell(Cell cell) {
-    if (PlacementTester.inBounds(cell)) {
-      Cell tmpCell = blocksByRow[(int) cell.getY()].get((int) cell.getX());
+  Block getOrCreateCell(double x, double y) {
+    Optional<Block> c = getCell(x, y);
 
-      tmpCell.setEmpty(false);
-      tmpCell.setColor(cell.getColor());
-    }
+    return c.orElseGet(() -> insertNewCell(x, y).get());
   }
 
-  void copyCell(Cell cellFrom, Cell cellTo) {
-    cellTo.setColor(cellFrom.getColor());
-    cellTo.setEmpty(cellFrom.isEmpty());
-
-    cellFrom.setColor(null);
-    cellFrom.setEmpty(true);
-  }
-
-  ArrayList<Cell> getRow(int i) {
-    return blocksByRow[i];
+  ArrayList<Block> getRow(double i) {
+    return blocksByRow[(int) i];
   }
 
   void insert(TetrisPiece piece) {
     insert(piece.getCells());
   }
 
-  void insert(ArrayList<Cell> piece) {
-    insert(piece.toArray(new Cell[0]));
+  void insert(ArrayList<Block> piece) {
+    insert(piece.toArray(new Block[0]));
   }
 
-  private void insert(Cell[] piece) {
-    for (Cell cell : piece) {
-      setCell(cell);
+  private void insert(Block[] piece) {
+    for (Block block : piece) {
+      setCell(block);
     }
+  }
+
+  private void insert(Block c) {
+    getRow(c.getY()).add(c);
+  }
+
+  private Optional<Block> insertNewCell(double x, double y) {
+    getRow((int) y).add(new Block(x, y));
+
+    return getCell(x, y);
   }
 
   boolean cellIsEmpty(Point pt) {
-    return blocksByRow[(int) pt.getY()].get((int) pt.getX()).isEmpty();
+    return cellIsEmpty(pt.getX(), pt.getY());
+  }
+
+  boolean cellIsEmpty(double x, double y) {
+    return (PlacementTester.isOutOfBounds(x, y)) || getCell(x, y).isEmpty();
   }
 
   boolean rowIsFull(int y) {
-    if (!BoundsTester.yInBounds(new Cell(0, y))) return false;
-
-    return blocksByRow[y].stream().allMatch(Cell::isFull);
+    return 10 == getRow(y).size();
   }
 
-  boolean rowIsEmpty(int i) {
-    return blocksByRow[i].stream().allMatch(Cell::isEmpty);
+  boolean rowIsEmpty(int y) {
+    return 0 == getRow(y).size();
   }
 
   void copyRow(int rowFrom, int rowTo) {
-    for (int i = 0; i < width; i++) {
-      blocksByRow[rowTo].get(i).setEmpty(blocksByRow[rowFrom].get(i).isEmpty());
-      blocksByRow[rowTo].get(i).setColor(blocksByRow[rowFrom].get(i).getColor());
-    }
+    ArrayList<Block> row = getRow(rowFrom);
+    row.forEach(c -> c.setY(rowTo));
+    setRow(rowTo, row);
   }
 
   void emptyRow(int row) {
-    for (Cell c : blocksByRow[row]) {
-      c.setEmpty(true);
-      c.setColor(Color.white);
+    blocksByRow[row] = new ArrayList<>();
+  }
+
+  ArrayList<Block>[] getBlocksByRow() {
+    return blocksByRow;
+  }
+
+  void removeCell(Block c) {
+    ArrayList<Block> row = getRow(c.getY());
+
+    for (int i = 0; row.size() > 0 && i < row.size(); i++) {
+      Block tmpC = row.get(i);
+
+      if (tmpC.getX() == c.getX()) {
+        row.remove(i);
+        break;
+      }
     }
   }
 
-  ArrayList<Cell>[] getBlocksByRow() {
-    return blocksByRow;
+  void setRow(double y, ArrayList<Block> row) {
+    blocksByRow[(int) y] = row;
   }
 }

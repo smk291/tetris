@@ -11,10 +11,10 @@ import java.util.stream.IntStream;
  * <p>These are basically unit tests for various behaviors
  */
 abstract class InputTests {
-  private static void createCell(int x, int y, Blocks2d blocks2d) {
-    Cell cell = new Cell(x, y, Color.blue);
-    cell.setEmpty(false);
-    blocks2d.setCell(cell);
+  private static void createCell(double x, double y, Blocks2d blocks2d) {
+    Block block = new Block(x, y);
+    block.setColor(Color.LIGHT_GRAY);
+    blocks2d.setCell(block);
   }
 
   private static int lastRow() {

@@ -3,13 +3,13 @@ package com.tetrisrevision;
 import java.util.ArrayList;
 
 class SinkingPieces {
-  private ArrayList<ArrayList<Cell>> sinkingPieces2d;
+  private ArrayList<ArrayList<Block>> sinkingPieces2d;
 
   SinkingPieces() {
     sinkingPieces2d = new ArrayList<>();
   }
 
-  ArrayList<ArrayList<Cell>> getPieces() {
+  ArrayList<ArrayList<Block>> getPieces() {
     return sinkingPieces2d;
   }
 }

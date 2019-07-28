@@ -3,12 +3,12 @@ package com.tetrisrevision;
 import java.util.ArrayList;
 
 abstract class Translater {
-  static boolean translate(ArrayList<Cell> cells, Blocks2d field, int y) {
-    cells.forEach(p -> p.translate(0, y));
+  static boolean translate(ArrayList<Block> blocks, Blocks2d field, int y) {
+    blocks.forEach(p -> p.translate(0, y));
 
-    if (cells.stream().allMatch(p -> PlacementTester.cellCanBeOccupied(p, field))) return true;
+    if (blocks.stream().allMatch(p -> PlacementTester.cellCanBeOccupied(p, field))) return true;
 
-    cells.forEach(cell -> cell.translate(0, -y));
+    blocks.forEach(cell -> cell.translate(0, -y));
 
     return false;
   }

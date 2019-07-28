@@ -60,20 +60,20 @@ public class BoardCompositer extends JPanel {
     gbi.drawString(String.valueOf(s), titleXOffset, titleYOffset);
   }
 
-  private void drawBlocks(Graphics2D gbi, Cell[] cells, boolean printAll) {
+  private void drawBlocks(Graphics2D gbi, Block[] blocks, boolean printAll) {
     Dimension d = getSize();
     int w = 400 / 18;
 
-    for (Cell cell : cells) {
-      if (!printAll && cell.isEmpty()) continue;
+    for (Block block : blocks) {
+//      if (!printAll && cell.isEmpty()) continue;
 
-      if (null != cell.getColor())
-        gbi.setColor(cell.getColor());
+      if (null != block.getColor())
+        gbi.setColor(block.getColor());
       else
         gbi.setColor(Color.black);
 
       Rectangle2D innerRect =
-          new Rectangle2D.Double(w * cell.getX() + 1, w * cell.getY() + 1, w, w);
+          new Rectangle2D.Double(w * block.getX() + 1, w * block.getY() + 1, w, w);
 
       gbi.fill(innerRect);
     }
@@ -91,16 +91,16 @@ public class BoardCompositer extends JPanel {
       IntStream.range(0, Blocks2d.getHeight())
           .forEach(
               i -> {
-                ArrayList<Cell> row = runTetris.getBlocks2d().getRow(i);
+                ArrayList<Block> row = runTetris.getBlocks2d().getRow(i);
 
-                if (null != row) drawBlocks(gbi, row.toArray(new Cell[0]), false);
+                if (null != row) drawBlocks(gbi, row.toArray(new Block[0]), false);
               });
 
     if (null != runTetris.getSinkingPieces().getPieces())
       runTetris
           .getSinkingPieces()
           .getPieces()
-          .forEach(piece -> drawBlocks(gbi, piece.toArray(new Cell[0]), true));
+          .forEach(piece -> drawBlocks(gbi, piece.toArray(new Block[0]), true));
 
     gbi.setColor(Color.lightGray);
 

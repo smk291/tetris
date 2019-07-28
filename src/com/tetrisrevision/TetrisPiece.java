@@ -81,10 +81,15 @@ public class TetrisPiece {
     this.center = pt;
   }
 
-  Cell[] getCells() {
-    return Arrays.stream(getPoints())
-        .map(pt -> new Cell(pt, tetromino.getColor()))
-        .toArray(Cell[]::new);
+  Block[] getCells() {
+    return Arrays.stream(tetromino.getOffsets()[rotation])
+            .map(p -> {
+              Block b = new Block(center.getX() + p[0], center.getY() + p[1]);
+              b.setColor(tetromino.getColor());
+
+              return b;
+            })
+            .toArray(Block[]::new);
   }
 
   Tetromino getTetromino() {
