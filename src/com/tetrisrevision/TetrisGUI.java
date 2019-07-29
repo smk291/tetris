@@ -12,6 +12,7 @@ class TetrisGUI {
   private boolean RIGHT_TO_LEFT = false;
   private RunTetris runTetris;
   BoardGUI bc = new BoardGUI(runTetris);
+  boolean shift = false;
 
   TetrisGUI(RunTetris runTetris) {
     this.runTetris = runTetris;
@@ -28,10 +29,10 @@ class TetrisGUI {
 
     pane.add(bc, BorderLayout.CENTER);
 
-    JButton button = new JButton("START");
+//    JButton button = new JButton("START");
 
-    button.addActionListener(e -> runTetris.getRecordKeeping().setLevel(0, this));
-    pane.add(button, BorderLayout.LINE_START);
+//    button.addActionListener(e -> runTetris.getRecordKeeping().setLevel(0, this));
+//    pane.add(button, BorderLayout.LINE_START);
   }
 
   /**
@@ -69,15 +70,18 @@ class TetrisGUI {
     frame.addKeyListener(
         new KeyListener() {
           @Override
-          public void keyTyped(KeyEvent e) {
-            runTetris.keyboardInput(e.getKeyChar());
+          public void keyTyped(KeyEvent e) {}
+
+          @Override
+          public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = true;
+            else runTetris.keyboardInput(e, shift);
           }
 
           @Override
-          public void keyPressed(KeyEvent e) {}
-
-          @Override
-          public void keyReleased(KeyEvent e) {}
+          public void keyReleased(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = false;
+          }
         });
 
     timer = new Timer(1000, e -> runTetris.dropCurrentPiece());

@@ -1,6 +1,7 @@
 package com.tetrisrevision;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 class RunTetris {
@@ -89,12 +90,6 @@ class RunTetris {
     translatePiece(0, 1);
   }
 
-  void keyboardInput(char command) {
-    keyCommands(Character.toString(command));
-
-    tetrisGUI.getBoardCompositor().repaint();
-  }
-
   private void translatePiece(int x, int y) {
 
     if (Translater.translate(currentPiece, playField, x, y, false)) {
@@ -145,41 +140,53 @@ class RunTetris {
     rotationTimer.start();
   }
 
-  private void keyCommands(String command) {
-    switch (command) {
-      case "h":
-        translatePiece(-1, 0);
-        break;
-      case "l":
-        translatePiece(1, 0);
-        break;
-      case "j":
-        translatePiece(0, 1);
-        recordKeeping.softDrop();
+  void keyboardInput(KeyEvent e, boolean shift) {
+    System.out.println(e.getKeyCode());
+    System.out.println(e.getKeyChar());
+    System.out.println(e.getExtendedKeyCode());
 
-        break;
-      case "k":
-        translatePiece(0, -1);
-        break;
-      case "[":
-        rotate(-1);
-        break;
-      case "]":
-        rotate(1);
-        break;
-      case "J":
-        while (sinkingPieces.getPieces().size() > 0) dropSinkingPieces();
+    if (shift) {
+      switch (e.getKeyCode()) {
+        case KeyEvent.VK_LEFT:
+          rotate(-1);
+          break;
+        case KeyEvent.VK_RIGHT:
+          rotate(1);
+          break;
+        case KeyEvent.VK_DOWN:
+          while (sinkingPieces.getPieces().size() > 0) dropSinkingPieces();
 
-        int rowsTraversed = Translater.hardDrop(currentPiece, playField);
+          int rowsTraversed = Translater.hardDrop(currentPiece, playField);
 
-        recordKeeping.hardDrop(rowsTraversed);
-        addPieceToBoard(currentPiece);
+          recordKeeping.hardDrop(rowsTraversed);
+          addPieceToBoard(currentPiece);
+          break;
+        default:
+          InputTests.accept(Character.toString(e.getKeyChar()), currentPiece, playField);
+          break;
+      }
+    } else {
+      switch (e.getKeyCode()) {
+        case KeyEvent.VK_LEFT:
+          translatePiece(-1, 0);
+          break;
+        case KeyEvent.VK_RIGHT:
+          translatePiece(1, 0);
+          break;
+        case KeyEvent.VK_DOWN:
+          translatePiece(0, 1);
+          recordKeeping.softDrop();
 
-        break;
-      default:
-        InputTests.accept(command, currentPiece, playField);
-        break;
+          break;
+        case KeyEvent.VK_UP:
+          translatePiece(0, -1);
+          break;
+        default:
+          InputTests.accept(Character.toString(e.getKeyChar()), currentPiece, playField);
+          break;
+      }
     }
+    tetrisGUI.getBoardCompositor().repaint();
   }
 
   public TetrominoQueue getTetrominoQueue() {
