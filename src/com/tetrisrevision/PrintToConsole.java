@@ -73,8 +73,8 @@ class PrintToConsole {
           else return "  ";
         });
 
-    Block block1 = playField.getBlocksByRow()[22].get(0);
-    Block block2 = playField.getBlocksByRow()[22].get(4);
+    Block block1 = playField.get()[22].get(0);
+    Block block2 = playField.get()[22].get(4);
 
     if (block1 != null)
       System.out.println(
@@ -101,11 +101,11 @@ class PrintToConsole {
 
     for (int y = 0; y < board.length; y++) {
       String[][] row = board[y];
-      ArrayList<Block> fieldRow = playField.getBlocksByRow()[y];
+      ArrayList<Block> fieldRow = playField.get()[y];
 
       for (int x = 0; x < row.length; x++) {
         String[] space = row[x];
-        Optional<Block> cell = playField.getCell(x, y);
+        Optional<Block> cell = playField.get(x, y);
 
         if (cell.isPresent()) {
           space[0] = "x";
@@ -158,8 +158,8 @@ class PrintToConsole {
   }
 
   private <T> void printBoardCustom(PlayField playField, TriConsumer<Block> print) {
-    for (int y = 0; y < playField.getBlocksByRow().length; y++) {
-      ArrayList<Block> row = playField.getBlocksByRow()[y];
+    for (int y = 0; y < playField.get().length; y++) {
+      ArrayList<Block> row = playField.get()[y];
 
       for (int x = 0; x < row.size(); x++) {
         print.accept(x, y, row.get(x));

@@ -86,13 +86,13 @@ class SinkingPieceFinder {
   }
 
   private void findConnectedBlocks(double x, double y, PlayField playField, SinkingPieces sinkingPieces) {
-    if (playField.getCell(x, y).isPresent() && !getCellHasBeenTested(x, y)) {
+    if (playField.get(x, y).isPresent() && !getCellHasBeenTested(x, y)) {
       addConnectedBlocksToPiece(x, y, playField);
 
       if (!connectedToLastRow) {
         sinkingPieces.getPieces().add(piece);
 
-        piece.forEach(playField::removeCell);
+        piece.forEach(playField::empty);
       }
     }
   }
@@ -100,12 +100,12 @@ class SinkingPieceFinder {
   private void addConnectedBlocksToPiece(double x, double y, PlayField playField) {
     if (getCellHasBeenTested(x, y)) return;
 
-    if (playField.getCell(x, y).isPresent()) {
+    if (playField.get(x, y).isPresent()) {
       if ((int) y == PlayField.getHeight() - 1) connectedToLastRow = true;
 
       setCellHasBeenTested(x, y);
 
-      piece.add((Block) playField.getCell(x, y).get().clone());
+      piece.add((Block) playField.get(x, y).get().clone());
 
       searchAdjacent(x, y + 1, playField);
       searchAdjacent(x, y - 1, playField);

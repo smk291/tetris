@@ -14,7 +14,7 @@ abstract class InputTests {
   private static void createCell(double x, double y, PlayField playField) {
     Block block = new Block(x, y);
     block.setColor(Color.LIGHT_GRAY);
-    playField.setCell(block);
+    playField.copy(block);
   }
 
   private static int lastRow() {
@@ -35,7 +35,7 @@ abstract class InputTests {
 
         break;
       case "a": // tetris-deletion test
-        playField.createEmpty();
+        playField.empty();
         piece.setTetromino(TetrominoEnum.I.get());
 
         for (int y = PlayField.getHeight() - 4; y < PlayField.getHeight(); y++)
@@ -44,7 +44,7 @@ abstract class InputTests {
 
         break;
       case "s": // sink test
-        playField.createEmpty();
+        playField.empty();
 
         for (int x = 0, boardWidth = PlayField.getWidth(); x < boardWidth; x++) {
           if (x > 4 && x < 8) createCell(x, lastRow() - 2, playField);
@@ -54,7 +54,7 @@ abstract class InputTests {
 
         break;
       case "d": // multiple sinking pieces, test that each behaves correctly
-        playField.createEmpty();
+        playField.empty();
 
         for (int x = 0, boardWidth = PlayField.getWidth(); x < boardWidth; x++) {
           if (x != 2) createCell(x, lastRow() - 8, playField); // 15
@@ -80,7 +80,7 @@ abstract class InputTests {
 
         break;
       case "f": // test kick
-        playField.createEmpty();
+        playField.empty();
 
         for (int x = 0, boardWidth = PlayField.getWidth(); x < boardWidth; x++) {
           if (x != 0 && !(x > 2 && x < 8)) createCell(x, lastRow() - 5, playField); // 18
@@ -101,7 +101,7 @@ abstract class InputTests {
 
         break;
       case "z": // test row deletion
-        playField.createEmpty();
+        playField.empty();
 
         for (int i = 0; i < PlayField.getWidth(); i++) {
           if (i != 5) createCell(i, lastRow(), playField); // 23
@@ -109,7 +109,7 @@ abstract class InputTests {
 
         break;
       case "x": // test row delete after sink -- on bottom row to test bounds checker
-        playField.createEmpty();
+        playField.empty();
 
         for (int i = 0; i < PlayField.getWidth(); i++) {
           if (i == 4) createCell(i, lastRow() - 2, playField); // 21
@@ -125,7 +125,7 @@ abstract class InputTests {
       case "c": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
         // row and row deletion creates
         // another sinking piece
-        playField.createEmpty();
+        playField.empty();
 
         for (int x = 0; x < PlayField.getWidth(); x++) {
           if (x == 4) createCell(x, lastRow() - 8, playField); // 15
@@ -154,9 +154,9 @@ abstract class InputTests {
         break;
       case "v":
         // Test t-spin
-        playField.createEmpty();
+        playField.empty();
         piece.setTetromino(TetrominoEnum.T.get());
-        piece.setCenter(5, lastRow() - 6); // 17
+        piece.setCenter(5, lastRow() - 10); // 17
 
         for (int x = 0; x < PlayField.getWidth(); x++) {
           if (x < 4 || x > 5) {

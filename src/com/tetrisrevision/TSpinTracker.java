@@ -27,7 +27,7 @@ class TSpinTracker {
   }
 
   private static int cornerFilled(PlayField playField, int x, int y, int x2, int y2) {
-    return playField.cellIsFull(x + x2, y + y2) ? 1 : 0;
+    return playField.isFull(x + x2, y + y2) ? 1 : 0;
   }
 
   void reset() {

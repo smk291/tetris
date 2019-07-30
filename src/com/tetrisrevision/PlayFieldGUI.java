@@ -8,14 +8,13 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-public class BoardGUI extends JPanel {
+public class PlayFieldGUI extends JPanel {
   private AffineTransform at = new AffineTransform();
   private RunTetris runTetris;
 
-  BoardGUI(RunTetris runTetris) {
+  PlayFieldGUI(RunTetris runTetris) {
     this.runTetris = runTetris;
 
     validate();
@@ -70,8 +69,9 @@ public class BoardGUI extends JPanel {
 
       Rectangle2D innerRect =
           new Rectangle2D.Double(w * block.getX() + 1, w * block.getY() + 1, w, w);
-
       gbi.fill(innerRect);
+      gbi.setColor(Color.lightGray);
+      gbi.draw(innerRect);
     }
   }
 
@@ -85,7 +85,7 @@ public class BoardGUI extends JPanel {
 
     if (null != runTetris.getPlayField())
       IntStream.range(0, PlayField.getHeight())
-          .forEach(i -> drawBlocks(gbi, runTetris.getPlayField().getRow(i).toArray(new Block[0])));
+          .forEach(i -> drawBlocks(gbi, runTetris.getPlayField().get(i).toArray(new Block[0])));
 
     if (null != runTetris.getSinkingPieces().getPieces())
       runTetris
@@ -94,15 +94,13 @@ public class BoardGUI extends JPanel {
           .forEach(piece -> drawBlocks(gbi, piece.toArray(new Block[0])));
 
     gbi.setColor(Color.lightGray);
-
     Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, 400 / 18 * PlayField.getWidth() + 1, 400 / 18 * PlayField.getHeight() + 1);
-
     gbi.draw(boardOutline);
   }
 
   private void drawQueue(Graphics2D g2, TetrominoQueue queue) {
     Dimension d = getSize();
-    int w = d.width / 2 * 3;
+    int w = (d.width != 0 ? d.width : 200) / 2 * 3;
 
     BufferedImage buffImg = new BufferedImage(w / 12 * 4, w / 12 * 14, BufferedImage.TYPE_INT_ARGB);
     Graphics2D gbi = buffImg.createGraphics();
@@ -110,11 +108,8 @@ public class BoardGUI extends JPanel {
     for (int i = 0; i < 3; i++) {
       TetrominoEnum t = queue.getQueue().get(i);
       TetrisPiece tp = new TetrisPiece(t.get());
-
       tp.setCenter(1, 2 + i * 5);
-
       drawBlocks(gbi, tp.getCells());
-
       g2.drawImage(buffImg, null, 300, 140);
     }
   }
@@ -135,9 +130,7 @@ public class BoardGUI extends JPanel {
       drawText(gbi, runTetris.getRecordKeeping().getScore());
       drawText(gbi, runTetris.getRecordKeeping().getLinesCleared());
       drawText(gbi, runTetris.getRecordKeeping().getLevel());
-
       drawQueue(gbi, runTetris.getTetrominoQueue());
-
     }
   }
 }

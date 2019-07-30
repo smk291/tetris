@@ -28,7 +28,7 @@ abstract class RowDeleter {
     for (Block c : blocks) {
       int row = (int) c.getY();
 
-      if (playField.rowIsFull(row) && row > startAt) startAt = row;
+      if (playField.isFull(row) && row > startAt) startAt = row;
     }
 
     int rowIdxForFindingFloatingPieces = startAt;
@@ -40,24 +40,24 @@ abstract class RowDeleter {
       int rowShift = 0;
       int rowsDeleted;
 
-      while ((startAt - rowShift) >= 0 && !playField.rowIsEmpty(startAt - rowShift)) {
+      while ((startAt - rowShift) >= 0 && !playField.isEmpty(startAt - rowShift)) {
         rowsDeleted = 0;
 
-        while (playField.rowIsFull(startAt - rowShift)) {
+        while (playField.isFull(startAt - rowShift)) {
           rowsDeleted++;
           rowShift++;
         }
 
-        recordKeeping.scoreDeletion(rowsDeleted, piece, playField);
+        recordKeeping.computeScore(rowsDeleted, piece, playField);
         recordKeeping.incrLinesCleared(rowsDeleted, gui);
 
-        playField.copyRow(startAt - rowShift, startAt);
-//        blocks2d.emptyRow(startAt - rowShift);
+        playField.copy(startAt - rowShift, startAt);
+
         startAt--;
       }
 
       for (int i = startAt, halt = startAt - rowShift; i >= 0 && i > halt; i--) {
-        playField.emptyRow(i);
+        playField.empty(i);
       }
     }
 

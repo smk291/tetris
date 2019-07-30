@@ -64,7 +64,7 @@ class RunTetris {
   }
 
   private void addSinkingPieceToBoard(ArrayList<Block> sinkingPiece) {
-    playField.insert(sinkingPiece);
+    playField.set(sinkingPiece);
 
     int deletedRowIdx =
         RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping, tetrisGUI);
@@ -75,7 +75,9 @@ class RunTetris {
   }
 
   private void addPieceToBoard(TetrisPiece piece) {
-    playField.insert(piece);
+    if (movementTimer != null) movementTimer.stop();
+    if (rotationTimer != null) rotationTimer.stop();
+    playField.set(piece);
 
     int deletedRowIdx = RowDeleter.apply(piece, playField, recordKeeping, tetrisGUI);
 
@@ -141,10 +143,6 @@ class RunTetris {
   }
 
   void keyboardInput(KeyEvent e, boolean shift) {
-    System.out.println(e.getKeyCode());
-    System.out.println(e.getKeyChar());
-    System.out.println(e.getExtendedKeyCode());
-
     if (shift) {
       switch (e.getKeyCode()) {
         case KeyEvent.VK_LEFT:
@@ -178,9 +176,9 @@ class RunTetris {
           recordKeeping.softDrop();
 
           break;
-        case KeyEvent.VK_UP:
-          translatePiece(0, -1);
-          break;
+//        case KeyEvent.VK_UP:
+//          translatePiece(0, -1);
+//          break;
         default:
           InputTests.accept(Character.toString(e.getKeyChar()), currentPiece, playField);
           break;

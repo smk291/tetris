@@ -1,12 +1,15 @@
 package com.tetrisrevision;
 
-class GameRecordKeeping {
+import com.tetrisrevision.tetrominos.Tetromino;
+
+final class GameRecordKeeping {
   private double score;
   private double linesCleared;
   private int level;
   private String last;
   private int comboCount;
   private int linesPerLevel = 20;
+  private Tetromino holdPiece;
 
   GameRecordKeeping() {
     reset();
@@ -32,16 +35,20 @@ class GameRecordKeeping {
     return level;
   }
 
+  double getComboCount() {
+    return comboCount;
+  }
   void setLevel(int i, TetrisGUI gui) {
     level = i;
     gui.setDropTimerDelay(800);
   }
+
   void softDrop() {
     score++;
   }
 
   void hardDrop(int cells) {
-    score += 2;
+    score += 2 * cells;
   }
 
   void incrementCombo() {
@@ -52,21 +59,21 @@ class GameRecordKeeping {
     comboCount = i;
   }
 
-  private void incrementScore(double increment) {
-    score += (level == 0 ? 1 : level) * increment * (comboCount > 1 ? 50 * comboCount : 1);
+  private void incrementScore(double amount) {
+    score += (level == 0 ? 1 : level) * amount * (comboCount > 1 ? 50 * comboCount : 1);
   }
 
-  void scoreDeletion(int rows, TetrisPiece piece, PlayField playField) {
+  void computeScore(int rows, TetrisPiece piece, PlayField playField) {
     TSpinTracker tst = piece.gettSpinTracker();
 
     if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpinMini(piece, playField))
-      scoreDeletionTSpinMini(rows);
+      computeScoreTSpinMini(rows);
     else if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpin(piece, playField))
-      scoreDeletionTSpin(rows);
-    else scoreDeletion(rows);
+      computerScoreTSpin(rows);
+    else computeScore(rows);
   }
 
-  private void scoreDeletion(int rows) {
+  private void computeScore(int rows) {
     switch (rows) {
       case 1:
         single();
@@ -83,7 +90,7 @@ class GameRecordKeeping {
     }
   }
 
-  private void scoreDeletionTSpinMini(int rows) {
+  private void computeScoreTSpinMini(int rows) {
     switch (rows) {
       case 1:
         tSpinSingleMini();
@@ -94,7 +101,7 @@ class GameRecordKeeping {
     }
   }
 
-  private void scoreDeletionTSpin(int rows) {
+  private void computerScoreTSpin(int rows) {
     switch (rows) {
       case 1:
         tSpinSingle();
@@ -156,7 +163,7 @@ class GameRecordKeeping {
     tSpin(1600);
   }
 
-  public int computeLevel() {
+  private int computeLevel() {
     return (int) Math.floor(linesCleared / linesPerLevel);
   }
 
@@ -170,7 +177,7 @@ class GameRecordKeeping {
     }
   }
 
-  int getDelayByLevel(int i) {
+  private int getDelayByLevel(int i) {
     while (true) {
       switch (i) {
         case 0:

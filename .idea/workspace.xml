@@ -5,8 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/GameData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/BoardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/PlayFieldGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/GameRecordKeeping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/GameRecordKeeping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/InputTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/PlayField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/PlayField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/PrintToConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/PrintToConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RowDeleter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RowDeleter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/SinkingPieceFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/SinkingPieceFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TSpinTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TSpinTracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -77,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Transform">
+  <component name="RunManager" selected="Application.Tetris">
     <configuration name="BorderLayoutDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.layoutdemos.border.BorderLayoutDemo" />
       <module name="tetris" />
@@ -171,8 +183,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Transform" />
         <item itemvalue="Application.Tetris" />
+        <item itemvalue="Application.Transform" />
         <item itemvalue="Application.CardLayoutDemo" />
         <item itemvalue="Application.BorderLayoutDemo" />
         <item itemvalue="Application.BoxLayoutDemo2" />

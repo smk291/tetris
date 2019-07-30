@@ -1,9 +1,14 @@
 package com.tetrisrevision;
 
+import com.tetrisrevision.tetrominos.TetrominoEnum;
+
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 class TetrisGUI {
   private Timer timer;
@@ -11,7 +16,7 @@ class TetrisGUI {
   private JFrame frame = new JFrame("Tetris");
   private boolean RIGHT_TO_LEFT = false;
   private RunTetris runTetris;
-  BoardGUI bc = new BoardGUI(runTetris);
+  PlayFieldGUI bc = new PlayFieldGUI(runTetris);
   boolean shift = false;
 
   TetrisGUI(RunTetris runTetris) {
@@ -25,14 +30,10 @@ class TetrisGUI {
       return;
     }
 
-    bc = new BoardGUI(runTetris);
-
+    bc = new PlayFieldGUI(runTetris);
     pane.add(bc, BorderLayout.CENTER);
-
-//    JButton button = new JButton("START");
-
-//    button.addActionListener(e -> runTetris.getRecordKeeping().setLevel(0, this));
-//    pane.add(button, BorderLayout.LINE_START);
+    GameData gd = new GameData(runTetris);
+    pane.add(gd, BorderLayout.CENTER);
   }
 
   /**
@@ -100,7 +101,9 @@ class TetrisGUI {
         timer2.stop();
   }
 
-  BoardGUI getBoardCompositor() {
+  PlayFieldGUI getBoardCompositor() {
     return bc;
   }
 }
+
+
