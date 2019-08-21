@@ -7,8 +7,8 @@ import java.util.ArrayList;
 class RunTetris {
   private TetrisPiece currentPiece;
   private TetrominoQueue tetrominoQueue;
-  private PlayField playField;
-  private SinkingPieces sinkingPieces;
+  private RowList playField;
+  private ArrayList<RowList> sinkingPieces;
   private TetrisGUI tetrisGUI;
   private Timer movementTimer;
   private Timer rotationTimer;
@@ -17,8 +17,8 @@ class RunTetris {
   RunTetris(int width, int height) {
     tetrominoQueue = new TetrominoQueue();
     currentPiece = new TetrisPiece();
-    playField = new PlayField(width, height);
-    sinkingPieces = new SinkingPieces();
+    playField = new RowList(width, height);
+    sinkingPieces = new ArrayList<>();
     tetrominoQueue.resetCurrentPiece(currentPiece);
     recordKeeping = new GameRecordKeeping();
   }
@@ -27,11 +27,11 @@ class RunTetris {
     return currentPiece;
   }
 
-  PlayField getPlayField() {
+  RowList getPlayField() {
     return playField;
   }
 
-  SinkingPieces getSinkingPieces() {
+  ArrayList<RowList> getSinkingPieces() {
     return sinkingPieces;
   }
 
@@ -44,10 +44,8 @@ class RunTetris {
   }
 
   void dropSinkingPieces() {
-    for (int i = 0;
-        sinkingPieces.getPieces().size() > 0 && i < sinkingPieces.getPieces().size();
-        i++) {
-      ArrayList<Block> sinkingPiece = sinkingPieces.getPieces().get(i);
+    for (int i = 0; sinkingPieces.size() > 0 && i < sinkingPieces.size(); i++) {
+      RowList sinkingPiece = sinkingPieces.get(i);
 
       boolean canSink = Translater.translate(sinkingPiece, playField, 1);
 
@@ -63,29 +61,31 @@ class RunTetris {
     }
   }
 
-  private void addSinkingPieceToBoard(ArrayList<Block> sinkingPiece) {
-    playField.set(sinkingPiece);
+  private void addSinkingPieceToBoard(RowList sinkingPiece) {
+    playField.addAll(sinkingPiece);
 
-    int deletedRowIdx =
-        RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping, tetrisGUI);
+    double deletedRowIdx = RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping, tetrisGUI);
 
-    sinkingPieces.getPieces().remove(sinkingPiece);
+    sinkingPieces.remove(sinkingPiece);
 
-    if (deletedRowIdx > 0) new SinkingPieceFinder().find(deletedRowIdx, playField, sinkingPieces);
+    if (deletedRowIdx > 0)
+      new SinkingPieceFinder().find(deletedRowIdx, playField, sinkingPieces);
   }
 
   private void addPieceToBoard(TetrisPiece piece) {
     if (movementTimer != null) movementTimer.stop();
     if (rotationTimer != null) rotationTimer.stop();
-    playField.set(piece);
+    playField.addAll(piece.getBlocks());
 
-    int deletedRowIdx = RowDeleter.apply(piece, playField, recordKeeping, tetrisGUI);
+    double deletedRowIdx = RowDeleter.apply(piece.getBlocks(), piece, playField, recordKeeping, tetrisGUI);
 
-    if (deletedRowIdx > 0) new SinkingPieceFinder().find(deletedRowIdx, playField, sinkingPieces);
+    if (deletedRowIdx > 0)
+      new SinkingPieceFinder().find(deletedRowIdx, playField, sinkingPieces);
 
     tetrominoQueue.resetCurrentPiece(piece);
 
-    if (!PlacementTester.cellsCanBeOccupied(piece, playField)) tetrisGUI.endGame();
+    if (!PlacementTester.cellsCanBeOccupied(piece, playField))
+      tetrisGUI.endGame();
   }
 
   void dropCurrentPiece() {
@@ -152,7 +152,7 @@ class RunTetris {
           rotate(1);
           break;
         case KeyEvent.VK_DOWN:
-          while (sinkingPieces.getPieces().size() > 0) dropSinkingPieces();
+          while (sinkingPieces.size() > 0) dropSinkingPieces();
 
           int rowsTraversed = Translater.hardDrop(currentPiece, playField);
 
@@ -187,7 +187,7 @@ class RunTetris {
     tetrisGUI.getBoardCompositor().repaint();
   }
 
-  public TetrominoQueue getTetrominoQueue() {
+  TetrominoQueue getTetrominoQueue() {
     return tetrominoQueue;
   }
 }

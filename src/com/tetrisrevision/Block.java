@@ -1,6 +1,5 @@
 package com.tetrisrevision;
 
-import java.awt.Point;
 import java.awt.Color;
 
 /**
@@ -8,37 +7,38 @@ import java.awt.Color;
  *
  * <p>**
  */
-public final class Block extends Point {
-  /**
-   * @color is the color of the block
-   */
-  private Color color;
+public final class Block {
+  private Color c;
+  private double x;
 
-  Block(final double x, final double y) {
+  Block(double x) {
     this.x = (int) x;
-    this.y = (int) y;
   }
 
-  /**
-   * @param y - y coordinate on playfield
-   */
-  void setY(final double y) {
-    this.y = (int) y;
+  Block(double x, Color c) {
+    this.x = x;
+    this.c = c;
   }
 
-  /**
-   * @return color of block
-   */
+  double getX()
+  {
+    return x;
+  }
+
+  void setX(double x)
+  {
+    this.x = x;
+  }
 
   public Color getColor() {
-    return color;
+    return c;
   }
 
-  /**
-   * @param c color of block
-   */
-
   public void setColor(final Color c) {
-    this.color =  c;
+    this.c =  c;
+  }
+
+  public Block clone() throws CloneNotSupportedException {
+    return (Block) super.clone();
   }
 }

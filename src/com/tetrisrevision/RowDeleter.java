@@ -1,37 +1,15 @@
 package com.tetrisrevision;
 
-import java.util.ArrayList;
-
 abstract class RowDeleter {
-  static int apply(
-      ArrayList<Block> testRows,
-      TetrisPiece piece,
-      PlayField field,
-      GameRecordKeeping recordKeeping,
-      TetrisGUI gui) {
-    return apply(testRows.toArray(new Block[0]), piece, field, recordKeeping, gui);
-  }
+  static double apply(RowList blocksAddedToBoard, TetrisPiece piece, RowList board, GameRecordKeeping recordKeeping, TetrisGUI gui) {
+    double startAt = -1;
 
-  static int apply(
-          TetrisPiece piece, PlayField field, GameRecordKeeping recordKeeping, TetrisGUI gui) {
-    return apply(piece.getCells(), piece, field, recordKeeping, gui);
-  }
-
-  private static int apply(
-      Block[] blocks,
-      TetrisPiece piece,
-      PlayField playField,
-      GameRecordKeeping recordKeeping,
-      TetrisGUI gui) {
-    int startAt = -1;
-
-    for (Block c : blocks) {
-      int row = (int) c.getY();
-
-      if (playField.isFull(row) && row > startAt) startAt = row;
+    for (Row r : blocksAddedToBoard) {
+      if (board.isRowFull(r.getY()) && r.getY() > startAt)
+        startAt = r.getY();
     }
 
-    int rowIdxForFindingFloatingPieces = startAt;
+    double rowIdxForFindingFloatingPieces = startAt;
 
     if (startAt == -1) {
       recordKeeping.setComboCount(0);
@@ -40,24 +18,28 @@ abstract class RowDeleter {
       int rowShift = 0;
       int rowsDeleted;
 
-      while ((startAt - rowShift) >= 0 && !playField.isEmpty(startAt - rowShift)) {
+      while ((startAt - rowShift) >= 0 && !board.isRowEmpty(startAt - rowShift)) {
         rowsDeleted = 0;
 
-        while (playField.isFull(startAt - rowShift)) {
+        while (board.isRowFull(startAt - rowShift)) {
           rowsDeleted++;
           rowShift++;
         }
 
-        recordKeeping.computeScore(rowsDeleted, piece, playField);
+        recordKeeping.computeScore(rowsDeleted, piece, board);
         recordKeeping.incrLinesCleared(rowsDeleted, gui);
 
-        playField.copy(startAt - rowShift, startAt);
+        board.shiftRow(startAt - rowShift, startAt);
 
         startAt--;
       }
 
-      for (int i = startAt, halt = startAt - rowShift; i >= 0 && i > halt; i--) {
-        playField.empty(i);
+      for (Row r : board.subList((double) 0, startAt))
+      {
+        if (r.getY() <= startAt && r.getY() < startAt - rowShift)
+        {
+          board.remove(r);
+        }
       }
     }
 

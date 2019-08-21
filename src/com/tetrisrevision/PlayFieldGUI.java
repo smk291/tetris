@@ -4,7 +4,6 @@ import com.tetrisrevision.tetrominos.TetrominoEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -13,8 +12,8 @@ import java.util.stream.IntStream;
 public class PlayFieldGUI extends JPanel {
   private AffineTransform at = new AffineTransform();
   private RunTetris runTetris;
-  int width;
-  int blockWidth;
+  private int width;
+  private int blockWidth;
 
   PlayFieldGUI(RunTetris runTetris) {
     this.runTetris = runTetris;
@@ -48,7 +47,7 @@ public class PlayFieldGUI extends JPanel {
     g2.drawImage(buffImg, null, 0, 50);
   }
 
-  private void drawBlocks(Graphics2D gbi, Block[] blocks) {
+  private void drawBlocks(Graphics2D gbi, RowList rows) {
     Dimension d = getSize();
     if (d.getWidth() == 0)
       return;
@@ -56,42 +55,40 @@ public class PlayFieldGUI extends JPanel {
     width = (int) (d.getWidth());
     blockWidth = width / 20;
 
-    for (Block block : blocks) {
-      if (null != block.getColor())
-        gbi.setColor(block.getColor());
-      else
-        gbi.setColor(Color.black);
+    for (Row r : rows) {
+      for (Block block : r) {
+        if (null != block.getColor())
+          gbi.setColor(block.getColor());
+        else
+          gbi.setColor(Color.black);
 
-      Rectangle2D innerRect =
-          new Rectangle2D.Double(blockWidth * block.getX() + 1, blockWidth * block.getY() + 1, blockWidth, blockWidth);
-      gbi.fill(innerRect);
-      gbi.setColor(Color.lightGray);
-      gbi.draw(innerRect);
+        Rectangle2D innerRect = new Rectangle2D.Double(blockWidth * block.getX() + 1, blockWidth * r.getY() + 1, blockWidth, blockWidth);
+        gbi.fill(innerRect);
+        gbi.setColor(Color.lightGray);
+        gbi.draw(innerRect);
+      }
     }
   }
 
   private void drawBoard(Graphics2D gbi) {
     if (null == runTetris) return;
 
-    if (null != runTetris.getCurrentPiece().getCells())
-      drawBlocks(gbi, runTetris.getCurrentPiece().getCells());
+    if (null != runTetris.getCurrentPiece())
+      drawBlocks(gbi, runTetris.getCurrentPiece().getBlocks());
 
     if (null != runTetris.getPlayField())
-      IntStream.range(0, PlayField.getHeight())
-          .forEach(i -> drawBlocks(gbi, runTetris.getPlayField().get(i).toArray(new Block[0])));
+      IntStream.range(0, RowList.getHeight())
+          .forEach(i -> drawBlocks(gbi, runTetris.getPlayField()));
 
-    if (null != runTetris.getSinkingPieces().getPieces())
-      runTetris
-          .getSinkingPieces()
-          .getPieces()
-          .forEach(piece -> drawBlocks(gbi, piece.toArray(new Block[0])));
+    if (null != runTetris.getSinkingPieces())
+      runTetris.getSinkingPieces().forEach(piece -> drawBlocks(gbi, piece));
 
     Dimension size = getSize();
     width = (int) size.getWidth();
     blockWidth = width / 20;
 
     gbi.setColor(Color.lightGray);
-    Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, blockWidth * PlayField.getWidth() + 1, blockWidth * PlayField.getHeight() + 1);
+    Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, blockWidth * RowList.getWidth() + 1, blockWidth * RowList.getHeight() + 1);
     gbi.draw(boardOutline);
   }
 
@@ -106,7 +103,7 @@ public class PlayFieldGUI extends JPanel {
       TetrominoEnum t = queue.getQueue().get(i);
       TetrisPiece tp = new TetrisPiece(t.get());
       tp.setCenter(1, 2 + i * 5);
-      drawBlocks(gbi, tp.getCells());
+      drawBlocks(gbi, tp.getBlocks());
       g2.drawImage(buffImg, null, 300, 140);
     }
   }

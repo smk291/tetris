@@ -55,10 +55,21 @@ public class TetrisPiece {
     return prevRotation;
   }
 
-  private Point[] getPoints() {
-    return Arrays.stream(tetromino.getOffsets()[rotation])
-        .map(p -> new Point((int) this.center.getX() + p[0], (int) this.center.getY() + p[1]))
-        .toArray(Point[]::new);
+  RowList getBlocks() {
+    RowList rows = new RowList();
+
+    Arrays.stream(tetromino.getOffsets()[rotation])
+        .forEach(p -> {
+          double x = center.getX() + p[0];
+          double y = center.getY() + p[1];
+
+          Block b = new Block(x);
+          b.setColor(tetromino.getColor());
+
+          rows.addBlock(y, b);
+        });
+
+    return rows;
   }
 
   private int getRotationMax() {
@@ -79,17 +90,6 @@ public class TetrisPiece {
 
   void setCenter(Point pt) {
     this.center = pt;
-  }
-
-  Block[] getCells() {
-    return Arrays.stream(tetromino.getOffsets()[rotation])
-            .map(p -> {
-              Block b = new Block(center.getX() + p[0], center.getY() + p[1]);
-              b.setColor(tetromino.getColor());
-
-              return b;
-            })
-            .toArray(Block[]::new);
   }
 
   Tetromino getTetromino() {

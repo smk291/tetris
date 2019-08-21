@@ -11,23 +11,23 @@ class TSpinTracker {
     reset();
   }
 
-  private static boolean areThreeOrMoreCornersFilled(TetrisPiece piece, PlayField playField) {
+  private static boolean areThreeOrMoreCornersFilled(TetrisPiece piece, RowList rowList) {
     int cornersFilled = 0;
     Point center = piece.getCenter();
 
     int x = (int) center.getX();
     int y = (int) center.getY();
 
-    cornersFilled += cornerFilled(playField, x, y, -1, -1);
-    cornersFilled += cornerFilled(playField, x, y, -1, 1);
-    cornersFilled += cornerFilled(playField, x, y, 1, -1);
-    cornersFilled += cornerFilled(playField, x, y, 1, 1);
+    cornersFilled += cornerFilled(rowList, x, y, -1, -1);
+    cornersFilled += cornerFilled(rowList, x, y, -1, 1);
+    cornersFilled += cornerFilled(rowList, x, y, 1, -1);
+    cornersFilled += cornerFilled(rowList, x, y, 1, 1);
 
     return cornersFilled >= 3;
   }
 
-  private static int cornerFilled(PlayField playField, int x, int y, int x2, int y2) {
-    return playField.isFull(x + x2, y + y2) ? 1 : 0;
+  private static int cornerFilled(RowList rowList, int x, int y, int x2, int y2) {
+    return !rowList.isCellEmpty(x + x2, y + y2) ? 1 : 0;
   }
 
   void reset() {
@@ -48,12 +48,12 @@ class TSpinTracker {
     this.lastKick = nullableInteger;
   }
 
-  boolean isTSpin(TetrisPiece piece, PlayField playField) {
-    return areThreeOrMoreCornersFilled(piece, playField) || (null != lastKick && lastKick == 4)
-        || (!areThreeOrMoreCornersFilled(piece, playField) && lastKick != null && lastKick == 4);
+  boolean isTSpin(TetrisPiece piece, RowList rowList) {
+    return areThreeOrMoreCornersFilled(piece, rowList) || (null != lastKick && lastKick == 4)
+        || (!areThreeOrMoreCornersFilled(piece, rowList) && lastKick != null && lastKick == 4);
   }
 
-  boolean isTSpinMini(TetrisPiece piece, PlayField playField) {
-    return areThreeOrMoreCornersFilled(piece, playField) && (lastKick == null || lastKick != 4);
+  boolean isTSpinMini(TetrisPiece piece, RowList rowList) {
+    return areThreeOrMoreCornersFilled(piece, rowList) && (lastKick == null || lastKick != 4);
   }
 }

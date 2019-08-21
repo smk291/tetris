@@ -1,6 +1,7 @@
 package com.tetrisrevision;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 /****
@@ -47,12 +48,12 @@ import java.util.stream.IntStream;
  *
  ****/
 class SinkingPieceFinder {
-  private ArrayList<Block> piece = new ArrayList<>();
+  private RowList piece = new RowList();
   private boolean connectedToLastRow = false;
   private int[][] searched;
 
   SinkingPieceFinder() {
-    searched = new int[PlayField.getHeight()][PlayField.getWidth()];
+    searched = new int[RowList.getHeight()][RowList.getWidth()];
   }
 
   private boolean getCellHasBeenTested(double x, double y) {
@@ -63,58 +64,68 @@ class SinkingPieceFinder {
     searched[(int) y][(int) x] = 1;
   }
 
-  void find(int deletedRowIdx, PlayField playField, SinkingPieces sinkingPieces) {
+  void find(double deletedRowIdx, RowList rowList, ArrayList<RowList> sinkingPieces) {
     if (PlacementTester.isOutOfBounds(0, deletedRowIdx)) return;
 
-    int rowBelow = deletedRowIdx + 1;
+    double rowBelow = deletedRowIdx + 1;
 
-    searched = new int[PlayField.getHeight()][PlayField.getWidth()];
+    searched = new int[RowList.getHeight()][RowList.getWidth()];
 
-    IntStream.range(0, PlayField.getWidth())
+    IntStream.range(0, RowList.getWidth())
         .forEach(
             x -> {
-              runSearch(x, rowBelow, playField, sinkingPieces);
-              runSearch(x, deletedRowIdx, playField, sinkingPieces);
+              runSearch(x, rowBelow, rowList, sinkingPieces);
+              runSearch(x, deletedRowIdx, rowList, sinkingPieces);
             });
   }
 
-  private void runSearch(double x, double y, PlayField playField, SinkingPieces sinkingPieces) {
-    piece = new ArrayList<>();
+  private void runSearch(double x, double y, RowList rowList, ArrayList<RowList> sinkingPieces) {
+    piece = new RowList();
     connectedToLastRow = false;
 
-    if (PlacementTester.inBounds(x, y)) findConnectedBlocks(x, y, playField, sinkingPieces);
+    if (PlacementTester.inBounds(x, y))
+      findConnectedBlocks(x, y, rowList, sinkingPieces);
   }
 
-  private void findConnectedBlocks(double x, double y, PlayField playField, SinkingPieces sinkingPieces) {
-    if (playField.get(x, y).isPresent() && !getCellHasBeenTested(x, y)) {
-      addConnectedBlocksToPiece(x, y, playField);
+  private void findConnectedBlocks(double x, double y, RowList rowList, ArrayList<RowList> sinkingPieces) {
+    if (rowList.getBlock(x, y).isPresent() && !getCellHasBeenTested(x, y)) {
+      addConnectedBlocksToPiece(x, y, rowList);
 
       if (!connectedToLastRow) {
-        sinkingPieces.getPieces().add(piece);
+        sinkingPieces.add(piece);
 
-        piece.forEach(playField::empty);
+        piece.clear();
       }
     }
   }
 
-  private void addConnectedBlocksToPiece(double x, double y, PlayField playField) {
+  private void addConnectedBlocksToPiece(double x, double y, RowList rowList) {
     if (getCellHasBeenTested(x, y)) return;
 
-    if (playField.get(x, y).isPresent()) {
-      if ((int) y == PlayField.getHeight() - 1) connectedToLastRow = true;
+    Optional<Block> b = rowList.getBlock(x, y);
+
+    if (b.isPresent()) {
+      if ((int) y == RowList.getHeight() - 1) connectedToLastRow = true;
 
       setCellHasBeenTested(x, y);
 
-      piece.add((Block) playField.get(x, y).get().clone());
+      try {
+        Block clonedBlock = b.get().clone();
 
-      searchAdjacent(x, y + 1, playField);
-      searchAdjacent(x, y - 1, playField);
-      searchAdjacent(x + 1, y, playField);
-      searchAdjacent(x - 1, y, playField);
+        piece.addBlock(y, clonedBlock);
+      } catch (CloneNotSupportedException e) {
+        e.printStackTrace();
+      }
+
+      searchAdjacent(x, y + 1, rowList);
+      searchAdjacent(x, y - 1, rowList);
+      searchAdjacent(x + 1, y, rowList);
+      searchAdjacent(x - 1, y, rowList);
     }
   }
 
-  private void searchAdjacent(double x, double y, PlayField playField) {
-    if (PlacementTester.inBounds(x, y )) addConnectedBlocksToPiece(x, y, playField);
+  private void searchAdjacent(double x, double y, RowList rowList) {
+    if (PlacementTester.inBounds(x, y ))
+      addConnectedBlocksToPiece(x, y, rowList);
   }
 }

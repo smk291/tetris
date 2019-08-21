@@ -1,30 +1,47 @@
 package com.tetrisrevision;
 
-import java.util.Arrays;
-
 abstract class OverlapTester {
-  static boolean noOverlap(Block block, PlayField field) {
-    return !BoundsTester.xInBounds(block.getX()) || !BoundsTester.yInBounds(block.getY()) || field.isEmpty(block.getX(), block.getY());
+  static boolean noOverlap(double y, Block block, RowList field) {
+    return !BoundsTester.xInBounds(block.getX()) || !BoundsTester.yInBounds(y) || field.isCellEmpty(block.getX(), y);
+  }
+
+  static boolean noOverlap(Row r, Block b, RowList f) {
+    return noOverlap(r.getY(), b, f);
   }
 }
 
 abstract class BoundsTester {
   static boolean xInBounds(double x) {
-    return x >= 0 && x < PlayField.getWidth();
+    return x >= 0 && x < RowList.getWidth();
   }
 
-  static boolean yInBoundsNoMin(Block block) {
-    return block.getY() >= -2 && block.getY() < PlayField.getHeight();
+  static boolean yInBoundsNoMin(double y) {
+    return y >= -2 && y < RowList.getHeight();
+  }
+
+  static boolean yInBoundsNoMin(Row r) {
+    return yInBoundsNoMin(r.getY());
   }
 
   static boolean yInBounds(double y) {
-    return y >= 0 && y < PlayField.getHeight();
+    return y >= 0 && y < RowList.getHeight();
   }
 }
 
 abstract class PlacementTester {
-  static boolean cellsCanBeOccupied(TetrisPiece piece, PlayField field) {
-    return Arrays.stream(piece.getCells()).allMatch(pt -> cellCanBeOccupied(pt, field));
+  static boolean cellsCanBeOccupied(TetrisPiece piece, RowList field) {
+    for (Row r : piece.getBlocks())
+    {
+      for (Block b : r)
+      {
+        if (!cellCanBeOccupied(r.getY(), b, field))
+        {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   static boolean inBounds(double x, double y) {
@@ -35,13 +52,22 @@ abstract class PlacementTester {
     return !inBounds(x, y);
   }
 
-  static boolean isOutOfBounds(Block block) {
-    return !inBounds(block.getX(), block.getY());
+  static boolean isOutOfBounds(double y, Block block) {
+    return !inBounds(block.getX(), y);
   }
 
-  static boolean cellCanBeOccupied(Block block, PlayField field) {
-    return BoundsTester.xInBounds(block.getX())
-        && BoundsTester.yInBoundsNoMin(block)
-        && OverlapTester.noOverlap(block, field);
+  static boolean isOutOfBounds(Row r, Block b) {
+    return isOutOfBounds(r.getY(), b);
+  }
+
+  static boolean cellCanBeOccupied(Row r, Block b, RowList f)
+  {
+    return cellCanBeOccupied(r.getY(), b, f);
+  }
+
+  static boolean cellCanBeOccupied(double y, Block b, RowList f) {
+    return BoundsTester.xInBounds(b.getX())
+        && BoundsTester.yInBoundsNoMin(y)
+        && OverlapTester.noOverlap(y, b, f);
   }
 }

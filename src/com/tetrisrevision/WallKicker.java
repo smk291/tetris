@@ -3,7 +3,7 @@ package com.tetrisrevision;
 import java.util.HashMap;
 
 abstract class WallKicker {
-  static Integer tryKick(TetrisPiece piece, PlayField field) {
+  static Integer tryKick(TetrisPiece piece, RowList field) {
     HashMap<Integer, HashMap<Integer, Integer[][]>> kickData = piece.getKickData();
 
     if (null == kickData) return null;

@@ -114,7 +114,7 @@
         // Get orientation
         // Get orientation max value
         // Get relative coordinates of tetromino
-        // Get coordinates of piece on playField
+        // Get coordinates of piece on rowList
         // Get center
         // Get previous orientation
     // Setter

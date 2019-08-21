@@ -63,12 +63,12 @@ final class GameRecordKeeping {
     score += (level == 0 ? 1 : level) * amount * (comboCount > 1 ? 50 * comboCount : 1);
   }
 
-  void computeScore(int rows, TetrisPiece piece, PlayField playField) {
+  void computeScore(int rows, TetrisPiece piece, RowList rowList) {
     TSpinTracker tst = piece.gettSpinTracker();
 
-    if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpinMini(piece, playField))
+    if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpinMini(piece, rowList))
       computeScoreTSpinMini(rows);
-    else if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpin(piece, playField))
+    else if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpin(piece, rowList))
       computerScoreTSpin(rows);
     else computeScore(rows);
   }

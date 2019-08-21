@@ -1,15 +1,15 @@
 package com.tetrisrevision;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
-interface TriConsumer<T> {
-  void accept(Integer x, Integer y, T t);
+interface QuadConsumer<T> {
+  void accept(Double x, Double y, Double rowY, T t);
 }
 
-interface TriConsumerString<T> {
-  String accept(Integer x, Integer y, T t);
+interface QuadConsumerString<T> {
+  String accept(Double x, Double y, Double rowY,  T t);
 }
 
 class PrintToConsole {
@@ -23,41 +23,44 @@ class PrintToConsole {
   }
 
 
-  public String printCell(Block cell) {
-    return "{ " + cell.getX() + ", " + cell.getY() + " }";
+  public String printCell(double y, Block cell) {
+    return "{ " + cell.getX() + ", " + y + " }";
   }
 
-  private String pad(int i) {
+  private String pad(double i) {
     if (i > 9) {
-      return Integer.toString(i);
+      return Double.toString(i);
     }
 
     return " " + i;
   }
 
-  private String printCoords(int x, int y) {
+  private String printCoords(double x, double y) {
     return pad(x) + ", " + pad(y);
   }
 
-  private String printCoords(Block c) {
-    return pad((int) c.getX()) + ", " + pad((int) c.getY());
+  private String printCoords(double y, Block c) {
+    return pad((int) c.getX()) + ", " + pad((int) y);
   }
 
-  private void paintAndPrint(PlayField playField, SinkingPieces sinkingPieces, TetrisPiece piece) {
+  private void paintAndPrint(RowList rowList, ArrayList<RowList> sinkingPieces, TetrisPiece piece) {
     printBoardCustom(
-            playField,
-        (Integer x, Integer y, Block block) -> {
-          if ((int) block.getX() != x || (int) block.getY() != y) {
-            System.out.print("(" + printCoords(x, y) + ") -> (" + printCoords(block) + ") :: ");
+            rowList,
+        (Double x, Double y, Double rowY, Optional<Block> block) -> {
+          if (block.isEmpty())
+            return;
+
+          if (block.get().getX() != x || !rowY.equals(y)) {
+            System.out.print("(" + printCoords(x, y) + ") -> (" + printCoords(block.get().getX(), rowY) + ") :: ");
           } else {
             System.out.print("(      ) -> (      ) :: ");
           }
         });
 
-    getBoard(playField, sinkingPieces, piece);
+    getBoard(rowList, sinkingPieces, piece);
 
     printStringBoardCustom(
-        (Integer x, Integer y, String[] cell) -> {
+        (Double x, Double y, Double rowY, String[] cell) -> {
           String s = "";
 
           for (String element : cell) {
@@ -68,44 +71,40 @@ class PrintToConsole {
         });
 
     printStringBoardCustom(
-        (Integer x, Integer y, String[] cell) -> {
+        (Double x, Double y, Double rowY, String[] cell) -> {
           if (cell[2].equals("s") && cell[3].equals("!")) return cell[2] + cell[3];
           else return "  ";
         });
 
-    Block block1 = playField.get()[22].get(0);
-    Block block2 = playField.get()[22].get(4);
+//    Optional<Block> block1 = playField.getBlock(0, 22);
+//    Optional<Block> block2 = playField.getBlock(4,22);
 
-    if (block1 != null)
-      System.out.println(
-          "22, 0"
-              + printCell(block1)
-              + " "
-              + (block1.getColor() != null ? block1.getColor().toString() : "NC"));
-    if (block2 != null)
-      System.out.println(
-          "22, 4"
-              + printCell(block2)
-              + " "
-              + (block2.getColor() != null ? block2.getColor().toString() : "NC"));
+//    block1.ifPresent(block -> System.out.println(
+//            "22, 0"
+//                    + printCell(block)
+//                    + " "
+//                    + (block.getColor() != null ? block.getColor().toString() : "NC")));
+//    block2.ifPresent(block -> System.out.println(
+//            "22, 4"
+//                    + printCell(block)
+//                    + " "
+//                    + (block.getColor() != null ? block.getColor().toString() : "NC")));
   }
 
-  private void getBoard(PlayField playField, SinkingPieces sinkingPieces, TetrisPiece piece) {
+  private void getBoard(RowList rowList, ArrayList<RowList> sinkingPieces, TetrisPiece piece) {
     String[][][] board = new String[height][width][5];
 
     for (String[][] row : board) {
-      for (int x = 0; x < row.length; x++) {
-        row[x] = new String[] {" ", " ", " ", " ", " "};
-      }
+      IntStream.range(0, row.length).forEach(x -> row[x] = new String[]{" ", " ", " ", " ", " "});
     }
 
     for (int y = 0; y < board.length; y++) {
       String[][] row = board[y];
-      ArrayList<Block> fieldRow = playField.get()[y];
+      Optional<Row> fieldRow = rowList.getSingleRow(y);
 
       for (int x = 0; x < row.length; x++) {
         String[] space = row[x];
-        Optional<Block> cell = playField.get(x, y);
+        Optional<Block> cell = rowList.getBlock(x, y);
 
         if (cell.isPresent()) {
           space[0] = "x";
@@ -118,7 +117,7 @@ class PrintToConsole {
             space[2] = "s";
           }
 
-          if ((int) cell.get().getX() != x || (int) cell.get().getY() != y) {
+          if ((int) cell.get().getX() != x) {
             space[3] = "!";
           }
 
@@ -132,37 +131,55 @@ class PrintToConsole {
     this.board = board;
   }
 
-  private boolean sinkingPiecesContainCell(int x, int y, SinkingPieces sinkingPieces) {
-    for (ArrayList<Block> piece : sinkingPieces.getPieces()) {
-      for (Block block : piece) {
-        if ((int) block.getX() == x && (int) block.getY() == y) return true;
+  private boolean sinkingPiecesContainCell(double x, double y, ArrayList<RowList> sinkingPieces) {
+    for (RowList piece : sinkingPieces) {
+      for (Row r : piece) {
+        for (Block block : r) {
+          if (block.getX() == x && r.getY() == y) return true;
+        }
       }
     }
 
     return false;
   }
 
-  private boolean sinkingPiecesContainCell(Block c, SinkingPieces sinkingPieces) {
-    for (ArrayList<Block> piece : sinkingPieces.getPieces()) {
-      for (Block block : piece) {
-        if (block.getX() == c.getX() && block.getY() == c.getY()) return true;
+  private boolean sinkingPiecesContainCell(Block c, ArrayList<RowList> sinkingPieces) {
+    for (RowList piece : sinkingPieces) {
+      for (Row r : piece) {
+        for (Block block : r) {
+          if (block.getX() == c.getX()) return true;
+        }
       }
     }
 
     return false;
   }
 
-  private boolean fallingPieceContainsCell(int x, int y, TetrisPiece currentPiece2d) {
-    return Arrays.stream(currentPiece2d.getCells())
-        .anyMatch(c -> (int) c.getX() == x && (int) c.getY() == y);
+  private boolean fallingPieceContainsCell(double x, double y, TetrisPiece currentPiece2d) {
+    for (Row r : currentPiece2d.getBlocks())
+    {
+      if (r.getY() == y)
+      {
+        for (Block b : r)
+        {
+          if (b.getX() == x)
+            return true;
+        }
+      }
+    }
+
+    return false;
   }
 
-  private <T> void printBoardCustom(PlayField playField, TriConsumer<Block> print) {
-    for (int y = 0; y < playField.get().length; y++) {
-      ArrayList<Block> row = playField.get()[y];
+  private <T> void printBoardCustom(RowList rowList, QuadConsumer<Optional<Block>> print) {
+    for (int y = 0; y < rowList.size(); y++) {
+      Optional<Row> row = rowList.getSingleRow(y);
 
-      for (int x = 0; x < row.size(); x++) {
-        print.accept(x, y, row.get(x));
+      if (row.isEmpty())
+        continue;
+
+      for (Block b : row.get()) {
+        print.accept(b.getX(), row.get().getY(), row.get().getY(), row.get().get(b.getX()));
 
         System.out.print(" ");
       }
@@ -173,14 +190,14 @@ class PrintToConsole {
     System.out.println();
   }
 
-  private void printStringBoardCustom(TriConsumerString<String[]> print) {
-    for (int y = 0; y < board.length; y++) {
-      String[][] row = board[y];
+  private void printStringBoardCustom(QuadConsumerString<String[]> print) {
+    for (double y = 0; y < board.length; y++) {
+      String[][] row = board[(int) y];
 
-      for (int x = 0; x < row.length; x++) {
-        String[] cell = row[x];
+      for (double x = 0; x < row.length; x++) {
+        String[] cell = row[(int) x];
 
-        System.out.print("[ " + print.accept(x, y, cell) + " ]");
+        System.out.print("[ " + print.accept(x, y, y, cell) + " ]");
       }
 
       System.out.println();

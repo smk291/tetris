@@ -1,19 +1,30 @@
 package com.tetrisrevision;
 
-import java.util.ArrayList;
-
 abstract class Translater {
-  static boolean translate(ArrayList<Block> blocks, PlayField field, int y) {
-    blocks.forEach(p -> p.translate(0, y));
+  static boolean translate(RowList blocks, RowList field, double y) {
+    blocks.forEach(r -> r.setY(r.getY() + y));
 
-    if (blocks.stream().allMatch(p -> PlacementTester.cellCanBeOccupied(p, field))) return true;
+    boolean validPosition = false;
 
-    blocks.forEach(cell -> cell.translate(0, -y));
+    for (Row r : blocks)
+    {
+      if (r.allMatch(p -> PlacementTester.cellCanBeOccupied(r.getY(), p, field)))
+      {
+        validPosition = true;
+      }
+      else {
+        validPosition = false;
+        break;
+      }
+    }
+
+    if (!validPosition)
+      blocks.forEach(r -> r.setY(r.getY() - y));
 
     return false;
   }
 
-  static boolean translate(TetrisPiece piece, PlayField field, int x, int y, boolean test) {
+  static boolean translate(TetrisPiece piece, RowList field, int x, int y, boolean test) {
     piece.getCenter().translate(x, y);
 
     if (PlacementTester.cellsCanBeOccupied(piece, field)) {
@@ -28,7 +39,7 @@ abstract class Translater {
     return false;
   }
 
-  static int hardDrop(TetrisPiece piece, PlayField field) {
+  static int hardDrop(TetrisPiece piece, RowList field) {
     int cells = 0;
 
     while (true) {
