@@ -30,8 +30,8 @@ abstract class Rotator {
   }
 
   private static boolean tryKick(TetrisPiece piece, RowList rowList) {
-    boolean canTranslateLeft = Translater.translate(piece, rowList, -1, 0, true);
-    boolean canTranslateRight = Translater.translate(piece, rowList, 1, 0, true);
+    boolean canTranslateLeft = Translater.translate(piece, rowList, TetrisConstants.left(), 0, true);
+    boolean canTranslateRight = Translater.translate(piece, rowList, TetrisConstants.right(), 0, true);
 
     if (canTranslateLeft && canTranslateRight) return false;
 
@@ -47,9 +47,9 @@ abstract class Rotator {
   }
 
   private static boolean tryLift(TetrisPiece piece, RowList rowList) {
-    boolean canDrop = Translater.translate(piece, rowList, 0, 1, true);
+    boolean canDrop = Translater.translate(piece, rowList, 0, TetrisConstants.down(), true);
 
-    if (!canDrop && Translater.translate(piece, rowList, 0, -1, false)) {
+    if (!canDrop && Translater.translate(piece, rowList, 0, TetrisConstants.up(), false)) {
       if (piece.getTetromino().isTPiece()) setTSpinData(piece, null, false);
 
       return true;

@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
            row index
   ↓↓↓
  |■↓↓       | 14     |↓   ↓     | 14     |          | 14     |          | 15     |          | 15     |          | 15
- |□□□ ■     | 15     |■↓↓↓■↓↓↓↓↓| 15     |↓   ↓       | 15     |          | 15     |          | 15     |          | 15
+ |□□□ ■     | 15     |■↓↓↓■↓↓↓↓↓| 15     |↓   ↓     | 15     |          | 15     |          | 15     |          | 15
  |   □□□□□□□| 16     |□□□□□□□□□□| 16     |■   ■     | 16     |↓↓↓↓↓↓↓↓↓↓| 16     |          | 16     |          | 16
  | □□□ □□□□□| 17     | □□□ □□□□□| 17     | □□□ □□□□□| 17     |■□□□■□□□□□| 17     |        ↓↓| 17     |          | 17
  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □   | 18
@@ -56,18 +56,19 @@ class SinkingPieceFinder {
     searched = new int[RowList.getHeight()][RowList.getWidth()];
   }
 
-  private boolean getCellHasBeenTested(double x, double y) {
+  private boolean skipCell(double x, double y) {
     return searched[(int) y][(int) x] == 1;
   }
 
-  private void setCellHasBeenTested(double x, double y) {
+  private void setSkip(double x, double y) {
     searched[(int) y][(int) x] = 1;
   }
 
   void find(double deletedRowIdx, RowList rowList, ArrayList<RowList> sinkingPieces) {
-    if (PlacementTester.isOutOfBounds(0, deletedRowIdx)) return;
+    if (PlacementTester.isOutOfBounds(0, deletedRowIdx))
+      return;
 
-    double rowBelow = deletedRowIdx + 1;
+    double rowBelow = deletedRowIdx + TetrisConstants.down();
 
     searched = new int[RowList.getHeight()][RowList.getWidth()];
 
@@ -88,39 +89,37 @@ class SinkingPieceFinder {
   }
 
   private void findConnectedBlocks(double x, double y, RowList rowList, ArrayList<RowList> sinkingPieces) {
-    if (rowList.getBlock(x, y).isPresent() && !getCellHasBeenTested(x, y)) {
+    if (rowList.getBlock(x, y).isPresent() && !skipCell(x, y)) {
       addConnectedBlocksToPiece(x, y, rowList);
 
       if (!connectedToLastRow) {
         sinkingPieces.add(piece);
-
-        piece.clear();
       }
     }
   }
 
   private void addConnectedBlocksToPiece(double x, double y, RowList rowList) {
-    if (getCellHasBeenTested(x, y)) return;
+    if (skipCell(x, y))
+      return;
 
     Optional<Block> b = rowList.getBlock(x, y);
 
     if (b.isPresent()) {
-      if ((int) y == RowList.getHeight() - 1) connectedToLastRow = true;
+      if ((int) y == TetrisConstants.bottomRow())
+        connectedToLastRow = true;
 
-      setCellHasBeenTested(x, y);
+      setSkip(x, y);
 
       try {
-        Block clonedBlock = b.get().clone();
-
-        piece.addBlock(y, clonedBlock);
+        piece.addBlock(y, b.get().clone());
       } catch (CloneNotSupportedException e) {
         e.printStackTrace();
       }
 
-      searchAdjacent(x, y + 1, rowList);
-      searchAdjacent(x, y - 1, rowList);
-      searchAdjacent(x + 1, y, rowList);
-      searchAdjacent(x - 1, y, rowList);
+      searchAdjacent(x, y + TetrisConstants.up(), rowList);
+      searchAdjacent(x, y + TetrisConstants.down(), rowList);
+      searchAdjacent(x + TetrisConstants.right(), y, rowList);
+      searchAdjacent(x + TetrisConstants.left(), y, rowList);
     }
   }
 

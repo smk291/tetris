@@ -30,9 +30,13 @@ import java.util.stream.Stream;
  */
 
 public class RowList implements Iterable<Row>, List<Row> {
-  private static int width;
+  // Height of playfield -- stack of Rows
   private static int height;
-  private ArrayList<Row> rows = new ArrayList<>();
+  // Width of playfield -- Blocks contained in Rows
+  private static int width;
+  // There are no restrictions on the size of `rows`.
+  // It can contain more Rows and more Blocks than should be allowed.
+  private final ArrayList<Row> rows = new ArrayList<>();
 
   class PlayFieldListIterator implements ListIterator<Row> {
     int count = 0;
@@ -46,7 +50,7 @@ public class RowList implements Iterable<Row>, List<Row> {
 
     @Override
     public boolean hasNext() {
-      return rows.size() > 0 && count < rows.size() - 1;
+      return !rows.isEmpty() && count < rows.size() - 1;
     }
 
     @Override
@@ -56,7 +60,7 @@ public class RowList implements Iterable<Row>, List<Row> {
 
     @Override
     public boolean hasPrevious() {
-      return count > 0 && rows.size() > 0;
+      return count > 0 && !rows.isEmpty();
     }
 
     @Override
@@ -107,28 +111,42 @@ public class RowList implements Iterable<Row>, List<Row> {
     clear();
   }
 
-  /*
-   * Combine Rows: for all Rows in `p,` if this has Row with same `y` value, combine the rows, else add p Row to this
-   */
+  /* Combine RowLists: for all Rows in RowList `p,`
+     if `this` has Row with same `y` value,
+     combine the Rows, else add `p` Row to corresponding
+     Row in `this` */
   void addAll(RowList p)
   {
     p.forEach(this::add);
   }
 
-  /*
-   * If containing Row exists, add block to it; else create Row, add Block to it, and then add Row to this
-   */
-
+  /* If containing Row exists, add block to it; else
+     create Row, add Block to it, and then add Row to
+     this */
   void addBlock(double y, Block block) {
     if (PlacementTester.isOutOfBounds(y, block)) return;
 
-    getSingleRow(y).ifPresentOrElse(
+    get(y).ifPresentOrElse(
             r -> r.add(block),
             () -> {
               Row r = new Row(y);
               r.add(block);
               rows.add(r);
             });
+  }
+
+  /* Return Optional<Row> whose `y` value equals to the parameter */
+  public Optional<Row> get(double y) {
+    for (Row row : this) {
+      if (row.getY() == y)
+        return Optional.of(row);
+    }
+
+    return Optional.empty();
+  }
+
+  public Optional<Row> get(Row r) {
+    return get(r.getY());
   }
 
   static int getWidth() {
@@ -139,66 +157,11 @@ public class RowList implements Iterable<Row>, List<Row> {
     return height;
   }
 
-  boolean isCellEmpty(double x, double y) {
-    return (PlacementTester.inBounds(x, y)) && getBlock(x, y).isEmpty();
-  }
-
-  boolean isRowEmpty(double y) {
-    return BoundsTester.yInBounds(y) && getSingleRow(y).isEmpty();
-    // If a Row's size is 0, it shouldn't exist. Fix this.
-  }
-
-  boolean isRowFull(double y) {
-    return BoundsTester.yInBounds(y) && getSingleRow(y).isPresent() && 10 == getSingleRow(y).get().size();
-  }
-
-//  private boolean removeBlock(Row row, double x) {
-//    AtomicBoolean removalSuccess = new AtomicBoolean(false);
-//
-//    row.get(x).ifPresent(r -> removalSuccess.set(remove(r)));
-//
-//    return removalSuccess.get();
-//  }
-//
-//  private boolean removeBlock(double y, double x) {
-//    AtomicBoolean returnVal = new AtomicBoolean(false);
-//
-//    getSingleRow(y).ifPresent(r -> returnVal.set(removeBlock(r, x)));
-//
-//    return returnVal.get();
-//  }
-//
-//  boolean removeBlock(Row r, Block b) {
-//    return removeBlock(r, b.getX());
-//  }
-//
-//  boolean removeBlock(double y, Block b) {
-//    return removeBlock(y, b.getX());
-//  }
-
-  Optional<Row> getSingleRow(double y) {
-    for (Row row : this) {
-      if (row.getY() != y) continue;
-
-      return Optional.of(row);
-    }
-
-    return Optional.empty();
-  }
-
-  private Optional<Row> getSingleRow(Row r) {
-    return getSingleRow(r.getY());
-  }
-
-  /*
-   * Get Optional<Block> from `rows`
-   */
-
-  Optional<Block> getBlock(double x, double y)
-  {
+  /* Get Optional<Block> from `rows`*/
+  Optional<Block> getBlock(double x, double y) {
     AtomicReference<Optional<Block>> b = new AtomicReference<>();
 
-    getSingleRow(y).ifPresentOrElse (
+    get(y).ifPresentOrElse (
             r -> b.set(r.get(x)),
             () -> b.set(Optional.empty())
     );
@@ -206,103 +169,99 @@ public class RowList implements Iterable<Row>, List<Row> {
     return b.get();
   }
 
-  /*
-   * Get first index of Row whose `y` equals the parameter
-   */
+  /* An empty cell is a valid space on the playfield that doesn't contain a block */
+  boolean isEmptyCell(double x, double y) {
+    return (PlacementTester.inBounds(x, y))
+            && getBlock(x, y).isEmpty();
+  }
 
-//  public int indexOf(double y) {
-//    for (int i = 0, s = rows.size(); i < s; i++)
-//    {
-//      if (rows.get(i).getY() == y)
-//      {
-//        return i;
-//      }
-//    }
-//
-//    return -1;
-//  }
+  /* If a Row with a given `y` value is empty, it shouldn't be present in `rows`. */
+  boolean isEmptyRow(double y) {
+    return BoundsTester.yInBounds(y)
+            && get(y).isEmpty();
+  }
 
-  /*
-   * Get last index of Row whose `y` equals the parameter
-   */
+  /* If a Row's size() equals `RowList.width`, it's full */
+  boolean isFullRow(double y) {
+    return BoundsTester.yInBounds(y)
+            && get(y).isPresent() && RowList.width == get(y).get().size();
+  }
 
-//  public int lastIndexOf(double y) {
-//    for (int s = rows.size(), i = s - 1; i >= 0; i--)
-//    {
-//      if (rows.get(i).getY() == y)
-//      {
-//        return i;
-//      }
-//    }
-//
-//    return -1;
-//  }
+  /* Change `y` of a Row whose `y` matches a value */
+  void shiftRow(double rowFrom, double rowTo) {
+    get(rowFrom).ifPresent(r -> r.setY(rowTo));
+  }
 
-  /*
-   * Test whether `rows` contains a Row whose `y` equals the parameter
-   */
+  /* Get an ArrayList<Row> whose Rows have a `y` value within the given. */
+  List<Row> subList(double yMin, double yMax) {
+    return rows.stream()
+            .filter(r -> r.getY() >= yMin && r.getY() < yMax)
+            .collect(Collectors.toList());
+  }
 
-//  boolean contains(double y)
-//  {
-//    return rows.stream().anyMatch(r -> r.getY() == y);
-//  }
+  /* Sort rows */
+  void sort() {
+    rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
+  }
 
-  /*
-   * Return null or row whose `y` value equals to the parameter
-   */
-  public @Nullable Row get(double y) {
-    for (Row row : rows) {
-      if (row.getY() == y)
-        return row;
+  /* Get first index of Row whose `y` equals the parameter */
+  int indexOf(double y) {
+    for (int i = 0, s = rows.size(); i < s; i++)
+    {
+      if (rows.get(i).getY() == y)
+      {
+        return i;
+      }
     }
 
-    return null;
+    return -1;
   }
 
-  /*
-   * Remove from `rows` a Row whose `y` value equals the parameter
-   */
-//  public boolean remove(double y) {
-//    AtomicReference<Boolean> returnVal = new AtomicReference<>(false);
-//
-//    getSingleRow(y).ifPresent(r -> returnVal.set(rows.remove(r)));
-//
-//    return returnVal.get();
-//  }
+  /* Returns first, lowest index of a full Row in `this`.
+     `p` represents Blocks that were just added to `this`.
+     Thus `p`'s `y` values should be the only possibly full rows,
+     because its `y` values are the only places in `this` where
+     the program has added blocks
+  */
+  int lowestFullRow(RowList p) {
+    // Sort so that `this` is ordered by `y`, ascending
+    sort();
 
-  /*
-   * Change `y` of Row
-   */
+    int idx = -1;
 
-  void shiftRow(double from, double to) {
-    getSingleRow(from).ifPresent(r -> r.setY(to));
+    // Loop through rows in `p` rather than `this` because
+    // `p`'s `y`s should be the only rows that can be full
+    for (int i = 0; i < p.size(); i++) {
+      Row r = p.get(i);
+
+      if (r == null || r.isEmpty())
+        continue;
+
+      Optional<Row> r2 = get(r);
+
+      if (r2.isPresent() && r2.get().size() == 10) {
+        idx = i;
+
+        // break because first encountered full row will have the lowest `y` value
+        break;
+      }
+    }
+
+    return idx;
   }
 
-  /*
-   * Get an ArrayList<Row> whose Rows have a `y` value within the given.
-   */
 
-  public List<Row> subList(double yMin, double yMax) {
-    return rows.stream().filter(r -> r.getY() >= yMin && r.getY() < yMax).collect(Collectors.toList());
-  }
+  /* Start implementing List<Row>: */
 
-  /*****
-   *
-   *
-   * Start implementing List<Row>:
-   *
-   *
-   *****/
 
-  /*
-   * @row - If `rows` contains no other Row with an equivalent `y`, the parameter Row is added to `rows`.
-   *        If `rows` does contain a Row with an equivalent `y`, the parameter Row's Blocks are added to that row
-   */
+
+  /* If `rows` contains no other Row with an equivalent `y`, the parameter Row is added to `rows`.
+     If `rows` does contain a Row with an equivalent `y`, the parameter Row's Blocks are added to that row */
   @Override
   public boolean add(Row row) {
     AtomicBoolean addReturn = new AtomicBoolean(false);
 
-    getSingleRow(row).ifPresentOrElse(
+    get(row).ifPresentOrElse(
             r -> addReturn.set(r.addAll(row)),
             () -> addReturn.set(rows.add(row)));
 
@@ -315,7 +274,7 @@ public class RowList implements Iterable<Row>, List<Row> {
   }
 
   @Override
-  public boolean addAll(@NotNull Collection<? extends Row> collection) {           // Should I modify addAll so that it uses add(Row)?
+  public boolean addAll(@NotNull Collection<? extends Row> collection) {
     return rows.addAll(collection);
   }
 
@@ -339,9 +298,8 @@ public class RowList implements Iterable<Row>, List<Row> {
     return rows.containsAll(collection);
   }
 
-  @Nullable
   @Override
-  public Row get(int i) {
+  public @Nullable Row get(int i) {
     return rows.get(i);
   }
 
@@ -360,6 +318,25 @@ public class RowList implements Iterable<Row>, List<Row> {
     return rows.lastIndexOf(o);
   }
 
+  /* listIterator() -- returns custom ListIterator<Row> */
+  @NotNull
+  @Override
+  public ListIterator<Row> listIterator() {
+    return new PlayFieldListIterator();
+  }
+
+  @NotNull
+  @Override
+  public PlayFieldListIterator listIterator(int i) {
+    return new PlayFieldListIterator(i);
+  }
+
+  @Override
+  public Stream<Row> parallelStream() {
+    return rows.parallelStream();
+  }
+
+  @NotNull
   @Override
   public Row remove(int i) {
     return rows.remove(i);
@@ -385,6 +362,11 @@ public class RowList implements Iterable<Row>, List<Row> {
     rows.replaceAll(operator);
   }
 
+  @Override
+  public boolean retainAll(@NotNull Collection<?> collection) {
+    return rows.retainAll(collection);
+  }
+
   @NotNull
   @Override
   public Row set(int i, Row row) {
@@ -401,68 +383,22 @@ public class RowList implements Iterable<Row>, List<Row> {
     rows.sort(c);
   }
 
+  @Override
+  public Stream<Row> stream() {
+    return rows.stream();
+  }
+
+  /* Note: don't forget that sublist has an overload: sublist(double, double) */
   @NotNull
   @Override
   public List<Row> subList(int i, int j) {
     return rows.subList(i, j);
   }
 
-  /******
-   *
-   *
-   * Implement Iterable
-   * Methods whose behavior differs from default/assumed:
-   *  listIterator() -- returns custom ListIterator<Row>
-   *
-   *
-   *
-   *****/
-
   @NotNull
   @Override
-  public Iterator<Row> iterator() {
-    return rows.iterator();
-  }
-
-  public void forEach(Consumer<? super Row> action) {
-    rows.forEach(action);
-  }
-
-  @Override
-  public Spliterator<Row> spliterator() {
-    return rows.spliterator();
-  }
-
-  @NotNull
   public Object[] toArray() {
     return rows.toArray(new Object[0]);
-  }
-
-  @NotNull
-  @Override
-  public ListIterator<Row> listIterator() {
-    return new PlayFieldListIterator();
-  }
-
-  @NotNull
-  @Override
-  public PlayFieldListIterator listIterator(int i) {
-    return new PlayFieldListIterator(i);
-  }
-
-  @Override
-  public Stream<Row> stream() {
-    return rows.stream();
-  }
-
-  @Override
-  public Stream<Row> parallelStream() {
-    return rows.parallelStream();
-  }
-
-  @Override
-  public boolean retainAll(@NotNull Collection<?> collection) {
-    return rows.retainAll(collection);
   }
 
   @NotNull
@@ -475,4 +411,82 @@ public class RowList implements Iterable<Row>, List<Row> {
   public Row[] toArray(IntFunction generator) {
     return new Row[0];
   }
+
+  /* Implement Iterable */
+  @NotNull
+  @Override
+  public Iterator<Row> iterator() {
+    return rows.iterator();
+  }
+
+  @Override
+  public void forEach(Consumer<? super Row> action) {
+    rows.forEach(action);
+  }
+
+  @Override
+  public Spliterator<Row> spliterator() {
+    return rows.spliterator();
+  }
+
+//  /*
+//   * Remove from `rows` a Row whose `y` value equals the parameter
+//   */
+//
+//  public boolean remove(double y) {
+//    AtomicReference<Boolean> returnVal = new AtomicReference<>(false);
+//
+//    getSingleRow(y).ifPresent(r -> returnVal.set(rows.remove(r)));
+//
+//    return returnVal.get();
+//  }
+//
+//  /*
+//   * Get last index of Row whose `y` equals the parameter
+//   */
+//
+//  public int lastIndexOf(double y) {
+//    for (int s = rows.size(), i = s - 1; i >= 0; i--)
+//    {
+//      if (rows.get(i).getY() == y)
+//      {
+//        return i;
+//      }
+//    }
+//
+//    return -1;
+//  }
+//
+//  /*
+//   * Test whether `rows` contains a Row whose `y` equals the parameter
+//   */
+//
+//  boolean contains(double y)
+//  {
+//    return rows.stream().anyMatch(r -> r.getY() == y);
+//  }
+//
+//  private boolean removeBlock(Row row, double x) {
+//    AtomicBoolean removalSuccess = new AtomicBoolean(false);
+//
+//    row.get(x).ifPresent(r -> removalSuccess.set(remove(r)));
+//
+//    return removalSuccess.get();
+//  }
+//
+//  private boolean removeBlock(double y, double x) {
+//    AtomicBoolean returnVal = new AtomicBoolean(false);
+//
+//    getSingleRow(y).ifPresent(r -> returnVal.set(removeBlock(r, x)));
+//
+//    return returnVal.get();
+//  }
+//
+//  boolean removeBlock(Row r, Block b) {
+//    return removeBlock(r, b.getX());
+//  }
+//
+//  boolean removeBlock(double y, Block b) {
+//    return removeBlock(y, b.getX());
+//  }
 }

@@ -26,7 +26,7 @@ public class TetrisPiece {
   }
 
   private void reset() {
-    this.center = new Point(4, 0);
+    this.center = new Point(4, TetrisConstants.topRow());
     this.rotation = 0;
     this.prevRotation = 0;
     this.tSpinTracker = new TSpinTracker();
@@ -63,8 +63,7 @@ public class TetrisPiece {
           double x = center.getX() + p[0];
           double y = center.getY() + p[1];
 
-          Block b = new Block(x);
-          b.setColor(tetromino.getColor());
+          Block b = new Block(x, tetromino.getColor());
 
           rows.addBlock(y, b);
         });

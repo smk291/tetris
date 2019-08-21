@@ -4,16 +4,13 @@ abstract class Translater {
   static boolean translate(RowList blocks, RowList field, double y) {
     blocks.forEach(r -> r.setY(r.getY() + y));
 
-    boolean validPosition = false;
+    boolean validPosition = true;
 
     for (Row r : blocks)
     {
-      if (r.allMatch(p -> PlacementTester.cellCanBeOccupied(r.getY(), p, field)))
-      {
-        validPosition = true;
-      }
-      else {
+      if (!r.allMatch(b -> PlacementTester.cellCanBeOccupied(r.getY(), b, field))) {
         validPosition = false;
+
         break;
       }
     }
@@ -21,15 +18,18 @@ abstract class Translater {
     if (!validPosition)
       blocks.forEach(r -> r.setY(r.getY() - y));
 
-    return false;
+    return validPosition;
   }
 
   static boolean translate(TetrisPiece piece, RowList field, int x, int y, boolean test) {
     piece.getCenter().translate(x, y);
 
     if (PlacementTester.cellsCanBeOccupied(piece, field)) {
-      if (test) piece.getCenter().translate(-x, -y);
-      if (piece.getTetromino().isTPiece()) piece.gettSpinTracker().reset();
+      if (test)
+        piece.getCenter().translate(-x, -y);
+
+      if (piece.getTetromino().isTPiece())
+        piece.gettSpinTracker().reset();
 
       return true;
     }

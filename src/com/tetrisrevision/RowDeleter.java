@@ -1,48 +1,42 @@
 package com.tetrisrevision;
 
 abstract class RowDeleter {
-  static double apply(RowList blocksAddedToBoard, TetrisPiece piece, RowList board, GameRecordKeeping recordKeeping, TetrisGUI gui) {
-    double startAt = -1;
+  static double apply(RowList blocksAdded, TetrisPiece piece, RowList board, GameRecordKeeping recordKeeping, TetrisGUI gui) {
+    int idx = board.lowestFullRow(blocksAdded);
 
-    for (Row r : blocksAddedToBoard) {
-      if (board.isRowFull(r.getY()) && r.getY() > startAt)
-        startAt = r.getY();
-    }
-
-    double rowIdxForFindingFloatingPieces = startAt;
-
-    if (startAt == -1) {
+    // No lines will be deleted
+    if (idx == -1) {
+      // Reset combo count
       recordKeeping.setComboCount(0);
+    // Lines will be deleted
     } else {
+      // Thus increment combo count
       recordKeeping.incrementCombo();
-      int rowShift = 0;
-      int rowsDeleted;
 
-      while ((startAt - rowShift) >= 0 && !board.isRowEmpty(startAt - rowShift)) {
+      int rowShift = 0; // `rowShift` is how far rows above a deleted row will shift downward. Each time row is deleted, rowShift increments
+      int rowsDeleted; // `rowsDeleted` counts number of continguous rows deleted and can be smaller than `rowShift`
+
+      for (int i = idx; i < board.size(); i++) {
         rowsDeleted = 0;
 
-        while (board.isRowFull(startAt - rowShift)) {
+        while (board.isFullRow(i)) {
+          board.remove(i);
           rowsDeleted++;
-          rowShift++;
         }
+
+        rowShift += rowsDeleted;
 
         recordKeeping.computeScore(rowsDeleted, piece, board);
         recordKeeping.incrLinesCleared(rowsDeleted, gui);
 
-        board.shiftRow(startAt - rowShift, startAt);
+        Row r = board.get(i);
 
-        startAt--;
-      }
-
-      for (Row r : board.subList((double) 0, startAt))
-      {
-        if (r.getY() <= startAt && r.getY() < startAt - rowShift)
-        {
-          board.remove(r);
+        if (r != null) {
+          r.setY(r.getY() - rowShift);
         }
       }
     }
 
-    return rowIdxForFindingFloatingPieces;
+    return idx;
   }
 }

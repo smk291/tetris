@@ -1,5 +1,6 @@
 package com.tetrisrevision.tetrominos;
 
+import com.tetrisrevision.TetrisConstants;
 import java.awt.*;
 import java.util.HashMap;
 
@@ -15,32 +16,32 @@ public class Tetromino {
               0,
               new HashMap<Integer, Integer[][]>() {
                 {
-                  put(1, new Integer[][] {{0, 0}, {-1, 0}, {-1, 1}, {0, -2}, {-1, -2}});
-                  put(3, new Integer[][] {{0, 0}, {1, 0}, {1, 1}, {0, -2}, {1, -2}});
+                  put(1, new Integer[][] {{0, 0}, {TetrisConstants.left(), 0}, {TetrisConstants.left(), TetrisConstants.down()}, {0, TetrisConstants.up() * 2}, {TetrisConstants.left(), TetrisConstants.up() * 2}});
+                  put(3, new Integer[][] {{0, 0}, {TetrisConstants.right(), 0}, {TetrisConstants.right(), TetrisConstants.down()}, {0, TetrisConstants.up() * 2}, {TetrisConstants.right(), TetrisConstants.up() * 2}});
                 }
               });
           put(
               1,
               new HashMap<Integer, Integer[][]>() {
                 {
-                  put(0, new Integer[][] {{0, 0}, {1, 0}, {1, -1}, {0, 2}, {1, 2}});
-                  put(2, new Integer[][] {{0, 0}, {1, 0}, {1, -1}, {0, 2}, {1, 2}});
+                  put(0, new Integer[][] {{0, 0}, {TetrisConstants.right(), 0}, {TetrisConstants.right(), TetrisConstants.up()}, {0, TetrisConstants.down() * 2}, {TetrisConstants.right(), TetrisConstants.down() * 2}});
+                  put(2, new Integer[][] {{0, 0}, {TetrisConstants.right(), 0}, {TetrisConstants.right(), TetrisConstants.up()}, {0, TetrisConstants.down() * 2}, {TetrisConstants.right(), TetrisConstants.down() * 2}});
                 }
               });
           put(
               2,
               new HashMap<Integer, Integer[][]>() {
                 {
-                  put(1, new Integer[][] {{0, 0}, {-1, 0}, {-1, 1}, {0, -2}, {-1, -2}});
-                  put(3, new Integer[][] {{0, 0}, {1, 0}, {1, 1}, {0, -2}, {1, -2}});
+                  put(1, new Integer[][] {{0, 0}, {TetrisConstants.left(), 0}, {TetrisConstants.left(), TetrisConstants.down()}, {0, TetrisConstants.up() * 2}, {TetrisConstants.left(), TetrisConstants.up() * 2}});
+                  put(3, new Integer[][] {{0, 0}, {TetrisConstants.right(), 0}, {TetrisConstants.right(), TetrisConstants.down()}, {0, TetrisConstants.up() * 2}, {TetrisConstants.right(), TetrisConstants.up() * 2}});
                 }
               });
           put(
               3,
               new HashMap<Integer, Integer[][]>() {
                 {
-                  put(0, new Integer[][] {{0, 0}, {-1, 0}, {-1, -1}, {0, 2}, {-1, 2}});
-                  put(2, new Integer[][] {{0, 0}, {-1, 0}, {-1, -1}, {0, 2}, {-1, 2}});
+                  put(0, new Integer[][] {{0, 0}, {TetrisConstants.left(), 0}, {TetrisConstants.left(), TetrisConstants.up()}, {0, TetrisConstants.down() * 2}, {TetrisConstants.left(), TetrisConstants.down() * 2}});
+                  put(2, new Integer[][] {{0, 0}, {TetrisConstants.left(), 0}, {TetrisConstants.left(), TetrisConstants.up()}, {0, TetrisConstants.down() * 2}, {TetrisConstants.left(), TetrisConstants.down() * 2}});
                 }
               });
         }

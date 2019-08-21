@@ -38,6 +38,7 @@ final class GameRecordKeeping {
   double getComboCount() {
     return comboCount;
   }
+
   void setLevel(int i, TetrisGUI gui) {
     level = i;
     gui.setDropTimerDelay(800);

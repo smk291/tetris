@@ -12,8 +12,7 @@ import java.util.stream.IntStream;
  */
 abstract class InputTests {
   private static void createCell(double x, double y, RowList rowList) {
-    Block block = new Block(x);
-    block.setColor(Color.LIGHT_GRAY);
+    Block block = new Block(x, Color.LIGHT_GRAY);
     rowList.addBlock(y, block);
   }
 

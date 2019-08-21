@@ -27,7 +27,7 @@ class TSpinTracker {
   }
 
   private static int cornerFilled(RowList rowList, int x, int y, int x2, int y2) {
-    return !rowList.isCellEmpty(x + x2, y + y2) ? 1 : 0;
+    return !rowList.isEmptyCell(x + x2, y + y2) ? 1 : 0;
   }
 
   void reset() {

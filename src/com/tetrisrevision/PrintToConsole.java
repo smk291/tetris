@@ -100,7 +100,6 @@ class PrintToConsole {
 
     for (int y = 0; y < board.length; y++) {
       String[][] row = board[y];
-      Optional<Row> fieldRow = rowList.getSingleRow(y);
 
       for (int x = 0; x < row.length; x++) {
         String[] space = row[x];
@@ -172,14 +171,12 @@ class PrintToConsole {
   }
 
   private <T> void printBoardCustom(RowList rowList, QuadConsumer<Optional<Block>> print) {
-    for (int y = 0; y < rowList.size(); y++) {
-      Optional<Row> row = rowList.getSingleRow(y);
-
-      if (row.isEmpty())
+    for (Row row : rowList) {
+      if (row == null || row.isEmpty())
         continue;
 
-      for (Block b : row.get()) {
-        print.accept(b.getX(), row.get().getY(), row.get().getY(), row.get().get(b.getX()));
+      for (Block b : row) {
+        print.accept(b.getX(), row.getY(), row.getY(), row.get(b.getX()));
 
         System.out.print(" ");
       }

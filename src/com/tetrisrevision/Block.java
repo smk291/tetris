@@ -8,12 +8,8 @@ import java.awt.Color;
  * <p>**
  */
 public final class Block {
-  private Color c;
-  private double x;
-
-  Block(double x) {
-    this.x = (int) x;
-  }
+  private final Color c;
+  private final double x;
 
   Block(double x, Color c) {
     this.x = x;
@@ -25,17 +21,8 @@ public final class Block {
     return x;
   }
 
-  void setX(double x)
-  {
-    this.x = x;
-  }
-
   public Color getColor() {
     return c;
-  }
-
-  public void setColor(final Color c) {
-    this.c =  c;
   }
 
   public Block clone() throws CloneNotSupportedException {
