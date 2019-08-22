@@ -55,8 +55,8 @@ public class PlayFieldGUI extends JPanel {
     width = (int) (d.getWidth());
     blockWidth = width / 20;
 
-    for (Row r : rows) {
-      for (Block block : r) {
+    for (Row r : rows.get()) {
+      for (Block block : r.get()) {
         if (null != block.getColor())
           gbi.setColor(block.getColor());
         else
@@ -77,7 +77,7 @@ public class PlayFieldGUI extends JPanel {
       drawBlocks(gbi, runTetris.getCurrentPiece().getBlocks());
 
     if (null != runTetris.getPlayField())
-      IntStream.range(0, RowList.getHeight())
+      IntStream.range(0, Constants.height())
           .forEach(i -> drawBlocks(gbi, runTetris.getPlayField()));
 
     if (null != runTetris.getSinkingPieces())
@@ -88,7 +88,7 @@ public class PlayFieldGUI extends JPanel {
     blockWidth = width / 20;
 
     gbi.setColor(Color.lightGray);
-    Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, blockWidth * RowList.getWidth() + 1, blockWidth * RowList.getHeight() + 1);
+    Rectangle2D boardOutline = new Rectangle2D.Double(0, 0, blockWidth * Constants.width() + 1, blockWidth * Constants.height() + 1);
     gbi.draw(boardOutline);
   }
 

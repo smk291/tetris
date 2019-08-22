@@ -6,7 +6,7 @@ abstract class Translater {
 
     boolean validPosition = true;
 
-    for (Row r : blocks)
+    for (Row r : blocks.get())
     {
       if (!r.allMatch(b -> PlacementTester.cellCanBeOccupied(r.getY(), b, field))) {
         validPosition = false;

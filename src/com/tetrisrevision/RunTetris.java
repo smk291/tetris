@@ -14,10 +14,10 @@ class RunTetris {
   private Timer rotationTimer;
   private GameRecordKeeping recordKeeping;
 
-  RunTetris(int width, int height) {
+  RunTetris() {
     tetrominoQueue = new TetrominoQueue();
     currentPiece = new TetrisPiece();
-    playField = new RowList(width, height);
+    playField = new RowList();
     sinkingPieces = new ArrayList<>();
     tetrominoQueue.resetCurrentPiece(currentPiece);
     recordKeeping = new GameRecordKeeping();
@@ -47,7 +47,7 @@ class RunTetris {
     for (int i = 0; !sinkingPieces.isEmpty() && i < sinkingPieces.size(); i++) {
       RowList sinkingPiece = sinkingPieces.get(i);
 
-      boolean canSink = Translater.translate(sinkingPiece, playField, TetrisConstants.down());
+      boolean canSink = Translater.translate(sinkingPiece, playField, Constants.down());
 
       if (!canSink) {
         addSinkingPieceToBoard(sinkingPiece);
@@ -62,26 +62,28 @@ class RunTetris {
   }
 
   private void addSinkingPieceToBoard(RowList sinkingPiece) {
-    playField.addAll(sinkingPiece);
+    playField.addRowList(sinkingPiece);
 
-    double deletedRowIdx = RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping, tetrisGUI);
+    ArrayList<Integer> deletedRowIdx = RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping, tetrisGUI);
 
     sinkingPieces.remove(sinkingPiece);
 
-    if (deletedRowIdx < TetrisConstants.topRow())
-      new SinkingPieceFinder().find(deletedRowIdx, playField, sinkingPieces);
+    if (deletedRowIdx.size() > 0) {
+      deletedRowIdx.forEach(i -> new SinkingPieceFinder().find(i, playField, sinkingPieces));
+    }
   }
 
   private void addPieceToBoard(TetrisPiece piece) {
     if (movementTimer != null) movementTimer.stop();
     if (rotationTimer != null) rotationTimer.stop();
 
-    playField.addAll(piece.getBlocks());
+    playField.addRowList(piece.getBlocks());
 
-    double deletedRowIdx = RowDeleter.apply(piece.getBlocks(), piece, playField, recordKeeping, tetrisGUI);
+    ArrayList<Integer> deletedRowIdx = RowDeleter.apply(piece.getBlocks(), piece, playField, recordKeeping, tetrisGUI);
 
-    if (deletedRowIdx < TetrisConstants.topRow())
-      new SinkingPieceFinder().find(deletedRowIdx, playField, sinkingPieces);
+    if (deletedRowIdx.size() > 0) {
+      deletedRowIdx.forEach(i -> new SinkingPieceFinder().find(i, playField, sinkingPieces));
+    }
 
     tetrominoQueue.resetCurrentPiece(piece);
 
@@ -90,7 +92,7 @@ class RunTetris {
   }
 
   void dropCurrentPiece() {
-    translatePiece(0, TetrisConstants.down());
+    translatePiece(0, Constants.down());
   }
 
   private void translatePiece(int x, int y) {
@@ -98,13 +100,13 @@ class RunTetris {
       tetrisGUI.getBoardCompositor().repaint();
 
       currentPiece.gettSpinTracker().reset();
-    } else if (y == TetrisConstants.down()) {
+    } else if (y == Constants.down()) {
       handleMovementTimer();
     }
   }
 
   private void handleMovementTimer() {
-    boolean canDrop = Translater.translate(currentPiece, playField, 0, TetrisConstants.down(), true);
+    boolean canDrop = Translater.translate(currentPiece, playField, 0, Constants.down(), true);
 
     if (canDrop) {
       if (null != movementTimer && movementTimer.isRunning()) movementTimer.stop();
@@ -113,7 +115,7 @@ class RunTetris {
     }
 
     if (null == movementTimer || !movementTimer.isRunning()) {
-      movementTimer = new Timer(TetrisConstants.timerDelay(), e -> addPieceToBoard(currentPiece));
+      movementTimer = new Timer(Constants.timerDelay(), e -> addPieceToBoard(currentPiece));
       movementTimer.setRepeats(false);
       movementTimer.start();
     }
@@ -128,7 +130,7 @@ class RunTetris {
   }
 
   private void handleRotationTimer() {
-    boolean canDrop = Translater.translate(currentPiece, playField, 0, TetrisConstants.down(), true);
+    boolean canDrop = Translater.translate(currentPiece, playField, 0, Constants.down(), true);
 
     if (null != rotationTimer) {
       rotationTimer.restart();
@@ -137,7 +139,7 @@ class RunTetris {
 
     if (canDrop) return;
 
-    rotationTimer = new Timer(TetrisConstants.timerDelay(), e -> addPieceToBoard(currentPiece));
+    rotationTimer = new Timer(Constants.timerDelay(), e -> addPieceToBoard(currentPiece));
     rotationTimer.setRepeats(false);
     rotationTimer.start();
   }
@@ -146,11 +148,11 @@ class RunTetris {
     if (shift) {
       switch (e.getKeyCode()) {
         case KeyEvent.VK_LEFT:
-          rotate(TetrisConstants.counterClockwise());
+          rotate(Constants.counterClockwise());
 
           break;
         case KeyEvent.VK_RIGHT:
-          rotate(TetrisConstants.clockwise());
+          rotate(Constants.clockwise());
 
           break;
         case KeyEvent.VK_DOWN:
@@ -171,20 +173,20 @@ class RunTetris {
     } else {
       switch (e.getKeyCode()) {
         case KeyEvent.VK_LEFT:
-          translatePiece(TetrisConstants.left(), 0);
+          translatePiece(Constants.left(), 0);
 
           break;
         case KeyEvent.VK_RIGHT:
-          translatePiece(TetrisConstants.right(), 0);
+          translatePiece(Constants.right(), 0);
 
           break;
         case KeyEvent.VK_DOWN:
-          translatePiece(0, TetrisConstants.down());
+          translatePiece(0, Constants.down());
           recordKeeping.softDrop();
 
           break;
         // case KeyEvent.VK_UP:
-        //   translatePiece(0, TetrisConstants.up());
+        //   translatePiece(0, Constants.up());
         //
         //   break;
         default:

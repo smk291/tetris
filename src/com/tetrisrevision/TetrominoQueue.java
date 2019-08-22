@@ -1,6 +1,5 @@
 package com.tetrisrevision;
 
-import com.tetrisrevision.tetrominos.Tetromino;
 import com.tetrisrevision.tetrominos.TetrominoEnum;
 
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ class TetrominoQueue {
     backupQueue.remove(0);
   }
 
-  public ArrayList<TetrominoEnum> getQueue() {
+  ArrayList<TetrominoEnum> getQueue() {
     return queue;
   }
 }

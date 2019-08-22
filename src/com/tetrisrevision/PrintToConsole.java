@@ -13,14 +13,9 @@ interface QuadConsumerString<T> {
 }
 
 class PrintToConsole {
-  private static int height;
-  private static int width;
   private String[][][] board;
 
-  PrintToConsole(int height, int width) {
-    PrintToConsole.height = height;
-    PrintToConsole.width = width;
-  }
+  PrintToConsole() {}
 
 
   public String printCell(double y, Block cell) {
@@ -92,7 +87,7 @@ class PrintToConsole {
   }
 
   private void getBoard(RowList rowList, ArrayList<RowList> sinkingPieces, TetrisPiece piece) {
-    String[][][] board = new String[height][width][5];
+    String[][][] board = new String[Constants.height()][Constants.width()][5];
 
     for (String[][] row : board) {
       IntStream.range(0, row.length).forEach(x -> row[x] = new String[]{" ", " ", " ", " ", " "});
@@ -132,8 +127,8 @@ class PrintToConsole {
 
   private boolean sinkingPiecesContainCell(double x, double y, ArrayList<RowList> sinkingPieces) {
     for (RowList piece : sinkingPieces) {
-      for (Row r : piece) {
-        for (Block block : r) {
+      for (Row r : piece.get()) {
+        for (Block block : r.get()) {
           if (block.getX() == x && r.getY() == y) return true;
         }
       }
@@ -144,8 +139,8 @@ class PrintToConsole {
 
   private boolean sinkingPiecesContainCell(Block c, ArrayList<RowList> sinkingPieces) {
     for (RowList piece : sinkingPieces) {
-      for (Row r : piece) {
-        for (Block block : r) {
+      for (Row r : piece.get()) {
+        for (Block block : r.get()) {
           if (block.getX() == c.getX()) return true;
         }
       }
@@ -155,11 +150,11 @@ class PrintToConsole {
   }
 
   private boolean fallingPieceContainsCell(double x, double y, TetrisPiece currentPiece2d) {
-    for (Row r : currentPiece2d.getBlocks())
+    for (Row r : currentPiece2d.getBlocks().get())
     {
       if (r.getY() == y)
       {
-        for (Block b : r)
+        for (Block b : r.get())
         {
           if (b.getX() == x)
             return true;
@@ -171,11 +166,11 @@ class PrintToConsole {
   }
 
   private <T> void printBoardCustom(RowList rowList, QuadConsumer<Optional<Block>> print) {
-    for (Row row : rowList) {
+    for (Row row : rowList.get()) {
       if (row == null || row.isEmpty())
         continue;
 
-      for (Block b : row) {
+      for (Block b : row.get()) {
         print.accept(b.getX(), row.getY(), row.getY(), row.get(b.getX()));
 
         System.out.print(" ");

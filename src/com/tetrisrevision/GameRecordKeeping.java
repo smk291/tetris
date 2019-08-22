@@ -52,29 +52,29 @@ final class GameRecordKeeping {
     score += 2 * cells;
   }
 
-  void incrementCombo() {
+  void incrCombo() {
     comboCount++;
   }
 
-  void setComboCount(int i) {
-    comboCount = i;
+  void resetCombo() {
+    comboCount = 0;
   }
 
   private void incrementScore(double amount) {
     score += (level == 0 ? 1 : level) * amount * (comboCount > 1 ? 50 * comboCount : 1);
   }
 
-  void computeScore(int rows, TetrisPiece piece, RowList rowList) {
+  void computeAndAdd(int rows, TetrisPiece piece, RowList rowList) {
     TSpinTracker tst = piece.gettSpinTracker();
 
     if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpinMini(piece, rowList))
       computeScoreTSpinMini(rows);
     else if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpin(piece, rowList))
       computerScoreTSpin(rows);
-    else computeScore(rows);
+    else computeAndAdd(rows);
   }
 
-  private void computeScore(int rows) {
+  private void computeAndAdd(int rows) {
     switch (rows) {
       case 1:
         single();

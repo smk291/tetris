@@ -1,14 +1,13 @@
 package com.tetrisrevision.tetrominos;
 
-import com.tetrisrevision.TetrisConstants;
 import java.awt.*;
 
 class SPiece extends Tetromino {
   private static final int[][][] offsets = {
-    {{0, TetrisConstants.up()}, {TetrisConstants.right(), TetrisConstants.up()}, {TetrisConstants.left(), 0}, {0, 0}},
-    {{0, TetrisConstants.up()}, {0, 0}, {TetrisConstants.right(), 0}, {TetrisConstants.right(), TetrisConstants.down()}},
-    {{0, 0}, {TetrisConstants.right(), 0}, {TetrisConstants.left(), TetrisConstants.down()}, {0, TetrisConstants.down()}},
-    {{TetrisConstants.left(), TetrisConstants.up()}, {TetrisConstants.left(), 0}, {0, 0}, {0, TetrisConstants.down()}}
+    {RelativeCoords.u1, RelativeCoords.r1u1, RelativeCoords.l1, {0, 0}},
+    {RelativeCoords.u1, {0, 0}, RelativeCoords.r1, RelativeCoords.r1d1},
+    {{0, 0}, RelativeCoords.r1, RelativeCoords.l1d1, RelativeCoords.d1},
+    {RelativeCoords.l1u1, RelativeCoords.l1, {0, 0}, RelativeCoords.d1}
   };
 
   SPiece() {

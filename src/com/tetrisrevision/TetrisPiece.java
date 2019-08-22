@@ -17,27 +17,27 @@ public class TetrisPiece {
 
   public TetrisPiece(Tetromino t) {
     reset();
-    this.tetromino = t;
+    tetromino = t;
   }
 
   void reset(Tetromino t) {
     reset();
-    this.tetromino = t;
+    tetromino = t;
   }
 
   private void reset() {
-    this.center = new Point(4, TetrisConstants.topRow());
-    this.rotation = 0;
-    this.prevRotation = 0;
-    this.tSpinTracker = new TSpinTracker();
+    center = new Point(4, Constants.topRow());
+    rotation = 0;
+    prevRotation = 0;
+    tSpinTracker = new TSpinTracker();
   }
 
   int getRotation() {
-    return this.rotation;
+    return rotation;
   }
 
-  void setRotation(int o) {
-    this.rotation = o;
+  void resetRotation() {
+    rotation = 0;
   }
 
   void incrementRotation(int incr) {
@@ -75,12 +75,12 @@ public class TetrisPiece {
     return tetromino.getOffsets().length;
   }
 
-  HashMap<Integer, HashMap<Integer, Integer[][]>> getKickData() {
+  HashMap<Integer, HashMap<Integer, int[][]>> getKickData() {
     return tetromino.getKickData();
   }
 
   void setCenter(int x, int y) {
-    this.center = new Point(x, y);
+    center = new Point(x, y);
   }
 
   Point getCenter() {
@@ -88,7 +88,7 @@ public class TetrisPiece {
   }
 
   void setCenter(Point pt) {
-    this.center = pt;
+    center = pt;
   }
 
   Tetromino getTetromino() {
@@ -96,14 +96,14 @@ public class TetrisPiece {
   }
 
   void setTetromino(Tetromino t) {
-    this.tetromino = t;
+    tetromino = t;
   }
 
   TSpinTracker gettSpinTracker() {
     return tSpinTracker;
   }
 
-  public void settSpinTracker(TSpinTracker tSpinTracker) {
+  public void setTSpinTracker(TSpinTracker tSpinTracker) {
     this.tSpinTracker = tSpinTracker;
   }
 }

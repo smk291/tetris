@@ -17,7 +17,7 @@ abstract class InputTests {
   }
 
   private static int lastRow() {
-    return RowList.getHeight() - 1;
+    return Constants.height() - 1;
   }
 
   static void accept(String e, TetrisPiece piece, RowList rowList) {
@@ -37,15 +37,15 @@ abstract class InputTests {
         rowList.clear();
         piece.setTetromino(TetrominoEnum.I.get());
 
-        for (int y = RowList.getHeight() - 4; y < RowList.getHeight(); y++)
-          for (int x = 0, l = RowList.getWidth(); x < l; x++)
+        for (int y = Constants.height() - 4; y < Constants.height(); y++)
+          for (int x = 0, l = Constants.width(); x < l; x++)
             if (x != 4) createCell(x, y, rowList);
 
         break;
       case "s": // sink test
         rowList.clear();
 
-        for (int x = 0, boardWidth = RowList.getWidth(); x < boardWidth; x++) {
+        for (int x = 0, boardWidth = Constants.width(); x < boardWidth; x++) {
           if (x > 4 && x < 8) createCell(x, lastRow() - 2, rowList);
           if (x == 6) createCell(x, lastRow() - 1, rowList);
           if (x != 2) createCell(x, lastRow(), rowList);
@@ -55,70 +55,70 @@ abstract class InputTests {
       case "d": // multiple sinking pieces, test that each behaves correctly
         rowList.clear();
 
-        for (int x = 0, boardWidth = RowList.getWidth(); x < boardWidth; x++) {
-          if (x != 2) createCell(x, lastRow() - 8, rowList); // 15
+        for (int x = 0, boardWidth = Constants.width(); x < boardWidth; x++) {
+          if (x != 2) createCell(x, lastRow() - 8, rowList);
 
-          for (int y = lastRow() - 7; y < RowList.getHeight(); y++) if (x == 2) createCell(x, y, rowList); // 16
+          for (int y = lastRow() - 7; y < Constants.height(); y++) if (x == 2) createCell(x, y, rowList);
 
-          if (x == 8 || x == 9) createCell(x, lastRow() - 7, rowList); // 16
+          if (x == 8 || x == 9) createCell(x, lastRow() - 7, rowList);
 
-          if (x == 8) createCell(x, lastRow() - 6, rowList); // 17
+          if (x == 8) createCell(x, lastRow() - 6, rowList);
 
           if (x == 0 || x == 4 || x == 6) {
-            createCell(x, lastRow() - 9, rowList); // 14
-            createCell(x, lastRow() - 10, rowList); // 13
-            createCell(x, lastRow(), rowList); // 23
+            createCell(x, lastRow() - 9, rowList);
+            createCell(x, lastRow() - 10, rowList);
+            createCell(x, lastRow(), rowList);
           }
 
-          if (x == 4) createCell(x, lastRow() - 2, rowList); // 21
-          if (x == 3 || x == 4 || x == 6) createCell(x, lastRow() - 1, rowList); // 22
+          if (x == 4) createCell(x, lastRow() - 2, rowList);
+          if (x == 3 || x == 4 || x == 6) createCell(x, lastRow() - 1, rowList);
         }
 
         piece.setTetromino(TetrominoEnum.values()[0].get());
-        piece.setCenter(1, lastRow() - 14); // 9
+        piece.setCenter(1, lastRow() - 14);
 
         break;
       case "f": // test kick
         rowList.clear();
 
-        for (int x = 0, boardWidth = RowList.getWidth(); x < boardWidth; x++) {
-          if (x != 0 && !(x > 2 && x < 8)) createCell(x, lastRow() - 5, rowList); // 18
+        for (int x = 0, boardWidth = Constants.width(); x < boardWidth; x++) {
+          if (x != 0 && !(x > 2 && x < 8)) createCell(x, lastRow() - 5, rowList);
 
           if (x != 5) {
-            createCell(x, lastRow() - 4, rowList); // 19
-            createCell(x, lastRow() - 3, rowList); // 20
-            createCell(x, lastRow() - 2, rowList); // 21
+            createCell(x, lastRow() - 4, rowList);
+            createCell(x, lastRow() - 3, rowList);
+            createCell(x, lastRow() - 2, rowList);
           }
 
           if (x != 0 && x != 5) {
-            createCell(x, lastRow() - 1, rowList); // 22
-            createCell(x, lastRow(), rowList); // 23
+            createCell(x, lastRow() - 1, rowList);
+            createCell(x, lastRow(), rowList);
           }
         }
 
-        piece.setCenter(4, lastRow() - 14); // 9
+        piece.setCenter(4, lastRow() - 14);
 
         break;
       case "z": // test row deletion
         rowList.clear();
 
-        for (int i = 0; i < RowList.getWidth(); i++) {
-          if (i != 5) createCell(i, lastRow(), rowList); // 23
+        for (int i = 0; i < Constants.width(); i++) {
+          if (i != 5) createCell(i, lastRow(), rowList);
         }
 
         break;
       case "x": // test row delete after sink -- on bottom row to test bounds checker
         rowList.clear();
 
-        for (int i = 0; i < RowList.getWidth(); i++) {
-          if (i == 4) createCell(i, lastRow() - 2, rowList); // 21
+        for (int i = 0; i < Constants.width(); i++) {
+          if (i == 4) createCell(i, lastRow() - 2, rowList);
           if (i > 2) createCell(i, lastRow() -1 , rowList);
           if (i > 0 && i < 4 || i > 4) createCell(i, lastRow(), rowList);
         }
 
         piece.setTetromino(TetrominoEnum.J.get());
-        piece.setRotation(0);
-        piece.setCenter(1, lastRow() - 4); // 19
+        piece.resetRotation();
+        piece.setCenter(1, lastRow() - 4);
 
         break;
       case "c": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
@@ -126,51 +126,51 @@ abstract class InputTests {
         // another sinking piece
         rowList.clear();
 
-        for (int x = 0; x < RowList.getWidth(); x++) {
-          if (x == 4) createCell(x, lastRow() - 8, rowList); // 15
-          if (x > 2) createCell(x, lastRow() - 7, rowList); // 16
-          if (x > 0 && x < 4 || x > 4) createCell(x, lastRow() - 6, rowList); // 17
-          if (x > 7) createCell(x, lastRow() - 5, rowList); // 18
+        for (int x = 0; x < Constants.width(); x++) {
+          if (x == 4) createCell(x, lastRow() - 8, rowList);
+          if (x > 2) createCell(x, lastRow() - 7, rowList);
+          if (x > 0 && x < 4 || x > 4) createCell(x, lastRow() - 6, rowList);
+          if (x > 7) createCell(x, lastRow() - 5, rowList);
 
           if (x == 2 || x == 0 || x == 4 || x == 6)
-            for (int y = lastRow() - 5; y < lastRow() + 1; y++) createCell(x, y, rowList); // 18, 24
+            for (int y = lastRow() - 5; y < lastRow() + 1; y++) createCell(x, y, rowList);
 
           if (x < 8) {
-            createCell(x, lastRow() - 4, rowList); // 19
-            createCell(x, lastRow() - 2, rowList); // 21
+            createCell(x, lastRow() - 4, rowList);
+            createCell(x, lastRow() - 2, rowList);
           }
 
           if (x >= 8) {
-            createCell(x, lastRow() - 3, rowList); // 20
-            createCell(x, lastRow() - 1, rowList); // 22
+            createCell(x, lastRow() - 3, rowList);
+            createCell(x, lastRow() - 1, rowList);
           }
         }
 
         piece.setTetromino(TetrominoEnum.J.get());
-        piece.setRotation(0);
-        piece.setCenter(1, lastRow() - 11); // 12
+        piece.resetRotation();
+        piece.setCenter(1, lastRow() - 11);
 
         break;
       case "v":
         // Test t-spin
         rowList.clear();
         piece.setTetromino(TetrominoEnum.T.get());
-        piece.setCenter(5, lastRow() - 10); // 17
+        piece.setCenter(5, lastRow() - 10);
 
-        for (int x = 0; x < RowList.getWidth(); x++) {
+        for (int x = 0; x < Constants.width(); x++) {
           if (x < 4 || x > 5) {
             final int finalX = x;
 
-            IntStream.range(lastRow() - 4, lastRow() - 2).forEach(y -> createCell(finalX, y, rowList)); // 19, 21
+            IntStream.range(lastRow() - 4, lastRow() - 2).forEach(y -> createCell(finalX, y, rowList));
           }
 
           if (x < 3 || x > 5) {
-            createCell(x, lastRow() - 2, rowList); // 21
+            createCell(x, lastRow() - 2, rowList);
           }
 
-          if (x != 4) createCell(x, lastRow() - 1, rowList); // 22
+          if (x != 4) createCell(x, lastRow() - 1, rowList);
 
-          createCell(x, lastRow(), rowList); // 23
+          createCell(x, lastRow(), rowList);
         }
 
         break;

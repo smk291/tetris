@@ -1,13 +1,9 @@
 package com.tetrisrevision;
 
-import com.tetrisrevision.tetrominos.TetrominoEnum;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.stream.IntStream;
 
 public class GameData extends JPanel {
   private RunTetris runTetris;
