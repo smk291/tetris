@@ -26,7 +26,7 @@ public class TetrisPiece {
   }
 
   private void reset() {
-    center = new Point(4, Constants.topRow());
+    center = new Point(4, Constants.topRow);
     rotation = 0;
     prevRotation = 0;
     tSpinTracker = new TSpinTracker();
@@ -59,14 +59,15 @@ public class TetrisPiece {
     RowList rows = new RowList();
 
     Arrays.stream(tetromino.getOffsets()[rotation])
-        .forEach(p -> {
-          double x = center.getX() + p[0];
-          double y = center.getY() + p[1];
+        .forEach(
+            p -> {
+              double x = center.getX() + p[0];
+              double y = center.getY() + p[1];
 
-          Block b = new Block(x, tetromino.getColor());
+              Block b = new Block(x, tetromino.getColor());
 
-          rows.addBlock(y, b);
-        });
+              rows.addBlock(y, b);
+            });
 
     return rows;
   }

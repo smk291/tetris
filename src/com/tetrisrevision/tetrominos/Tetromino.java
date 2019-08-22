@@ -6,30 +6,10 @@ import java.util.HashMap;
 // Kick sequences taken from https://tetris.wiki/SRS
 abstract class Sequences {
   static final int[][][] seqs = {
-    {
-      RelativeCoords.r1,
-      RelativeCoords.r1d1,
-      RelativeCoords.u2,
-      RelativeCoords.r1u2
-    },
-    {
-      RelativeCoords.l1,
-      RelativeCoords.l1u1,
-      RelativeCoords.d2,
-      RelativeCoords.l1d2
-    },
-    {
-      RelativeCoords.l1,
-      RelativeCoords.l1d1,
-      RelativeCoords.u2,
-      RelativeCoords.l1u2
-    },
-    {
-      RelativeCoords.r1,
-      RelativeCoords.r1u1,
-      RelativeCoords.d2,
-      RelativeCoords.r1d2
-    }
+    {Coords.r1, Coords.r1d1, Coords.u2, Coords.r1u2},
+    {Coords.l1, Coords.l1u1, Coords.d2, Coords.l1d2},
+    {Coords.l1, Coords.l1d1, Coords.u2, Coords.l1u2},
+    {Coords.r1, Coords.r1u1, Coords.d2, Coords.r1d2}
   };
 }
 

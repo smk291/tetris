@@ -7,12 +7,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * **
- *
- * <p>This class creates piece queues and randomizes the queue according to official tetris
+ * This class creates piece queues and randomizes the queue according to official tetris
  * guidelines.
  *
- * <p>Currently there's no way to switch out a piece.
+ * Currently there's no way to switch out a piece.
  */
 class TetrominoQueue {
   private ArrayList<TetrominoEnum> queue;
@@ -43,8 +41,7 @@ class TetrominoQueue {
 
     queue.remove(0);
 
-    if (backupQueue.size() == 0)
-      backupQueue = getQ();
+    if (backupQueue.size() == 0) backupQueue = getQ();
 
     queue.add(backupQueue.get(0));
     backupQueue.remove(0);

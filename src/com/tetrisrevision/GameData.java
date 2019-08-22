@@ -24,7 +24,7 @@ public class GameData extends JPanel {
     Graphics2D gbi = buffImg.createGraphics();
 
     if (null != runTetris) {
-        drawAllText(gbi);
+      drawAllText(gbi);
     }
 
     validate();
@@ -40,7 +40,7 @@ public class GameData extends JPanel {
 
     gbi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     gbi.setRenderingHint(
-            RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     gbi.drawString(String.valueOf(s), offsetx, offsety);
   }
 
@@ -50,6 +50,7 @@ public class GameData extends JPanel {
     drawText(gbi, runTetris.getRecordKeeping().getLevel(), 300, 300, Color.MAGENTA);
     drawText(gbi, runTetris.getRecordKeeping().getComboCount(), 367, 256, Color.GREEN);
   }
+
   @Override
   public void repaint() {
     super.repaint();
@@ -58,11 +59,11 @@ public class GameData extends JPanel {
     Graphics2D g2 = (Graphics2D) g;
     setBackground(new Color(0, 0, 0, 124));
 
-    BufferedImage buffImg = new BufferedImage(300,  300, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage buffImg = new BufferedImage(300, 300, BufferedImage.TYPE_INT_ARGB);
     Graphics2D gbi = buffImg.createGraphics();
 
     if (null != g2 && null != runTetris && null != runTetris.getTetrominoQueue()) {
-        drawAllText(gbi);
+      drawAllText(gbi);
     }
   }
 }

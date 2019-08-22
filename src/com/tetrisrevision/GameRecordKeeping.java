@@ -41,7 +41,7 @@ final class GameRecordKeeping {
 
   void setLevel(int i, TetrisGUI gui) {
     level = i;
-    gui.setDropTimerDelay(800);
+    gui.setDropTimerDelay(getDelayByLevel(computeLevel()) * 10);
   }
 
   void softDrop() {
@@ -66,10 +66,11 @@ final class GameRecordKeeping {
 
   void computeAndAdd(int rows, TetrisPiece piece, RowList rowList) {
     TSpinTracker tst = piece.gettSpinTracker();
+    Tetromino t = piece.getTetromino();
 
-    if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpinMini(piece, rowList))
+    if (t.isTPiece() && tst.isTSpinMini(piece, rowList))
       computeScoreTSpinMini(rows);
-    else if (piece.getTetromino().isTPiece() && piece.gettSpinTracker().isTSpin(piece, rowList))
+    else if (t.isTPiece() && tst.isTSpin(piece, rowList))
       computerScoreTSpin(rows);
     else computeAndAdd(rows);
   }
@@ -78,15 +79,19 @@ final class GameRecordKeeping {
     switch (rows) {
       case 1:
         single();
+
         break;
       case 2:
         doubleC();
+
         break;
       case 3:
         triple();
+
         break;
       case 4:
         tetris();
+
         break;
     }
   }
@@ -95,9 +100,11 @@ final class GameRecordKeeping {
     switch (rows) {
       case 1:
         tSpinSingleMini();
+
         break;
       case 2:
         tSpinDoubleMini();
+
         break;
     }
   }
@@ -106,12 +113,15 @@ final class GameRecordKeeping {
     switch (rows) {
       case 1:
         tSpinSingle();
+
         break;
       case 2:
         tSpinDouble();
+
         break;
       case 3:
         tSpinTriple();
+
         break;
     }
   }

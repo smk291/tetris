@@ -1,51 +1,21 @@
 package com.tetrisrevision;
 
 public abstract class Constants {
-  public static int down() {
-    return -1;
-  }
+  public static int down = -1;
+  public static int up = 1;
+  public static int left = -1;
+  public static int right = 1;
 
-  public static int up() {
-    return 1;
-  }
+  public static int width = 10;
+  public static int height = 20;
 
-  public static int left() {
-    return -1;
-  }
+  static int topRow = Constants.height - 1;
+  static int bottomRow = 0;
+  static int leftBound = 0;
 
-  public static int right() {
-    return 1;
-  }
+  static int clockwise = 1;
+  static int counterClockwise = -1;
 
-  public static int width() {
-    return 10;
-  }
+  static int timerDelay = 500;
 
-  public static int height() {
-    return 20;
-  }
-
-  static int topRow() {
-    return Constants.height() - 1;
-  }
-
-  static int bottomRow() {
-    return 0;
-  }
-
-  static int clockwise() {
-    return 1;
-  }
-
-  static int counterClockwise() {
-    return -1;
-  }
-
-  static int timerDelay() {
-    return 500;
-  }
-
-  static int leftBound() {
-    return 0;
-  }
 }

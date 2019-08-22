@@ -27,7 +27,7 @@ class TSpinTracker {
   }
 
   private static int cornerFilled(RowList rowList, int x, int y, int x2, int y2) {
-    return !rowList.isEmptyCell(x + x2, y + y2) ? 1 : 0;
+    return !rowList.cellIsEmpty(x + x2, y + y2) ? 1 : 0;
   }
 
   void reset() {
@@ -49,7 +49,8 @@ class TSpinTracker {
   }
 
   boolean isTSpin(TetrisPiece piece, RowList rowList) {
-    return areThreeOrMoreCornersFilled(piece, rowList) || (null != lastKick && lastKick == 4)
+    return areThreeOrMoreCornersFilled(piece, rowList)
+        || (null != lastKick && lastKick == 4)
         || (!areThreeOrMoreCornersFilled(piece, rowList) && lastKick != null && lastKick == 4);
   }
 

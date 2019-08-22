@@ -6,18 +6,16 @@ import java.awt.*;
 import java.util.stream.IntStream;
 
 /**
- * **
- *
- * <p>These are basically unit tests for various behaviors
+ * These are basically unit tests for various behaviors
  */
 abstract class InputTests {
   private static void createCell(double x, double y, RowList rowList) {
     Block block = new Block(x, Color.LIGHT_GRAY);
-    rowList.addBlock(y, block);
+    rowList.addBlock(Constants.topRow - y, block);
   }
 
   private static int lastRow() {
-    return Constants.height() - 1;
+    return Constants.height - 1;
   }
 
   static void accept(String e, TetrisPiece piece, RowList rowList) {
@@ -37,15 +35,14 @@ abstract class InputTests {
         rowList.clear();
         piece.setTetromino(TetrominoEnum.I.get());
 
-        for (int y = Constants.height() - 4; y < Constants.height(); y++)
-          for (int x = 0, l = Constants.width(); x < l; x++)
-            if (x != 4) createCell(x, y, rowList);
+        for (int y = Constants.height - 4; y < Constants.height; y++)
+          for (int x = 0, l = Constants.width; x < l; x++) if (x != 4) createCell(x, y, rowList);
 
         break;
       case "s": // sink test
         rowList.clear();
 
-        for (int x = 0, boardWidth = Constants.width(); x < boardWidth; x++) {
+        for (int x = 0, boardWidth = Constants.width; x < boardWidth; x++) {
           if (x > 4 && x < 8) createCell(x, lastRow() - 2, rowList);
           if (x == 6) createCell(x, lastRow() - 1, rowList);
           if (x != 2) createCell(x, lastRow(), rowList);
@@ -55,10 +52,11 @@ abstract class InputTests {
       case "d": // multiple sinking pieces, test that each behaves correctly
         rowList.clear();
 
-        for (int x = 0, boardWidth = Constants.width(); x < boardWidth; x++) {
+        for (int x = 0, boardWidth = Constants.width; x < boardWidth; x++) {
           if (x != 2) createCell(x, lastRow() - 8, rowList);
 
-          for (int y = lastRow() - 7; y < Constants.height(); y++) if (x == 2) createCell(x, y, rowList);
+          for (int y = lastRow() - 7; y < Constants.height; y++)
+            if (x == 2) createCell(x, y, rowList);
 
           if (x == 8 || x == 9) createCell(x, lastRow() - 7, rowList);
 
@@ -81,7 +79,7 @@ abstract class InputTests {
       case "f": // test kick
         rowList.clear();
 
-        for (int x = 0, boardWidth = Constants.width(); x < boardWidth; x++) {
+        for (int x = 0, boardWidth = Constants.width; x < boardWidth; x++) {
           if (x != 0 && !(x > 2 && x < 8)) createCell(x, lastRow() - 5, rowList);
 
           if (x != 5) {
@@ -102,7 +100,7 @@ abstract class InputTests {
       case "z": // test row deletion
         rowList.clear();
 
-        for (int i = 0; i < Constants.width(); i++) {
+        for (int i = 0; i < Constants.width; i++) {
           if (i != 5) createCell(i, lastRow(), rowList);
         }
 
@@ -110,9 +108,9 @@ abstract class InputTests {
       case "x": // test row delete after sink -- on bottom row to test bounds checker
         rowList.clear();
 
-        for (int i = 0; i < Constants.width(); i++) {
+        for (int i = 0; i < Constants.width; i++) {
           if (i == 4) createCell(i, lastRow() - 2, rowList);
-          if (i > 2) createCell(i, lastRow() -1 , rowList);
+          if (i > 2) createCell(i, lastRow() - 1, rowList);
           if (i > 0 && i < 4 || i > 4) createCell(i, lastRow(), rowList);
         }
 
@@ -126,7 +124,7 @@ abstract class InputTests {
         // another sinking piece
         rowList.clear();
 
-        for (int x = 0; x < Constants.width(); x++) {
+        for (int x = 0; x < Constants.width; x++) {
           if (x == 4) createCell(x, lastRow() - 8, rowList);
           if (x > 2) createCell(x, lastRow() - 7, rowList);
           if (x > 0 && x < 4 || x > 4) createCell(x, lastRow() - 6, rowList);
@@ -157,11 +155,12 @@ abstract class InputTests {
         piece.setTetromino(TetrominoEnum.T.get());
         piece.setCenter(5, lastRow() - 10);
 
-        for (int x = 0; x < Constants.width(); x++) {
+        for (int x = 0; x < Constants.width; x++) {
           if (x < 4 || x > 5) {
             final int finalX = x;
 
-            IntStream.range(lastRow() - 4, lastRow() - 2).forEach(y -> createCell(finalX, y, rowList));
+            IntStream.range(lastRow() - 4, lastRow() - 2)
+                .forEach(y -> createCell(finalX, y, rowList));
           }
 
           if (x < 3 || x > 5) {

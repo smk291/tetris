@@ -1,23 +1,11 @@
 package com.tetrisrevision;
 
-import com.tetrisrevision.tetrominos.TetrominoEnum;
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
 class TetrisGUI {
-  private Timer timer;
-  private Timer timer2;
-  private JFrame frame = new JFrame("Tetris");
-  private boolean RIGHT_TO_LEFT = false;
-  private RunTetris runTetris;
-  PlayFieldGUI bc = new PlayFieldGUI(runTetris);
   boolean shift = false;
   int gridy = 0;
   int datagridy0 = gridy++;
@@ -25,6 +13,12 @@ class TetrisGUI {
   int datagridy2 = gridy++;
   int datagridy3 = gridy++;
   int playfieldgridy = gridy++;
+  private Timer timer;
+  private Timer timer2;
+  private JFrame frame = new JFrame("Tetris");
+  private boolean RIGHT_TO_LEFT = false;
+  private RunTetris runTetris;
+  PlayFieldGUI bc = new PlayFieldGUI(runTetris);
 
   TetrisGUI(RunTetris runTetris) {
     this.runTetris = runTetris;
@@ -43,18 +37,18 @@ class TetrisGUI {
     c.fill = GridBagConstraints.BOTH;
     c.weightx = 1.0;
 
-    layout.rowHeights = new int[]{70, 70, 70, 590};
-    JPanel gameData = new GameDataRow(runTetris, new int[] {datagridy0, datagridy1, datagridy2, datagridy3});
+    layout.rowHeights = new int[] {70, 70, 70, 590};
+    JPanel gameData =
+        new GameDataRow(runTetris, new int[] {datagridy0, datagridy1, datagridy2, datagridy3});
     frame.setLayout(layout);
     frame.getContentPane().add(gameData, c);
-
 
     bc = new PlayFieldGUI(runTetris);
     GridBagLayout layOut = new GridBagLayout();
     frame.getContentPane().setLayout(layOut);
     c.fill = GridBagConstraints.BOTH;
 
-//    c.insets = new Insets(0, 20, 0, 20);
+    //    c.insets = new Insets(0, 20, 0, 20);
     c.weightx = 1.0;
     c.weighty = 1.0;
     c.gridy = playfieldgridy;
@@ -99,8 +93,8 @@ class TetrisGUI {
           }
         });
 
-    timer = new Timer(1000, e -> runTetris.dropCurrentPiece());
-    timer.start();
+//    timer = new Timer(1000, e -> runTetris.dropCurrentPiece());
+//    timer.start();
 
     timer2 = new Timer(200, e -> runTetris.dropSinkingPieces());
     timer2.start();
@@ -111,8 +105,8 @@ class TetrisGUI {
   }
 
   void endGame() {
-        timer.stop();
-        timer2.stop();
+    timer.stop();
+    timer2.stop();
   }
 
   PlayFieldGUI getBoardCompositor() {
@@ -137,7 +131,15 @@ class GameDataRow extends JPanel {
     this.gridyArray = gridyArray;
   }
 
-  void createRow(JLabel leftLabel, JLabel rightLabel, int gridy, String label1, String label2, GridBagLayout layOut, GridBagConstraints c, Font font) {
+  void createRow(
+      JLabel leftLabel,
+      JLabel rightLabel,
+      int gridy,
+      String label1,
+      String label2,
+      GridBagLayout layOut,
+      GridBagConstraints c,
+      Font font) {
     c.fill = GridBagConstraints.BOTH;
     c.gridy = gridy;
     c.weightx = 0.50;
@@ -158,8 +160,7 @@ class GameDataRow extends JPanel {
   }
 
   void drawRows() {
-    if (runTetris == null)
-      return;
+    if (runTetris == null) return;
 
     setBackground(Color.BLACK);
     GridBagLayout layout = new GridBagLayout();
@@ -171,16 +172,10 @@ class GameDataRow extends JPanel {
     c.weighty = 1.0;
     Font newFont = new Font("Monospaced", Font.BOLD, 12);
 
+    createRow(scoreLabel, levelLabel, gridyArray[0], "Score:", "Level:", layout, c, newFont);
     createRow(
-        scoreLabel,
-        levelLabel,
-        gridyArray[0],
-        "Score:",
-        "Level:",
-        layout,
-        c,
-        newFont);
-    createRow(score, level,
+        score,
+        level,
         gridyArray[1],
         Integer.toString((int) runTetris.getRecordKeeping().getScore()),
         Integer.toString((int) runTetris.getRecordKeeping().getLevel()),
@@ -201,11 +196,10 @@ class GameDataRow extends JPanel {
         comboCount,
         gridyArray[3],
         Integer.toString((int) runTetris.getRecordKeeping().getLinesCleared()),
-        Integer.toString((int) runTetris.getRecordKeeping().getComboCount()) ,
+        Integer.toString((int) runTetris.getRecordKeeping().getComboCount()),
         layout,
         c,
-        newFont
-    );
+        newFont);
   }
 
   @Override

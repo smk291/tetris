@@ -4,10 +4,10 @@ import java.awt.*;
 
 class TPiece extends Tetromino {
   private static final int[][][] offsets = {
-    {RelativeCoords.u1, RelativeCoords.l1, {0, 0}, RelativeCoords.r1}, // 0 up
-    {RelativeCoords.u1, {0, 0}, RelativeCoords.r1, RelativeCoords.d1}, // 1 right
-    {RelativeCoords.l1, {0, 0}, RelativeCoords.r1, RelativeCoords.d1}, // 2 down
-    {RelativeCoords.u1, RelativeCoords.l1, {0, 0}, RelativeCoords.d1} // 3 left
+    {Coords.u1, Coords.l1, {0, 0}, Coords.r1}, // 0 up
+    {Coords.u1, {0, 0}, Coords.r1, Coords.d1}, // 1 right
+    {Coords.l1, {0, 0}, Coords.r1, Coords.d1}, // 2 down
+    {Coords.u1, Coords.l1, {0, 0}, Coords.d1} // 3 left
   };
 
   TPiece() {

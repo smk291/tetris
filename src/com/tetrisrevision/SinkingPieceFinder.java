@@ -49,92 +49,60 @@ import java.util.stream.IntStream;
  ****/
 
 class SinkingPieceFinder {
-  private RowList piece = new RowList();
-  private boolean connectedToLastRow = false;
-  private int[][] skip;
+  private final RowList tmpRowList = new RowList();
+  private final int[][] skip = new int[Constants.height][Constants.width];
+  private boolean willSink = true;
 
-  SinkingPieceFinder() {
-    skip = new int[Constants.height()][Constants.width()];
+  private boolean doSkipCell(double x, double y) {
+    if (skip[(int) y][(int) x] == 0) {
+      skip[(int) y][(int) x] = 1;
+
+      return false;
+    }
+
+    return true;
   }
 
-  private boolean skipCell(double x, double y) {
-    return skip[(int) y][(int) x] == 1;
-  }
-
-  private void resetSkip() {
-    skip = new int[Constants.height()][Constants.width()];
-  }
-
-  private void setSkip(double x, double y) {
-    skip[(int) y][(int) x] = 1;
-  }
-
-  private void reset() {
-    piece = new RowList();
-    connectedToLastRow = false;
-  }
-
-  void find(double idx, RowList playField, ArrayList<RowList> sinkingPieces) {
-    if (!BoundsTester.yInBoundsNoMin(idx))
+  void findSinkingPieces(double idx, RowList playField, ArrayList<RowList> sinkingPieces) {
+    if (!BoundsTester.yInBoundsNoMin(idx)) {
       return;
+    }
 
-    double rowBelow = idx + Constants.down();
+    runSearch(idx, sinkingPieces, playField);
+    runSearch(idx + Constants.down, sinkingPieces, playField);
+  }
 
-    resetSkip();
-
-    IntStream.range(0, Constants.width())
+  private void runSearch(double y, ArrayList<RowList> sinkingPieces, RowList playField) {
+    IntStream.range(0, Constants.width)
         .forEach(
             x -> {
-              if (PlacementTester.inBounds(x, rowBelow) && !skipCell(x, rowBelow) && playField.getBlock(x, rowBelow).isPresent() ) {
-                reset();
+              tmpRowList.clear();
+              willSink = true;
 
-                addConnectedBlocksToPiece(x, rowBelow, playField);
+              getAdjacentBlocks(x, y, playField);
 
-                if (!connectedToLastRow) {
-                  sinkingPieces.add(piece);
-                }
-              }
-
-              if (PlacementTester.inBounds(x, idx) && !skipCell(x, idx) && playField.getBlock(x, idx).isPresent()) {
-                reset();
-
-                addConnectedBlocksToPiece(x, idx, playField);
-
-                if (!connectedToLastRow) {
-                  sinkingPieces.add(piece);
-                }
+              if (!willSink) {
+                sinkingPieces.add(tmpRowList);
               }
             });
   }
 
-  private void addConnectedBlocksToPiece(double x, double y, RowList rowList) {
+  private void getAdjacentBlocks(double x, double y, RowList rowList) {
     Optional<Block> b = rowList.getBlock(x, y);
 
-    if (b.isEmpty()){
+    if (b.isEmpty() || doSkipCell(x, y)) {
       return;
     }
 
-    setSkip(x, y);
-
-    if (!connectedToLastRow && (int) y == Constants.bottomRow()) {
-      connectedToLastRow = true;
+    if (!willSink && (int) y == Constants.bottomRow) {
+      willSink = false;
     }
 
-    try {
-      piece.addBlock(y, b.get().clone());
-    } catch (CloneNotSupportedException e) {
-      e.printStackTrace();
-    }
+    tmpRowList.addBlock(y, new Block(b.get().getX(), b.get().getColor()));
 
-    searchAdjacent(x, y + Constants.up(), rowList);
-    searchAdjacent(x, y + Constants.down(), rowList);
-    searchAdjacent(x + Constants.right(), y, rowList);
-    searchAdjacent(x + Constants.left(), y, rowList);
-  }
-
-  private void searchAdjacent(double x, double y, RowList rowList) {
-    if (PlacementTester.inBounds(x, y) && !skipCell(x, y)) {
-      addConnectedBlocksToPiece(x, y, rowList);
-    }
+    getAdjacentBlocks(x, y + Constants.up, rowList);
+    getAdjacentBlocks(x, y + Constants.down, rowList);
+    getAdjacentBlocks(x + Constants.right, y, rowList);
+    getAdjacentBlocks(x + Constants.left, y, rowList);
   }
 }

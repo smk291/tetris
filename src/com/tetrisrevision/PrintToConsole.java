@@ -9,14 +9,13 @@ interface QuadConsumer<T> {
 }
 
 interface QuadConsumerString<T> {
-  String accept(Double x, Double y, Double rowY,  T t);
+  String accept(Double x, Double y, Double rowY, T t);
 }
 
 class PrintToConsole {
   private String[][][] board;
 
   PrintToConsole() {}
-
 
   public String printCell(double y, Block cell) {
     return "{ " + cell.getX() + ", " + y + " }";
@@ -40,13 +39,17 @@ class PrintToConsole {
 
   private void paintAndPrint(RowList rowList, ArrayList<RowList> sinkingPieces, TetrisPiece piece) {
     printBoardCustom(
-            rowList,
+        rowList,
         (Double x, Double y, Double rowY, Optional<Block> block) -> {
-          if (block.isEmpty())
-            return;
+          if (block.isEmpty()) return;
 
           if (block.get().getX() != x || !rowY.equals(y)) {
-            System.out.print("(" + printCoords(x, y) + ") -> (" + printCoords(block.get().getX(), rowY) + ") :: ");
+            System.out.print(
+                "("
+                    + printCoords(x, y)
+                    + ") -> ("
+                    + printCoords(block.get().getX(), rowY)
+                    + ") :: ");
           } else {
             System.out.print("(      ) -> (      ) :: ");
           }
@@ -71,26 +74,26 @@ class PrintToConsole {
           else return "  ";
         });
 
-//    Optional<Block> block1 = playField.getBlock(0, 22);
-//    Optional<Block> block2 = playField.getBlock(4,22);
+    //    Optional<Block> block1 = playField.getBlock(0, 22);
+    //    Optional<Block> block2 = playField.getBlock(4,22);
 
-//    block1.ifPresent(block -> System.out.println(
-//            "22, 0"
-//                    + printCell(block)
-//                    + " "
-//                    + (block.getColor() != null ? block.getColor().toString() : "NC")));
-//    block2.ifPresent(block -> System.out.println(
-//            "22, 4"
-//                    + printCell(block)
-//                    + " "
-//                    + (block.getColor() != null ? block.getColor().toString() : "NC")));
+    //    block1.ifPresent(block -> System.out.println(
+    //            "22, 0"
+    //                    + printCell(block)
+    //                    + " "
+    //                    + (block.getColor() != null ? block.getColor().toString() : "NC")));
+    //    block2.ifPresent(block -> System.out.println(
+    //            "22, 4"
+    //                    + printCell(block)
+    //                    + " "
+    //                    + (block.getColor() != null ? block.getColor().toString() : "NC")));
   }
 
   private void getBoard(RowList rowList, ArrayList<RowList> sinkingPieces, TetrisPiece piece) {
-    String[][][] board = new String[Constants.height()][Constants.width()][5];
+    String[][][] board = new String[Constants.height][Constants.width][5];
 
     for (String[][] row : board) {
-      IntStream.range(0, row.length).forEach(x -> row[x] = new String[]{" ", " ", " ", " ", " "});
+      IntStream.range(0, row.length).forEach(x -> row[x] = new String[] {" ", " ", " ", " ", " "});
     }
 
     for (int y = 0; y < board.length; y++) {
@@ -150,14 +153,10 @@ class PrintToConsole {
   }
 
   private boolean fallingPieceContainsCell(double x, double y, TetrisPiece currentPiece2d) {
-    for (Row r : currentPiece2d.getBlocks().get())
-    {
-      if (r.getY() == y)
-      {
-        for (Block b : r.get())
-        {
-          if (b.getX() == x)
-            return true;
+    for (Row r : currentPiece2d.getBlocks().get()) {
+      if (r.getY() == y) {
+        for (Block b : r.get()) {
+          if (b.getX() == x) return true;
         }
       }
     }
@@ -167,8 +166,7 @@ class PrintToConsole {
 
   private <T> void printBoardCustom(RowList rowList, QuadConsumer<Optional<Block>> print) {
     for (Row row : rowList.get()) {
-      if (row == null || row.isEmpty())
-        continue;
+      if (row == null || row.isEmpty()) continue;
 
       for (Block b : row.get()) {
         print.accept(b.getX(), row.getY(), row.getY(), row.get(b.getX()));

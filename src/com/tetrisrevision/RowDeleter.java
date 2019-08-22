@@ -3,41 +3,61 @@ package com.tetrisrevision;
 import java.util.ArrayList;
 
 abstract class RowDeleter {
-  static ArrayList<Integer> apply(RowList blocksAdded, TetrisPiece piece, RowList board, GameRecordKeeping score, TetrisGUI gui) {
-    int idx = board.getLowestFullRow(blocksAdded);              // Lowest Row to be deleted, below which no Row's `y`
-                                                                // will need to shift
-    ArrayList<Integer> sinkingPieceAnchors = new ArrayList<>(); // Row indices where one or more rows were deleted,
-                                                                // i.e. where sinking pieces may be created
-    if (idx == -1) {                                            // If no Rows will be deleted
-      score.resetCombo();                                       // Thus Reset combo count
-    } else {                                                    // Else Rows will be deleted
-      score.incrCombo();                                        // Thus increment combo count
+  static ArrayList<Integer> apply(
+      RowList blocksAdded,
+      TetrisPiece piece,
+      RowList board,
+      GameRecordKeeping score,
+      TetrisGUI gui) {
+    int idx = board.getLowestFullRow(blocksAdded);
 
-      int total = 0;                                            // Number of Rows removed
-      int contig;                                               // Count continguous rows removed, reset on each loop
-                                                                // iteration
-      for (int i = idx; i < board.size(); i++) {                // Loop upward through Rows starting from `idx`
-        contig = 0;                                             // Reset `contig`
+    ArrayList<Integer> sinkingPieceAnchors = new ArrayList<>();
 
-        while (board.isFullRow(i)) {                            // If Row i is full
-          board.remove(i);                                      // Remove Row i
-          contig++;                                             // Increment `contig`
+    if (idx == -1) {
+      score.resetCombo();
+    } else {
+      score.incrCombo();
+
+      int total = 0;
+      int contig;
+
+      for (int i = idx; i < board.size(); i++) {
+        contig = 0;
+        ArrayList<Row> delete = new ArrayList<>();
+
+        int j = i;
+        while (board.isFullRow(j)) {
+          Row r = board.get(j);
+
+          if (r != null) {
+            delete.add(r);
+          }
+
+          j++;
         }
 
-        total += contig;                                        // Add `contig` to `total`
+        board.get().removeAll(delete);
 
-        score.computeAndAdd(contig, piece, board);              // Compute score of deletion and add to current score
-        score.incrLinesCleared(contig, gui);                    // Increment line-cleared total
+        total += contig;
+        score.computeAndAdd(contig, piece, board);
+        score.incrLinesCleared(contig, gui);
 
-        Row r = board.get(i);
+        if (board.get().size() == 0) {
+          sinkingPieceAnchors.clear();
 
-        if (r != null) {                                        // If there's still a Row at i
-          r.setY(r.getY() - total);                             // Change its `y`, shifting it down by # of deleted Rows
-          sinkingPieceAnchors.add(i);                           // `i` is Row where program will look for sinking piece
+          break;
+        } else {
+          Row r = board.get(i);
+
+          if (r != null) {
+            r.setY(r.getY() - total);
+
+            sinkingPieceAnchors.add(i);
+          }
         }
       }
     }
 
-    return sinkingPieceAnchors;                                 // Return sinking-piece anchors -- Row indices where program will look for
-  }                                                             // sinking pieces
+    return sinkingPieceAnchors;
+  }
 }

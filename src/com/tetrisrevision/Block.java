@@ -1,12 +1,8 @@
 package com.tetrisrevision;
 
-import java.awt.Color;
+import java.awt.*;
 
-/**
- * <p>A Block is a colored square that fills a cell on the tetris play field.
- *
- * <p>**
- */
+// A Block is a colored square that fills a cell on the tetris play field. A Block is always contained in a Row.
 public final class Block {
   private final Color c;
   private final double x;
@@ -16,8 +12,7 @@ public final class Block {
     this.c = c;
   }
 
-  double getX()
-  {
+  double getX() {
     return x;
   }
 
