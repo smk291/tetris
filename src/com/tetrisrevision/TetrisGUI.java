@@ -93,8 +93,8 @@ class TetrisGUI {
           }
         });
 
-//    timer = new Timer(1000, e -> runTetris.dropCurrentPiece());
-//    timer.start();
+    timer = new Timer(10000, e -> runTetris.dropCurrentPiece());
+    timer.start();
 
     timer2 = new Timer(200, e -> runTetris.dropSinkingPieces());
     timer2.start();

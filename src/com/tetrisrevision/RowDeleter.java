@@ -3,6 +3,7 @@ package com.tetrisrevision;
 import java.util.ArrayList;
 
 abstract class RowDeleter {
+
   static ArrayList<Integer> apply(
       RowList blocksAdded,
       TetrisPiece piece,
@@ -17,28 +18,24 @@ abstract class RowDeleter {
       score.resetCombo();
     } else {
       score.incrCombo();
-
       int total = 0;
-      int contig;
 
       for (int i = idx; i < board.size(); i++) {
-        contig = 0;
+        int contig = 0;
         ArrayList<Row> delete = new ArrayList<>();
 
         int j = i;
+
         while (board.isFullRow(j)) {
-          Row r = board.get(j);
+          board.getRow(j).ifPresent(delete::add);
 
-          if (r != null) {
-            delete.add(r);
-          }
-
+          contig++;
           j++;
         }
 
-        board.get().removeAll(delete);
-
         total += contig;
+
+        board.get().removeAll(delete);
         score.computeAndAdd(contig, piece, board);
         score.incrLinesCleared(contig, gui);
 
@@ -46,14 +43,14 @@ abstract class RowDeleter {
           sinkingPieceAnchors.clear();
 
           break;
-        } else {
-          Row r = board.get(i);
+        }
 
-          if (r != null) {
-            r.setY(r.getY() - total);
+        Row r = board.get(i);
 
-            sinkingPieceAnchors.add(i);
-          }
+        if (r != null) {
+          r.setY(r.getY() - total);
+
+          sinkingPieceAnchors.add(i);
         }
       }
     }

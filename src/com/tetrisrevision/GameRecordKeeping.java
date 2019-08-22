@@ -184,7 +184,7 @@ final class GameRecordKeeping {
     if (computeLevel() > level) {
       level = (int) Math.floor(computeLevel());
 
-      gui.setDropTimerDelay(getDelayByLevel(level));
+      gui.setDropTimerDelay(getDelayByLevel(level) * 10);
     }
   }
 

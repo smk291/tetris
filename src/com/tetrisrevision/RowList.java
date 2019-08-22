@@ -19,6 +19,12 @@ public class RowList {
     return rows;
   }
 
+  public void add(Row row) {
+    getRow(row.getY())
+        .ifPresentOrElse(
+            r -> r.addAll(row.get()), () -> rows.add(row));
+  }
+
   void addRowList(RowList p) {
     p.forEach(this::add);
   }
@@ -34,7 +40,23 @@ public class RowList {
             });
   }
 
-  private Optional<Row> getRow(double y) {
+  boolean cellIsEmpty(double x, double y) {
+    return getBlock(x, y).isEmpty();
+  }
+
+  void clear() {
+    rows.clear();
+  }
+
+  void forEach(Consumer<? super Row> action) {
+    rows.forEach(action);
+  }
+
+  public @Nullable Row get(int i) {
+    return rows.get(i);
+  }
+
+  Optional<Row> getRow(double y) {
     for (Row row : rows) {
       if (row.getY() == y) {
         return Optional.of(row);
@@ -44,8 +66,12 @@ public class RowList {
     return Optional.empty();
   }
 
-  private Optional<Row> getRow(Row r) {
-    return getRow(r.getY());
+  Optional<Row> getRow(int i) {
+    if (null != get(i)) {
+      return Optional.of(get(i));
+    }
+
+    return Optional.empty();
   }
 
   Optional<Block> getBlock(double x, double y) {
@@ -56,72 +82,18 @@ public class RowList {
     return b.get();
   }
 
-  boolean cellIsEmpty(double x, double y) {
-    return getBlock(x, y).isEmpty();
-  }
-
   boolean isFullRow(double y) {
     return getRow(y).isPresent()
         && Constants.width == getRow(y).get().size();
-  }
-
-  public boolean add(Row row) {
-    AtomicBoolean addReturn = new AtomicBoolean(false);
-
-    getRow(row)
-        .ifPresentOrElse(
-            r -> addReturn.set(r.addAll(row.get())), () -> addReturn.set(rows.add(row)));
-
-    return addReturn.get();
-  }
-
-  public void add(int i, Row row) {
-    rows.add(i, row);
-  }
-
-  void clear() {
-    rows.clear();
-  }
-
-  public @Nullable Row get(int i) {
-    return rows.get(i);
-  }
-
-  void remove(int i) {
-    rows.remove(i);
-  }
-
-  public Row set(int i, Row row) {
-    return rows.set(i, row);
   }
 
   public int size() {
     return rows.size();
   }
 
-  void forEach(Consumer<? super Row> action) {
-    rows.forEach(action);
-  }
-
   int getLowestFullRow(RowList p) {
     p.get().sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
     rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
-
-    System.out.print("p rows: " + p.get().size() + ", ");
-    System.out.print("p ys: ");
-
-    for (Row r : p.get()) {
-      System.out.print((int) r.getY() + " ");
-    }
-    System.out.println();
-
-    System.out.print("ys: ");
-
-    for (Row r : rows) {
-        System.out.print((int) r.getY() + " ");
-    }
-
-    System.out.println();
 
     int idx = -1;
 
@@ -132,12 +104,8 @@ public class RowList {
         continue;
       }
 
-      Optional<Row> r2 = getRow(r);
-
-      if (r2.isPresent() && r2.get().size() == 10) {
-        idx = i;
-
-        break;
+      if (getRow(r.getY()).isPresent() && getRow(r.getY()).get().size() == 10) {
+        return i;
       }
     }
 
