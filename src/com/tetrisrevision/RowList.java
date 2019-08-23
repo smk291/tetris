@@ -88,18 +88,44 @@ public class RowList {
     return getRowByIdx(idx).isPresent() && Constants.width == getRowByIdx(idx).get().size();
   }
 
-  int deleteRows(int idx) {
+  int getYMinIdx() {
+    int min = 20;
+
+    for (int i = 0; i < rows.size(); i++) {
+      if (rows.get(i).getY() < min) {
+        min = i;
+      }
+    }
+
+    return min;
+  }
+
+  int getYMaxIdx() {
+    int max = -1;
+
+    for (int i = 0; i < rows.size(); i++) {
+      if (rows.get(i).getY() > max) {
+        max = i;
+      }
+    }
+
+    return max;
+  }
+
+  int deleteContiguous(int idx, int offset) {
     int contig = 0;
 
     for (int i = idx; i < rows.size(); ) {
-      if (i == idx && rows.get(i).get().size() == Constants.width) {
+      Row r = rows.get(i);
+
+      if (i == idx && r.get().size() == Constants.width) {
         rows.remove(i);
 
         contig++;
+      } else if (r.get().size() == Constants.width){
+        break;
       } else {
-        Row r = rows.get(i);
-
-        r.setY(r.getY() - contig);
+        r.setY(r.getY() - contig - offset);
 
         i++;
       }
@@ -112,36 +138,62 @@ public class RowList {
   }
 
   int getLowestFullRow(RowList p) {
+    int startY = 20;
+
     rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
 
+    for (int i = 0; i < p.get().size(); i++) {
+      if (p.get(i).getY() < startY) {
+        startY = (int) p.get(i).getY();
+      }
+    }
+
     int idx = -1;
+    int startIdx = -1;
 
     for (int i = 0; i < rows.size(); i++) {
-      if (rows.get(i).size() == 10) {
-        System.out.println("Lowest full row: " + idx);
+      if (rows.get(i).getY() == startY) {
+        startIdx = i;
 
+        break;
+      }
+    }
+
+    for (int i = startIdx; i < rows.size(); i++) {
+      if (rows.get(i).size() == 10) {
         return i;
       }
     }
 
-    System.out.println("Lowest full row: " + idx);
     return idx;
   }
 
   int getHighestFullRow(RowList p) {
     rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
+    int startY = -1;
 
-    int idx = -1;
-
-    for (int i = rows.size() - 1; i >= 0; i--) {
-      if (rows.get(i).size() == 10) {
-        System.out.println("Highest full row: " + idx);
-
-        return i;
+    for (int i = 0; i < p.get().size(); i++) {
+      if (p.get(i).getY() > startY) {
+        startY = (int) p.get(i).getY();
       }
     }
 
-    System.out.println("Highest full row: " + idx);
+    int idx = -1;
+    int startIdx = -1;
+
+    for (int i = 0; i < rows.size(); i++) {
+      if (rows.get(i).getY() == startY) {
+        startIdx = i;
+
+        break;
+      }
+    }
+
+    for (int i = startIdx; i >= 0; i--) {
+      if (rows.get(i).size() == 10) {
+        return i;
+      }
+    }
 
     return idx;
   }
