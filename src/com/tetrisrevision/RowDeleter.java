@@ -10,47 +10,33 @@ abstract class RowDeleter {
       RowList board,
       GameRecordKeeping score,
       TetrisGUI gui) {
-    int idx = board.getLowestFullRow(blocksAdded);
+    int lowestFullRow = board.getLowestFullRow(blocksAdded);
+    int highestFullRow = board.getHighestFullRow(blocksAdded);
+
+    System.out.println("lowest and highest full: " + lowestFullRow + ", " + highestFullRow);
 
     ArrayList<Integer> sinkingPieceAnchors = new ArrayList<>();
 
-    if (idx == -1) {
+    if (lowestFullRow == -1) {
       score.resetCombo();
     } else {
       score.incrCombo();
-      int total = 0;
 
-      for (int i = idx; i < board.size(); i++) {
-        int contig = 0;
-        ArrayList<Row> delete = new ArrayList<>();
+      for (int i = lowestFullRow; board.size() > 0 && i < board.size() && i <= highestFullRow; i++) {
+        int contigDeleted = 0;
 
-        int j = i;
-
-        while (board.isFullRow(j)) {
-          board.getRow(j).ifPresent(delete::add);
-
-          contig++;
-          j++;
+        if (board.get().get(i).size() == Constants.width) {
+          contigDeleted = board.deleteRows(i);
+          sinkingPieceAnchors.add(i);
         }
 
-        total += contig;
-
-        board.get().removeAll(delete);
-        score.computeAndAdd(contig, piece, board);
-        score.incrLinesCleared(contig, gui);
+        score.computeAndAdd(contigDeleted, piece, board);
+        score.incrLinesCleared(contigDeleted, gui);
 
         if (board.get().size() == 0) {
           sinkingPieceAnchors.clear();
 
           break;
-        }
-
-        Row r = board.get(i);
-
-        if (r != null) {
-          r.setY(r.getY() - total);
-
-          sinkingPieceAnchors.add(i);
         }
       }
     }

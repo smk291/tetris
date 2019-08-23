@@ -83,11 +83,11 @@ class RunTetris {
 
     System.out.println("Indices:" + deletedRowIdx.toString());
 
-    if (deletedRowIdx.size() > 0) {
-      deletedRowIdx.forEach(
-          i -> new SinkingPieceFinder().findSinkingPieces(i, playField, sinkingPieces));
-    }
-
+//    if (deletedRowIdx.size() > 0) {
+//      deletedRowIdx.forEach(
+//          i -> new SinkingPieceFinder().findSinkingPieces(i, playField, sinkingPieces));
+//    }
+//
     tetrominoQueue.resetCurrentPiece(piece);
 
     if (!PlacementTester.cellsCanBeOccupied(piece, playField)) {

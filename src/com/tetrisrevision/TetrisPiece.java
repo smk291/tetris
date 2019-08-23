@@ -107,4 +107,8 @@ public class TetrisPiece {
   public void setTSpinTracker(TSpinTracker tSpinTracker) {
     this.tSpinTracker = tSpinTracker;
   }
+
+  public void setRotation(int i) {
+    rotation = i;
+  }
 }

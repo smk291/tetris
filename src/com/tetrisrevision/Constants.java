@@ -12,10 +12,26 @@ public abstract class Constants {
   static int topRow = Constants.height - 1;
   static int bottomRow = 0;
   static int leftBound = 0;
+  static int rightBound = 9;
 
   static int clockwise = 1;
   static int counterClockwise = -1;
 
   static int timerDelay = 500;
 
+  static int fromLeft(int i) {
+    return left + right * i;
+  }
+
+  static int fromRight(int i) {
+    return rightBound + left * i;
+  }
+
+  static int fromBottom(int i) {
+    return Constants.bottomRow + Constants.up * i;
+  }
+
+  static int fromTop(int i) {
+    return Constants.topRow + Constants.down * i;
+  }
 }
