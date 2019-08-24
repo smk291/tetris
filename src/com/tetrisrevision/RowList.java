@@ -39,25 +39,6 @@ public class RowList implements Cloneable {
     p.forEach(this::add);
   }
 
-  void addRowList(RowList p, boolean br) {
-    System.out.println("Before");
-
-    for (Row r : p.get()) {
-      for (Block b : r.get()) {
-        System.out.println("Does playfield contain " + (int) b.getX() + ", " + (int) r.getY() + "? " + (getBlock(b.getX(), r.getY()).isPresent() ? "Yes. " : "No. "));
-      }
-    }
-    p.forEach(this::add);
-
-    System.out.println("After");
-
-    for (Row r : p.get()) {
-      for (Block b : r.get()) {
-        System.out.println("Does playfield contain " + (int) b.getX() + ", " + (int) r.getY() + "? " + (getBlock(b.getX(), r.getY()).isPresent() ? "Yes. " : "No. "));
-      }
-    }
-  }
-
   void addBlock(double y, Block block) {
     getRowByY(y)
         .ifPresentOrElse(

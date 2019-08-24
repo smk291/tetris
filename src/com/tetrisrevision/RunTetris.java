@@ -62,7 +62,7 @@ class RunTetris {
   }
 
   private void addSinkingPieceToBoard(RowList sinkingPiece) {
-    playField.addRowList(sinkingPiece, true);
+    playField.addRowList(sinkingPiece);
 
     ArrayList<Integer> deletedRowIdx =
         RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping, tetrisGUI);
