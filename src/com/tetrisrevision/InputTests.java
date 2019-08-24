@@ -7,9 +7,14 @@ import java.util.stream.IntStream;
 
 /** These are basically unit tests for various behaviors */
 abstract class InputTests {
-  private static void createCell(double x, double y, RowList rowList) {
-    Block block = new Block(x, Color.LIGHT_GRAY);
-    rowList.addBlock(y, block);
+  static void put(RowList rl, int y, int[] blocks) {
+    Row row = new Row(y);
+
+    for (int i : blocks) {
+      row.add(new Block(i, Color.lightGray));
+    }
+
+    rl.add(row);
   }
 
   static void accept(String e, TetrisPiece piece, RowList board) {
@@ -29,32 +34,20 @@ abstract class InputTests {
         board.clear();
         piece.setTetromino(TetrominoEnum.I.get());
 
-        for (int x = Constants.leftBound, l = Constants.rightBoundOuter;
-            x != l;
-            x += Constants.right) {
-          if (x != Constants.fromLeft(5)) {
-            createCell(x, Constants.bottomRow + Constants.up * 3, board);
-            createCell(x, Constants.bottomRow + Constants.up * 2, board);
-            createCell(x, Constants.bottomRow + Constants.up, board);
-            createCell(x, Constants.bottomRow, board);
-          }
-        }
+        put(board, 3,  new int[] {0,1,2,3,  5,6,7,8,9});
+        put(board, 2,  new int[] {0,1,2,3,  5,6,7,8,9});
+        put(board, 1,  new int[] {0,1,2,3,  5,6,7,8,9});
+        put(board, 0,  new int[] {0,1,2,3,  5,6,7,8,9});
+
         break;
       case "A": // tetris-deletion test
         board.clear();
         piece.setTetromino(TetrominoEnum.I.get());
 
-        for (int x = Constants.leftBound, l = Constants.rightBoundOuter;
-            x != l;
-            x += Constants.right) {
-          if (x != Constants.fromLeft(5)) {
-            createCell(x, Constants.bottomRow + Constants.up * 3, board);
-            createCell(x, Constants.bottomRow + Constants.up * 2, board);
-            createCell(x, Constants.bottomRow + Constants.up, board);
-            createCell(x, Constants.bottomRow, board);
-            ;
-          }
-        }
+        put(board, 3,  new int[] {0,1,2,3,  5,6,7,8,9});
+        put(board, 2,  new int[] {  1,2,3,  5,6,7,8,9});
+        put(board, 1,  new int[] {0,1,2,3,  5,6,7,8,9});
+        put(board, 0,  new int[] {0,1,2,3,  5,6,7,8,9});
 
         board
             .getRowByY(Constants.fromBottom(2))
@@ -65,86 +58,39 @@ abstract class InputTests {
         board.clear();
         piece.setCenter(Constants.fromLeft(6), Constants.fromBottom(15));
 
-        for (int x = Constants.leftBound; x != Constants.rightBoundOuter; x += Constants.right) {
-          if (x > Constants.fromLeft(4) && x < Constants.rightBound + Constants.left) {
-            createCell(x, Constants.fromBottom(2), board);
-          }
-
-          if (x == Constants.fromLeft(6)) {
-            createCell(x, Constants.fromBottom(1), board);
-          }
-
-          if (x != Constants.fromLeft(2)) {
-            createCell(x, Constants.bottomRow, board);
-          }
-        }
+        put(board, 2,  new int[] {0,1,2,3,4,  6,7,8,9});
+        put(board, 1,  new int[] {0,1,2,3,4,  6,7,8,9});
+        put(board, 0,  new int[] {0,1,2,3,4,  6,7,8,9});
 
         break;
       case "S":
         board.clear();
 
+        put(board, 3,  new int[] {0,1,2,3,    6,7,8,9});
+        put(board, 2,  new int[] {0,1,2,3,4,  6,7,8,9});
+        put(board, 1,  new int[] {0,1,2,3,4,  6,7,8,9});
+        put(board, 0,  new int[] {0,1,2,3,4,  6,7,8,9});
+
         piece.setTetromino(TetrominoEnum.S.get());
         piece.setRotation(3);
         piece.setCenter(5, Constants.bottomRow + 5);
-
-        for (int x = Constants.leftBound; x != Constants.rightBoundOuter; x += Constants.right) {
-          if (x != Constants.fromLeft(6)) {
-            createCell(x, Constants.bottomRow, board);
-            createCell(x, Constants.fromBottom(1), board);
-            createCell(x, Constants.fromBottom(2), board);
-
-            if (x != Constants.fromLeft(5)) {
-              createCell(x, Constants.fromBottom(3), board);
-            }
-          }
-        }
 
         break;
       case "d": // multiple sinking pieces, test that each behaves correctly
         board.clear();
 
-        for (int x = Constants.leftBound, boardWidth = Constants.rightBoundOuter;
-            x != boardWidth;
-            x += Constants.right) {
-          if (x != Constants.fromLeft(3)) {
-            createCell(x, Constants.fromBottom(9), board);
-          }
-
-          if (x == Constants.fromLeft(3)) {
-            for (int y = Constants.fromBottom(8);
-                y != Constants.bottomBoundOuter;
-                y += Constants.down) {
-              createCell(x, y, board);
-            }
-          }
-
-          if (x == Constants.fromLeft(8) || x == Constants.fromLeft(9)) {
-            createCell(x, Constants.fromBottom(8), board);
-          }
-
-          if (x == Constants.fromLeft(9)) {
-            createCell(x, Constants.fromBottom(7), board);
-          }
-
-          if (x == Constants.leftBound
-              || x == Constants.fromLeft(5)
-              || x == Constants.fromLeft(7)) {
-            createCell(x, Constants.fromBottom(10), board);
-            createCell(x, Constants.fromBottom(11), board);
-            createCell(x, Constants.bottomRow + Constants.up, board);
-            createCell(x, Constants.bottomRow, board);
-          }
-
-          if (x == Constants.fromLeft(5)) {
-            createCell(x, Constants.fromBottom(3), board);
-          }
-
-          if (x == Constants.fromLeft(4)
-              || x == Constants.fromLeft(5)
-              || x == Constants.fromLeft(7)) {
-            createCell(x, Constants.fromBottom(2), board);
-          }
-        }
+        put(board, 11, new int[] {0,      4,  6      });
+        put(board, 10, new int[] {0,      4,  6      });
+        put(board, 9,  new int[] {0,1,  3,4,5,6,7,8,9});
+        put(board, 8,  new int[] {    2,        7,8  });
+        put(board, 7,  new int[] {    2,          8  });
+        put(board, 6,  new int[] {    2,             });
+        put(board, 5,  new int[] {    2              });
+        put(board, 4,  new int[] {    2,             });
+        put(board, 3,  new int[] {    2,  4          });
+        put(board, 2,  new int[] {    2,3,4,  6      });
+        put(board, 1,  new int[] {0,  2,  4,  6,     });
+        put(board, 0,  new int[] {0,  2,  4,  6      });
 
         piece.setTetromino(TetrominoEnum.values()[0].get());
         piece.setCenter(Constants.fromLeft(2), Constants.fromBottom(15));
@@ -153,57 +99,25 @@ abstract class InputTests {
       case "f": // test kick
         board.clear();
 
-        for (int x = Constants.leftBound; x != Constants.rightBoundOuter; x += Constants.right) {
-          if (x != Constants.fromLeft(1)
-              && !(x > Constants.fromLeft(3) && x < Constants.fromLeft(9))) {
-            createCell(x, Constants.fromBottom(6), board);
-          }
-
-          if (x != Constants.fromBottom(6)) {
-            createCell(x, Constants.fromBottom(5), board);
-            createCell(x, Constants.fromBottom(4), board);
-            createCell(x, Constants.fromBottom(3), board);
-          }
-
-          if (x != Constants.fromLeft(1) && x != Constants.fromLeft(6)) {
-            createCell(x, Constants.fromBottom(2), board);
-            createCell(x, Constants.bottomRow, board);
-          }
-        }
-
         piece.setCenter(Constants.fromLeft(4), Constants.fromBottom(15));
 
         break;
       case "z": // test row deletion
         board.clear();
 
-        for (int x = Constants.leftBound; x != Constants.rightBoundOuter; x += Constants.right) {
-          if (x != Constants.fromLeft(6)) {
-            createCell(x, Constants.bottomRow, board);
-          }
-        }
+        put(board, 0,  new int[] {0,1,2,  4,5,6,7,8,9});
 
         break;
       case "x": // test row delete after sink -- on bottom row to test bounds checker
         board.clear();
 
-        for (int x = Constants.leftBound; x != Constants.rightBoundOuter; x += Constants.right) {
-          if (x == Constants.fromLeft(5)) {
-            createCell(x, Constants.fromBottom(2), board);
-          }
-
-          if (x > Constants.fromLeft(3)) {
-            createCell(x, Constants.fromBottom(1), board);
-          }
-
-          if (x > Constants.leftBound && x < Constants.fromLeft(5) || x > Constants.fromLeft(5)) {
-            createCell(x, Constants.bottomRow, board);
-          }
-        }
+        put(board, 2,  new int[] {      3            });
+        put(board, 1,  new int[] {      3,4,5,6,7,8,9});
+        put(board, 0,  new int[] {  1,2,  4,5,6,7,8,9});
 
         piece.setTetromino(TetrominoEnum.J.get());
-        piece.resetRotation();
-        piece.setCenter(Constants.fromLeft(2), Constants.fromBottom(5));
+        piece.setRotation(0);
+        piece.setCenter(1, 3);
 
         break;
       case "c": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
@@ -211,41 +125,17 @@ abstract class InputTests {
         // another sinking piece
         board.clear();
 
-        for (int y = Constants.bottomRow; y != Constants.fromBottom(8); y += Constants.up) {
-          createCell(0, y, board);
-          createCell(2, y, board);
-          createCell(4, y, board);
-          createCell(6, y, board);
-        }
-
-        for (int x = Constants.leftBound; x != Constants.rightBoundOuter; x += Constants.right) {
-          if (x == Constants.fromLeft(5)) {
-            createCell(x, Constants.fromBottom(10), board);
-          }
-
-          if (x > Constants.fromLeft(3)) {
-            createCell(x, Constants.fromBottom(9), board);
-          }
-
-          if (x == Constants.rightBound || x == Constants.rightBound + Constants.left) {
-            createCell(x, Constants.fromBottom(7), board);
-            createCell(x, Constants.fromBottom(4), board);
-            createCell(x, Constants.fromBottom(1), board);
-          }
-
-          if (x != Constants.leftBound && x < Constants.fromLeft(5)) {
-            createCell(x, Constants.fromBottom(8), board);
-          }
-
-          if (x > Constants.fromLeft(5)) {
-            createCell(x, Constants.fromBottom(8), board);
-          }
-
-          if (x != Constants.rightBound && x != Constants.rightBound + Constants.left) {
-            createCell(x, Constants.fromBottom(2), board);
-            createCell(x, Constants.fromBottom(5), board);
-          }
-        }
+        put(board, 10, new int[] {        4          });
+        put(board, 9,  new int[] {      3,4,5,6,7,8,9});
+        put(board, 8,  new int[] {  1,2,3,  5,6,7,8,9});
+        put(board, 7,  new int[] {0,  2,  4,  6,  8,9});
+        put(board, 6,  new int[] {0,  2,  4,  6      });
+        put(board, 5,  new int[] {0,1,2,3,4,5,6,7    });
+        put(board, 4,  new int[] {0,  2,  4,  6,  8,9});
+        put(board, 3,  new int[] {0,  2,  4,  6      });
+        put(board, 2,  new int[] {0,1,2,3,4,5,6,7    });
+        put(board, 1,  new int[] {0,  2,  4,  6,  8,9});
+        put(board, 0,  new int[] {0,  2,  4,  6      });
 
         piece.setTetromino(TetrominoEnum.J.get());
         piece.resetRotation();
@@ -259,26 +149,10 @@ abstract class InputTests {
         piece.setCenter(Constants.fromLeft(6), Constants.fromBottom(5));
         piece.setRotation(1);
 
-        for (int x = Constants.leftBound; x < Constants.rightBoundOuter; x += Constants.right) {
-          if (x < Constants.fromLeft(5) || x > Constants.fromRight(5)) {
-            final int finalX = x;
-
-            IntStream.range(Constants.fromBottom(5), Constants.fromBottom(3))
-                .forEach(y -> createCell(finalX, y, board));
-          }
-
-          if (x < Constants.fromLeft(5) || x > Constants.fromLeft(7)) {
-            createCell(x, Constants.fromBottom(1), board);
-          }
-          if (x < Constants.fromLeft(6) || x > Constants.fromLeft(7)) {
-            createCell(x, Constants.fromBottom(2), board);
-            createCell(x, Constants.fromBottom(3), board);
-          }
-
-          if (x != Constants.fromLeft(6)) {
-            createCell(x, Constants.bottomRow, board);
-          }
-        }
+        put(board, 3,  new int[] {0,1,2,3,4,    7,8,9});
+        put(board, 2,  new int[] {0,1,2,3,4,    7,8,9});
+        put(board, 1,  new int[] {0,1,2,3,      7,8,9});
+        put(board, 0,  new int[] {0,1,2,3,4,  6,7,8,9});
 
         break;
     }

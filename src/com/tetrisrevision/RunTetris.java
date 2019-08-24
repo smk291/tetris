@@ -49,8 +49,6 @@ class RunTetris {
 
       boolean canSink = Translater.translate(sinkingPiece, playField, Constants.down);
 
-      System.out.println("dropSinkingPiece canSink: " + canSink);
-
       if (!canSink) {
         addSinkingPieceToBoard(sinkingPiece);
 
@@ -64,7 +62,7 @@ class RunTetris {
   }
 
   private void addSinkingPieceToBoard(RowList sinkingPiece) {
-    playField.addRowList(sinkingPiece);
+    playField.addRowList(sinkingPiece, true);
 
     ArrayList<Integer> deletedRowIdx =
         RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping, tetrisGUI);
