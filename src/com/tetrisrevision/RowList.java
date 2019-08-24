@@ -175,7 +175,7 @@ public class RowList implements Cloneable {
     int startIdx = getRowIdxFromY(startY);
 
     for (int i = startIdx; i >= 0; i--) {
-      if (rows.get(i).size() == 10) {
+      if (rowIsFull(i)) {
         return i;
       }
     }
@@ -194,7 +194,7 @@ public class RowList implements Cloneable {
       return -1;
 
     for (int i = startIdx; i < rows.size(); i++) {
-      if (rows.get(i).size() == 10) {
+      if (rowIsFull(i)) {
         return i;
       }
     }
@@ -212,5 +212,9 @@ public class RowList implements Cloneable {
     }
 
     return allRemovalsSuccessful;
+  }
+
+  public boolean rowIsFull(int i) {
+    return rows.get(i).size() == Constants.width;
   }
 }

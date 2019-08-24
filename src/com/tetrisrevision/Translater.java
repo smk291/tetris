@@ -17,8 +17,6 @@ abstract class Translater {
     if (!validPosition)
       blocks.forEach(r -> r.setY(r.getY() - y));
 
-    System.out.println("Returning " + validPosition);
-
     return validPosition;
   }
 

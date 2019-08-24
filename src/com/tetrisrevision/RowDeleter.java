@@ -30,7 +30,7 @@ abstract class RowDeleter {
     for (int i = lowestFullRow, total = 0; playField.size() > 0 && i < playField.size() && i <= highestFullRow; i++) {
       int contigDeleted = 0;
 
-      if (playField.get().get(i).size() == Constants.width) {
+      if (playField.rowIsFull(i)) {
         contigDeleted = playField.deleteContiguousAndShift(i, total);
       }
 

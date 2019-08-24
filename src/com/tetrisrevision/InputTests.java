@@ -27,11 +27,12 @@ abstract class InputTests {
       case "6":
       case "7":
         piece.setTetromino(TetrominoEnum.values()[Integer.parseInt(e) - 1].get());
-        piece.setCenter(new Point(Constants.fromLeft(4), Constants.fromBottom(13)));
+        piece.setCenter(new Point(4, 13));
 
         break;
       case "a": // tetris-deletion test
         board.clear();
+
         piece.setTetromino(TetrominoEnum.I.get());
 
         put(board, 3,  new int[] {0,1,2,3,  5,6,7,8,9});
@@ -50,13 +51,13 @@ abstract class InputTests {
         put(board, 0,  new int[] {0,1,2,3,  5,6,7,8,9});
 
         board
-            .getRowByY(Constants.fromBottom(2))
-            .ifPresent(r -> r.get().remove(Constants.leftBound));
+            .getRowByY(2)
+            .ifPresent(r -> r.get().remove(0));
 
         break;
       case "s": // sink test
         board.clear();
-        piece.setCenter(Constants.fromLeft(6), Constants.fromBottom(15));
+        piece.setCenter(6, 15);
 
         put(board, 2,  new int[] {0,1,2,3,4,  6,7,8,9});
         put(board, 1,  new int[] {0,1,2,3,4,  6,7,8,9});
@@ -66,18 +67,21 @@ abstract class InputTests {
       case "S":
         board.clear();
 
+        piece.setTetromino(TetrominoEnum.S.get());
+        piece.setRotation(3);
+        piece.setCenter(5, 5);
+
         put(board, 3,  new int[] {0,1,2,3,    6,7,8,9});
         put(board, 2,  new int[] {0,1,2,3,4,  6,7,8,9});
         put(board, 1,  new int[] {0,1,2,3,4,  6,7,8,9});
         put(board, 0,  new int[] {0,1,2,3,4,  6,7,8,9});
 
-        piece.setTetromino(TetrominoEnum.S.get());
-        piece.setRotation(3);
-        piece.setCenter(5, Constants.bottomRow + 5);
-
         break;
       case "d": // multiple sinking pieces, test that each behaves correctly
         board.clear();
+
+        piece.setTetromino(TetrominoEnum.values()[0].get());
+        piece.setCenter(2, 15);
 
         put(board, 11, new int[] {0,      4,  6      });
         put(board, 10, new int[] {0,      4,  6      });
@@ -92,8 +96,6 @@ abstract class InputTests {
         put(board, 1,  new int[] {0,  2,  4,  6,     });
         put(board, 0,  new int[] {0,  2,  4,  6      });
 
-        piece.setTetromino(TetrominoEnum.values()[0].get());
-        piece.setCenter(Constants.fromLeft(2), Constants.fromBottom(15));
 
         break;
       case "f": // test kick
@@ -111,19 +113,24 @@ abstract class InputTests {
       case "x": // test row delete after sink -- on bottom row to test bounds checker
         board.clear();
 
+        piece.setTetromino(TetrominoEnum.J.get());
+        piece.setRotation(0);
+        piece.setCenter(1, 3);
+
         put(board, 2,  new int[] {      3            });
         put(board, 1,  new int[] {      3,4,5,6,7,8,9});
         put(board, 0,  new int[] {  1,2,  4,5,6,7,8,9});
 
-        piece.setTetromino(TetrominoEnum.J.get());
-        piece.setRotation(0);
-        piece.setCenter(1, 3);
 
         break;
       case "c": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
         // row and row deletion creates
         // another sinking piece
         board.clear();
+
+        piece.setTetromino(TetrominoEnum.J.get());
+        piece.resetRotation();
+        piece.setCenter(1, 12);
 
         put(board, 10, new int[] {        4          });
         put(board, 9,  new int[] {      3,4,5,6,7,8,9});
@@ -137,16 +144,13 @@ abstract class InputTests {
         put(board, 1,  new int[] {0,  2,  4,  6,  8,9});
         put(board, 0,  new int[] {0,  2,  4,  6      });
 
-        piece.setTetromino(TetrominoEnum.J.get());
-        piece.resetRotation();
-        piece.setCenter(1, Constants.fromBottom(12));
 
         break;
       case "v":
         // Test t-spin
         board.clear();
         piece.setTetromino(TetrominoEnum.T.get());
-        piece.setCenter(Constants.fromLeft(6), Constants.fromBottom(5));
+        piece.setCenter(6, 5);
         piece.setRotation(1);
 
         put(board, 3,  new int[] {0,1,2,3,4,    7,8,9});

@@ -3,7 +3,6 @@ package com.tetrisrevision;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class Row implements Cloneable {
   private final ArrayList<Block> blocks;
@@ -42,14 +41,12 @@ public class Row implements Cloneable {
 
   Optional<Block> get(double x) {
     for (Block block : blocks) {
-      if (block.getX() == x) return Optional.of(block);
+      if (block.getX() == x) {
+        return Optional.of(block);
+      }
     }
 
     return Optional.empty();
-  }
-
-  boolean allMatch(Predicate<Block> tester) {
-    return blocks.stream().allMatch(tester);
   }
 
   public boolean add(Block b) {
@@ -68,12 +65,10 @@ public class Row implements Cloneable {
     return blocks.size();
   }
 
-  public boolean remove(double x) {
+  boolean remove(double x) {
     for (int i = 0; i < blocks.size(); i++) {
       if (blocks.get(i).getX() == x) {
-        blocks.remove(blocks.get(i));
-
-        return true;
+        return blocks.remove(blocks.get(i));
       }
     }
 

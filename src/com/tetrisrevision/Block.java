@@ -2,7 +2,8 @@ package com.tetrisrevision;
 
 import java.awt.*;
 
-// A Block is a colored square that fills a cell on the tetris play field. A Block is always contained in a Row.
+// A Block is a colored square that fills a cell on the tetris play field. A Block is always
+// contained in a Row.
 public final class Block implements Cloneable {
   private final Color c;
   private final double x;

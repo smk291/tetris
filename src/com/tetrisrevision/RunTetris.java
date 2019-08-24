@@ -109,21 +109,21 @@ class RunTetris {
     }
   }
 
-//  private void handleMovementTimer() {
-//    boolean canDrop = Translater.translate(currentPiece, playField, 0, Constants.down, true);
-//
-//    if (canDrop) {
-//      if (null != movementTimer && movementTimer.isRunning()) movementTimer.stop();
-//
-//      return;
-//    }
-//
-//    if (null == movementTimer || !movementTimer.isRunning()) {
-//      movementTimer = new Timer(Constants.timerDelay, e -> addPieceToBoard(currentPiece));
-//      movementTimer.setRepeats(false);
-//      movementTimer.start();
-//    }
-//  }
+  private void handleMovementTimer() {
+    boolean canDrop = Translater.translate(currentPiece, playField, 0, Constants.down, true);
+
+    if (canDrop) {
+      if (null != movementTimer && movementTimer.isRunning()) movementTimer.stop();
+
+      return;
+    }
+
+    if (null == movementTimer || !movementTimer.isRunning()) {
+      movementTimer = new Timer(Constants.timerDelay, e -> addPieceToBoard(currentPiece));
+      movementTimer.setRepeats(false);
+      movementTimer.start();
+    }
+  }
 
   private void rotate(int incr) {
     boolean canRotate = Rotator.apply(incr, currentPiece, playField);
@@ -204,17 +204,6 @@ class RunTetris {
       }
     }
 
-    System.out.println("Sinking pieces after command:");
-
-    for (RowList rl : sinkingPieces) {
-      for (Row r : rl.get()) {
-        for (Block b : r.get()) {
-          System.out.print("{" + (int) b.getX() + ", " + (int) r.getY() + "}, ");
-        }
-      }
-
-      System.out.println();
-    }
     tetrisGUI.getBoardCompositor().repaint();
   }
 
