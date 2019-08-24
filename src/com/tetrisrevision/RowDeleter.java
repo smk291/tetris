@@ -7,38 +7,46 @@ abstract class RowDeleter {
   static ArrayList<Integer> apply(
       RowList blocksAdded,
       TetrisPiece piece,
-      RowList board,
+      RowList playField,
       GameRecordKeeping score,
       TetrisGUI gui) {
-    int lowestFullRow = board.getLowestFullRow(blocksAdded);
-    int highestFullRow = board.getHighestFullRow(blocksAdded);
+    playField.sortByY();
+    blocksAdded.sortByY();
 
-//    System.out.println("lowest, highest: " + lowestFullRow + ", " + highestFullRow);
+    // Works only if `blocksAdded` has been inserted into `playField` in same position as its position in `blocksAdded`
+    int lowestFullRow = playField.getLowestYIfShared(blocksAdded);
+    int highestFullRow = playField.getHighestYIfShared(blocksAdded);
 
     ArrayList<Integer> sinkingPieceAnchors = new ArrayList<>();
 
     if (lowestFullRow == -1) {
       score.resetCombo();
-    } else {
-      score.incrCombo();
 
-      for (int i = blocksAdded.getYMinIdx(), total = 0; board.size() > 0 && i < board.size() && i <= highestFullRow; i++) {
-        int contigDeleted = 0;
+      return sinkingPieceAnchors;
+    }
 
-        if (board.get().get(i).size() == Constants.width) {
-          contigDeleted = board.deleteContiguous(i, total);
-          sinkingPieceAnchors.add(i);
-        }
+    score.incrCombo();
 
-        total += contigDeleted;
+    for (int i = lowestFullRow, total = 0; playField.size() > 0 && i < playField.size() && i <= highestFullRow; i++) {
+      int contigDeleted = 0;
 
-        score.computeAndAdd(contigDeleted, piece, board);
-        score.incrLinesCleared(contigDeleted, gui);
-
-        if (board.get().size() == 0) {
-          sinkingPieceAnchors.clear();
-        }
+      if (playField.get().get(i).size() == Constants.width) {
+        contigDeleted = playField.deleteContiguousAndShift(i, total);
       }
+
+      if (contigDeleted != 0 && i != 0) {
+        sinkingPieceAnchors.add(i);
+      }
+
+      highestFullRow -= contigDeleted;
+      total += contigDeleted;
+
+      score.computeAndAdd(contigDeleted, piece, playField);
+      score.incrLinesCleared(contigDeleted, gui);
+    }
+
+    if (playField.get().size() == 0) {
+      sinkingPieceAnchors.clear();
     }
 
     return sinkingPieceAnchors;

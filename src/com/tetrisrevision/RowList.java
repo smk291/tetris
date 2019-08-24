@@ -4,10 +4,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
-public class RowList {
+public class RowList implements Cloneable {
   private final ArrayList<Row> rows = new ArrayList<>();
 
   RowList() {
@@ -16,6 +17,16 @@ public class RowList {
 
   ArrayList<Row> get() {
     return rows;
+  }
+
+  protected RowList clone() {
+    RowList tmp = new RowList();
+
+    for (Row r : rows) {
+      tmp.add(r.clone());
+    }
+
+    return tmp;
   }
 
   public void add(Row row) {
@@ -68,14 +79,6 @@ public class RowList {
     return Optional.empty();
   }
 
-  Optional<Row> getRowByIdx(int i) {
-    if (i > -1 && i < rows.size() && null != rows.get(i)) {
-      return Optional.of(rows.get(i));
-    }
-
-    return Optional.empty();
-  }
-
   Optional<Block> getBlock(double x, double y) {
     AtomicReference<Optional<Block>> b = new AtomicReference<>();
 
@@ -84,35 +87,7 @@ public class RowList {
     return b.get();
   }
 
-  boolean isFullRow(int idx) {
-    return getRowByIdx(idx).isPresent() && Constants.width == getRowByIdx(idx).get().size();
-  }
-
-  int getYMinIdx() {
-    int min = 20;
-
-    for (int i = 0; i < rows.size(); i++) {
-      if (rows.get(i).getY() < min) {
-        min = i;
-      }
-    }
-
-    return min;
-  }
-
-  int getYMaxIdx() {
-    int max = -1;
-
-    for (int i = 0; i < rows.size(); i++) {
-      if (rows.get(i).getY() > max) {
-        max = i;
-      }
-    }
-
-    return max;
-  }
-
-  int deleteContiguous(int idx, int offset) {
+  int deleteContiguousAndShift(int idx, int offset) {
     int contig = 0;
 
     for (int i = idx; i < rows.size(); ) {
@@ -133,61 +108,71 @@ public class RowList {
 
     return contig;
   }
+
+  public boolean removeBlock(double x, double y) {
+    AtomicBoolean b = new AtomicBoolean(false);
+
+    getRowByY(y).ifPresent(row -> b.set(row.remove(x)));
+
+    return b.get();
+  }
+
   public int size() {
     return rows.size();
   }
 
-  int getLowestFullRow(RowList p) {
-    int startY = 20;
-
+  void sortByY() {
     rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
+  }
 
-    for (int i = 0; i < p.get().size(); i++) {
-      if (p.get(i).getY() < startY) {
-        startY = (int) p.get(i).getY();
+  double getLowestY() {
+    if (rows.size() == 0) {
+      return -1;
+    }
+
+    double lowestY = 20;
+
+    for (Row row : rows) {
+      if (row.getY() < lowestY) {
+        lowestY = row.getY();
       }
     }
 
-    int idx = -1;
-    int startIdx = -1;
+    return lowestY;
+  }
 
+  int getRowIdxFromY(double y) {
     for (int i = 0; i < rows.size(); i++) {
-      if (rows.get(i).getY() == startY) {
-        startIdx = i;
-
-        break;
-      }
-    }
-
-    for (int i = startIdx; i < rows.size(); i++) {
-      if (rows.get(i).size() == 10) {
+      if (rows.get(i).getY() == y) {
         return i;
       }
     }
 
-    return idx;
+    return -1;
   }
 
-  int getHighestFullRow(RowList p) {
-    rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
-    int startY = -1;
+  double getHighestY() {
+    if (rows.isEmpty()) {
+      return -1;
+    }
 
-    for (int i = 0; i < p.get().size(); i++) {
-      if (p.get(i).getY() > startY) {
-        startY = (int) p.get(i).getY();
+    double highestY = -1;
+
+    for (Row r : rows) {
+      if (r.getY() > highestY) {
+        highestY = r.getY();
       }
     }
 
-    int idx = -1;
-    int startIdx = -1;
+    return highestY;
+  }
 
-    for (int i = 0; i < rows.size(); i++) {
-      if (rows.get(i).getY() == startY) {
-        startIdx = i;
+  int getHighestYIfShared(RowList p) {
+    sortByY();
+    p.sortByY();
 
-        break;
-      }
-    }
+    double startY = p.getHighestY();
+    int startIdx = getRowIdxFromY(startY);
 
     for (int i = startIdx; i >= 0; i--) {
       if (rows.get(i).size() == 10) {
@@ -195,6 +180,37 @@ public class RowList {
       }
     }
 
-    return idx;
+    return -1;
+  }
+
+  int getLowestYIfShared(RowList p) {
+    sortByY();
+    p.sortByY();
+
+    double lowestY = p.getLowestY();
+    int startIdx = getRowIdxFromY(lowestY);
+
+    if (lowestY == -1 || startIdx == -1)
+      return -1;
+
+    for (int i = startIdx; i < rows.size(); i++) {
+      if (rows.get(i).size() == 10) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  public boolean removeBlocks(RowList blocks) {
+    boolean allRemovalsSuccessful = true;
+
+    for (Row r : blocks.get()) {
+      for (Block b : r.get()) {
+        allRemovalsSuccessful = removeBlock(b.getX(), r.getY()) && allRemovalsSuccessful;
+      }
+    }
+
+    return allRemovalsSuccessful;
   }
 }

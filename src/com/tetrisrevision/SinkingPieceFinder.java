@@ -81,8 +81,10 @@ class SinkingPieceFinder {
 
               getAdjacentBlocks(x, y, playField);
 
-              if (!willSink) {
-                sinkingPieces.add(tmpRowList);
+              if (!tmpRowList.get().isEmpty() && willSink) {
+                playField.removeBlocks (tmpRowList);
+
+                sinkingPieces.add(tmpRowList.clone());
               }
             });
   }
@@ -94,7 +96,7 @@ class SinkingPieceFinder {
       return;
     }
 
-    if (!willSink && (int) y == Constants.bottomRow) {
+    if (willSink && (int) y == Constants.bottomRow) {
       willSink = false;
     }
 

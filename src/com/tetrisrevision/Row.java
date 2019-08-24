@@ -5,13 +5,27 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Row {
+public class Row implements Cloneable {
   private final ArrayList<Block> blocks;
   private double y;
 
   Row(double y) {
     this.y = y;
     this.blocks = new ArrayList<>();
+  }
+
+  protected Row clone() {
+    Row tmp = new Row(y);
+
+    for (Block b : blocks) {
+      try {
+        tmp.add(b.clone());
+      } catch (CloneNotSupportedException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return tmp;
   }
 
   ArrayList<Block> get() {
@@ -52,5 +66,17 @@ public class Row {
 
   public int size() {
     return blocks.size();
+  }
+
+  public boolean remove(double x) {
+    for (int i = 0; i < blocks.size(); i++) {
+      if (blocks.get(i).getX() == x) {
+        blocks.remove(blocks.get(i));
+
+        return true;
+      }
+    }
+
+    return false;
   }
 }

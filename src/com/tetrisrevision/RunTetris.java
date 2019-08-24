@@ -49,6 +49,8 @@ class RunTetris {
 
       boolean canSink = Translater.translate(sinkingPiece, playField, Constants.down);
 
+      System.out.println("dropSinkingPiece canSink: " + canSink);
+
       if (!canSink) {
         addSinkingPieceToBoard(sinkingPiece);
 
@@ -81,13 +83,11 @@ class RunTetris {
     ArrayList<Integer> deletedRowIdx =
         RowDeleter.apply(piece.getBlocks(), piece, playField, recordKeeping, tetrisGUI);
 
-    System.out.println("Indices:" + deletedRowIdx.toString());
+    if (deletedRowIdx.size() > 0) {
+      deletedRowIdx.forEach(
+          i -> new SinkingPieceFinder().findSinkingPieces(i, playField, sinkingPieces));
+    }
 
-//    if (deletedRowIdx.size() > 0) {
-//      deletedRowIdx.forEach(
-//          i -> new SinkingPieceFinder().findSinkingPieces(i, playField, sinkingPieces));
-//    }
-//
     tetrominoQueue.resetCurrentPiece(piece);
 
     if (!PlacementTester.cellsCanBeOccupied(piece, playField)) {
@@ -136,33 +136,25 @@ class RunTetris {
       return;
     }
 
-    addPieceToBoard(currentPiece);
+    handleRotationTimer();
   }
 
-//  private void handleRotationTimer() {
-//    boolean canDrop = Translater.translate(currentPiece, playField, 0, Constants.down, true);
-//
-//    if (null != rotationTimer) {
-//      rotationTimer.restart();
-//      rotationTimer.stop();
-//    }
-//
-//    if (canDrop) return;
-//
-//    rotationTimer = new Timer(Constants.timerDelay, e -> addPieceToBoard(currentPiece));
-//    rotationTimer.setRepeats(false);
-//    rotationTimer.start();
-//  }
+  private void handleRotationTimer() {
+    boolean canDrop = Translater.translate(currentPiece, playField, 0, Constants.down, true);
+
+    if (null != rotationTimer) {
+      rotationTimer.restart();
+      rotationTimer.stop();
+    }
+
+    if (canDrop) return;
+
+    rotationTimer = new Timer(Constants.timerDelay, e -> addPieceToBoard(currentPiece));
+    rotationTimer.setRepeats(false);
+    rotationTimer.start();
+  }
 
   void keyboardInput(KeyEvent e, boolean shift) {
-//    for (Row r : currentPiece.getBlocks().get()) {
-//      for (Block b : r.get()) {
-//        System.out.print("{" + ((int) b.getX()) + "," + ((int) r.getY()) + "}");
-//      }
-//    }
-//    System.out.println();
-//    System.out.println("Rows: " + playField.get().size());
-
     if (shift) {
       switch (e.getKeyCode()) {
         case KeyEvent.VK_LEFT:
@@ -212,6 +204,18 @@ class RunTetris {
 
           break;
       }
+    }
+
+    System.out.println("Sinking pieces after command:");
+
+    for (RowList rl : sinkingPieces) {
+      for (Row r : rl.get()) {
+        for (Block b : r.get()) {
+          System.out.print("{" + (int) b.getX() + ", " + (int) r.getY() + "}, ");
+        }
+      }
+
+      System.out.println();
     }
     tetrisGUI.getBoardCompositor().repaint();
   }
