@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/testlayout/TestLayout.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/GameDataRow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/layoutdemos/gridbag/GridBagLayoutDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/layoutdemos/gridbag/GridBagLayoutDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/PlayFieldGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/PlayFieldGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RowDeleter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RowDeleter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RowList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RowList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/SinkingPieceFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/SinkingPieceFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/IPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/tetrominos/IPiece.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +76,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TestLayout">
+  <component name="RunManager" selected="Application.Tetris">
     <configuration name="CardLayoutDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.layoutdemos.card.CardLayoutDemo" />
       <module name="tetris" />
@@ -165,8 +157,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TestLayout" />
         <item itemvalue="Application.Tetris" />
+        <item itemvalue="Application.TestLayout" />
         <item itemvalue="Application.GridBagLayoutDemo" />
         <item itemvalue="Application.Transform" />
         <item itemvalue="Application.CardLayoutDemo" />
