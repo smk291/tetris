@@ -96,19 +96,19 @@ public class PlayFieldGUI extends JPanel {
   }
 
   private void drawQueue(Graphics2D g2, TetrominoQueue queue) {
-//    Dimension d = getSize();
-//    int w = (d.width != 0 ? d.width : 200) / 2 * 3;
-//
-//    BufferedImage buffImg = new BufferedImage(w / 12 * 4, w / 12 * 14, BufferedImage.TYPE_INT_ARGB);
-//    Graphics2D gbi = buffImg.createGraphics();
-//
-//    for (int i = 0; i < 3; i++) {
-//      TetrominoEnum t = queue.getQueue().get(i);
-//      TetrisPiece tp = new TetrisPiece(t.get());
-//      tp.setCenter(1, 2 + i * 5);
-//      drawBlocks(gbi, tp.getBlocks());
-//      g2.drawImage(buffImg, null, 300, 140);
-//    }
+    Dimension d = getSize();
+    int w = (d.width != 0 ? d.width : 200) / 2 * 3;
+
+    BufferedImage buffImg = new BufferedImage(w / 12 * 4, w / 12 * 14, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D gbi = buffImg.createGraphics();
+
+    for (int i = 0; i < 3; i++) {
+      TetrominoEnum t = queue.getQueue().get(i);
+      TetrisPiece tp = new TetrisPiece(t.get());
+      tp.setCenter(1, 2 + i * 5);
+      drawBlocks(gbi, tp.getBlocks());
+      g2.drawImage(buffImg, null, 300, 140);
+    }
   }
 
   @Override

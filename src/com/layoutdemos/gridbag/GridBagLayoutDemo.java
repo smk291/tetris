@@ -42,7 +42,7 @@ import javax.swing.JFrame;
 
 public class GridBagLayoutDemo {
     final static boolean shouldFill = true;
-    final static boolean shouldWeightX = true;
+    final static boolean shouldWeightX = false;
     final static boolean RIGHT_TO_LEFT = false;
 
     public static void addComponentsToPane(Container pane) {

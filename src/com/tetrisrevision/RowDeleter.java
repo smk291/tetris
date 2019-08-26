@@ -13,7 +13,8 @@ abstract class RowDeleter {
     playField.sortByY();
     blocksAdded.sortByY();
 
-    // Works only if `blocksAdded` has been inserted into `playField` in same position as its position in `blocksAdded`
+    // Works only if `blocksAdded` has been inserted into `playField` in same position as its
+    // position in `blocksAdded`
     int lowestFullRow = playField.getLowestYIfShared(blocksAdded);
     int highestFullRow = playField.getHighestYIfShared(blocksAdded);
 
@@ -27,7 +28,9 @@ abstract class RowDeleter {
 
     score.incrCombo();
 
-    for (int i = lowestFullRow, total = 0; playField.size() > 0 && i < playField.size() && i <= highestFullRow; i++) {
+    for (int i = lowestFullRow, total = 0;
+        playField.size() > 0 && i < playField.size() && i <= highestFullRow;
+        i++) {
       int contigDeleted = 0;
 
       if (playField.rowIsFull(i)) {

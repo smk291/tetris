@@ -19,7 +19,7 @@ public class RowList implements Cloneable {
     return rows;
   }
 
-  protected RowList clone() {
+  protected RowList clone() throws CloneNotSupportedException {
     RowList tmp = new RowList();
 
     for (Row r : rows) {
@@ -58,35 +58,6 @@ public class RowList implements Cloneable {
     rows.clear();
   }
 
-  void forEach(Consumer<? super Row> action) {
-    rows.forEach(action);
-  }
-
-  public @Nullable Row get(int i) {
-    if (i < 0 || i >= rows.size())
-      return null;
-
-    return rows.get(i);
-  }
-
-  Optional<Row> getRowByY(double y) {
-    for (Row row : rows) {
-      if (row.getY() == y) {
-        return Optional.of(row);
-      }
-    }
-
-    return Optional.empty();
-  }
-
-  Optional<Block> getBlock(double x, double y) {
-    AtomicReference<Optional<Block>> b = new AtomicReference<>();
-
-    getRowByY(y).ifPresentOrElse(r -> b.set(r.get(x)), () -> b.set(Optional.empty()));
-
-    return b.get();
-  }
-
   int deleteContiguousAndShift(int idx, int offset) {
     int contig = 0;
 
@@ -109,46 +80,23 @@ public class RowList implements Cloneable {
     return contig;
   }
 
-  public boolean removeBlock(double x, double y) {
-    AtomicBoolean b = new AtomicBoolean(false);
+  void forEach(Consumer<? super Row> action) {
+    rows.forEach(action);
+  }
 
-    getRowByY(y).ifPresent(row -> b.set(row.remove(x)));
+  public @Nullable Row get(int i) {
+    if (i < 0 || i >= rows.size())
+      return null;
+
+    return rows.get(i);
+  }
+
+  Optional<Block> getBlock(double x, double y) {
+    AtomicReference<Optional<Block>> b = new AtomicReference<>();
+
+    getRowByY(y).ifPresentOrElse(r -> b.set(r.get(x)), () -> b.set(Optional.empty()));
 
     return b.get();
-  }
-
-  public int size() {
-    return rows.size();
-  }
-
-  void sortByY() {
-    rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
-  }
-
-  double getLowestY() {
-    if (rows.size() == 0) {
-      return -1;
-    }
-
-    double lowestY = 20;
-
-    for (Row row : rows) {
-      if (row.getY() < lowestY) {
-        lowestY = row.getY();
-      }
-    }
-
-    return lowestY;
-  }
-
-  int getRowIdxFromY(double y) {
-    for (int i = 0; i < rows.size(); i++) {
-      if (rows.get(i).getY() == y) {
-        return i;
-      }
-    }
-
-    return -1;
   }
 
   double getHighestY() {
@@ -183,6 +131,22 @@ public class RowList implements Cloneable {
     return -1;
   }
 
+  double getLowestY() {
+    if (rows.size() == 0) {
+      return -1;
+    }
+
+    double lowestY = 20;
+
+    for (Row row : rows) {
+      if (row.getY() < lowestY) {
+        lowestY = row.getY();
+      }
+    }
+
+    return lowestY;
+  }
+
   int getLowestYIfShared(RowList p) {
     sortByY();
     p.sortByY();
@@ -202,6 +166,34 @@ public class RowList implements Cloneable {
     return -1;
   }
 
+  Optional<Row> getRowByY(double y) {
+    for (Row row : rows) {
+      if (row.getY() == y) {
+        return Optional.of(row);
+      }
+    }
+
+    return Optional.empty();
+  }
+
+  int getRowIdxFromY(double y) {
+    for (int i = 0; i < rows.size(); i++) {
+      if (rows.get(i).getY() == y) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  public boolean removeBlock(double x, double y) {
+    AtomicBoolean b = new AtomicBoolean(false);
+
+    getRowByY(y).ifPresent(row -> b.set(row.remove(x)));
+
+    return b.get();
+  }
+
   public boolean removeBlocks(RowList blocks) {
     boolean allRemovalsSuccessful = true;
 
@@ -216,5 +208,13 @@ public class RowList implements Cloneable {
 
   public boolean rowIsFull(int i) {
     return rows.get(i).size() == Constants.width;
+  }
+
+  public int size() {
+    return rows.size();
+  }
+
+  void sortByY() {
+    rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
   }
 }

@@ -25,7 +25,7 @@ class IPiece extends Tetromino {
     {
       Coords.l1d1, Coords.d1, Coords.r1d1, Coords.r2d1,
     },
-    {Coords.u1, {0, 0}, Coords.d1, Coords.u2}
+    {Coords.u1, {0, 0}, Coords.d1, Coords.d2}
   };
 
   private static HashMap<Integer, HashMap<Integer, int[][]>> kickData =

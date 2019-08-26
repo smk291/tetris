@@ -84,7 +84,11 @@ class SinkingPieceFinder {
               if (!tmpRowList.get().isEmpty() && willSink) {
                 playField.removeBlocks (tmpRowList);
 
-                sinkingPieces.add(tmpRowList.clone());
+                try {
+                  sinkingPieces.add(tmpRowList.clone());
+                } catch (CloneNotSupportedException e) {
+                  e.printStackTrace();
+                }
               }
             });
   }
