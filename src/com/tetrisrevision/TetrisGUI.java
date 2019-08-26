@@ -149,116 +149,261 @@ class PanelMain extends JPanel {
   Border borderMain = BorderFactory.createLineBorder(new Color(0, 145, 155));
   GridBagLayout gblMain = new GridBagLayout();
 
-  JPanel leftMost = new JPanel();
-  GridBagConstraints leftmostC = new GridBagConstraints();
+//  JPanel leftMost = new JPanel();
+//  GridBagConstraints leftmostC = new GridBagConstraints();
+//  JLabel leftMostLabel = new JLabel("leftMost");
 
-  JPanel uppermost = new JPanel();
-  GridBagConstraints uppermostC = new GridBagConstraints();
+  JPanel topmost = new JPanel();
+  GridBagConstraints topmostC = new GridBagConstraints();
+  JLabel topmostLabel = new JLabel("uppermost");
 
-  JPanel remainder = new JPanel();
-  GridBagConstraints remainderC = new GridBagConstraints();
+  JPanel rightmost = new JPanel();
+  GridBagConstraints rightmostC = new GridBagConstraints();
+  JLabel rightmostLabel = new JLabel("rightmost");
 
   JPanel holdPiece = new JPanel();
   GridBagConstraints holdPieceC = new GridBagConstraints();
+  JLabel holdPieceLabel = new JLabel("holdPiece");
 
   JPanel subHoldPieceLeft = new JPanel();
   GridBagConstraints subHoldPieceLeftC = new GridBagConstraints();
+  JLabel subHoldPieceLeftLabel = new JLabel("subHoldPieceLeft");
 
   JPanel subHoldPieceRight = new JPanel();
   GridBagConstraints subHoldPieceRightC = new GridBagConstraints();
+  JLabel subHoldPieceRightLabel = new JLabel("subHoldPieceRight");
 
   JPanel bottommost = new JPanel();
   GridBagConstraints bottommostC = new GridBagConstraints();
+  JLabel bottommostLabel = new JLabel("bottommost");
+
+  JPanel playField = new JPanel();
+  GridBagConstraints playFieldC = new GridBagConstraints();
+  JLabel playFieldLabel = new JLabel("playField");
+
+  JPanel queue = new JPanel();
+  GridBagConstraints queueC = new GridBagConstraints();
+  JLabel queueLabel = new JLabel("Queue");
+
+  JPanel info = new JPanel();
+  GridBagConstraints infoC = new GridBagConstraints();
+  JLabel infoLabel = new JLabel("info");
+
+  void insertPanel(double weightx, double weighty, int gridx, int gridy, int gridwidth, int gridheight, int fill, JLabel label, Border b, Color bkgnd) {
+    JPanel panel = new JPanel();
+    panel.setBackground(bkgnd);
+    panel.setBorder(b);
+    GridBagConstraints gbc = new GridBagConstraints();
+    label.setForeground(Color.white);
+    panel.add(label);
+
+    gbc.weightx = weightx;
+    gbc.weighty = weighty;
+    gbc.gridx = gridx;
+    gbc.gridy = gridy;
+    gbc.gridwidth = gridwidth;
+    gbc.gridheight = gridheight;
+    gbc.fill = fill;
+
+    add(panel, gbc);
+  }
 
   PanelMain() {
     setLayout(gblMain);
     setBorder(borderMain);
     setBackground(new Color(20, 20, 80));
+    setForeground(Color.white);
     System.out.println("Size is " + this.getHeight() + "," + this.getWidth());
 
-    leftMost.setBackground(new Color(121, 141, 121));
-    leftMost.setBorder(BorderFactory.createLineBorder(new Color(171, 181, 171)));
+    insertPanel(
+            1.0,
+            1.0,
+            0,
+            0,
+            1,
+            11,
+            GridBagConstraints.BOTH,
+            new JLabel("Leftmost"),
+            BorderFactory.createLineBorder(new Color(171, 181, 171)),
+            Color.darkGray
+    );
 
-    leftmostC.weightx = 1.0;
-    leftmostC.weighty = 1.0;
-    leftmostC.gridx = 0;
-    leftmostC.gridy = 0;
-    leftmostC.gridwidth = 1;
-    leftmostC.gridheight = 11;
-    leftmostC.fill = GridBagConstraints.BOTH;
+//    leftMost.setBackground(new Color(121, 141, 121));
+//    leftMost.setBorder(BorderFactory.createLineBorder(new Color(171, 181, 171)));
+//    leftMostLabel.setForeground(Color.white);
+//    leftMost.add(leftMostLabel);
+//
+//    leftmostC.weightx = 1.0;
+//    leftmostC.weighty = 1.0;
+//    leftmostC.gridx = 0;
+//    leftmostC.gridy = 0;
+//    leftmostC.gridwidth = 1;
+//    leftmostC.gridheight = 11;
+//    leftmostC.fill = GridBagConstraints.BOTH;
+//
+//    add(leftMost, leftmostC);
 
-    add(leftMost, leftmostC);
+      insertPanel(
+              1.0,
+              1.0,
+              1,
+              0,
+              5,
+              1,
+              GridBagConstraints.BOTH,
+              new JLabel("topmost"),
+              BorderFactory.createLineBorder(new Color(150,0,0)),
+              Color.darkGray
+      );
 
-    uppermost.setBackground(new Color(100,100,100));
-    uppermost.setBorder(BorderFactory.createLineBorder(new Color (150, 0, 0)));
+//
+//    topmost.setBackground(new Color(100,100,100));
+//    topmost.setBorder(BorderFactory.createLineBorder(new Color (150, 0, 0)));
+//    topmostLabel.setForeground(Color.white);
+//    topmost.add(topmostLabel);
+//
+//    topmostC.weightx = 1.0;
+//    topmostC.weighty = 1.0;
+//    topmostC.gridx = 1;
+//    topmostC.gridy = 0;
+//    topmostC.gridwidth = 5;
+//    topmostC.gridheight = 1;
+//    topmostC.fill = GridBagConstraints.BOTH;
+//
+//    add(topmost, topmostC);
+//
 
-    uppermostC.weightx = 1.0;
-    uppermostC.weighty = 1.0;
-    uppermostC.gridx = 1;
-    uppermostC.gridy = 0;
-    uppermostC.gridwidth = 6;
-    uppermostC.gridheight = 1;
-    uppermostC.fill = GridBagConstraints.BOTH;
-
-    add(uppermost, uppermostC);
-
-    holdPiece.setBackground(new Color(101, 77, 77));
-    holdPiece.setBorder(BorderFactory.createLineBorder(new Color(0, 150, 0)));
-
-    holdPieceC.weightx = 1.0;
-    holdPieceC.weighty = 1.0;
-    holdPieceC.gridx = 1;
-    holdPieceC.gridy = 1;
-    holdPieceC.gridwidth = 2;
-    holdPieceC.gridheight = 2;
-    holdPieceC.fill = GridBagConstraints.BOTH;
-
-    add(holdPiece, holdPieceC);
+    insertPanel(
+            1.0,
+            1.0,
+            1,
+            1,
+            2,
+            2,
+            GridBagConstraints.BOTH,
+            new JLabel("holdPiece"),
+            BorderFactory.createLineBorder(new Color(0,150,0)),
+            Color.darkGray
+    );
+//    holdPiece.setBackground(new Color(101, 77, 77));
+//    holdPiece.setBorder(BorderFactory.createLineBorder(new Color(0, 150, 0)));
+//    holdPieceLabel.setForeground(Color.white);
+//    holdPiece.add(holdPieceLabel);
+//
+//    holdPieceC.weightx = 1.0;
+//    holdPieceC.weighty = 1.0;
+//    holdPieceC.gridx = 1;
+//    holdPieceC.gridy = 1;
+//    holdPieceC.gridwidth = 2;
+//    holdPieceC.gridheight = 2;
+//    holdPieceC.fill = GridBagConstraints.BOTH;
+//
+//    add(holdPiece, holdPieceC);
 
     subHoldPieceLeft.setBackground(new Color(80, 0 ,0));
     subHoldPieceLeft.setBorder(BorderFactory.createLineBorder(new Color(0, 80, 0)));
+    subHoldPieceLeftLabel.setForeground(Color.white);
+    subHoldPieceLeft.add(subHoldPieceLeftLabel);
 
     subHoldPieceLeftC.weightx = 1.0;
     subHoldPieceLeftC.weighty = 1.0;
     subHoldPieceLeftC.gridx = 1;
     subHoldPieceLeftC.gridy = 3;
     subHoldPieceLeftC.gridwidth = 1;
-    subHoldPieceLeftC.gridheight = 8;
+    subHoldPieceLeftC.gridheight = 7;
     subHoldPieceLeftC.fill = GridBagConstraints.BOTH;
 
     add(subHoldPieceLeft, subHoldPieceLeftC);
 
     subHoldPieceRight.setBackground(new Color(0, 0, 80));
     subHoldPieceRight.setBorder(BorderFactory.createLineBorder(new Color(0,255,0)));
+    subHoldPieceRightLabel.setForeground(Color.white);
+    subHoldPieceRight.add(subHoldPieceRightLabel);
 
     subHoldPieceRightC.weightx = 1.0;
     subHoldPieceRightC.weighty = 1.0;
     subHoldPieceRightC.gridx = 2;
     subHoldPieceRightC.gridy = 3;
     subHoldPieceRightC.gridwidth = 1;
-    subHoldPieceRightC.gridheight = 8;
+    subHoldPieceRightC.gridheight = 7;
     subHoldPieceRightC.fill = GridBagConstraints.BOTH;
 
     add(subHoldPieceRight, subHoldPieceRightC);
 
+    playField.setBackground(new Color(10,30,10));
+    playField.setBorder(BorderFactory.createLineBorder(new Color(90, 70, 60)));
+    playFieldLabel.setForeground(Color.white);
+    playField.add(playFieldLabel);
+
+    playFieldC.weightx = 1.0;
+    playFieldC.weighty = 1.0;
+    playFieldC.gridx = 3;
+    playFieldC.gridy = 1;
+    playFieldC.gridwidth = 1;
+    playFieldC.gridheight = 9;
+    playFieldC.fill = GridBagConstraints.BOTH;
+
+    add(playField, playFieldC);
+
+    queue.setBackground(new Color(220, 69,  11));
+    queue.setBorder(BorderFactory.createLineBorder(new Color(0, 171, 171)));
+    queueLabel.setForeground(Color.white);
+    queue.add(queueLabel);
+
+    queueC.weightx = 1.0;
+    queueC.weighty = 1.0;
+    queueC.gridx = 4;
+    queueC.gridy = 2;
+    queueC.gridwidth = 1;
+    queueC.gridheight = 5;
+    queueC.fill = GridBagConstraints.BOTH;
+
+    add(queue, queueC);
+
+    info.setBackground(new Color(100,100,100));
+    info.setBorder(BorderFactory.createLineBorder(new Color(250, 180, 190)));
+    infoLabel.setForeground(Color.white);
+    info.add(infoLabel);
+
+    infoC.weightx = 1.0;
+    infoC.weighty = 1.0;
+    infoC.gridx = 4;
+    infoC.gridy = 6;
+    infoC.gridwidth = 1;
+    infoC.gridheight = 4;
+    infoC.fill = GridBagConstraints.BOTH;
+
+    add(info, infoC);
+
     bottommost.setBackground(new Color(70, 0, 70));
     bottommost.setBorder(BorderFactory.createLineBorder(new Color(180, 70, 220)));
+    bottommostLabel.setForeground(Color.white);
+    bottommost.add(bottommostLabel);
 
     bottommostC.weightx = 1.0;
     bottommostC.weighty = 1.0;
     bottommostC.gridx = 1;
     bottommostC.gridy = 10;
+    bottommostC.gridwidth = 5;
+    bottommostC.gridheight = 1;
+    bottommostC.fill = GridBagConstraints.BOTH;
 
-    remainder.setBackground(new Color(0, 90, 0));
+    add(bottommost, bottommostC);
 
-    remainderC.weightx = 1.0;
-    remainderC.weighty = 1.0;
-    remainderC.gridx = 3;
-    remainderC.gridy = 3;
-    remainderC.gridwidth = 4;
-    remainderC.gridheight = 9;
-    remainderC.fill = GridBagConstraints.BOTH;
+    rightmost.setBackground(new Color(0, 90, 0));
+    rightmost.setBorder(BorderFactory.createLineBorder(Color.white, 2));
+    rightmostLabel.setForeground(Color.white);
+    rightmost.add(rightmostLabel);
 
-    add(remainder, remainderC);
+    rightmostC.weightx = 1.0;
+    rightmostC.weighty = 1.0;
+    rightmostC.gridx = 5;
+    rightmostC.gridy = 0;
+    rightmostC.gridwidth = 2;
+    rightmostC.gridheight = 11;
+    rightmostC.fill = GridBagConstraints.BOTH;
+
+    add(rightmost, rightmostC);
+
   }
 }
