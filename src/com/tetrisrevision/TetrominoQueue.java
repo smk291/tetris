@@ -16,11 +16,12 @@ class TetrominoQueue {
   private ArrayList<TetrominoEnum> queue;
   private ArrayList<TetrominoEnum> backupQueue;
 
-  TetrominoQueue() {
+  TetrominoQueue(TetrisPiece p) {
     this.queue = new ArrayList<>();
     this.backupQueue = new ArrayList<>();
 
     setQs();
+    resetCurrentPiece(p);
   }
 
   private void setQs() {

@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/MainTetris.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/Queue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/PanelMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/PanelMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/PlayFieldGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/PlayFieldGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrisGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/TetrominoQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/TetrominoQueue.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

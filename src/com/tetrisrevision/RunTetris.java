@@ -5,22 +5,17 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 class RunTetris {
-  private TetrisPiece currentPiece;
-  private TetrominoQueue tetrominoQueue;
-  private RowList playField;
-  private ArrayList<RowList> sinkingPieces;
+  private TetrisPiece currentPiece = new TetrisPiece();
+  private TetrominoQueue tetrominoQueue = new TetrominoQueue(currentPiece);
+  private RowList playField = new RowList();
+  private ArrayList<RowList> sinkingPieces = new ArrayList<>();
   private TetrisGUI tetrisGUI;
   private Timer movementTimer;
   private Timer rotationTimer;
-  private GameRecordKeeping recordKeeping;
+  private GameRecordKeeping recordKeeping = new GameRecordKeeping();;
 
   RunTetris() {
-    tetrominoQueue = new TetrominoQueue();
-    currentPiece = new TetrisPiece();
-    playField = new RowList();
-    sinkingPieces = new ArrayList<>();
-    tetrominoQueue.resetCurrentPiece(currentPiece);
-    recordKeeping = new GameRecordKeeping();
+//    tetrominoQueue.resetCurrentPiece(currentPiece);
   }
 
   TetrisPiece getCurrentPiece() {
