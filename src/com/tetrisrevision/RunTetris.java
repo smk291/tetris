@@ -15,7 +15,7 @@ class RunTetris {
   private GameRecordKeeping recordKeeping = new GameRecordKeeping();;
 
   RunTetris() {
-//    tetrominoQueue.resetCurrentPiece(currentPiece);
+    tetrominoQueue.resetCurrentPiece(currentPiece);
   }
 
   TetrisPiece getCurrentPiece() {

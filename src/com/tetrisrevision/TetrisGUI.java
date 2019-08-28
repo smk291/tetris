@@ -11,12 +11,11 @@ class TetrisGUI {
   private Timer timer;
   private Timer timer2;
 //  private JFrame frame = new JFrame("Tetris");
-  private RunTetris runTetris;
+  private RunTetris runTetris = new RunTetris();
   private PlayFieldGUI bc = new PlayFieldGUI(runTetris);
   private JFrame tetrisFrame = new MainTetris(runTetris);
 
-  TetrisGUI(RunTetris runTetris) {
-    this.runTetris = runTetris;
+  TetrisGUI() {
   }
 
   /**
