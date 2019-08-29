@@ -43,7 +43,7 @@ public class PlayFieldGUI extends JPanel {
     }
 
     validate();
-    g2.drawImage(buffImg, null, 0, 50);
+    g2.drawImage(buffImg, null, 0, 0);
   }
 
   private void drawBlocks(Graphics2D gbi, RowList rows) {
@@ -107,7 +107,7 @@ public class PlayFieldGUI extends JPanel {
       TetrisPiece tp = new TetrisPiece(t.get());
       tp.setCenter(1, 2 + i * 5);
       drawBlocks(gbi, tp.getBlocks());
-      g2.drawImage(buffImg, null, height * 20, 140);
+      g2.drawImage(buffImg, null, height * 20, 0);
     }
   }
 

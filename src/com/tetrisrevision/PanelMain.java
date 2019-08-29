@@ -70,8 +70,7 @@ public class PanelMain extends JPanel {
 
   PanelMain(RunTetris runTetris) {
     playField = new PlayFieldGUI(runTetris);
-    System.out.println("runTetris" + (runTetris != null ? runTetris.toString() : " null"));
-    System.out.println("runTetris.getTetrominoQueue()" + (runTetris != null && runTetris.getTetrominoQueue() != null ? runTetris.getTetrominoQueue().toString() : " null"));
+
     if (runTetris != null)
       queue = new Queue(runTetris, runTetris.getTetrominoQueue());
 

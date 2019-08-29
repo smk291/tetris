@@ -11,9 +11,9 @@ class TetrisGUI {
   private Timer timer;
   private Timer timer2;
 //  private JFrame frame = new JFrame("Tetris");
-  private RunTetris runTetris = new RunTetris();
-  private PlayFieldGUI bc = new PlayFieldGUI(runTetris);
-  private JFrame tetrisFrame = new MainTetris(runTetris);
+  private RunTetris runTetris;
+  private PlayFieldGUI bc;
+  private JFrame tetrisFrame;
 
   TetrisGUI() {
   }
@@ -23,10 +23,49 @@ class TetrisGUI {
    * dispatch thread.
    */
   private void createAndShowGUI() {
+    runTetris = new RunTetris();
+    runTetris.setTetrisGUI(this);
+    bc = new PlayFieldGUI(runTetris);
+    tetrisFrame = new MainTetris(runTetris);
+
     tetrisFrame.pack();
     tetrisFrame.setSize(new Dimension(600, 400));
     tetrisFrame.setVisible(true);
     tetrisFrame.setFocusable(true);
+
+    tetrisFrame.addKeyListener(
+            new KeyListener() {
+              @Override
+              public void keyTyped(KeyEvent e) {}
+
+              @Override
+              public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = true;
+                else runTetris.keyboardInput(e, shift);
+
+                tetrisFrame.repaint();
+              }
+
+              @Override
+              public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = false;
+
+                tetrisFrame.repaint();
+              }
+            });
+
+    timer = new Timer(1000, e -> {
+      runTetris.dropCurrentPiece();
+      tetrisFrame.repaint();
+    });
+    timer.start();
+
+    timer2 = new Timer(200, e -> {
+      runTetris.dropSinkingPieces();
+
+      tetrisFrame.repaint();
+    });
+    timer2.start();
   }
 
   void init() {
@@ -38,31 +77,9 @@ class TetrisGUI {
         | ClassNotFoundException ex) {
       ex.printStackTrace();
     }
+
     UIManager.put("swing.boldMetal", Boolean.FALSE);
     SwingUtilities.invokeLater(this::createAndShowGUI);
-
-    tetrisFrame.addKeyListener(
-        new KeyListener() {
-          @Override
-          public void keyTyped(KeyEvent e) {}
-
-          @Override
-          public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = true;
-            else runTetris.keyboardInput(e, shift);
-          }
-
-          @Override
-          public void keyReleased(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = false;
-          }
-        });
-
-    timer = new Timer(10000, e -> runTetris.dropCurrentPiece());
-    timer.start();
-
-    timer2 = new Timer(200, e -> runTetris.dropSinkingPieces());
-    timer2.start();
   }
 
   void setDropTimerDelay(int ms) {

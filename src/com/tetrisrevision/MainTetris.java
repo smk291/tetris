@@ -9,7 +9,6 @@ class MainTetris extends JFrame {
   GridBagLayout layout = new GridBagLayout();
 
   MainTetris(RunTetris run) {
-    System.out.println("MainTetris runTetris " + (run != null ? run.toString() : "null"));
     panelMain = new PanelMain(run);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

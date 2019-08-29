@@ -48,11 +48,7 @@ class RunTetris {
         addSinkingPieceToBoard(sinkingPiece);
 
         i--;
-
-        tetrisGUI.getBoardCompositor().repaint();
       }
-
-      tetrisGUI.getBoardCompositor().repaint();
     }
   }
 
@@ -96,8 +92,6 @@ class RunTetris {
     boolean canTranslate = Translater.translate(currentPiece, playField, x, y, false);
 
     if (canTranslate) {
-      tetrisGUI.getBoardCompositor().repaint();
-
       currentPiece.gettSpinTracker().reset();
     } else if (y == Constants.down) {
       addPieceToBoard(currentPiece);
@@ -124,8 +118,6 @@ class RunTetris {
     boolean canRotate = Rotator.apply(incr, currentPiece, playField);
 
     if (canRotate) {
-      tetrisGUI.getBoardCompositor().repaint();
-
       return;
     }
 
@@ -198,8 +190,6 @@ class RunTetris {
           break;
       }
     }
-
-    tetrisGUI.getBoardCompositor().repaint();
   }
 
   TetrominoQueue getTetrominoQueue() {
