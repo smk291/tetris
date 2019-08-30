@@ -19,7 +19,7 @@ public class PanelMain extends JPanel {
   JPanel rightmost = new JPanel();
   GridBagConstraints rightmostC = new GridBagConstraints();
 
-  JPanel holdPiece = new JPanel();
+  JPanel holdPiece;
   GridBagConstraints holdPieceC = new GridBagConstraints();
 
   JPanel subHoldPieceLeft = new JPanel();
@@ -31,9 +31,10 @@ public class PanelMain extends JPanel {
   JPanel bottommost = new JPanel();
   GridBagConstraints bottommostC = new GridBagConstraints();
 
+  JPanel playFieldContainer = new JPanel();
   JPanel playField;
+  GridBagConstraints playFieldContainerC = new GridBagConstraints();
   GridBagConstraints playFieldC = new GridBagConstraints();
-
   //  JPanel queue = new JPanel();
   JPanel queue;
   GridBagConstraints queueC = new GridBagConstraints();
@@ -69,14 +70,61 @@ public class PanelMain extends JPanel {
   }
 
   public PanelMain(RunTetris runTetris) {
-    playField = new PlayFieldGUI(runTetris);
+    GridBagLayout gblPlayfield = new GridBagLayout();
+    playFieldContainer.setLayout(gblPlayfield);
+    playFieldContainerC.gridwidth = 3;
+    playFieldContainerC.gridheight = 3;
 
-    System.out.println("runTetris" + (runTetris != null ? runTetris.toString() : " null"));
-    System.out.println(
-        "runTetris.getTetrominoQueue()"
-            + (runTetris != null && runTetris.getTetrominoQueue() != null
-                ? runTetris.getTetrominoQueue().toString()
-                : " null"));
+    playField = new PlayField(runTetris);
+    playFieldC.gridx = 0;
+    playFieldC.gridy = 1;
+    playFieldC.gridwidth = 3;
+    playFieldC.gridheight = 1;
+    playFieldC.weightx = 1.0;
+    playFieldC.weighty = 1.0;
+    playFieldC.fill = GridBagConstraints.BOTH;
+
+    JPanel playfieldLower = new JPanel();
+    GridBagConstraints playFieldLowerC = new GridBagConstraints();
+    playFieldLowerC.gridx = 0;
+    playFieldLowerC.gridy = 2;
+    playFieldLowerC.gridwidth = 3;
+    playFieldLowerC.gridheight = 1;
+    playFieldLowerC.weighty = 0.0;
+    playFieldLowerC.weightx = 1.0;
+
+    JPanel playFieldUpper = new JPanel();
+    GridBagConstraints playFieldUpperC = new GridBagConstraints();
+    playFieldUpperC.gridx = 0;
+    playFieldUpperC.gridy = 0;
+    playFieldUpperC.gridwidth = 3;
+    playFieldUpperC.gridheight = 1;
+    playFieldUpperC.weighty = 0.0;
+    playFieldUpperC.weightx = 1.0;
+
+//    JPanel playFieldLeft = new JPanel();
+//    GridBagConstraints playFieldLeftC = new GridBagConstraints();
+//    playFieldLeftC.gridx = 0;
+//    playFieldLeftC.gridy = 1;
+//    playFieldLeftC.gridwidth = 1;
+//    playFieldLeftC.gridheight = 1;
+//    playFieldLeftC.weighty = 1.0;
+//    playFieldLeftC.weightx = 0.0;
+
+//    JPanel playFieldRight = new JPanel();
+//    GridBagConstraints playFieldRightC = new GridBagConstraints();
+//    playFieldRightC.gridx = 2;
+//    playFieldRightC.gridy = 1;
+//    playFieldRightC.gridwidth = 1;
+//    playFieldRightC.gridheight = 1;
+//    playFieldRightC.weighty = 1.0;
+//    playFieldRightC.weightx = 0.0;
+
+    playFieldContainer.add(playFieldUpper, playFieldUpperC);
+//    playFieldContainer.add(playFieldLeft, playFieldLeftC);
+    playFieldContainer.add(playField, playFieldC);
+//    playFieldContainer.add(playFieldRight, playFieldRightC);
+    playFieldContainer.add(playfieldLower, playFieldLowerC);
 
     if (runTetris != null) queue = new Queue(runTetris, runTetris.getTetrominoQueue());
 
@@ -85,38 +133,24 @@ public class PanelMain extends JPanel {
     setBackground(new Color(20, 20, 80));
     setForeground(Color.white);
 
+//    System.out.println(playFieldContainer.getComponent().)
+
+    holdPiece = new HoldPiece(runTetris);
+
     init();
   }
 
   void init() {
     insertPanel(
-        leftMost,
-        4.2,
-        1.0,
-        0,
-        0,
-        1,
-        11,
-        GridBagConstraints.BOTH,
-        new JLabel("L"),
-        leftmostC);
+        leftMost, 4, 1.0, 0, 0, 1, 13, GridBagConstraints.BOTH, new JLabel("L"), leftmostC);
 
     insertPanel(
-        topmost,
-        4.2,
-        0,
-        1,
-        0,
-        4,
-        1,
-        GridBagConstraints.HORIZONTAL,
-        new JLabel("T"),
-        topmostC);
+        topmost, 4.5, 0, 1, 0, 4, 1, GridBagConstraints.HORIZONTAL, new JLabel("T"), topmostC);
 
     insertPanel(
         holdPiece,
-        0.01,
-        0,
+        .50,
+        .05,
         1,
         1,
         2,
@@ -150,7 +184,7 @@ public class PanelMain extends JPanel {
         subHoldPieceRightC);
 
     insertPanel(
-        playField,
+        playFieldContainer,
         3.8,
         1.0,
         3,
@@ -159,35 +193,15 @@ public class PanelMain extends JPanel {
         9,
         GridBagConstraints.BOTH,
         new JLabel("playfield"),
-        playFieldC);
+        playFieldContainerC);
 
-    insertPanel(
-        queue,
-        1.0,
-        1.0,
-        4,
-        2,
-        1,
-        5,
-        GridBagConstraints.BOTH,
-        new JLabel("queue"),
-        queueC);
+    insertPanel(queue, 1.0, 1.0, 4, 2, 1, 5, GridBagConstraints.BOTH, new JLabel("queue"), queueC);
 
-    insertPanel(
-        info,
-        0.05,
-        0.4,
-        4,
-        6,
-        1,
-        4,
-        GridBagConstraints.BOTH,
-        new JLabel("info"),
-        infoC);
+    insertPanel(info, 0.05, 0.4, 4, 6, 1, 4, GridBagConstraints.BOTH, new JLabel("info"), infoC);
 
     insertPanel(
         bottommost,
-        4.2,
+        4.5,
         0,
         1,
         10,
@@ -198,15 +212,6 @@ public class PanelMain extends JPanel {
         bottommostC);
 
     insertPanel(
-        rightmost,
-        4.2,
-        1.0,
-        5,
-        0,
-        1,
-        11,
-        GridBagConstraints.BOTH,
-        new JLabel("R"),
-        rightmostC);
+        rightmost, 4, 1.0, 5, 0, 1, 11, GridBagConstraints.BOTH, new JLabel("R"), rightmostC);
   }
 }

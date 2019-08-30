@@ -1,8 +1,6 @@
 package com.tetrisrevision.gui;
 
 import com.tetrisrevision.RunTetris;
-import com.tetrisrevision.gui.MainTetris;
-import com.tetrisrevision.gui.PlayFieldGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +11,8 @@ public class TetrisGUI {
   boolean shift = false;
   private Timer timer;
   private Timer timer2;
-//  private JFrame frame = new JFrame("Tetris");
   private RunTetris runTetris;
-  private PlayFieldGUI bc;
+  private PlayField bc;
   private JFrame tetrisFrame;
 
   public TetrisGUI() {
@@ -27,7 +24,7 @@ public class TetrisGUI {
    */
   private void createAndShowGUI() {
     runTetris = new RunTetris();
-    bc = new PlayFieldGUI(runTetris);
+    bc = new PlayField(runTetris);
     tetrisFrame = new MainTetris(runTetris);
 
     tetrisFrame.pack();
@@ -58,6 +55,7 @@ public class TetrisGUI {
 
     timer = new Timer(1000, e -> {
       runTetris.dropCurrentPiece();
+
       tetrisFrame.repaint();
     });
     timer.start();
@@ -91,10 +89,6 @@ public class TetrisGUI {
   public void endGame() {
     timer.stop();
     timer2.stop();
-  }
-
-  PlayFieldGUI getBoardCompositor() {
-    return bc;
   }
 }
 

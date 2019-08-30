@@ -1,13 +1,14 @@
 package com.tetrisrevision;
 
 import com.tetrisrevision.actions.*;
-import com.tetrisrevision.gui.TetrisGUI;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.recordkeeping.GameRecordKeeping;
 import com.tetrisrevision.testing.InputTests;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.TetrominoQueue;
+import com.tetrisrevision.things.tetrominos.Tetromino;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 public class RunTetris {
   private TetrisPiece currentPiece = new TetrisPiece();
   private TetrominoQueue tetrominoQueue = new TetrominoQueue(currentPiece);
+  private Tetromino holdPiece;
   private RowList playField = new RowList();
   private ArrayList<RowList> sinkingPieces = new ArrayList<>();
-  private TetrisGUI tetrisGUI;
   private Timer movementTimer;
   private Timer rotationTimer;
   private GameRecordKeeping recordKeeping = new GameRecordKeeping();;
@@ -85,7 +86,7 @@ public class RunTetris {
     tetrominoQueue.resetCurrentPiece(piece);
 
     if (!PlacementTester.cellsCanBeOccupied(piece, playField)) {
-      tetrisGUI.endGame();
+      // End game
     }
   }
 
@@ -145,6 +146,17 @@ public class RunTetris {
   }
 
   public void keyboardInput(KeyEvent e, boolean shift) {
+    if (e.getKeyCode() == KeyEvent.VK_Q) {
+      if (holdPiece == null) {
+        holdPiece = currentPiece.getTetromino();
+        tetrominoQueue.resetCurrentPiece(currentPiece);
+      } else {
+        Tetromino tmp = holdPiece;
+        holdPiece = currentPiece.getTetromino();
+        currentPiece.reset(tmp);
+      }
+    }
+
     if (shift) {
       switch (e.getKeyCode()) {
         case KeyEvent.VK_LEFT:
@@ -199,5 +211,13 @@ public class RunTetris {
 
   public TetrominoQueue getTetrominoQueue() {
     return tetrominoQueue;
+  }
+
+  public @Nullable Tetromino getHoldPiece() {
+    return holdPiece;
+  }
+
+  public void setHoldPiece(Tetromino holdPiece) {
+    this.holdPiece = holdPiece;
   }
 }

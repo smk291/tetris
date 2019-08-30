@@ -3,22 +3,23 @@ package com.tetrisrevision.gui;
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.things.*;
-import com.tetrisrevision.things.tetrominos.TetrominoEnum;
+import com.tetrisrevision.things.tetrominos.Tetromino;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-public class Queue extends JPanel {
-  private AffineTransform at = new AffineTransform();
+public class HoldPiece extends JPanel {
   private RunTetris runTetris;
   private int height;
   private int blockWidth;
+  private JLabel labelHoldPiece = new JLabel("Press q");
 
-  Queue(RunTetris runTetris, TetrominoQueue queue) {
+  HoldPiece(RunTetris runTetris) {
     this.runTetris = runTetris;
+    labelHoldPiece.setForeground(Color.white);
+    labelHoldPiece.setFont(new Font("Monospaced", 0, 10));
 
     validate();
   }
@@ -26,6 +27,7 @@ public class Queue extends JPanel {
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
+
     Graphics2D g2 = (Graphics2D) g;
     Dimension d = getSize();
 
@@ -34,14 +36,15 @@ public class Queue extends JPanel {
     height = (int) d.getHeight();
     blockWidth = height / 22;
     setBackground(Color.black);
-    BufferedImage buffImg = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+    BufferedImage buffImg = new BufferedImage(getWidth(), getHeight() * 5, BufferedImage.TYPE_INT_ARGB);
     Graphics2D gbi = buffImg.createGraphics();
 
     if (null != runTetris) {
-      drawQueue(gbi, g2);
+      drawQueue(gbi);
     }
 
     validate();
+
     g2.drawImage(buffImg, null, 0, 0);
   }
 
@@ -73,19 +76,26 @@ public class Queue extends JPanel {
     }
   }
 
-  private void drawQueue(Graphics2D gbi, Graphics2D g2) {
+  private void drawQueue(Graphics2D gbi) {
     Dimension d = getSize();
     int w = d.width / 2 * 3;
 
     BufferedImage buffImg = new BufferedImage(w / 12 * 4, w / 12 * 14, BufferedImage.TYPE_INT_ARGB);
 
-    for (int i = 0; i < 4; i++) {
-      TetrominoEnum t = runTetris.getTetrominoQueue().getQueue().get(i);
-      TetrisPiece tp = new TetrisPiece(t.get());
-      tp.setCenter(2, (4 - i) * 4);
+    Tetromino t = runTetris.getHoldPiece();
+
+    if (t != null) {
+      remove(labelHoldPiece);
+      TetrisPiece tp = new TetrisPiece(t);
+      tp.setCenter(2, (4 - 0) * 4);
       drawBlocks(gbi, tp.getBlocks());
-      gbi.drawImage(buffImg, null, height * 20, 0);
+      gbi.drawImage(buffImg, null, height * 4, 0);
     }
+    else {
+      this.add(labelHoldPiece);
+    }
+
+//    }
   }
 
   @Override
@@ -94,14 +104,11 @@ public class Queue extends JPanel {
 
     if (getSize().getWidth() == 0 || getSize().getHeight() == 0) return;
 
-    Graphics g = getGraphics();
-    Graphics2D g2 = (Graphics2D) g;
-
     BufferedImage buffImg = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
     Graphics2D gbi = buffImg.createGraphics();
 
-    if (null != g2 && null != runTetris && null != runTetris.getTetrominoQueue()) {
-      drawQueue(gbi, g2);
+    if (null != gbi && null != runTetris && null != runTetris.getTetrominoQueue()) {
+      drawQueue(gbi);
     }
   }
 }
