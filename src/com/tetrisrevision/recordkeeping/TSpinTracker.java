@@ -1,0 +1,63 @@
+package com.tetrisrevision.recordkeeping;
+
+import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.RowList;
+
+import java.awt.*;
+
+public class TSpinTracker {
+  private boolean lastActionIsRotation;
+  private boolean lastActionIsKick;
+  private Integer lastKick;
+
+  public TSpinTracker() {
+    reset();
+  }
+
+  private static boolean areThreeOrMoreCornersFilled(TetrisPiece piece, RowList rowList) {
+    int cornersFilled = 0;
+    Point center = piece.getCenter();
+
+    int x = (int) center.getX();
+    int y = (int) center.getY();
+
+    cornersFilled += cornerFilled(rowList, x, y, -1, -1);
+    cornersFilled += cornerFilled(rowList, x, y, -1, 1);
+    cornersFilled += cornerFilled(rowList, x, y, 1, -1);
+    cornersFilled += cornerFilled(rowList, x, y, 1, 1);
+
+    return cornersFilled >= 3;
+  }
+
+  private static int cornerFilled(RowList rowList, int x, int y, int x2, int y2) {
+    return !rowList.cellIsEmpty(x + x2, y + y2) ? 1 : 0;
+  }
+
+  public void reset() {
+    this.lastActionIsRotation = false;
+    this.lastActionIsKick = false;
+    this.lastKick = null;
+  }
+
+  public void setLastActionIsRotation(boolean b) {
+    this.lastActionIsRotation = b;
+  }
+
+  public void setLastActionIsKick(boolean b) {
+    this.lastActionIsKick = b;
+  }
+
+  public void setLastKick(Integer nullableInteger) {
+    this.lastKick = nullableInteger;
+  }
+
+  public boolean isTSpin(TetrisPiece piece, RowList rowList) {
+    return areThreeOrMoreCornersFilled(piece, rowList)
+        || (null != lastKick && lastKick == 4)
+        || (!areThreeOrMoreCornersFilled(piece, rowList) && lastKick != null && lastKick == 4);
+  }
+
+  public boolean isTSpinMini(TetrisPiece piece, RowList rowList) {
+    return areThreeOrMoreCornersFilled(piece, rowList) && (lastKick == null || lastKick != 4);
+  }
+}

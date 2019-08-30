@@ -1,10 +1,19 @@
 package com.tetrisrevision;
 
+import com.tetrisrevision.actions.*;
+import com.tetrisrevision.gui.TetrisGUI;
+import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.recordkeeping.GameRecordKeeping;
+import com.tetrisrevision.testing.InputTests;
+import com.tetrisrevision.things.RowList;
+import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.TetrominoQueue;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-class RunTetris {
+public class RunTetris {
   private TetrisPiece currentPiece = new TetrisPiece();
   private TetrominoQueue tetrominoQueue = new TetrominoQueue(currentPiece);
   private RowList playField = new RowList();
@@ -14,31 +23,27 @@ class RunTetris {
   private Timer rotationTimer;
   private GameRecordKeeping recordKeeping = new GameRecordKeeping();;
 
-  RunTetris() {
+  public RunTetris() {
     tetrominoQueue.resetCurrentPiece(currentPiece);
   }
 
-  TetrisPiece getCurrentPiece() {
+  public TetrisPiece getCurrentPiece() {
     return currentPiece;
   }
 
-  RowList getPlayField() {
+  public RowList getPlayField() {
     return playField;
   }
 
-  ArrayList<RowList> getSinkingPieces() {
+  public ArrayList<RowList> getSinkingPieces() {
     return sinkingPieces;
   }
 
-  GameRecordKeeping getRecordKeeping() {
+  public GameRecordKeeping getRecordKeeping() {
     return recordKeeping;
   }
 
-  void setTetrisGUI(TetrisGUI t) {
-    this.tetrisGUI = t;
-  }
-
-  void dropSinkingPieces() {
+  public void dropSinkingPieces() {
     for (int i = 0; !sinkingPieces.isEmpty() && i < sinkingPieces.size(); i++) {
       RowList sinkingPiece = sinkingPieces.get(i);
 
@@ -56,7 +61,7 @@ class RunTetris {
     playField.addRowList(sinkingPiece);
 
     ArrayList<Integer> deletedRowIdx =
-        RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping, tetrisGUI);
+        RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping);
 
     sinkingPieces.remove(sinkingPiece);
 
@@ -70,7 +75,7 @@ class RunTetris {
     playField.addRowList(piece.getBlocks());
 
     ArrayList<Integer> deletedRowIdx =
-        RowDeleter.apply(piece.getBlocks(), piece, playField, recordKeeping, tetrisGUI);
+        RowDeleter.apply(piece.getBlocks(), piece, playField, recordKeeping);
 
     if (deletedRowIdx.size() > 0) {
       deletedRowIdx.forEach(
@@ -84,7 +89,7 @@ class RunTetris {
     }
   }
 
-  void dropCurrentPiece() {
+  public void dropCurrentPiece() {
     translatePiece(0, Constants.down);
   }
 
@@ -139,7 +144,7 @@ class RunTetris {
     rotationTimer.start();
   }
 
-  void keyboardInput(KeyEvent e, boolean shift) {
+  public void keyboardInput(KeyEvent e, boolean shift) {
     if (shift) {
       switch (e.getKeyCode()) {
         case KeyEvent.VK_LEFT:
@@ -192,7 +197,7 @@ class RunTetris {
     }
   }
 
-  TetrominoQueue getTetrominoQueue() {
+  public TetrominoQueue getTetrominoQueue() {
     return tetrominoQueue;
   }
 }
