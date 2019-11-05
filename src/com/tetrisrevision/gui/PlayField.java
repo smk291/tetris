@@ -1,8 +1,10 @@
 package com.tetrisrevision.gui;
 
-import com.tetrisrevision.*;
+import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.*;
+import com.tetrisrevision.things.Block;
+import com.tetrisrevision.things.Row;
+import com.tetrisrevision.things.RowList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,15 +48,13 @@ public class PlayField extends JPanel {
 
   private void drawBlocks(Graphics2D gbi, RowList rows) {
     Dimension d = getSize();
-    if (d.getWidth() == 0)
-      return;
+    if (d.getWidth() == 0) return;
 
     height = (int) (d.getHeight());
     blockWidth = height / 20;
 
     for (Row r : rows.get()) {
-      if (r.getY() > Constants.topRow)
-        continue;
+      if (r.getY() > Constants.topRow) continue;
 
       for (Block block : r.get()) {
         if (null != block.getColor()) gbi.setColor(block.getColor());
@@ -62,7 +62,10 @@ public class PlayField extends JPanel {
 
         Rectangle2D innerRect =
             new Rectangle2D.Double(
-                blockWidth * block.getX() + 1, blockWidth * (Constants.topRow - r.getY()), blockWidth, blockWidth);
+                blockWidth * block.getX() + 1,
+                blockWidth * (Constants.topRow - r.getY()),
+                blockWidth,
+                blockWidth);
         gbi.fill(innerRect);
         gbi.setColor(Color.lightGray);
         gbi.draw(innerRect);
@@ -77,8 +80,7 @@ public class PlayField extends JPanel {
       drawBlocks(gbi, runTetris.getCurrentPiece().getBlocks());
 
     if (null != runTetris.getPlayField())
-      IntStream.range(0, Constants.height)
-          .forEach(i -> drawBlocks(gbi, runTetris.getPlayField()));
+      IntStream.range(0, Constants.height).forEach(i -> drawBlocks(gbi, runTetris.getPlayField()));
 
     if (null != runTetris.getSinkingPieces())
       runTetris.getSinkingPieces().forEach(piece -> drawBlocks(gbi, piece));

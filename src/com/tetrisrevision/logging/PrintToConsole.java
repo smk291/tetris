@@ -11,11 +11,11 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 interface QuadConsumer<T> {
-  void accept(Double x, Double y, Double rowY, T t);
+  void accept(int x, int y, Integer rowY, T t);
 }
 
 interface QuadConsumerString<T> {
-  String accept(Double x, Double y, Double rowY, T t);
+  String accept(int x, int y, Integer rowY, T t);
 }
 
 class PrintToConsole {
@@ -23,7 +23,7 @@ class PrintToConsole {
 
   PrintToConsole() {}
 
-  public String printCell(double y, Block cell) {
+  public String printCell(int y, Block cell) {
     return "{ " + cell.getX() + ", " + y + " }";
   }
 
@@ -35,18 +35,18 @@ class PrintToConsole {
     return " " + i;
   }
 
-  private String printCoords(double x, double y) {
+  private String printCoords(int x, int y) {
     return pad(x) + ", " + pad(y);
   }
 
-  private String printCoords(double y, Block c) {
-    return pad((int) c.getX()) + ", " + pad((int) y);
+  private String printCoords(int y, Block c) {
+    return pad(c.getX()) + ", " + pad(y);
   }
 
   private void paintAndPrint(RowList rowList, ArrayList<RowList> sinkingPieces, TetrisPiece piece) {
     printBoardCustom(
         rowList,
-        (Double x, Double y, Double rowY, Optional<Block> block) -> {
+        (int x, int y, Integer rowY, Optional<Block> block) -> {
           if (block.isEmpty()) return;
 
           if (block.get().getX() != x || !rowY.equals(y)) {
@@ -64,7 +64,7 @@ class PrintToConsole {
     getBoard(rowList, sinkingPieces, piece);
 
     printStringBoardCustom(
-        (Double x, Double y, Double rowY, String[] cell) -> {
+        (int x, int y, Integer rowY, String[] cell) -> {
           String s = "";
 
           for (String element : cell) {
@@ -75,7 +75,7 @@ class PrintToConsole {
         });
 
     printStringBoardCustom(
-        (Double x, Double y, Double rowY, String[] cell) -> {
+        (int x, int y, Integer rowY, String[] cell) -> {
           if (cell[2].equals("s") && cell[3].equals("!")) return cell[2] + cell[3];
           else return "  ";
         });
@@ -120,7 +120,7 @@ class PrintToConsole {
             space[2] = "s";
           }
 
-          if ((int) cell.get().getX() != x) {
+          if (cell.get().getX() != x) {
             space[3] = "!";
           }
 
@@ -134,7 +134,7 @@ class PrintToConsole {
     this.board = board;
   }
 
-  private boolean sinkingPiecesContainCell(double x, double y, ArrayList<RowList> sinkingPieces) {
+  private boolean sinkingPiecesContainCell(int x, int y, ArrayList<RowList> sinkingPieces) {
     for (RowList piece : sinkingPieces) {
       for (Row r : piece.get()) {
         for (Block block : r.get()) {
@@ -158,7 +158,7 @@ class PrintToConsole {
     return false;
   }
 
-  private boolean fallingPieceContainsCell(double x, double y, TetrisPiece currentPiece2d) {
+  private boolean fallingPieceContainsCell(int x, int y, TetrisPiece currentPiece2d) {
     for (Row r : currentPiece2d.getBlocks().get()) {
       if (r.getY() == y) {
         for (Block b : r.get()) {
@@ -187,11 +187,11 @@ class PrintToConsole {
   }
 
   private void printStringBoardCustom(QuadConsumerString<String[]> print) {
-    for (double y = 0; y < board.length; y++) {
-      String[][] row = board[(int) y];
+    for (int y = 0; y < board.length; y++) {
+      String[][] row = board[y];
 
-      for (double x = 0; x < row.length; x++) {
-        String[] cell = row[(int) x];
+      for (int x = 0; x < row.length; x++) {
+        String[] cell = row[x];
 
         System.out.print("[ " + print.accept(x, y, y, cell) + " ]");
       }

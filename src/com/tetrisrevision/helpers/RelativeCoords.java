@@ -1,6 +1,7 @@
 package com.tetrisrevision.helpers;
 
-public abstract class Coords {
+public abstract class RelativeCoords {
+  public static final int[] center = {0, 0};
   public static final int[] l1u2 = {Constants.left, Constants.up * 2};
   public static final int[] u2 = {0, Constants.up * 2};
   public static final int[] r1u2 = {Constants.right, Constants.up * 2};

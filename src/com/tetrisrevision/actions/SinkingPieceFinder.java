@@ -9,58 +9,53 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-/****
+/**
+ * **
  *
- * SinkingPieceFinder contains the methods that, after a row is deleted,
- * look for sinking pieces. These are pieces that aren't tetrominos
- * and consist of blocks that aren't attached to a block on the lowest row.
- * Blocks that lack a connection to the lowest row are necessarily floating above it. Thus they sink.
+ * <p>SinkingPieceFinder contains the methods that, after a row is deleted, look for sinking pieces.
+ * These are pieces that aren't tetrominos and consist of blocks that aren't attached to a block on
+ * the lowest row. Blocks that lack a connection to the lowest row are necessarily floating above
+ * it. Thus they sink.
  *
- * The logic is as follows:
+ * <p>The logic is as follows:
  *
- * After deleting a row, I pass the index of the deleted row to SinkingPieceFinder
- * After row deletion, there are only two possible locations, in terms of row index, where the deletion could result in a floating/sinking piece:
- *   Either at the row index where a row was just deleted (startingRow)
- *   or at the row index below (startingRow + 1). See diagram below for illustration
+ * <p>After deleting a row, I pass the index of the deleted row to SinkingPieceFinder After row
+ * deletion, there are only two possible locations, in terms of row index, where the deletion could
+ * result in a floating/sinking piece: Either at the row index where a row was just deleted
+ * (startingRow) or at the row index below (startingRow + 1). See diagram below for illustration
  *
- * Ex:
+ * <p>Ex:
  *
- 1.                 2.                  3.                  4.                 5.                  6.
-           row index
-  ↓↓↓
- |■↓↓       | 14     |↓   ↓     | 14     |          | 14     |          | 15     |          | 15     |          | 15
- |□□□ ■     | 15     |■↓↓↓■↓↓↓↓↓| 15     |↓   ↓     | 15     |          | 15     |          | 15     |          | 15
- |   □□□□□□□| 16     |□□□□□□□□□□| 16     |■   ■     | 16     |↓↓↓↓↓↓↓↓↓↓| 16     |          | 16     |          | 16
- | □□□ □□□□□| 17     | □□□ □□□□□| 17     | □□□ □□□□□| 17     |■□□□■□□□□□| 17     |        ↓↓| 17     |          | 17
- |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □   | 18
- |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□■■| 19
- |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20
- |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21
- |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22
- |□ □ □ □   | 23     |□ □ □ □   | 23     |□ □ □ □   | 23     |□ □ □ □   | 23     |□ □ □ □   | 23     |□ □ □ □   | 23
-  ----------          ----------          ----------          ----------          ----------          ----------
-  0123456789          0123456789          0123456789          0123456789          0123456789          0123456789
-  cell index
-
+ * <p>1. 2. 3. 4. 5. 6. row index ↓↓↓ |■↓↓ | 14 |↓ ↓ | 14 | | 14 | | 15 | | 15 | | 15 |□□□ ■ | 15
+ * |■↓↓↓■↓↓↓↓↓| 15 |↓ ↓ | 15 | | 15 | | 15 | | 15 | □□□□□□□| 16 |□□□□□□□□□□| 16 |■ ■ | 16
+ * |↓↓↓↓↓↓↓↓↓↓| 16 | | 16 | | 16 | □□□ □□□□□| 17 | □□□ □□□□□| 17 | □□□ □□□□□| 17 |■□□□■□□□□□| 17 |
+ * ↓↓| 17 | | 17 |□ □ □ □ ■■| 18 → |□ □ □ □ ■■| 18 → |□ □ □ □ ■■| 18 → |□ □ □ □ ■■| 18 → |□ □ □ □
+ * ■■| 18 → |□ □ □ □ | 18 |□□□□□□□□ | 19 |□□□□□□□□ | 19 |□□□□□□□□ | 19 |□□□□□□□□ | 19 |□□□□□□□□ | 19
+ * |□□□□□□□□■■| 19 |□ □ □ □ □□| 20 |□ □ □ □ □□| 20 |□ □ □ □ □□| 20 |□ □ □ □ □□| 20 |□ □ □ □ □□| 20
+ * |□ □ □ □ □□| 20 |□□□□□□□□ | 21 |□□□□□□□□ | 21 |□□□□□□□□ | 21 |□□□□□□□□ | 21 |□□□□□□□□ | 21
+ * |□□□□□□□□ | 21 |□ □ □ □ □□| 22 |□ □ □ □ □□| 22 |□ □ □ □ □□| 22 |□ □ □ □ □□| 22 |□ □ □ □ □□| 22 |□
+ * □ □ □ □□| 22 |□ □ □ □ | 23 |□ □ □ □ | 23 |□ □ □ □ | 23 |□ □ □ □ | 23 |□ □ □ □ | 23 |□ □ □ □ | 23
+ * ---------- ---------- ---------- ---------- ---------- ---------- 0123456789 0123456789
+ * 0123456789 0123456789 0123456789 0123456789 cell index
  *
- * Steps 1-4 show how row deletion can result in floating pieces at the row index (r)
- * where the user just cleared a row: row 16 is deleted; the rows above it shift down
- * and cells 0 and 4 on row 15 drop to 16 and are no longer connected to line 23. Thus they sink.
+ * <p>Steps 1-4 show how row deletion can result in floating pieces at the row index (r) where the
+ * user just cleared a row: row 16 is deleted; the rows above it shift down and cells 0 and 4 on row
+ * 15 drop to 16 and are no longer connected to line 23. Thus they sink.
  *
- * Steps 5-6 show how row deletion can result in floating pieces at r+1. Cells 8 and 9 on
- * row 18 are connected to row 17, 'hanging' from it. When row 17 is deleted, they're no longer
- * connected to any other cells and so they sink.
+ * <p>Steps 5-6 show how row deletion can result in floating pieces at r+1. Cells 8 and 9 on row 18
+ * are connected to row 17, 'hanging' from it. When row 17 is deleted, they're no longer connected
+ * to any other cells and so they sink.
  *
- ****/
-
+ * <p>**
+ */
 public class SinkingPieceFinder {
   private final RowList tmpRowList = new RowList();
   private final int[][] skip = new int[Constants.height][Constants.width];
   private boolean willSink = true;
 
-  private boolean doSkipCell(double x, double y) {
-    if (skip[(int) y][(int) x] == 0) {
-      skip[(int) y][(int) x] = 1;
+  private boolean doSkipCell(int x, int y) {
+    if (skip[y][x] == 0) {
+      skip[y][x] = 1;
 
       return false;
     }
@@ -68,7 +63,7 @@ public class SinkingPieceFinder {
     return true;
   }
 
-  public void findSinkingPieces(double idx, RowList playField, ArrayList<RowList> sinkingPieces) {
+  public void findSinkingPieces(int idx, RowList playField, ArrayList<RowList> sinkingPieces) {
     if (!BoundsTester.yInBoundsNoMin(idx)) {
       return;
     }
@@ -77,7 +72,7 @@ public class SinkingPieceFinder {
     runSearch(idx + Constants.down, sinkingPieces, playField);
   }
 
-  private void runSearch(double y, ArrayList<RowList> sinkingPieces, RowList playField) {
+  private void runSearch(int y, ArrayList<RowList> sinkingPieces, RowList playField) {
     IntStream.range(0, Constants.width)
         .forEach(
             x -> {
@@ -98,14 +93,14 @@ public class SinkingPieceFinder {
             });
   }
 
-  private void getAdjacentBlocks(double x, double y, @NotNull RowList rowList) {
+  private void getAdjacentBlocks(int x, int y, @NotNull RowList rowList) {
     Optional<Block> b = rowList.getBlock(x, y);
 
     if (b.isEmpty() || doSkipCell(x, y)) {
       return;
     }
 
-    if (willSink && (int) y == Constants.bottomRow) {
+    if (willSink && y == Constants.bottomRow) {
       willSink = false;
     }
 

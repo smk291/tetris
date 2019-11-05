@@ -1,11 +1,11 @@
 package com.tetrisrevision.things.tetrominos;
 
-import com.tetrisrevision.helpers.Coords;
+import com.tetrisrevision.helpers.RelativeCoords;
 
 import java.awt.*;
 
 class OPiece extends Tetromino {
-  private static final int[][][] offsets = {{Coords.u1, Coords.r1u1, {0, 0}, Coords.r1}};
+  private static final int[][][] offsets = {{RelativeCoords.u1, RelativeCoords.r1u1, RelativeCoords.center, RelativeCoords.r1}};
 
   OPiece() {
     super.setOffsets(offsets);

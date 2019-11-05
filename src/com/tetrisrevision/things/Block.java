@@ -6,14 +6,14 @@ import java.awt.*;
 // contained in a Row.
 public final class Block implements Cloneable {
   private final Color c;
-  private final double x;
+  private final int x;
 
-  public Block(double x, Color c) {
+  public Block(int x, Color c) {
     this.x = x;
     this.c = c;
   }
 
-  public double getX() {
+  public int getX() {
     return x;
   }
 

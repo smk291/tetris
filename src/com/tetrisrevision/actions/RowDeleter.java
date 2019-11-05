@@ -1,23 +1,20 @@
 package com.tetrisrevision.actions;
 
 import com.tetrisrevision.recordkeeping.GameRecordKeeping;
-import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.RowList;
+import com.tetrisrevision.things.TetrisPiece;
 
 import java.util.ArrayList;
 
 public abstract class RowDeleter {
 
   public static ArrayList<Integer> apply(
-      RowList blocksAdded,
-      TetrisPiece piece,
-      RowList playField,
-      GameRecordKeeping score) {
+      RowList blocksAdded, TetrisPiece piece, RowList playField, GameRecordKeeping score) {
     playField.sortByY();
     blocksAdded.sortByY();
 
     // Works only if `blocksAdded` has been inserted into `playField` in same position as its
-    // position in `blocksAdded`
+    // position in `blocksAdded`(?)
     int lowestFullRow = playField.getLowestYIfShared(blocksAdded);
     int highestFullRow = playField.getHighestYIfShared(blocksAdded);
 
@@ -34,11 +31,7 @@ public abstract class RowDeleter {
     for (int i = lowestFullRow, total = 0;
         playField.size() > 0 && i < playField.size() && i <= highestFullRow;
         i++) {
-      int contigDeleted = 0;
-
-      if (playField.rowIsFull(i)) {
-        contigDeleted = playField.deleteContiguousAndShift(i, total);
-      }
+      int contigDeleted = playField.rowIsFull(i) ? playField.deleteContiguousAndShift(i, total) : 0;
 
       if (contigDeleted != 0 && i != 0) {
         sinkingPieceAnchors.add(i);

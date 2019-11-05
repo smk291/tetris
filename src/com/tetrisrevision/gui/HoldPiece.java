@@ -2,7 +2,10 @@ package com.tetrisrevision.gui;
 
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.*;
+import com.tetrisrevision.things.Block;
+import com.tetrisrevision.things.Row;
+import com.tetrisrevision.things.RowList;
+import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.tetrominos.Tetromino;
 
 import javax.swing.*;
@@ -36,7 +39,8 @@ public class HoldPiece extends JPanel {
     height = (int) d.getHeight();
     blockWidth = height / 22;
     setBackground(Color.black);
-    BufferedImage buffImg = new BufferedImage(getWidth(), getHeight() * 5, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage buffImg =
+        new BufferedImage(getWidth(), getHeight() * 5, BufferedImage.TYPE_INT_ARGB);
     Graphics2D gbi = buffImg.createGraphics();
 
     if (null != runTetris) {
@@ -90,12 +94,11 @@ public class HoldPiece extends JPanel {
       tp.setCenter(2, (4 - 0) * 4);
       drawBlocks(gbi, tp.getBlocks());
       gbi.drawImage(buffImg, null, height * 4, 0);
-    }
-    else {
+    } else {
       this.add(labelHoldPiece);
     }
 
-//    }
+    //    }
   }
 
   @Override

@@ -4,14 +4,13 @@ import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.recordkeeping.TSpinTracker;
 import com.tetrisrevision.things.tetrominos.Tetromino;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class TetrisPiece {
   private int rotation;
   private int prevRotation;
-  private Point center;
+  private Center center;
   private Tetromino tetromino;
   private TSpinTracker tSpinTracker;
 
@@ -28,7 +27,7 @@ public class TetrisPiece {
   }
 
   private void reset() {
-    center = new Point(4, Constants.topRow);
+    center = new Center(4, Constants.topRow);
     rotation = 0;
     prevRotation = 0;
     tSpinTracker = new TSpinTracker();
@@ -36,6 +35,10 @@ public class TetrisPiece {
 
   public int getRotation() {
     return rotation;
+  }
+
+  public void setRotation(int i) {
+    rotation = i;
   }
 
   public void resetRotation() {
@@ -63,8 +66,8 @@ public class TetrisPiece {
     Arrays.stream(tetromino.getOffsets()[rotation])
         .forEach(
             p -> {
-              double x = center.getX() + p[0];
-              double y = center.getY() + p[1];
+              int x = center.getX() + p[0];
+              int y = center.getY() + p[1];
 
               Block b = new Block(x, tetromino.getColor());
 
@@ -83,14 +86,14 @@ public class TetrisPiece {
   }
 
   public void setCenter(int x, int y) {
-    center = new Point(x, y);
+    center = new Center(x, y);
   }
 
-  public Point getCenter() {
+  public Center getCenter() {
     return center;
   }
 
-  public void setCenter(Point pt) {
+  public void setCenter(Center pt) {
     center = pt;
   }
 
@@ -108,9 +111,5 @@ public class TetrisPiece {
 
   public void setTSpinTracker(TSpinTracker tSpinTracker) {
     this.tSpinTracker = tSpinTracker;
-  }
-
-  public void setRotation(int i) {
-    rotation = i;
   }
 }

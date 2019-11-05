@@ -6,9 +6,9 @@ import java.util.Optional;
 
 public class Row implements Cloneable {
   private final ArrayList<Block> blocks;
-  private double y;
+  private int y;
 
-  public Row(double y) {
+  public Row(int y) {
     this.y = y;
     this.blocks = new ArrayList<>();
   }
@@ -31,15 +31,15 @@ public class Row implements Cloneable {
     return blocks;
   }
 
-  public double getY() {
+  public int getY() {
     return y;
   }
 
-  public void setY(double y) {
+  public void setY(int y) {
     this.y = y;
   }
 
-  public Optional<Block> get(double x) {
+  public Optional<Block> get(int x) {
     for (Block block : blocks) {
       if (block.getX() == x) {
         return Optional.of(block);
@@ -53,7 +53,7 @@ public class Row implements Cloneable {
     return blocks.add(b);
   }
 
-  public boolean addAll(Collection<Block> collection) {
+  boolean addAll(Collection<Block> collection) {
     return blocks.addAll(collection);
   }
 
@@ -61,11 +61,11 @@ public class Row implements Cloneable {
     return blocks.isEmpty();
   }
 
-  public int size() {
+  int size() {
     return blocks.size();
   }
 
-  public boolean remove(double x) {
+  boolean remove(int x) {
     for (int i = 0; i < blocks.size(); i++) {
       if (blocks.get(i).getX() == x) {
         return blocks.remove(blocks.get(i));

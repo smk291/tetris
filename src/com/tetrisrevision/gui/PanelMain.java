@@ -42,33 +42,6 @@ public class PanelMain extends JPanel {
   JPanel info = new JPanel();
   GridBagConstraints infoC = new GridBagConstraints();
 
-  void insertPanel(
-      JPanel panel,
-      double weightx,
-      double weighty,
-      int gridx,
-      int gridy,
-      int gridwidth,
-      int gridheight,
-      int fill,
-      JLabel label,
-      GridBagConstraints gbc) {
-    panel.setBackground(Color.darkGray);
-    panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-    label.setForeground(Color.white);
-//    panel.add(label);
-
-    gbc.weightx = weightx;
-    gbc.weighty = weighty;
-    gbc.gridx = gridx;
-    gbc.gridy = gridy;
-    gbc.gridwidth = gridwidth;
-    gbc.gridheight = gridheight;
-    gbc.fill = fill;
-
-    add(panel, gbc);
-  }
-
   public PanelMain(RunTetris runTetris) {
     GridBagLayout gblPlayfield = new GridBagLayout();
     playFieldContainer.setLayout(gblPlayfield);
@@ -102,28 +75,28 @@ public class PanelMain extends JPanel {
     playFieldUpperC.weighty = 0.0;
     playFieldUpperC.weightx = 1.0;
 
-//    JPanel playFieldLeft = new JPanel();
-//    GridBagConstraints playFieldLeftC = new GridBagConstraints();
-//    playFieldLeftC.gridx = 0;
-//    playFieldLeftC.gridy = 1;
-//    playFieldLeftC.gridwidth = 1;
-//    playFieldLeftC.gridheight = 1;
-//    playFieldLeftC.weighty = 1.0;
-//    playFieldLeftC.weightx = 0.0;
+    //    JPanel playFieldLeft = new JPanel();
+    //    GridBagConstraints playFieldLeftC = new GridBagConstraints();
+    //    playFieldLeftC.gridx = 0;
+    //    playFieldLeftC.gridy = 1;
+    //    playFieldLeftC.gridwidth = 1;
+    //    playFieldLeftC.gridheight = 1;
+    //    playFieldLeftC.weighty = 1.0;
+    //    playFieldLeftC.weightx = 0.0;
 
-//    JPanel playFieldRight = new JPanel();
-//    GridBagConstraints playFieldRightC = new GridBagConstraints();
-//    playFieldRightC.gridx = 2;
-//    playFieldRightC.gridy = 1;
-//    playFieldRightC.gridwidth = 1;
-//    playFieldRightC.gridheight = 1;
-//    playFieldRightC.weighty = 1.0;
-//    playFieldRightC.weightx = 0.0;
+    //    JPanel playFieldRight = new JPanel();
+    //    GridBagConstraints playFieldRightC = new GridBagConstraints();
+    //    playFieldRightC.gridx = 2;
+    //    playFieldRightC.gridy = 1;
+    //    playFieldRightC.gridwidth = 1;
+    //    playFieldRightC.gridheight = 1;
+    //    playFieldRightC.weighty = 1.0;
+    //    playFieldRightC.weightx = 0.0;
 
     playFieldContainer.add(playFieldUpper, playFieldUpperC);
-//    playFieldContainer.add(playFieldLeft, playFieldLeftC);
+    //    playFieldContainer.add(playFieldLeft, playFieldLeftC);
     playFieldContainer.add(playField, playFieldC);
-//    playFieldContainer.add(playFieldRight, playFieldRightC);
+    //    playFieldContainer.add(playFieldRight, playFieldRightC);
     playFieldContainer.add(playfieldLower, playFieldLowerC);
 
     if (runTetris != null) queue = new Queue(runTetris, runTetris.getTetrominoQueue());
@@ -133,16 +106,42 @@ public class PanelMain extends JPanel {
     setBackground(new Color(20, 20, 80));
     setForeground(Color.white);
 
-//    System.out.println(playFieldContainer.getComponent().)
+    //    System.out.println(playFieldContainer.getComponent().)
 
     holdPiece = new HoldPiece(runTetris);
 
     init();
   }
 
+  void insertPanel(
+      JPanel panel,
+      double weightx,
+      double weighty,
+      int gridx,
+      int gridy,
+      int gridwidth,
+      int gridheight,
+      int fill,
+      JLabel label,
+      GridBagConstraints gbc) {
+    panel.setBackground(Color.darkGray);
+    panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+    label.setForeground(Color.white);
+    //    panel.add(label);
+
+    gbc.weightx = weightx;
+    gbc.weighty = weighty;
+    gbc.gridx = gridx;
+    gbc.gridy = gridy;
+    gbc.gridwidth = gridwidth;
+    gbc.gridheight = gridheight;
+    gbc.fill = fill;
+
+    add(panel, gbc);
+  }
+
   void init() {
-    insertPanel(
-        leftMost, 4, 1.0, 0, 0, 1, 13, GridBagConstraints.BOTH, new JLabel("L"), leftmostC);
+    insertPanel(leftMost, 4, 1.0, 0, 0, 1, 13, GridBagConstraints.BOTH, new JLabel("L"), leftmostC);
 
     insertPanel(
         topmost, 4.5, 0, 1, 0, 4, 1, GridBagConstraints.HORIZONTAL, new JLabel("T"), topmostC);

@@ -1,7 +1,7 @@
 package com.tetrisrevision.actions;
 
-import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.RowList;
+import com.tetrisrevision.things.TetrisPiece;
 
 import java.util.HashMap;
 

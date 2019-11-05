@@ -1,6 +1,5 @@
 package com.tetrisrevision.things;
 
-import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.tetrominos.TetrominoEnum;
 
 import java.util.ArrayList;
@@ -8,10 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * This class creates piece queues and randomizes the queue according to official tetris
- * guidelines.
+ * This class creates piece queues and randomizes the queue according to official tetris guidelines.
  *
- * Currently there's no way to switch out a piece.
+ * <p>Currently there's no way to switch out a piece.
  */
 public class TetrominoQueue {
   private ArrayList<TetrominoEnum> queue;

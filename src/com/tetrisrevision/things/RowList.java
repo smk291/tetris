@@ -31,16 +31,14 @@ public class RowList implements Cloneable {
   }
 
   public void add(Row row) {
-    getRowByY(row.getY())
-        .ifPresentOrElse(
-            r -> r.addAll(row.get()), () -> rows.add(row));
+    getRowByY(row.getY()).ifPresentOrElse(r -> r.addAll(row.get()), () -> rows.add(row));
   }
 
   public void addRowList(RowList p) {
     p.forEach(this::add);
   }
 
-  public void addBlock(double y, Block block) {
+  public void addBlock(int y, Block block) {
     getRowByY(y)
         .ifPresentOrElse(
             r -> r.add(block),
@@ -51,8 +49,8 @@ public class RowList implements Cloneable {
             });
   }
 
-  public boolean cellIsEmpty(double x, double y) {
-    return getBlock(x, y).isEmpty();
+  public boolean cellIsNotEmpty(int x, int y) {
+    return getBlock(x, y).isPresent();
   }
 
   public void clear() {
@@ -69,7 +67,7 @@ public class RowList implements Cloneable {
         rows.remove(i);
 
         contig++;
-      } else if (r.get().size() == Constants.width){
+      } else if (r.get().size() == Constants.width) {
         break;
       } else {
         r.setY(r.getY() - contig - offset);
@@ -86,13 +84,12 @@ public class RowList implements Cloneable {
   }
 
   public @Nullable Row get(int i) {
-    if (i < 0 || i >= rows.size())
-      return null;
+    if (i < 0 || i >= rows.size()) return null;
 
     return rows.get(i);
   }
 
-  public Optional<Block> getBlock(double x, double y) {
+  public Optional<Block> getBlock(int x, int y) {
     AtomicReference<Optional<Block>> b = new AtomicReference<>();
 
     getRowByY(y).ifPresentOrElse(r -> b.set(r.get(x)), () -> b.set(Optional.empty()));
@@ -155,8 +152,7 @@ public class RowList implements Cloneable {
     double lowestY = p.getLowestY();
     int startIdx = getRowIdxFromY(lowestY);
 
-    if (lowestY == -1 || startIdx == -1)
-      return -1;
+    if (lowestY == -1 || startIdx == -1) return -1;
 
     for (int i = startIdx; i < rows.size(); i++) {
       if (rowIsFull(i)) {
@@ -187,7 +183,7 @@ public class RowList implements Cloneable {
     return -1;
   }
 
-  public boolean removeBlock(double x, double y) {
+  public boolean removeBlock(int x, int y) {
     AtomicBoolean b = new AtomicBoolean(false);
 
     getRowByY(y).ifPresent(row -> b.set(row.remove(x)));
@@ -216,6 +212,6 @@ public class RowList implements Cloneable {
   }
 
   public void sortByY() {
-    rows.sort((Row r, Row r2) -> (int) (r.getY() - r2.getY()));
+    rows.sort((Row r, Row r2) -> r.getY() - r2.getY());
   }
 }

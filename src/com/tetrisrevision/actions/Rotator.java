@@ -5,8 +5,8 @@ import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
 
 /**
- * <p>Actions class contains all logic for moving and rotating pieces. sinkingPieces never rotate.
- * They only drop. the falling piece can rotate, hardDrop or translate (move in any direction).
+ * Actions class contains all logic for moving and rotating pieces. sinkingPieces never rotate. They
+ * only drop. the falling piece can rotate, hardDrop or translate (move in any direction).
  *
  * <p>The basic logic is: - mutates the position of the piece either by translating x/y or rotating
  * - test the resulting position for validity - undo the rotation or translation if the resulting

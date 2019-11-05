@@ -1,10 +1,7 @@
 package com.tetrisrevision.testing;
 
 import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.Block;
-import com.tetrisrevision.things.Row;
-import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.*;
 import com.tetrisrevision.things.tetrominos.TetrominoEnum;
 
 import java.awt.*;
@@ -31,7 +28,7 @@ public abstract class InputTests {
       case "6":
       case "7":
         piece.setTetromino(TetrominoEnum.values()[Integer.parseInt(e) - 1].get());
-        piece.setCenter(new Point(4, 13));
+        piece.setCenter(new Center(4, 13));
 
         break;
       case "a": // tetris-deletion test
@@ -39,33 +36,31 @@ public abstract class InputTests {
 
         piece.setTetromino(TetrominoEnum.I.get());
 
-        put(board, 3,  new int[] {0,1,2,3,  5,6,7,8,9});
-        put(board, 2,  new int[] {0,1,2,3,  5,6,7,8,9});
-        put(board, 1,  new int[] {0,1,2,3,  5,6,7,8,9});
-        put(board, 0,  new int[] {0,1,2,3,  5,6,7,8,9});
+        put(board, 3, new int[] {0, 1, 2, 3, 5, 6, 7, 8, 9});
+        put(board, 2, new int[] {0, 1, 2, 3, 5, 6, 7, 8, 9});
+        put(board, 1, new int[] {0, 1, 2, 3, 5, 6, 7, 8, 9});
+        put(board, 0, new int[] {0, 1, 2, 3, 5, 6, 7, 8, 9});
 
         break;
       case "A": // tetris-deletion test
         board.clear();
         piece.setTetromino(TetrominoEnum.I.get());
 
-        put(board, 3,  new int[] {0,1,2,3,  5,6,7,8,9});
-        put(board, 2,  new int[] {  1,2,3,  5,6,7,8,9});
-        put(board, 1,  new int[] {0,1,2,3,  5,6,7,8,9});
-        put(board, 0,  new int[] {0,1,2,3,  5,6,7,8,9});
+        put(board, 3, new int[] {0, 1, 2, 3, 5, 6, 7, 8, 9});
+        put(board, 2, new int[] {1, 2, 3, 5, 6, 7, 8, 9});
+        put(board, 1, new int[] {0, 1, 2, 3, 5, 6, 7, 8, 9});
+        put(board, 0, new int[] {0, 1, 2, 3, 5, 6, 7, 8, 9});
 
-        board
-            .getRowByY(2)
-            .ifPresent(r -> r.get().remove(0));
+        board.getRowByY(2).ifPresent(r -> r.get().remove(0));
 
         break;
       case "s": // sink test
         board.clear();
         piece.setCenter(6, 15);
 
-        put(board, 2,  new int[] {0,1,2,3,4,  6,7,8,9});
-        put(board, 1,  new int[] {0,1,2,3,4,  6,7,8,9});
-        put(board, 0,  new int[] {0,1,2,3,4,  6,7,8,9});
+        put(board, 2, new int[] {0, 1, 2, 3, 4, 6, 7, 8, 9});
+        put(board, 1, new int[] {0, 1, 2, 3, 4, 6, 7, 8, 9});
+        put(board, 0, new int[] {0, 1, 2, 3, 4, 6, 7, 8, 9});
 
         break;
       case "S":
@@ -75,10 +70,10 @@ public abstract class InputTests {
         piece.setRotation(3);
         piece.setCenter(5, 5);
 
-        put(board, 3,  new int[] {0,1,2,3,    6,7,8,9});
-        put(board, 2,  new int[] {0,1,2,3,4,  6,7,8,9});
-        put(board, 1,  new int[] {0,1,2,3,4,  6,7,8,9});
-        put(board, 0,  new int[] {0,1,2,3,4,  6,7,8,9});
+        put(board, 3, new int[] {0, 1, 2, 3, 6, 7, 8, 9});
+        put(board, 2, new int[] {0, 1, 2, 3, 4, 6, 7, 8, 9});
+        put(board, 1, new int[] {0, 1, 2, 3, 4, 6, 7, 8, 9});
+        put(board, 0, new int[] {0, 1, 2, 3, 4, 6, 7, 8, 9});
 
         break;
       case "d": // multiple sinking pieces, test that each behaves correctly
@@ -87,19 +82,33 @@ public abstract class InputTests {
         piece.setTetromino(TetrominoEnum.values()[0].get());
         piece.setCenter(2, 15);
 
-        put(board, 11, new int[] {0,      4,  6      });
-        put(board, 10, new int[] {0,      4,  6      });
-        put(board, 9,  new int[] {0,1,  3,4,5,6,7,8,9});
-        put(board, 8,  new int[] {    2,        7,8  });
-        put(board, 7,  new int[] {    2,          8  });
-        put(board, 6,  new int[] {    2,             });
-        put(board, 5,  new int[] {    2              });
-        put(board, 4,  new int[] {    2,             });
-        put(board, 3,  new int[] {    2,  4          });
-        put(board, 2,  new int[] {    2,3,4,  6      });
-        put(board, 1,  new int[] {0,  2,  4,  6,     });
-        put(board, 0,  new int[] {0,  2,  4,  6      });
-
+        put(board, 11, new int[] {0, 4, 6});
+        put(board, 10, new int[] {0, 4, 6});
+        put(board, 9, new int[] {0, 1, 3, 4, 5, 6, 7, 8, 9});
+        put(board, 8, new int[] {2, 7, 8});
+        put(board, 7, new int[] {2, 8});
+        put(
+            board,
+            6,
+            new int[] {
+              2,
+            });
+        put(board, 5, new int[] {2});
+        put(
+            board,
+            4,
+            new int[] {
+              2,
+            });
+        put(board, 3, new int[] {2, 4});
+        put(board, 2, new int[] {2, 3, 4, 6});
+        put(
+            board,
+            1,
+            new int[] {
+              0, 2, 4, 6,
+            });
+        put(board, 0, new int[] {0, 2, 4, 6});
 
         break;
       case "f": // test kick
@@ -111,7 +120,7 @@ public abstract class InputTests {
       case "z": // test row deletion
         board.clear();
 
-        put(board, 0,  new int[] {0,1,2,  4,5,6,7,8,9});
+        put(board, 0, new int[] {0, 1, 2, 4, 5, 6, 7, 8, 9});
 
         break;
       case "x": // test row delete after sink -- on bottom row to test bounds checker
@@ -121,10 +130,9 @@ public abstract class InputTests {
         piece.setRotation(0);
         piece.setCenter(1, 3);
 
-        put(board, 2,  new int[] {      3            });
-        put(board, 1,  new int[] {      3,4,5,6,7,8,9});
-        put(board, 0,  new int[] {  1,2,  4,5,6,7,8,9});
-
+        put(board, 2, new int[] {3});
+        put(board, 1, new int[] {3, 4, 5, 6, 7, 8, 9});
+        put(board, 0, new int[] {1, 2, 4, 5, 6, 7, 8, 9});
 
         break;
       case "c": // test recursive sinking pieces -- sinking pieces created when sinking piece fills
@@ -136,18 +144,17 @@ public abstract class InputTests {
         piece.resetRotation();
         piece.setCenter(1, 12);
 
-        put(board, 10, new int[] {        4          });
-        put(board, 9,  new int[] {      3,4,5,6,7,8,9});
-        put(board, 8,  new int[] {  1,2,3,  5,6,7,8,9});
-        put(board, 7,  new int[] {0,  2,  4,  6,  8,9});
-        put(board, 6,  new int[] {0,  2,  4,  6      });
-        put(board, 5,  new int[] {0,1,2,3,4,5,6,7    });
-        put(board, 4,  new int[] {0,  2,  4,  6,  8,9});
-        put(board, 3,  new int[] {0,  2,  4,  6      });
-        put(board, 2,  new int[] {0,1,2,3,4,5,6,7    });
-        put(board, 1,  new int[] {0,  2,  4,  6,  8,9});
-        put(board, 0,  new int[] {0,  2,  4,  6      });
-
+        put(board, 10, new int[] {4});
+        put(board, 9, new int[] {3, 4, 5, 6, 7, 8, 9});
+        put(board, 8, new int[] {1, 2, 3, 5, 6, 7, 8, 9});
+        put(board, 7, new int[] {0, 2, 4, 6, 8, 9});
+        put(board, 6, new int[] {0, 2, 4, 6});
+        put(board, 5, new int[] {0, 1, 2, 3, 4, 5, 6, 7});
+        put(board, 4, new int[] {0, 2, 4, 6, 8, 9});
+        put(board, 3, new int[] {0, 2, 4, 6});
+        put(board, 2, new int[] {0, 1, 2, 3, 4, 5, 6, 7});
+        put(board, 1, new int[] {0, 2, 4, 6, 8, 9});
+        put(board, 0, new int[] {0, 2, 4, 6});
 
         break;
       case "v":
@@ -157,10 +164,10 @@ public abstract class InputTests {
         piece.setCenter(6, 5);
         piece.setRotation(1);
 
-        put(board, 3,  new int[] {0,1,2,3,4,    7,8,9});
-        put(board, 2,  new int[] {0,1,2,3,4,    7,8,9});
-        put(board, 1,  new int[] {0,1,2,3,      7,8,9});
-        put(board, 0,  new int[] {0,1,2,3,4,  6,7,8,9});
+        put(board, 3, new int[] {0, 1, 2, 3, 4, 7, 8, 9});
+        put(board, 2, new int[] {0, 1, 2, 3, 4, 7, 8, 9});
+        put(board, 1, new int[] {0, 1, 2, 3, 7, 8, 9});
+        put(board, 0, new int[] {0, 1, 2, 3, 4, 6, 7, 8, 9});
 
         break;
     }

@@ -1,10 +1,8 @@
 package com.tetrisrevision;
 
 import com.tetrisrevision.actions.*;
-import com.tetrisrevision.helpers.CommandKeyCodes;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.recordkeeping.GameRecordKeeping;
-import com.tetrisrevision.testing.InputTests;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.TetrominoQueue;
@@ -12,7 +10,6 @@ import com.tetrisrevision.things.tetrominos.Tetromino;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class RunTetris {
@@ -23,7 +20,7 @@ public class RunTetris {
   private ArrayList<RowList> sinkingPieces = new ArrayList<>();
   private Timer movementTimer;
   private Timer rotationTimer;
-  private GameRecordKeeping recordKeeping = new GameRecordKeeping();;
+  private GameRecordKeeping recordKeeping = new GameRecordKeeping();
 
   public RunTetris() {
     tetrominoQueue.resetCurrentPiece(currentPiece);
@@ -146,8 +143,6 @@ public class RunTetris {
     rotationTimer.setRepeats(false);
     rotationTimer.start();
   }
-
-
 
   public TetrominoQueue getTetrominoQueue() {
     return tetrominoQueue;

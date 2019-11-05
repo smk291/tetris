@@ -1,27 +1,26 @@
 package com.tetrisrevision.actions;
 
 import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.Block;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
+import com.tetrisrevision.things.TetrisPiece;
 
 public abstract class Translater {
-  public static boolean translate(RowList blocks, RowList field, double y) {
+  public static boolean translate(RowList blocks, RowList field, int y) {
     blocks.forEach(r -> r.setY(r.getY() + y));
 
     boolean validPosition = true;
 
     for (Row r : blocks.get()) {
       for (Block b : r.get()) {
-        if (!PlacementTester.cellCanBeOccupied(r.getY(), b.getX(), field)) {
+        if (PlacementTester.cellCannotBeOccupied(r.getY(), b.getX(), field)) {
           validPosition = false;
         }
       }
     }
 
-    if (!validPosition)
-      blocks.forEach(r -> r.setY(r.getY() - y));
+    if (!validPosition) blocks.forEach(r -> r.setY(r.getY() - y));
 
     return validPosition;
   }

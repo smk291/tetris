@@ -19,8 +19,7 @@ public class TetrisGUI {
   private PlayField bc;
   private JFrame tetrisFrame;
 
-  public TetrisGUI() {
-  }
+  public TetrisGUI() {}
 
   /**
    * Create the GUI and show it. For thread safety, this method should be invoked from the event
@@ -37,38 +36,44 @@ public class TetrisGUI {
     tetrisFrame.setFocusable(true);
 
     tetrisFrame.addKeyListener(
-            new KeyListener() {
-              @Override
-              public void keyTyped(KeyEvent e) {}
+        new KeyListener() {
+          @Override
+          public void keyTyped(KeyEvent e) {}
 
-              @Override
-              public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = true;
-                else keyboardInput(e, shift);
+          @Override
+          public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = true;
+            else keyboardInput(e, shift);
 
-                tetrisFrame.repaint();
-              }
+            tetrisFrame.repaint();
+          }
 
-              @Override
-              public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = false;
+          @Override
+          public void keyReleased(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_SHIFT) shift = false;
 
-                tetrisFrame.repaint();
-              }
+            tetrisFrame.repaint();
+          }
+        });
+
+    timer =
+        new Timer(
+            1000,
+            e -> {
+              runTetris.dropCurrentPiece();
+
+              tetrisFrame.repaint();
             });
-
-    timer = new Timer(1000, e -> {
-      runTetris.dropCurrentPiece();
-
-      tetrisFrame.repaint();
-    });
     timer.start();
 
-    timer2 = new Timer(200, e -> {
-      runTetris.dropSinkingPieces();
+    timer2 =
+        new Timer(
+            200,
+            e -> {
+              runTetris.dropSinkingPieces();
 
-      tetrisFrame.repaint();
-    });
+              tetrisFrame.repaint();
+            });
     timer2.start();
   }
 
@@ -83,14 +88,16 @@ public class TetrisGUI {
       } else if (k == CommandKeyCodes.getClockwise()) {
         runTetris.rotate(Constants.clockwise);
       } else if (k == CommandKeyCodes.getHardDrop()) {
-        while (!runTetris.getSinkingPieces().isEmpty())
-          runTetris.dropSinkingPieces();
-
-        int rowsTraversed = Translater.hardDrop(runTetris.getCurrentPiece(), runTetris.getPlayField());
+        while (!runTetris.getSinkingPieces().isEmpty()) runTetris.dropSinkingPieces();
+        int rowsTraversed =
+            Translater.hardDrop(runTetris.getCurrentPiece(), runTetris.getPlayField());
         runTetris.getRecordKeeping().hardDrop(rowsTraversed);
         runTetris.addPieceToBoard(runTetris.getCurrentPiece());
       } else {
-        InputTests.accept(Character.toString(e.getKeyChar()), runTetris.getCurrentPiece(), runTetris.getPlayField());
+        InputTests.accept(
+            Character.toString(e.getKeyChar()),
+            runTetris.getCurrentPiece(),
+            runTetris.getPlayField());
       }
     } else {
       if (k == CommandKeyCodes.getLeft()) {
@@ -103,10 +110,14 @@ public class TetrisGUI {
       } else if (k == CommandKeyCodes.getUp()) {
         runTetris.translatePiece(0, Constants.up);
       } else {
-        InputTests.accept(Character.toString(e.getKeyChar()), runTetris.getCurrentPiece(), runTetris.getPlayField());
+        InputTests.accept(
+            Character.toString(e.getKeyChar()),
+            runTetris.getCurrentPiece(),
+            runTetris.getPlayField());
       }
     }
   }
+
   public void init() {
     try {
       UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
@@ -130,4 +141,3 @@ public class TetrisGUI {
     timer2.stop();
   }
 }
-

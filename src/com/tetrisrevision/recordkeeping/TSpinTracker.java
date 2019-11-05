@@ -1,9 +1,8 @@
 package com.tetrisrevision.recordkeeping;
 
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.Center;
 import com.tetrisrevision.things.RowList;
-
-import java.awt.*;
+import com.tetrisrevision.things.TetrisPiece;
 
 public class TSpinTracker {
   private boolean lastActionIsRotation;
@@ -16,10 +15,10 @@ public class TSpinTracker {
 
   private static boolean areThreeOrMoreCornersFilled(TetrisPiece piece, RowList rowList) {
     int cornersFilled = 0;
-    Point center = piece.getCenter();
+    Center center = piece.getCenter();
 
-    int x = (int) center.getX();
-    int y = (int) center.getY();
+    int x = center.getX();
+    int y = center.getY();
 
     cornersFilled += cornerFilled(rowList, x, y, -1, -1);
     cornersFilled += cornerFilled(rowList, x, y, -1, 1);
@@ -30,7 +29,7 @@ public class TSpinTracker {
   }
 
   private static int cornerFilled(RowList rowList, int x, int y, int x2, int y2) {
-    return !rowList.cellIsEmpty(x + x2, y + y2) ? 1 : 0;
+    return rowList.cellIsNotEmpty(x + x2, y + y2) ? 1 : 0;
   }
 
   public void reset() {

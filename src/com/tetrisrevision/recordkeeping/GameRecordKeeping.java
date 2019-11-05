@@ -1,7 +1,7 @@
 package com.tetrisrevision.recordkeeping;
 
-import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.RowList;
+import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.tetrominos.Tetromino;
 
 public final class GameRecordKeeping {
@@ -37,12 +37,12 @@ public final class GameRecordKeeping {
     return level;
   }
 
-  public double getComboCount() {
-    return comboCount;
-  }
-
   void setLevel(int i) {
     level = i;
+  }
+
+  public double getComboCount() {
+    return comboCount;
   }
 
   public void softDrop() {
@@ -69,10 +69,8 @@ public final class GameRecordKeeping {
     TSpinTracker tst = piece.gettSpinTracker();
     Tetromino t = piece.getTetromino();
 
-    if (t.isTPiece() && tst.isTSpinMini(piece, rowList))
-      computeScoreTSpinMini(rows);
-    else if (t.isTPiece() && tst.isTSpin(piece, rowList))
-      computerScoreTSpin(rows);
+    if (t.isTPiece() && tst.isTSpinMini(piece, rowList)) computeScoreTSpinMini(rows);
+    else if (t.isTPiece() && tst.isTSpin(piece, rowList)) computerScoreTSpin(rows);
     else computeAndAdd(rows);
   }
 
