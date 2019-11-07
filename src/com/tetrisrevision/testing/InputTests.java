@@ -2,7 +2,7 @@ package com.tetrisrevision.testing;
 
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.things.*;
-import com.tetrisrevision.things.tetrominos.TetrominoEnum;
+import com.tetrisrevision.things.tetrominoes.TetrominoEnum;
 
 import java.awt.*;
 

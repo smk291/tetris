@@ -9,45 +9,48 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-/**
- * **
+/****
  *
- * <p>SinkingPieceFinder contains the methods that, after a row is deleted, look for sinking pieces.
- * These are pieces that aren't tetrominos and consist of blocks that aren't attached to a block on
- * the lowest row. Blocks that lack a connection to the lowest row are necessarily floating above
- * it. Thus they sink.
+ * SinkingPieceFinder contains the methods that, after a row is deleted,
+ * look for sinking pieces. These are pieces that aren't tetrominos
+ * and consist of blocks that aren't attached to a block on the lowest row.
+ * Blocks that lack a connection to the lowest row are necessarily floating above it. Thus they sink.
  *
- * <p>The logic is as follows:
+ * The logic is as follows:
  *
- * <p>After deleting a row, I pass the index of the deleted row to SinkingPieceFinder After row
- * deletion, there are only two possible locations, in terms of row index, where the deletion could
- * result in a floating/sinking piece: Either at the row index where a row was just deleted
- * (startingRow) or at the row index below (startingRow + 1). See diagram below for illustration
+ * After deleting a row, I pass the index of the deleted row to SinkingPieceFinder
+ * After row deletion, there are only two possible locations, in terms of row index, where the deletion could result in a floating/sinking piece:
+ *   Either at the row index where a row was just deleted (startingRow)
+ *   or at the row index below (startingRow + 1). See diagram below for illustration
  *
- * <p>Ex:
+ * Ex:
  *
- * <p>1. 2. 3. 4. 5. 6. row index ↓↓↓ |■↓↓ | 14 |↓ ↓ | 14 | | 14 | | 15 | | 15 | | 15 |□□□ ■ | 15
- * |■↓↓↓■↓↓↓↓↓| 15 |↓ ↓ | 15 | | 15 | | 15 | | 15 | □□□□□□□| 16 |□□□□□□□□□□| 16 |■ ■ | 16
- * |↓↓↓↓↓↓↓↓↓↓| 16 | | 16 | | 16 | □□□ □□□□□| 17 | □□□ □□□□□| 17 | □□□ □□□□□| 17 |■□□□■□□□□□| 17 |
- * ↓↓| 17 | | 17 |□ □ □ □ ■■| 18 → |□ □ □ □ ■■| 18 → |□ □ □ □ ■■| 18 → |□ □ □ □ ■■| 18 → |□ □ □ □
- * ■■| 18 → |□ □ □ □ | 18 |□□□□□□□□ | 19 |□□□□□□□□ | 19 |□□□□□□□□ | 19 |□□□□□□□□ | 19 |□□□□□□□□ | 19
- * |□□□□□□□□■■| 19 |□ □ □ □ □□| 20 |□ □ □ □ □□| 20 |□ □ □ □ □□| 20 |□ □ □ □ □□| 20 |□ □ □ □ □□| 20
- * |□ □ □ □ □□| 20 |□□□□□□□□ | 21 |□□□□□□□□ | 21 |□□□□□□□□ | 21 |□□□□□□□□ | 21 |□□□□□□□□ | 21
- * |□□□□□□□□ | 21 |□ □ □ □ □□| 22 |□ □ □ □ □□| 22 |□ □ □ □ □□| 22 |□ □ □ □ □□| 22 |□ □ □ □ □□| 22 |□
- * □ □ □ □□| 22 |□ □ □ □ | 23 |□ □ □ □ | 23 |□ □ □ □ | 23 |□ □ □ □ | 23 |□ □ □ □ | 23 |□ □ □ □ | 23
- * ---------- ---------- ---------- ---------- ---------- ---------- 0123456789 0123456789
- * 0123456789 0123456789 0123456789 0123456789 cell index
+ 1.                 2.                  3.                  4.                 5.                  6.
+ row index
+ ↓↓↓
+ |■↓↓       | 14     |↓   ↓     | 14     |          | 14     |          | 15     |          | 15     |          | 15
+ |□□□ ■     | 15     |■↓↓↓■↓↓↓↓↓| 15     |↓   ↓     | 15     |          | 15     |          | 15     |          | 15
+ |   □□□□□□□| 16     |□□□□□□□□□□| 16     |■   ■     | 16     |↓↓↓↓↓↓↓↓↓↓| 16     |          | 16     |          | 16
+ | □□□ □□□□□| 17     | □□□ □□□□□| 17     | □□□ □□□□□| 17     |■□□□■□□□□□| 17     |        ↓↓| 17     |          | 17
+ |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □ ■■| 18  →  |□ □ □ □   | 18
+ |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□  | 19     |□□□□□□□□■■| 19
+ |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20     |□ □ □ □ □□| 20
+ |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21     |□□□□□□□□  | 21
+ |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22     |□ □ □ □ □□| 22
+ |□ □ □ □   | 23     |□ □ □ □   | 23     |□ □ □ □   | 23     |□ □ □ □   | 23     |□ □ □ □   | 23     |□ □ □ □   | 23
+ ----------          ----------          ----------          ----------          ----------          ----------
+ 0123456789          0123456789          0123456789          0123456789          0123456789          0123456789
+ cell index
  *
- * <p>Steps 1-4 show how row deletion can result in floating pieces at the row index (r) where the
- * user just cleared a row: row 16 is deleted; the rows above it shift down and cells 0 and 4 on row
- * 15 drop to 16 and are no longer connected to line 23. Thus they sink.
+ * Steps 1-4 show how row deletion can result in floating pieces at the row index (r)
+ * where the user just cleared a row: row 16 is deleted; the rows above it shift down
+ * and cells 0 and 4 on row 15 drop to 16 and are no longer connected to line 23. Thus they sink.
  *
- * <p>Steps 5-6 show how row deletion can result in floating pieces at r+1. Cells 8 and 9 on row 18
- * are connected to row 17, 'hanging' from it. When row 17 is deleted, they're no longer connected
- * to any other cells and so they sink.
+ * Steps 5-6 show how row deletion can result in floating pieces at r+1. Cells 8 and 9 on
+ * row 18 are connected to row 17, 'hanging' from it. When row 17 is deleted, they're no longer
+ * connected to any other cells and so they sink.
  *
- * <p>**
- */
+ ****/
 public class SinkingPieceFinder {
   private final RowList tmpRowList = new RowList();
   private final int[][] skip = new int[Constants.height][Constants.width];

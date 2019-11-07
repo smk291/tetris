@@ -2,7 +2,7 @@ package com.tetrisrevision.things;
 
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.recordkeeping.TSpinTracker;
-import com.tetrisrevision.things.tetrominos.Tetromino;
+import com.tetrisrevision.things.tetrominoes.Tetromino;
 
 import java.util.Arrays;
 import java.util.HashMap;

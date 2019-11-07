@@ -6,7 +6,7 @@ import com.tetrisrevision.recordkeeping.GameRecordKeeping;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
 import com.tetrisrevision.things.TetrominoQueue;
-import com.tetrisrevision.things.tetrominos.Tetromino;
+import com.tetrisrevision.things.tetrominoes.Tetromino;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;

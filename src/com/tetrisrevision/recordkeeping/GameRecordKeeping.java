@@ -2,7 +2,7 @@ package com.tetrisrevision.recordkeeping;
 
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.things.tetrominos.Tetromino;
+import com.tetrisrevision.things.tetrominoes.Tetromino;
 
 public final class GameRecordKeeping {
   private double score;

@@ -1,4 +1,4 @@
-package com.tetrisrevision.things.tetrominos;
+package com.tetrisrevision.things.tetrominoes;
 
 import com.tetrisrevision.helpers.RelativeCoords;
 

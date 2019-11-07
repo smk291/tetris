@@ -3,7 +3,7 @@ package com.tetrisrevision.gui;
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.things.*;
-import com.tetrisrevision.things.tetrominos.TetrominoEnum;
+import com.tetrisrevision.things.tetrominoes.TetrominoEnum;
 
 import javax.swing.*;
 import java.awt.*;

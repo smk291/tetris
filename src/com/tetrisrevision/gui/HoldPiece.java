@@ -6,7 +6,7 @@ import com.tetrisrevision.things.Block;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.things.tetrominos.Tetromino;
+import com.tetrisrevision.things.tetrominoes.Tetromino;
 
 import javax.swing.*;
 import java.awt.*;

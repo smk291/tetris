@@ -1,6 +1,6 @@
 package com.tetrisrevision.things;
 
-import com.tetrisrevision.things.tetrominos.TetrominoEnum;
+import com.tetrisrevision.things.tetrominoes.TetrominoEnum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,9 +16,6 @@ public class TetrominoQueue {
   private ArrayList<TetrominoEnum> backupQueue;
 
   public TetrominoQueue(TetrisPiece p) {
-    this.queue = new ArrayList<>();
-    this.backupQueue = new ArrayList<>();
-
     setQs();
     resetCurrentPiece(p);
   }
