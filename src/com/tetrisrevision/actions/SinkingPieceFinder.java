@@ -16,9 +16,6 @@ import java.util.stream.IntStream;
  * and consist of blocks that aren't attached to a block on the lowest row.
  * Blocks that lack a connection to the lowest row are necessarily floating above it. Thus they sink.
  *
- * The logic is as follows:
- *
- * After deleting a row, I pass the index of the deleted row to SinkingPieceFinder
  * After row deletion, there are only two possible locations, in terms of row index, where the deletion could result in a floating/sinking piece:
  *   Either at the row index where a row was just deleted (startingRow)
  *   or at the row index below (startingRow + 1). See diagram below for illustration
@@ -26,7 +23,7 @@ import java.util.stream.IntStream;
  * Ex:
  *
  1.                 2.                  3.                  4.                 5.                  6.
- row index
+              row index
  ↓↓↓
  |■↓↓       | 14     |↓   ↓     | 14     |          | 14     |          | 15     |          | 15     |          | 15
  |□□□ ■     | 15     |■↓↓↓■↓↓↓↓↓| 15     |↓   ↓     | 15     |          | 15     |          | 15     |          | 15
@@ -49,6 +46,7 @@ import java.util.stream.IntStream;
  * Steps 5-6 show how row deletion can result in floating pieces at r+1. Cells 8 and 9 on
  * row 18 are connected to row 17, 'hanging' from it. When row 17 is deleted, they're no longer
  * connected to any other cells and so they sink.
+ *
  *
  ****/
 public class SinkingPieceFinder {
