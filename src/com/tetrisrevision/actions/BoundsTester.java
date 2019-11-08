@@ -2,16 +2,16 @@ package com.tetrisrevision.actions;
 
 import com.tetrisrevision.helpers.Constants;
 
-abstract class BoundsTester {
-  static boolean xInBounds(int x) {
+public abstract class BoundsTester {
+  public static boolean xInBounds(int x) {
     return x >= Constants.leftBound && x < Constants.width;
   }
 
-  static boolean yInBoundsNoMin(int y) {
+  public static boolean yInBoundsNoUpperLimit(int y) {
     return y >= Constants.bottomRow;
   }
 
-  static boolean yInBounds(int y) {
+  public static boolean yInBounds(int y) {
     return y >= Constants.bottomRow && y < Constants.height;
   }
 }

@@ -4,7 +4,7 @@ import com.tetrisrevision.helpers.RelativeCoords;
 
 import java.awt.*;
 
-class ZPiece extends Tetromino {
+public class ZPiece extends Tetromino {
   private static final int[][][] offsets = {
     {RelativeCoords.l1u1, RelativeCoords.u1, RelativeCoords.center, RelativeCoords.r1},
     {RelativeCoords.r1u1, RelativeCoords.center, RelativeCoords.r1, RelativeCoords.d1},
@@ -12,7 +12,7 @@ class ZPiece extends Tetromino {
     {RelativeCoords.u1, RelativeCoords.l1, RelativeCoords.center, RelativeCoords.l1d1}
   };
 
-  ZPiece() {
+  public ZPiece() {
     super.setOffsets(offsets);
     super.setColor(Color.red);
   }

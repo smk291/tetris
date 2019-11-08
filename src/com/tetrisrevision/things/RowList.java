@@ -15,7 +15,9 @@ public class RowList implements Cloneable {
   public RowList() {
     clear();
   }
-
+  public RowList(RowList rl) {
+    addRowList(rl);
+  }
   public ArrayList<Row> get() {
     return rows;
   }

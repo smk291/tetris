@@ -18,7 +18,7 @@ abstract class IPieceSequences {
   };
 }
 
-class IPiece extends Tetromino {
+public class IPiece extends Tetromino {
   private static final int[][][] offsets = {
     {RelativeCoords.l1, RelativeCoords.center, RelativeCoords.r1, RelativeCoords.r2},
     {

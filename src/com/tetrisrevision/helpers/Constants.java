@@ -11,11 +11,11 @@ public abstract class Constants {
 
   public static int topRow = Constants.height - 1;
   public static int bottomRow = 0;
-  public static int bottomBoundOuter = Constants.bottomRow - 1;
+//  static int bottomBoundOuter = Constants.bottomRow - 1;
   public static int leftBound = 0;
-  public static int leftBoundInner = -1;
+//  static int leftBoundInner = -1;
   public static int rightBound = 9;
-  public static int rightBoundOuter = Constants.width;
+//  static int rightBoundOuter = Constants.width;
 
   public static int clockwise = 1;
   public static int counterClockwise = -1;

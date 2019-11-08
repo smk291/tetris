@@ -5,7 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/apiguardian-api-1.0.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/junit-jupiter-5.4.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/junit-jupiter-api-5.4.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/junit-jupiter-engine-5.4.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/junit-jupiter-params-5.4.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/junit-platform-commons-1.4.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/junit-platform-engine-1.4.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/opentest4j-1.1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/TPieceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/RunTetrisTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/BoundsTesterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/PlacementTesterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RotatorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RowDeleterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/SinkingPieceFinderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/TranslaterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/helpers/ConstantsTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/recordkeeping/GameRecordKeepingTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/recordkeeping/TSpinTrackerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/BlockTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/CenterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowListTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrisPieceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrominoQueueTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/IPieceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/JPieceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/LPieceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/OPieceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/SPieceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/TetrominoEnumTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/BoundsTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/BoundsTester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/PlacementTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/PlacementTester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/SinkingPieceFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/SinkingPieceFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/helpers/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/helpers/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/testing/InputTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/testing/InputTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/RowList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/RowList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/IPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/IPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/JPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/JPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/LPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/LPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/OPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/OPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/SPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/SPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/TPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/TPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/ZPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/ZPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tetris.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tetris.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,6 +71,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -37,12 +86,17 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA&#10;TEXT" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="true" />
+    <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -52,16 +106,27 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.layoutdemos.border" />
-      <recent name="com.tetrisrevision.swinggui" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.newtetris.tetrispiece.kick" />
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.tetrisrevision.things.tetrominoes" />
+      <recent name="com.tetrisrevision.recordkeeping" />
+      <recent name="com.tetrisrevision.actions" />
+      <recent name="com.tetrisrevision" />
+      <recent name="com.tetrisrevision.things" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/com/tetrisrevision" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.tetrisrevision.unittests" />
+      <recent name="com.layoutdemos.border" />
+      <recent name="com.tetrisrevision.swinggui" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.newtetris.tetrispiece.kick" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -204,6 +269,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="masterDetails">
     <states>

@@ -18,11 +18,11 @@ public abstract class PlacementTester {
     return true;
   }
 
-  static boolean inBounds(int x, int y) {
+  public static boolean inBounds(int x, int y) {
     return BoundsTester.xInBounds(x) && BoundsTester.yInBounds(y);
   }
 
-  static boolean cellCannotBeOccupied(int y, int x, RowList f) {
-    return !BoundsTester.xInBounds(x) || !BoundsTester.yInBoundsNoMin(y) || f.cellIsNotEmpty(x, y);
+  public static boolean cellCannotBeOccupied(int y, int x, RowList f) {
+    return !BoundsTester.xInBounds(x) || !BoundsTester.yInBoundsNoUpperLimit(y) || f.cellIsNotEmpty(x, y);
   }
 }

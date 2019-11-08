@@ -54,7 +54,7 @@ public class SinkingPieceFinder {
   private final int[][] skip = new int[Constants.height][Constants.width];
   private boolean willSink = true;
 
-  private boolean doSkipCell(int x, int y) {
+  public boolean doSkipCell(int x, int y) {
     if (skip[y][x] == 0) {
       skip[y][x] = 1;
 
@@ -65,7 +65,7 @@ public class SinkingPieceFinder {
   }
 
   public void findSinkingPieces(int idx, RowList playField, ArrayList<RowList> sinkingPieces) {
-    if (!BoundsTester.yInBoundsNoMin(idx)) {
+    if (!BoundsTester.yInBoundsNoUpperLimit(idx)) {
       return;
     }
 
@@ -73,7 +73,7 @@ public class SinkingPieceFinder {
     runSearch(idx + Constants.down, sinkingPieces, playField);
   }
 
-  private void runSearch(int y, ArrayList<RowList> sinkingPieces, RowList playField) {
+  public void runSearch(int y, ArrayList<RowList> sinkingPieces, RowList playField) {
     IntStream.range(0, Constants.width)
         .forEach(
             x -> {
@@ -94,7 +94,7 @@ public class SinkingPieceFinder {
             });
   }
 
-  private void getAdjacentBlocks(int x, int y, @NotNull RowList rowList) {
+  public void getAdjacentBlocks(int x, int y, @NotNull RowList rowList) {
     Optional<Block> b = rowList.getBlock(x, y);
 
     if (b.isEmpty() || doSkipCell(x, y)) {
