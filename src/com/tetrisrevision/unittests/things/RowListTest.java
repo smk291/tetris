@@ -340,20 +340,18 @@ class RowListTest {
   }
 
   // Full rows at these `y` values
-  int[] fullRows = new int[]{1,2,5,6};
+  private int[] fullRows = new int[]{1,2,5,6};
   // Nonfull rows at these `y` values
-  int [] nonFullRowIdx = {0,3,4,7};
+  private int [] nonFullRowIdx = {0,3,4,7};
   // Cells in non-full rows
-  int [][] nonFullRows = {{0},{1,2}, {3,4,5},{6,7,8,9}};
+  private int [][] nonFullRows = {{0},{1,2}, {3,4,5},{6,7,8,9}};
 
   /**
-   * The method should delete the first two rows at `y` of fullRows[0] and fullRows[1]
-   * It should "lower" the `y` of the non-full rows above those by the number of deleted rows
-   * The next full row should not be contiguous with the ones deleted.
-   * Its `y` should be the same
-   * Same goes for the `y` of all Rows above it, full or not
+   * The method should delete the first two rows at `y` of fullRows[0] and fullRows[1] It should
+   * "lower" the `y` of the non-full rows above those by the number of deleted rows The next full
+   * row should not be contiguous with the ones deleted. Its `y` should be the same Same goes for
+   * the `y` of all Rows above it, full or not
    */
-
   @Test
   void deleteContiguousAndShift() {
     rl = UnitTestHelper.getFullRowList(fullRows);
@@ -376,7 +374,7 @@ class RowListTest {
     // The correct number of rows were deleted
     assertEquals(++expectedContigDeleted, contigDeleted);
 
-    for (int i = 0 ; nonFullRowIdx[i] < fullRows[0]; i++) {
+    for (int i = 0; nonFullRowIdx[i] < fullRows[0]; i++) {
       int nonFullY = nonFullRowIdx[i];
       int[] nonFullRow = nonFullRows[i];
 
@@ -389,78 +387,24 @@ class RowListTest {
     // The proper number of rows remain
     assertEquals(fullRows.length + nonFullRows.length - contigDeleted, rl.get().size());
 
-    // None of the set of contiguous full rows starting at `fullRows[0]` is still present
-//    for (int i = 0; i < contigDeleted; i++) {
-//      int deletedFullRowY = fullRows[i];
-//
-//      // If a row is present at `deletedFullRowY`, then it shouldn't be one of the full rows
-//      // If there is and it's full, then it was contiguous with the other full rows that were deleted.
-//      // That is, it would have been part of the contiguous set of full rows, and it should have been deleted.
-//      Optional<Row> r = rl.getRowByY(deletedFullRowY);
-//      r.ifPresent(row -> assertNotEquals(Constants.width, row.size()));
-//    }
-
+    // Make sure none of the set of contiguous full rows starting at `fullRows[0]` is still present
     checkFullRows(0, contigDeleted, false);
 
     // First full row after the contiguous deleted rows
     int nextFullRowByY = fullRows[contigDeleted];
 
-//    int l;
-
-    // Make sure the non-full rows that were between the deleted rows and the next full row have been 'lowered`
-//    for (l = 1; nonFullRowIdx[l] < nextFullRowByY; l++) {
-//      // Get "lowered" y of non-full row.
-//      int nonFullY = nonFullRowIdx[l] - contigDeleted;
-//      Optional<Row> optR = rl.getRowByY(nonFullY);
-//      // A row is present at that `y`
-//      assertTrue(optR.isPresent());
-//
-//      Row r = optR.get();
-//      int[] expectedBlocks = nonFullRows[l];
-//
-//      // The row contains the expected number of blocks
-//      assertEquals(expectedBlocks.length, r.get().size());
-//
-//      for (int x : expectedBlocks)
-//        // The row contains the expected blocks
-//        assertTrue(rl.getBlock(x, nonFullY).isPresent());
-//    }
-
+    // Make sure the non-full rows that were between the deleted rows and the next full row have
+    // been 'lowered`
     int l = checkNonFullRows(1, nextFullRowByY, contigDeleted);
 
     // The next full row is at `y` of `fullRows[contigDeleted]`.
     // The method shouldn't have deleted it, nor should it have changed its `y`.
     // It instead should have exited the loop and returned `contig`.
-    // So make sure there are full rows at `fullRows[contigDeleted] to fullRows[fullRows.length - 1]`.
-//    for (int i = contigDeleted; i < fullRows.length; i++) {
-//      nextFullRowByY = fullRows[i];
-//      Optional<Row> r = rl.getRowByY(nextFullRowByY);
-//      // The row with that `y` exists
-//      assertTrue(r.isPresent());
-//      // The row is full
-//      assertEquals(Constants.width, r.get().size());
-//    }
-
+    // So make sure there are full rows at `fullRows[contigDeleted] to fullRows[fullRows.length -
+    // 1]`.
     checkFullRows(contigDeleted, fullRows.length, true);
 
-    // And if there are non-full rows about that next full row, their `y`s should be unchanged too
-//    for (; l < nonFullRowIdx.length; l++) {
-//      Optional<Row> optR = rl.getRowByY(nonFullRowIdx[l]);
-//
-//      // The row with the expected `y` exists.
-//      assertTrue(optR.isPresent());
-//
-//      Row r = optR.get();
-//
-//      int[] expectedBlocks = nonFullRows[l];
-//      // It has the expected number of blocks
-//      assertEquals(expectedBlocks.length, r.get().size());
-//
-//      for (int x : expectedBlocks)
-//        // The expected blocks are present
-//        assertTrue(rl.getBlock(x, nonFullRowIdx[l]).isPresent());
-//    }
-//
+    // Makes sure non-full rows above that next full row have the unchanged `y` values
     checkNonFullRows(l, nonFullRowIdx.length, 0);
   }
 
@@ -497,12 +441,14 @@ class RowListTest {
       Optional<Row> r = rl.getRowByY(deletedFullRowY);
 
       // If !shouldBePresent, then if a row is present at `deletedFullRowY`, then it shouldn't be
-      // full. If there is a row and it's full, then it was contiguous with the other full rows that were
-      // deleted; it would have been part of the contiguous set of full rows, and it should have been
+      // full. If there is a row and it's full, then it was contiguous with the other full rows that
+      // were
+      // deleted; it would have been part of the contiguous set of full rows, and it should have
+      // been
       // deleted.
       if (!shouldBePresent) {
         r.ifPresent(row -> assertNotEquals(Constants.width, row.size()));
-      // If shouldBePresent, just make sure the row exists and is full
+        // If shouldBePresent, just make sure the row exists and is full
       } else {
         // The row with that `y` exists
         assertTrue(r.isPresent());

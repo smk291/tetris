@@ -6,6 +6,8 @@ import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class UnitTestHelper {
   public static int[] xs = {
@@ -90,5 +92,84 @@ public class UnitTestHelper {
     }
 
     return s.toString();
+  }
+
+  public static String printRowList(RowList rl) {
+    StringBuilder s = new StringBuilder();
+
+    for (Row r : rl.get()) {
+      for (Block b : r.get()) {
+        s.append("{").append(b.getX()).append(",").append(r.getY()).append("},");
+      }
+    }
+
+    return s.toString();
+  }
+
+  public static StringBuilder[] printRowListBoard(RowList rl) {
+    StringBuilder[] s = new StringBuilder[Constants.height];
+
+    for (int y = 0; y < Constants.height; y++) {
+      s[y] = new StringBuilder();
+
+      Optional<Row> r = rl.getRowByY(y);
+
+      if (r.isEmpty()) {
+        s[y].append("|          |");
+      } else {
+        s[y].append("|");
+
+        for (int x = 0; x < Constants.width; x++)
+          s[y].append(rl.cellIsNotEmpty(x, y) ? "*" : " ");
+
+        s[y].append("|");
+      }
+    }
+
+    return s;
+  }
+
+  public static void printBoard(StringBuilder[] s) {
+    for (StringBuilder sb : s)
+      System.out.println(sb.toString());
+
+    System.out.println(" ---------- ");
+  }
+
+  public static void buildAndPrintBoard(RowList rl) {
+    printBoard(printRowListBoard(rl));
+  }
+
+  public static void printRowLine(Row r) {
+    StringBuilder s = new StringBuilder();
+    s.append(r.getY() > 9 ? r.getY() : " " + r.getY()).append(" |");
+
+    for (int x = 0; x <  Constants.width; x++) {
+      if (r.get(x).isPresent())
+        s.append(x);
+      else
+        s.append(" ");
+    }
+
+    s.append("|");
+
+    System.out.println(s.toString());
+  }
+
+  public static void printHorizBorder() {
+    System.out.println("   ----------");
+  }
+
+  public static void printLines(RowList rl) {
+    rl.sortByY();
+    printHorizBorder();
+
+    ArrayList<Row> get = rl.get();
+    for (int i = get.size() - 1; i >= 0; i--) {
+      Row r = get.get(i);
+      printRowLine(r);
+    }
+
+    printHorizBorder();
   }
 }
