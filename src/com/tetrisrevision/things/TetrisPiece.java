@@ -13,7 +13,6 @@ public class TetrisPiece {
   private Center center;
   private Tetromino tetromino;
   private TSpinTracker tSpinTracker;
-
   public TetrisPiece() {}
 
   public TetrisPiece(Tetromino t) {
@@ -26,7 +25,7 @@ public class TetrisPiece {
     tetromino = t;
   }
 
-  private void reset() {
+  public void reset() {
     center = new Center(4, Constants.topRow);
     rotation = 0;
     prevRotation = 0;

@@ -6,7 +6,7 @@ public class Center {
   private int x;
   private int y;
 
-  Center() { }
+  public Center() { }
 
   public Center(int x, int y) {
     this.x = x;

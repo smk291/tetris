@@ -68,7 +68,7 @@ public class IPiece extends Tetromino {
         }
       };
 
-  IPiece() {
+  public IPiece() {
     super.setOffsets(offsets);
     super.setKickData(kickData);
     super.setColor(Color.CYAN);

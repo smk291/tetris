@@ -20,43 +20,17 @@ public class Tetromino {
   private Color color;
   private boolean tPiece = false;
 
+  // @formatter:off
   private HashMap<Integer, HashMap<Integer, int[][]>> kickData =
       new HashMap<>() {
         {
-          put(
-              0,
-              new HashMap<>() {
-                {
-                  put(1, Sequences.seqs[1]);
-                  put(3, Sequences.seqs[3]);
-                }
-              });
-          put(
-              1,
-              new HashMap<>() {
-                {
-                  put(0, Sequences.seqs[0]);
-                  put(2, Sequences.seqs[0]);
-                }
-              });
-          put(
-              2,
-              new HashMap<>() {
-                {
-                  put(1, Sequences.seqs[1]);
-                  put(3, Sequences.seqs[3]);
-                }
-              });
-          put(
-              3,
-              new HashMap<>() {
-                {
-                  put(0, Sequences.seqs[2]);
-                  put(2, Sequences.seqs[2]);
-                }
-              });
+          put(0, new HashMap<>() {{ put(1, Sequences.seqs[1]); put(3, Sequences.seqs[3]); }});
+          put(1, new HashMap<>() {{ put(0, Sequences.seqs[0]); put(2, Sequences.seqs[0]); }});
+          put(2, new HashMap<>() {{ put(1, Sequences.seqs[1]); put(3, Sequences.seqs[3]); }});
+          put(3, new HashMap<>() {{ put(0, Sequences.seqs[2]); put(2, Sequences.seqs[2]); }});
         }
       };
+  // @formatter:on
 
   public int[][][] getOffsets() {
     return this.offsets;

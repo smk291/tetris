@@ -34,13 +34,6 @@ public abstract class Rotator {
   }
 
   private static boolean tryKick(TetrisPiece piece, RowList rowList) {
-    boolean canTranslateLeft = Translater.translate(piece, rowList, Constants.left, 0, true);
-    boolean canTranslateRight = Translater.translate(piece, rowList, Constants.right, 0, true);
-
-    if (canTranslateLeft && canTranslateRight) {
-      return false;
-    }
-
     Integer kickIdx = WallKicker.tryKick(piece, rowList);
 
     if (null == kickIdx) {

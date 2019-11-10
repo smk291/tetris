@@ -5,55 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/apiguardian-api-1.0.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/junit-jupiter-5.4.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/junit-jupiter-api-5.4.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/junit-jupiter-engine-5.4.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/junit-jupiter-params-5.4.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/junit-platform-commons-1.4.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/junit-platform-engine-1.4.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/opentest4j-1.1.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/TPieceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/RunTetrisTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/BoundsTesterTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/PlacementTesterTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RotatorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RowDeleterTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/SinkingPieceFinderTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/TranslaterTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/helpers/ConstantsTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/recordkeeping/GameRecordKeepingTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/recordkeeping/TSpinTrackerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/BlockTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/CenterTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowListTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrisPieceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrominoQueueTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/IPieceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/JPieceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/LPieceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/OPieceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/SPieceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/TetrominoEnumTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/TTestData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/TetrominoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/BoundsTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/BoundsTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/PlacementTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/PlacementTester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/Rotator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/Rotator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/RowDeleter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/RowDeleter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/SinkingPieceFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/SinkingPieceFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/helpers/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/helpers/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/testing/InputTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/testing/InputTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/Center.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/Center.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/Row.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/Row.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/RowList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/RowList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/TetrisPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/TetrisPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/IPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/IPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/JPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/JPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/LPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/LPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/OPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/OPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/SPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/SPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/TPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/TPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/ZPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/ZPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tetris.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tetris.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/Tetromino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/tetrominoes/Tetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/RunTetrisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/RunTetrisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/BoundsTesterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/BoundsTesterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/PlacementTesterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/PlacementTesterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RotatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RotatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RowDeleterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RowDeleterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/SinkingPieceFinderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/SinkingPieceFinderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/TranslaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/TranslaterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/helpers/ConstantsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/helpers/ConstantsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/recordkeeping/GameRecordKeepingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/recordkeeping/GameRecordKeepingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/recordkeeping/TSpinTrackerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/recordkeeping/TSpinTrackerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/BlockTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/BlockTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/CenterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/CenterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowListTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrisPieceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrisPieceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrominoQueueTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrominoQueueTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/IPieceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/JPieceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/LPieceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/OPieceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/SPieceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/TPieceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/TetrominoEnumTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/TetrominoEnumTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/tetrominoes/ZPieceTest.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,8 +60,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -97,7 +87,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/tetrisrevision/unittests" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -141,92 +131,128 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Tetris">
-    <configuration name="CardLayoutDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.layoutdemos.card.CardLayoutDemo" />
+  <component name="RunManager" selected="JUnit.RowListTest.deleteContiguousAndShift">
+    <configuration name="RowListTest.deleteContiguousAndShift" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.layoutdemos.card.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.things.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.things" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.things.RowListTest" />
+      <option name="METHOD_NAME" value="deleteContiguousAndShift" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GridBagLayoutDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.layoutdemos.gridbag.GridBagLayoutDemo" />
+    <configuration name="RowListTest.getRowIdxFromY" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.layoutdemos.gridbag.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.things.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.things" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.things.RowListTest" />
+      <option name="METHOD_NAME" value="getRowIdxFromY" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.newtetris.Main" />
+    <configuration name="RowListTest.rowIsFull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.newtetris.console.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.things.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.things" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.things.RowListTest" />
+      <option name="METHOD_NAME" value="rowIsFull" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestLayout" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.testlayout.TestLayout" />
+    <configuration name="TetrisPieceTest.getBlocks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.testlayout.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.things.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.things" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.things.TetrisPieceTest" />
+      <option name="METHOD_NAME" value="getBlocks" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tetris" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.Tetris" />
+    <configuration name="TetrisPieceTest.getCenter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.gui.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.things.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.things" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.things.TetrisPieceTest" />
+      <option name="METHOD_NAME" value="getCenter" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Transform" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.transform.Transform" />
+    <configuration default="true" type="JUnit" factoryName="JUnit">
       <module name="tetris" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.transform.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="directory" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="unittests in tetris" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="tetris" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="directory" />
+      <option name="PARAMETERS" value="" />
+      <dir value="$PROJECT_DIR$/src/com/tetrisrevision/unittests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.unittests in tetris" />
+      <item itemvalue="JUnit.TetrisPieceTest.getBlocks" />
+      <item itemvalue="JUnit.TetrisPieceTest.getCenter" />
+      <item itemvalue="JUnit.RowListTest.getRowIdxFromY" />
+      <item itemvalue="JUnit.RowListTest.rowIsFull" />
+      <item itemvalue="JUnit.RowListTest.deleteContiguousAndShift" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Tetris" />
-        <item itemvalue="Application.TestLayout" />
-        <item itemvalue="Application.GridBagLayoutDemo" />
-        <item itemvalue="Application.Transform" />
-        <item itemvalue="Application.CardLayoutDemo" />
+        <item itemvalue="JUnit.RowListTest.deleteContiguousAndShift" />
+        <item itemvalue="JUnit.RowListTest.rowIsFull" />
+        <item itemvalue="JUnit.RowListTest.getRowIdxFromY" />
+        <item itemvalue="JUnit.TetrisPieceTest.getCenter" />
+        <item itemvalue="JUnit.TetrisPieceTest.getBlocks" />
       </list>
     </recent_temporary>
   </component>

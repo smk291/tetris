@@ -1,17 +1,36 @@
 package com.tetrisrevision.unittests.things;
 
+import com.tetrisrevision.things.Center;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CenterTest {
+  private int x = 5, y = 10, dx = 2, dy = 4;
+  private Center c;
+
+  CenterTest() {
+    c = new Center(x, y);
+  }
 
   @Test
-  void getX() {}
+  void getX() {
+    assertEquals(x, c.getX());
+  }
 
   @Test
-  void getY() {}
+  void getY() {
+    assertEquals(y, c.getY());
+  }
 
   @Test
-  void translate() {}
+  void translate() {
+    c.translate(dx, dy);
+    assertAll(
+        () -> {
+          assertEquals(x + dx, c.getX());
+          assertEquals(y + dy, c.getY());
+        });
+  }
 }

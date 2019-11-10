@@ -15,8 +15,8 @@ public abstract class RowDeleter {
 
     // Works only if `blocksAdded` has been inserted into `playField` in same position as its
     // position in `blocksAdded`(?)
-    int lowestFullRow = playField.getLowestYIfShared(blocksAdded);
-    int highestFullRow = playField.getHighestYIfShared(blocksAdded);
+    int lowestFullRow = playField.lowestFullRowIndexAfterInsertion(blocksAdded);
+    int highestFullRow = playField.highestFullRowIndexAfterInsertion(blocksAdded);
 
     ArrayList<Integer> sinkingPieceAnchors = new ArrayList<>();
 

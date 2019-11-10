@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+//formatter:off
 /****
  *
  * SinkingPieceFinder contains the methods that, after a row is deleted,
@@ -49,6 +50,7 @@ import java.util.stream.IntStream;
  *
  *
  ****/
+//@formatter:on
 public class SinkingPieceFinder {
   private final RowList tmpRowList = new RowList();
   private final int[][] skip = new int[Constants.height][Constants.width];

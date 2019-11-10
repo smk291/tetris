@@ -53,7 +53,7 @@ public class Row implements Cloneable {
     return blocks.add(b);
   }
 
-  boolean addAll(Collection<Block> collection) {
+  public boolean addAll(Collection<Block> collection) {
     return blocks.addAll(collection);
   }
 
@@ -61,11 +61,11 @@ public class Row implements Cloneable {
     return blocks.isEmpty();
   }
 
-  int size() {
+  public int size() {
     return blocks.size();
   }
 
-  boolean remove(int x) {
+  public boolean remove(int x) {
     for (int i = 0; i < blocks.size(); i++) {
       if (blocks.get(i).getX() == x) {
         return blocks.remove(blocks.get(i));

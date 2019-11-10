@@ -1,22 +1,24 @@
 package com.tetrisrevision.unittests.things.tetrominoes;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.tetrisrevision.things.tetrominoes.TetrominoEnum;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TetrominoEnumTest {
-
-  @BeforeEach
-  void setUp() {}
-
-  @AfterEach
-  void tearDown() {}
+  @Test
+  void getTetromino() {
+    assertNotNull(TetrominoEnum.getTetromino());
+  }
 
   @Test
-  void getTetromino() {}
-
-  @Test
-  void get() {}
+  void get() {
+    assertNotNull(TetrominoEnum.I.get());
+    assertNotNull(TetrominoEnum.O.get());
+    assertNotNull(TetrominoEnum.L.get());
+    assertNotNull(TetrominoEnum.J.get());
+    assertNotNull(TetrominoEnum.T.get());
+    assertNotNull(TetrominoEnum.S.get());
+    assertNotNull(TetrominoEnum.I.get());
+  }
 }
