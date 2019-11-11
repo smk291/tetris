@@ -3,7 +3,6 @@ package com.tetrisrevision.actions;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.unittests.UnitTestHelper;
 
 /**
  * Actions class contains all logic for moving and rotating pieces. sinkingPieces never rotate. They
@@ -14,47 +13,47 @@ import com.tetrisrevision.unittests.UnitTestHelper;
  * position is invalid
  */
 public abstract class Rotator {
-  public static boolean apply(int incr, TetrisPiece piece, RowList rowList) {
+  public static int apply(int incr, TetrisPiece piece, RowList rowList) {
     int rotation = piece.getRotation();
     int prevRotation = piece.getPrevRotation();
 
     piece.incrementRotation(incr);
 
-//    System.out.println("After rotation: ");
-//    System.out.println("rotation: " + piece.getRotation());
-//    System.out.println("rotation: " + piece.getRotation());
-//    UnitTestHelper.printLines(piece.getBlocks());
-
     if (!PlacementTester.cellsCanBeOccupied(piece, rowList)) {
-      if (tryKick(piece, rowList) || tryLift(piece, rowList)) {
-        return true;
+      int kickValue = tryKick(piece, rowList);
+      if (kickValue > -1) {
+        return kickValue;
+      }
+
+      if (tryLift(piece, rowList)) {
+        return Constants.width + 1;
       }
 
       piece.setRotation(rotation);
       piece.setPrevRotation(prevRotation);
 
-      return false;
+      return -1;
     }
 
     if (piece.getTetromino().isTPiece()) {
       setTSpinData(piece, null, false);
     }
 
-    return true;
+    return Constants.width + 1;
   }
 
-  private static boolean tryKick(TetrisPiece piece, RowList rowList) {
+  private static Integer tryKick(TetrisPiece piece, RowList rowList) {
     Integer kickIdx = WallKicker.tryKick(piece, rowList);
 
     if (null == kickIdx) {
-      return false;
+      return -1;
     }
 
     if (piece.getTetromino().isTPiece()) {
       setTSpinData(piece, kickIdx, true);
     }
 
-    return true;
+    return kickIdx;
   }
 
   private static boolean tryLift(TetrisPiece piece, RowList rowList) {

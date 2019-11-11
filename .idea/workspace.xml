@@ -6,14 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/Rotator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/Rotator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/WallKicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/WallKicker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/helpers/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/helpers/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/testing/InputTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/testing/InputTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/TetrisPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/TetrisPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RotatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RotatorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/helpers/ConstantsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/helpers/ConstantsTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

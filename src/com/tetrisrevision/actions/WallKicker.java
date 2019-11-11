@@ -1,10 +1,7 @@
 package com.tetrisrevision.actions;
 
-import com.tetrisrevision.things.Block;
-import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.unittests.UnitTestHelper;
 
 import java.util.HashMap;
 

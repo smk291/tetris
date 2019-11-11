@@ -120,9 +120,9 @@ public class RunTetris {
   }
 
   public void rotate(int incr) {
-    boolean canRotate = Rotator.apply(incr, currentPiece, playField);
+    int canRotate = Rotator.apply(incr, currentPiece, playField);
 
-    if (canRotate) {
+    if (canRotate > -1) {
       return;
     }
 

@@ -12,14 +12,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WallKickerTest {
   private TetrisPiece t = new TetrisPiece(new IPiece());
   private RowList rl = new RowList();
   private static Center c = new Center(3, 10);
-  private RowList emptyRL = new RowList();
 
   public static Center getCenter() {
     return c;
@@ -32,7 +30,7 @@ public class WallKickerTest {
 
   void test(int incr, Tetromino p) {
     t.setTetromino(p);
-    //    System.out.println(t.getTetromino().getClass().getName());
+    // System.out.println(t.getTetromino().getClass().getName());
     t.reset();
 
     for (int i = 0; i < t.getRotationMax(); i++) {
@@ -41,13 +39,16 @@ public class WallKickerTest {
       int prevRotation = t.getPrevRotation();
       int[][] kickData = t.getKickData().get(prevRotation).get(rotation);
 
-      //      System.out.println("====" + i);
-      //      System.out.print("Rotation: " + prevRotation + ", " + rotation);
-      //      for (int[] kick : kickData) System.out.print("{" + kick[0] + ", " + kick[1] + "}");
-      //      System.out.println();
+      // System.out.println("====" + i);
+      // System.out.print("Rotation: " + prevRotation + ", " + rotation);
+      // for (int[] kick : kickData) System.out.print("{" + kick[0] + ", " + kick[1] + "}");
+      //  System.out.println();
 
-      for (int[] kick : kickData) {
-//        System.out.println("\t--- {" + kick[0] + ", " + kick[1] + "}");
+      for (int j = 0; j < kickData.length; j++) {
+        int[] kick = kickData[j];
+
+        // System.out.println("\t--- {" + kick[0] + ", " + kick[1] + "}");
+
         t.setCenter(c);
         t.setRotation(rotation);
         t.setPrevRotation(prevRotation);
@@ -59,20 +60,22 @@ public class WallKickerTest {
         rl.removeBlocks(t.getBlocks());
 
         for (Row r : t.getBlocks().get())
-          for (Block b : r.get()) assertFalse(rl.cellIsNotEmpty(b.getX(), r.getY()));
+          for (Block b : r.get()) {
+            assertFalse(rl.cellIsNotEmpty(b.getX(), r.getY()));
+          }
 
-        //        UnitTestHelper.printNonFullLines(rl, "\t\t\t");
+        // UnitTestHelper.printNonFullLines(rl, "\t\t\t");
 
         t.incrementRotation(-incr);
         t.incrementRotation(-incr);
         t.incrementRotation(incr);
         t.setCenter(c);
 
-        boolean rotateResult = Rotator.apply(incr, t, rl);
+        int rotateResult = Rotator.apply(incr, t, rl);
 
-        assertTrue(rotateResult);
+        assertEquals(j, rotateResult);
 
-        //        UnitTestHelper.printNonFullLines(t.getBlocks(), "\t\t\t");
+        // UnitTestHelper.printNonFullLines(t.getBlocks(), "\t\t\t");
 
         for (Row r : kickedPosition.get())
           for (Block b : r.get()) {

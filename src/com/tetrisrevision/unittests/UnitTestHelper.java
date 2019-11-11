@@ -129,7 +129,6 @@ public class UnitTestHelper {
     for (StringBuilder sb : s)
       System.out.println(sb.toString());
 
-    System.out.println(" ---------- ");
   }
 
   public static void buildAndPrintBoard(RowList rl) {
@@ -157,7 +156,7 @@ public class UnitTestHelper {
     System.out.println(s.toString());
   }
   public static void printHorizBorder(String s) {
-    System.out.println(s + "   ----------");
+    //
   }
   public static void printHorizBorder() {
     printHorizBorder("");
