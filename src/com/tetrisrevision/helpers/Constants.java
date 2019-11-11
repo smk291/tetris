@@ -37,4 +37,8 @@ public abstract class Constants {
   public static int fromTop(int i) {
     return Constants.topRow + Constants.down * i;
   }
+
+  public static void setWidth (int n) {
+    width = n;
+  }
 }

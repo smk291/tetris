@@ -5,7 +5,9 @@ import com.tetrisrevision.things.Block;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.tetrominoes.IPiece;
 import com.tetrisrevision.things.tetrominoes.TetrominoEnum;
+import com.tetrisrevision.unittests.actions.WallKickerTest;
 
 import java.awt.*;
 
@@ -163,6 +165,32 @@ public abstract class InputTests {
         put(board, 0,  new int[] {0,1,2,3,4,  6,7,8,9});
 
         break;
+      case "o":
+        board.clear();
+        piece.reset(new IPiece());
+        piece.setCenter(WallKickerTest.getCenter());
+
+        put(board, 19, new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 18, new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 17, new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 16, new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 15, new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 14, new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 13, new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 12, new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 11, new int[]{0,1,2,3,  5,6,7,8,9});
+        put(board, 10, new int[]{0,1,2,3,  5,6,7,8,9});
+        put(board, 9,  new int[]{0,1,2,3,  5,6,7,8,9});
+        put(board, 8,  new int[]{0,1,2,3,  5,6,7,8,9});
+        put(board, 7,  new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 6,  new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 5,  new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 4,  new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 3,  new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 2,  new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 1,  new int[]{0,1,2,3,4,5,6,7,8,9});
+        put(board, 0,  new int[]{0,1,2,3,4,5,6,7,8,9});
+
     }
   }
 }

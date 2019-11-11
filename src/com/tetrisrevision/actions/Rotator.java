@@ -3,6 +3,7 @@ package com.tetrisrevision.actions;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.unittests.UnitTestHelper;
 
 /**
  * Actions class contains all logic for moving and rotating pieces. sinkingPieces never rotate. They
@@ -14,14 +15,23 @@ import com.tetrisrevision.things.TetrisPiece;
  */
 public abstract class Rotator {
   public static boolean apply(int incr, TetrisPiece piece, RowList rowList) {
+    int rotation = piece.getRotation();
+    int prevRotation = piece.getPrevRotation();
+
     piece.incrementRotation(incr);
+
+//    System.out.println("After rotation: ");
+//    System.out.println("rotation: " + piece.getRotation());
+//    System.out.println("rotation: " + piece.getRotation());
+//    UnitTestHelper.printLines(piece.getBlocks());
 
     if (!PlacementTester.cellsCanBeOccupied(piece, rowList)) {
       if (tryKick(piece, rowList) || tryLift(piece, rowList)) {
         return true;
       }
 
-      piece.incrementRotation(-incr);
+      piece.setRotation(rotation);
+      piece.setPrevRotation(prevRotation);
 
       return false;
     }

@@ -6,10 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/Rotator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/Rotator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/WallKicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/WallKicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/helpers/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/helpers/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/testing/InputTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/testing/InputTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/TetrisPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/TetrisPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/UnitTestHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RotatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RotatorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/RowListTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,6 +102,19 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.WallKickerTest.runTestsByPiece">
+    <configuration name="Tetris" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.Tetris" />
+      <module name="tetris" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tetrisrevision.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RotatorTest.rotationImpossible" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
@@ -126,23 +143,6 @@
       <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.actions" />
       <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.actions.RotatorTest" />
       <option name="METHOD_NAME" value="unencumberedRotation" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RowListTest.deleteContiguousAndShift" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tetris" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.unittests.things.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.things" />
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.things.RowListTest" />
-      <option name="METHOD_NAME" value="deleteContiguousAndShift" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
@@ -205,8 +205,8 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Tetris" />
       <item itemvalue="JUnit.unittests in tetris" />
-      <item itemvalue="JUnit.RowListTest.deleteContiguousAndShift" />
       <item itemvalue="JUnit.RotatorTest.unencumberedRotation" />
       <item itemvalue="JUnit.RotatorTest.rotationImpossible" />
       <item itemvalue="JUnit.WallKickerTest.runTestsByPiece" />
@@ -218,7 +218,6 @@
         <item itemvalue="JUnit.WallKickerTest" />
         <item itemvalue="JUnit.RotatorTest.rotationImpossible" />
         <item itemvalue="JUnit.RotatorTest.unencumberedRotation" />
-        <item itemvalue="JUnit.RowListTest.deleteContiguousAndShift" />
       </list>
     </recent_temporary>
   </component>

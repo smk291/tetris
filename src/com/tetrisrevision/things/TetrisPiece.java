@@ -76,7 +76,7 @@ public class TetrisPiece {
     return rows;
   }
 
-  private int getRotationMax() {
+  public int getRotationMax() {
     return tetromino.getOffsets().length;
   }
 
@@ -110,5 +110,9 @@ public class TetrisPiece {
 
   public void setTSpinTracker(TSpinTracker tSpinTracker) {
     this.tSpinTracker = tSpinTracker;
+  }
+
+  public void setPrevRotation(int prevRotation) {
+    this.prevRotation = prevRotation;
   }
 }

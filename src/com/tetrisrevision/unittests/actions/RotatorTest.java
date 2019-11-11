@@ -46,19 +46,31 @@ class RotatorTest {
 
   @Test
   void rotationImpossible() {
+
     rl = UnitTestHelper.getFullRowList(new int[]{0,1,2,3,4});
     t.setRotation(3);
+    t.setPrevRotation(2);
     t.setCenter(4, 2);
+
+    int rotation = t.getRotation();
+    int prevRotation = t.getPrevRotation();
 
     for (Row r : rl.get()) {
       r.remove(4);
       assertFalse(rl.cellIsNotEmpty(4, r.getY()));
     }
 
+    UnitTestHelper.printLines(rl);
+    UnitTestHelper.printLines(t.getBlocks());
+
     for (int r : new int[]{-1,1}) {
       Rotator.apply(r, t, rl);
       assertEquals(3, t.getRotation());
     }
+
+    assertEquals(rotation, t.getRotation());
+    assertEquals(prevRotation, t.getPrevRotation());
   }
+
 }
 

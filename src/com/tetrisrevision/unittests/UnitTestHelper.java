@@ -31,7 +31,7 @@ public class UnitTestHelper {
   public static Row getFullRow(int y) {
     Row r = new Row(y);
 
-    for (int i = Constants.leftBound; i < Constants.rightBound + 1; i += Constants.right)
+    for (int i = Constants.leftBound; i < Constants.width; i += Constants.right)
       r.add(new Block(i, Color.black));
 
     return r;
@@ -114,16 +114,12 @@ public class UnitTestHelper {
 
       Optional<Row> r = rl.getRowByY(y);
 
-      if (r.isEmpty()) {
-        s[y].append("|          |");
-      } else {
-        s[y].append("|");
+      s[y].append("|");
 
-        for (int x = 0; x < Constants.width; x++)
-          s[y].append(rl.cellIsNotEmpty(x, y) ? "*" : " ");
+      for (int x = 0; x < Constants.width; x++)
+        s[y].append(rl.cellIsNotEmpty(x, y) ? "*" : x < 10 ? " " : "  ");
 
-        s[y].append("|");
-      }
+      s[y].append("|");
     }
 
     return s;
@@ -141,23 +137,30 @@ public class UnitTestHelper {
   }
 
   public static void printRowLine(Row r) {
+    printRowLine(r, "");
+  }
+
+  public static void printRowLine(Row r, String prefix) {
     StringBuilder s = new StringBuilder();
+    s.append(prefix);
     s.append(r.getY() > 9 ? r.getY() : " " + r.getY()).append(" |");
 
     for (int x = 0; x <  Constants.width; x++) {
       if (r.get(x).isPresent())
         s.append(x);
       else
-        s.append(" ");
+        s.append(x < 10 ? " " : "  ");
     }
 
     s.append("|");
 
     System.out.println(s.toString());
   }
-
+  public static void printHorizBorder(String s) {
+    System.out.println(s + "   ----------");
+  }
   public static void printHorizBorder() {
-    System.out.println("   ----------");
+    printHorizBorder("");
   }
 
   public static void printLines(RowList rl) {
@@ -171,5 +174,46 @@ public class UnitTestHelper {
     }
 
     printHorizBorder();
+  }
+
+  public static void printNonFullLines(RowList rl) {
+    rl.sortByY();
+    printHorizBorder();
+
+    ArrayList<Row> get = rl.get();
+    for (int i = get.size() - 1; i >= 0; i--) {
+      Row r = get.get(i);
+      if (r.size() > 0 && r.size() < Constants.width)
+        printRowLine(r);
+    }
+
+    printHorizBorder();
+  }
+
+  public static void printLines(RowList rl, String s) {
+    rl.sortByY();
+    printHorizBorder(s);
+
+    ArrayList<Row> get = rl.get();
+    for (int i = get.size() - 1; i >= 0; i--) {
+      Row r = get.get(i);
+      printRowLine(r, s);
+    }
+
+    printHorizBorder(s);
+  }
+
+  public static void printNonFullLines(RowList rl, String s) {
+    rl.sortByY();
+    printHorizBorder(s);
+
+    ArrayList<Row> get = rl.get();
+    for (int i = get.size() - 1; i >= 0; i--) {
+      Row r = get.get(i);
+      if (r.size() > 0 && r.size() < Constants.width)
+        printRowLine(r, s);
+    }
+
+    printHorizBorder(s);
   }
 }
