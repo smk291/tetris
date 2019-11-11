@@ -1,19 +1,4 @@
-package com.tetrisrevision.unittests.actions //                StringBuilder coords = new
-                                             // StringBuilder();
-
-//                for (Row r2 : p.get())
-//                  for (Block b2 : r2.get()) {
-//                    coords.append("{").append(b2.getX()).append(", ").append(r2.getY()).append("},
-// ");
-//                  }
-//
-//                  coords.append(" instead of {4,0}, {5,0}, {4,1}, {5,1}.");
-//
-//                err.set(coords.toString());
-//
-//                return false;
-//              }());
-;
+package com.tetrisrevision.unittests.actions;
 
 import com.tetrisrevision.actions.PlacementTester;
 import com.tetrisrevision.things.Block;

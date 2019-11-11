@@ -17,15 +17,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class WallKickerTest {
   private TetrisPiece t = new TetrisPiece(new IPiece());
   private RowList rl = new RowList();
-  private static Center c = new Center(3, 10);
+  private static Center c;
 
   public static Center getCenter() {
     return c;
   }
 
   WallKickerTest() {
-    Constants.setWidth(20);
-    c = new Center(Constants.width / 2, 10);
   }
 
   void test(int incr, Tetromino p) {
@@ -88,6 +86,10 @@ public class WallKickerTest {
 
   @Test
   void runTestsByPiece() {
+    Constants.setWidth(20);
+
+    c = new Center(Constants.width / 2, 10);
+
     t.setCenter(c);
     Tetromino[] tetrominoes =
         Arrays.stream(TetrominoEnum.values())
@@ -97,5 +99,7 @@ public class WallKickerTest {
 
     for (var t : tetrominoes) test(1, t);
     for (var t : tetrominoes) test(-1, t);
+
+    Constants.setWidth(10);
   }
 }

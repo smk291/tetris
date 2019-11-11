@@ -7,7 +7,6 @@ import com.tetrisrevision.things.TetrisPiece;
 import java.util.ArrayList;
 
 public abstract class RowDeleter {
-
   public static ArrayList<Integer> apply(
       RowList blocksAdded, TetrisPiece piece, RowList playField, GameRecordKeeping score) {
     playField.sortByY();
@@ -15,6 +14,7 @@ public abstract class RowDeleter {
 
     // Works only if `blocksAdded` has been inserted into `playField` in same position as its
     // position in `blocksAdded`(?)
+    // The `lowest` and `highest` values can only be rows in `blocksAdded`.
     int lowestFullRow = playField.lowestFullRowIndexAfterInsertion(blocksAdded);
     int highestFullRow = playField.highestFullRowIndexAfterInsertion(blocksAdded);
 
