@@ -162,4 +162,8 @@ public class RunTetris {
       currentPiece.reset(tmp);
     }
   }
+
+  public void setSinkingPieces(ArrayList<RowList> rls) {
+    sinkingPieces.addAll(rls);
+  }
 }

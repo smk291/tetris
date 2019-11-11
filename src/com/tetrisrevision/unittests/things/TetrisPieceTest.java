@@ -67,10 +67,17 @@ class TetrisPieceTest {
   void incrementRotation() {
     t.incrementRotation(1);
     assertEquals(1, t.getRotation());
+    assertEquals(0, t.getPrevRotation());
     t.incrementRotation(-2);
     assertEquals(3, t.getRotation());
+    assertEquals(1, t.getPrevRotation());
     t.incrementRotation(1);
     assertEquals(0, t.getRotation());
+    assertEquals(3, t.getPrevRotation());
+    t.incrementRotation(-1);
+    assertEquals(3, t.getRotation());
+    assertEquals(0, t.getPrevRotation());
+
   }
 
   @Test

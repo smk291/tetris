@@ -6,14 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/actions/RowDeleter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/actions/RowDeleter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/PlacementTesterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/PlacementTesterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RowDeleterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/RowDeleterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/SinkingPieceFinderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/SinkingPieceFinderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/TranslaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/TranslaterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/WallKickerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/helpers/ConstantsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/helpers/ConstantsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrominoQueueTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrominoQueueTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/RunTetrisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/RunTetrisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrisPieceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrisPieceTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +96,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.unittests in tetris">
+  <component name="RunManager" selected="JUnit.RunTetrisTest.translatePiece">
     <configuration name="Tetris" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.Tetris" />
       <module name="tetris" />
@@ -115,85 +110,85 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RowDeleterTest.testRowDeleter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RunTetrisTest.addPieceToBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.unittests.actions.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.actions" />
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.actions.RowDeleterTest" />
-      <option name="METHOD_NAME" value="testRowDeleter" />
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.RunTetrisTest" />
+      <option name="METHOD_NAME" value="addPieceToBoard" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SinkingPieceFinderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RunTetrisTest.dropCurrentPiece" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.unittests.actions.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.actions" />
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.actions.SinkingPieceFinderTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SinkingPieceFinderTest.doSkipCell" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tetris" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.unittests.actions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.actions" />
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.actions.SinkingPieceFinderTest" />
-      <option name="METHOD_NAME" value="doSkipCell" />
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.RunTetrisTest" />
+      <option name="METHOD_NAME" value="dropCurrentPiece" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SinkingPieceFinderTest.findPiecesOnBothLines" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RunTetrisTest.dropSinkingPieces" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.unittests.actions.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.actions" />
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.actions.SinkingPieceFinderTest" />
-      <option name="METHOD_NAME" value="findPiecesOnBothLines" />
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.RunTetrisTest" />
+      <option name="METHOD_NAME" value="dropSinkingPieces" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SinkingPieceFinderTest.testSkip" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RunTetrisTest.setSinkingPiecesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetrisrevision.unittests.actions.*" />
+          <option name="PATTERN" value="com.tetrisrevision.unittests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests.actions" />
-      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.actions.SinkingPieceFinderTest" />
-      <option name="METHOD_NAME" value="testSkip" />
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.RunTetrisTest" />
+      <option name="METHOD_NAME" value="setSinkingPiecesTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunTetrisTest.translatePiece" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tetris" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tetrisrevision.unittests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests" />
+      <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.RunTetrisTest" />
+      <option name="METHOD_NAME" value="translatePiece" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
@@ -224,19 +219,19 @@
     <list>
       <item itemvalue="Application.Tetris" />
       <item itemvalue="JUnit.unittests in tetris" />
-      <item itemvalue="JUnit.SinkingPieceFinderTest.findPiecesOnBothLines" />
-      <item itemvalue="JUnit.SinkingPieceFinderTest.doSkipCell" />
-      <item itemvalue="JUnit.SinkingPieceFinderTest.testSkip" />
-      <item itemvalue="JUnit.SinkingPieceFinderTest" />
-      <item itemvalue="JUnit.RowDeleterTest.testRowDeleter" />
+      <item itemvalue="JUnit.RunTetrisTest.setSinkingPiecesTest" />
+      <item itemvalue="JUnit.RunTetrisTest.dropSinkingPieces" />
+      <item itemvalue="JUnit.RunTetrisTest.addPieceToBoard" />
+      <item itemvalue="JUnit.RunTetrisTest.dropCurrentPiece" />
+      <item itemvalue="JUnit.RunTetrisTest.translatePiece" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RowDeleterTest.testRowDeleter" />
-        <item itemvalue="JUnit.SinkingPieceFinderTest" />
-        <item itemvalue="JUnit.SinkingPieceFinderTest.testSkip" />
-        <item itemvalue="JUnit.SinkingPieceFinderTest.doSkipCell" />
-        <item itemvalue="JUnit.SinkingPieceFinderTest.findPiecesOnBothLines" />
+        <item itemvalue="JUnit.RunTetrisTest.translatePiece" />
+        <item itemvalue="JUnit.RunTetrisTest.dropCurrentPiece" />
+        <item itemvalue="JUnit.RunTetrisTest.addPieceToBoard" />
+        <item itemvalue="JUnit.RunTetrisTest.dropSinkingPieces" />
+        <item itemvalue="JUnit.RunTetrisTest.setSinkingPiecesTest" />
       </list>
     </recent_temporary>
   </component>
