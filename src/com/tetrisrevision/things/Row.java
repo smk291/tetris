@@ -1,10 +1,11 @@
 package com.tetrisrevision.things;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
-public class Row implements Cloneable {
+import java.util.*;
+import java.util.function.Consumer;
+
+public class Row implements Cloneable, Iterable {
   private final ArrayList<Block> blocks;
   private int y;
 
@@ -73,5 +74,21 @@ public class Row implements Cloneable {
     }
 
     return false;
+  }
+
+  @NotNull
+  @Override
+  public Iterator iterator() {
+    return blocks.iterator();
+  }
+
+  @Override
+  public void forEach(Consumer action) {
+    blocks.forEach(action);
+  }
+
+  @Override
+  public Spliterator spliterator() {
+    return blocks.spliterator();
   }
 }

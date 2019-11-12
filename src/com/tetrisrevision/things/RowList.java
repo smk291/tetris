@@ -105,7 +105,7 @@ public class RowList implements Cloneable {
     return contigDeleted;
   }
 
-  public void forEach(Consumer<? super Row> action) {
+  public void forEach(Consumer<Row> action) {
     rows.forEach(action);
   }
 

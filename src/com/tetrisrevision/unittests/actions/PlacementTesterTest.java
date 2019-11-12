@@ -30,15 +30,12 @@ class PlacementTesterTest {
   PlacementTesterTest() {
     // Fill bottom row
     playField.add(getFullRow(0));
-    // Ensure that row is full
     // Position o piece such that it overlaps with bottom row
     t.setCenter(fromLeft(4), bottomRow);
-    // o piece's expected coordinates
   }
 
   @Test
   void piecePositionTest() {
-    // Check piece's position
     assertAll(
         () -> {
           RowList p = t.getBlocks();
@@ -53,7 +50,7 @@ class PlacementTesterTest {
             for (Block b : r1.get())
               assertTrue(
                   expectedCoords.stream().anyMatch(c -> c[0] == b.getX() && c[1] == r1.getY()),
-                  "Coords are wrong");
+                  "Coords are wrong.");
           }
         });
   }

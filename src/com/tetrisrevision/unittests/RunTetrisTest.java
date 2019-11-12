@@ -70,6 +70,7 @@ class RunTetrisTest {
 
   @Test
   void getHoldPiece() {
+    rt.setHoldPiece();
     assertNotNull(rt.getHoldPiece());
   }
 
@@ -83,8 +84,9 @@ class RunTetrisTest {
 
     t = rt.getHoldPiece();
 
+    rt.setHoldPiece();
+
     assertNotNull(t);
-    assertTrue(t instanceof IPiece);
   }
 
   void setSinkingPieces() {
@@ -170,12 +172,15 @@ class RunTetrisTest {
   // methods used are tested elsewhere
   @Test
   void addPieceToBoard() {
-    TetrisPiece t = rt.getCurrentPiece();
-    t.setCenter(c);
+    TetrisPiece p = rt.getCurrentPiece();
+    Tetromino t = p.getTetromino();
+    p.setCenter(c);
 
-    RowList rl = t.getBlocks();
+    UnitTestHelper.printNonFullLines(p.getBlocks());
 
-    rt.addPieceToBoard(t);
+    RowList rl = p.getBlocks();
+
+    rt.addPieceToBoard(p);
 
     for (Row r : rl.get()) {
       for (Block b : r.get()) {
@@ -183,7 +188,9 @@ class RunTetrisTest {
       }
     }
 
-    assertNotSame(t, rt.getCurrentPiece());
+    UnitTestHelper.printNonFullLines(p.getBlocks());
+
+    assertNotSame(t, p.getTetromino());
   }
 
   @Test

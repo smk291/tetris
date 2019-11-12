@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/RunTetris.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/Row.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/Row.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/things/RowList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/things/RowList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/RunTetrisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/RunTetrisTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrisPieceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/things/TetrisPieceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/PlacementTesterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetrisrevision/unittests/actions/PlacementTesterTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +97,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RunTetrisTest.translatePiece">
+  <component name="RunManager" selected="JUnit.unittests in tetris">
     <configuration name="Tetris" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.Tetris" />
       <module name="tetris" />
@@ -144,7 +145,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RunTetrisTest.dropSinkingPieces" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RunTetrisTest.getHoldPiece" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
@@ -154,14 +155,14 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests" />
       <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.RunTetrisTest" />
-      <option name="METHOD_NAME" value="dropSinkingPieces" />
+      <option name="METHOD_NAME" value="getHoldPiece" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RunTetrisTest.setSinkingPiecesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RunTetrisTest.setHoldPiece" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
@@ -171,7 +172,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.tetrisrevision.unittests" />
       <option name="MAIN_CLASS_NAME" value="com.tetrisrevision.unittests.RunTetrisTest" />
-      <option name="METHOD_NAME" value="setSinkingPiecesTest" />
+      <option name="METHOD_NAME" value="setHoldPiece" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
       <method v="2">
@@ -219,19 +220,19 @@
     <list>
       <item itemvalue="Application.Tetris" />
       <item itemvalue="JUnit.unittests in tetris" />
-      <item itemvalue="JUnit.RunTetrisTest.setSinkingPiecesTest" />
-      <item itemvalue="JUnit.RunTetrisTest.dropSinkingPieces" />
       <item itemvalue="JUnit.RunTetrisTest.addPieceToBoard" />
       <item itemvalue="JUnit.RunTetrisTest.dropCurrentPiece" />
       <item itemvalue="JUnit.RunTetrisTest.translatePiece" />
+      <item itemvalue="JUnit.RunTetrisTest.getHoldPiece" />
+      <item itemvalue="JUnit.RunTetrisTest.setHoldPiece" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RunTetrisTest.addPieceToBoard" />
+        <item itemvalue="JUnit.RunTetrisTest.setHoldPiece" />
+        <item itemvalue="JUnit.RunTetrisTest.getHoldPiece" />
         <item itemvalue="JUnit.RunTetrisTest.translatePiece" />
         <item itemvalue="JUnit.RunTetrisTest.dropCurrentPiece" />
-        <item itemvalue="JUnit.RunTetrisTest.addPieceToBoard" />
-        <item itemvalue="JUnit.RunTetrisTest.dropSinkingPieces" />
-        <item itemvalue="JUnit.RunTetrisTest.setSinkingPiecesTest" />
       </list>
     </recent_temporary>
   </component>
