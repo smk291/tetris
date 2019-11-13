@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 //formatter:off
 /****
  *
- * SinkingPieceFinder contains the methods that, after a row is deleted, look for floating/sinking blocks. These are
+ * SinkingBlockFinder contains the methods that, after a row is deleted, look for floating/sinking blocks. These are
  * blocks that aren't tetrominos and consist of squares that aren't attached to a square on the lowest row (i.e.
  * settled). Squares that aren't connected to the lowest row are necessarily floating above it. Thus they sink.
  *
@@ -66,16 +66,16 @@ public class SinkingBlockFinder {
     return true;
   }
 
-  public void findSinkingPieces(int idx, RowList playField, ArrayList<RowList> sinkingPieces) {
+  public void findSinkingBlocks(int idx, RowList playField, ArrayList<RowList> sinkingBlocks) {
     if (!BoundsTester.yInLowerBound(idx)) {
       return;
     }
 
-    runSearch(idx, sinkingPieces, playField);
-    runSearch(idx + Constants.down, sinkingPieces, playField);
+    runSearch(idx, sinkingBlocks, playField);
+    runSearch(idx + Constants.down, sinkingBlocks, playField);
   }
 
-  public void runSearch(int y, ArrayList<RowList> sinkingPieces, RowList playField) {
+  public void runSearch(int y, ArrayList<RowList> sinkingBlocks, RowList playField) {
     IntStream.range(0, Constants.width)
         .forEach(
             x -> {
@@ -88,7 +88,7 @@ public class SinkingBlockFinder {
                 playField.removeSquares(tmpRowList);
 
                 try {
-                  sinkingPieces.add(tmpRowList.clone());
+                  sinkingBlocks.add(tmpRowList.clone());
                 } catch (CloneNotSupportedException e) {
                   e.printStackTrace();
                 }

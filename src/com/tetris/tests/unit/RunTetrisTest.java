@@ -30,8 +30,8 @@ class RunTetrisTest {
   }
 
   @Test
-  void getCurrentPiece() {
-    assertNotNull(rt.getCurrentPiece());
+  void getCurrentBlock() {
+    assertNotNull(rt.getActiveBlock());
   }
 
   @Test
@@ -40,8 +40,8 @@ class RunTetrisTest {
   }
 
   @Test
-  void getSinkingPieces() {
-    assertNotNull(rt.getSinkingPieces());
+  void getSinkingBlocks() {
+    assertNotNull(rt.getSinkingBlocks());
   }
 
   @Test
@@ -51,17 +51,17 @@ class RunTetrisTest {
 
   @Test
   void rotate() {
-    assertEquals(0, rt.getCurrentPiece().getRotation());
+    assertEquals(0, rt.getActiveBlock().getRotation());
 
     rt.rotate(frame, 1);
 
-    assertEquals(1, rt.getCurrentPiece().getRotation());
-    assertEquals(0, rt.getCurrentPiece().getPrevRotation());
+    assertEquals(1, rt.getActiveBlock().getRotation());
+    assertEquals(0, rt.getActiveBlock().getPrevRotation());
 
     rt.rotate(frame, -1);
 
-    assertEquals(0, rt.getCurrentPiece().getRotation());
-    assertEquals(1, rt.getCurrentPiece().getPrevRotation());
+    assertEquals(0, rt.getActiveBlock().getRotation());
+    assertEquals(1, rt.getActiveBlock().getPrevRotation());
   }
 
   @Test
@@ -90,19 +90,19 @@ class RunTetrisTest {
     assertNotNull(t);
   }
 
-  void setSinkingPieces() {
+  void setSinkingBlocks() {
     RowList[] rls = UnitTestHelper.getRowListArrays(insert);
 
-    rt.setSinkingPieces(new ArrayList<>(Arrays.asList(rls)));
+    rt.setSinkingBlocks(new ArrayList<>(Arrays.asList(rls)));
   }
 
   @Test
-  void setSinkingPiecesTest() {
-    assertEquals(0, rt.getSinkingPieces().size());
+  void setSinkingBlocksTest() {
+    assertEquals(0, rt.getSinkingBlocks().size());
 
-    setSinkingPieces();
+    setSinkingBlocks();
 
-    ArrayList<RowList> sps = rt.getSinkingPieces();
+    ArrayList<RowList> sps = rt.getSinkingBlocks();
     assertEquals(2, sps.size());
 
     for (int[][] coordsArray : insert) {
@@ -124,12 +124,12 @@ class RunTetrisTest {
   }
 
   @Test
-  void dropSinkingPieces() {
-    assertEquals(0, rt.getSinkingPieces().size());
+  void dropSinkingBlocks() {
+    assertEquals(0, rt.getSinkingBlocks().size());
 
-    setSinkingPieces();
+    setSinkingBlocks();
 
-    ArrayList<RowList> sps = rt.getSinkingPieces();
+    ArrayList<RowList> sps = rt.getSinkingBlocks();
     assertEquals(2, sps.size());
 
     for (int[][] coordsArray : insert) {
@@ -149,7 +149,7 @@ class RunTetrisTest {
       }
     }
 
-    rt.dropSinkingPieces();
+    rt.dropSinkingBlocks();
 
     for (int[][] coordsArray : insert) {
       RowList sp = sps.stream().filter(rl -> {
@@ -172,8 +172,8 @@ class RunTetrisTest {
   // Could add more tests for this method, e.g. to ensure proper deletion, but that shouldn't be necessary,
   // as all methods this method uses are tested elsewhere.
   @Test
-  void addPieceToBoard() {
-    ActiveBlock p = rt.getCurrentPiece();
+  void addBlockToBoard() {
+    ActiveBlock p = rt.getActiveBlock();
     Tetromino t = p.getTetromino();
     p.setCenter(c);
 
@@ -181,7 +181,7 @@ class RunTetrisTest {
 
     RowList rl = p.getSquares();
 
-    rt.addPieceToPlayfield(p);
+    rt.addBlockToPlayfield(p);
 
     for (Row r : rl.get()) {
       for (Square b : r.get()) {
@@ -195,27 +195,27 @@ class RunTetrisTest {
   }
 
   @Test
-  void dropCurrentPiece() {
-    ActiveBlock t = rt.getCurrentPiece();
+  void dropCurrentBlock() {
+    ActiveBlock t = rt.getActiveBlock();
 
     assertEquals(4, t.getCenter().getX());
     assertEquals(Constants.topRow, t.getCenter().getY());
 
-    rt.dropCurrentPiece(frame);
+    rt.dropActiveBlock(frame);
 
     assertEquals(4, t.getCenter().getX());
     assertEquals(Constants.topRow - 1, t.getCenter().getY());
   }
 
   @Test
-  void translatePiece() {
-    ActiveBlock t = rt.getCurrentPiece();
+  void translateBlock() {
+    ActiveBlock t = rt.getActiveBlock();
 
     t.setCenter(5,0);
 
     RowList blockLocation = t.getSquares();
 
-    rt.translatePiece(frame,0, Constants.down);
+    rt.translate(frame,0, Constants.down);
 
     for (Row r : blockLocation.get()) {
       for (Square b : r.get()) {

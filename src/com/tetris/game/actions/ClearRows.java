@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  *  The function finds those bounds, finds the full rows, and "lowers" all `Row`s that need to be lowered.
  *
- *  The `sinkingPieceAnchors` are explained in the notes on `SinkingPieceFinder`
+ *  The `sinkingBlockAnchors` are explained in the notes on `SinkingBlockFinder`
  */
 public abstract class ClearRows {
   public static ArrayList<Integer> apply(
@@ -28,12 +28,12 @@ public abstract class ClearRows {
     int lowestFullRow = playField.lowestFullRowIndexAfterInsertion(squaresAdded);
     int highestFullRow = playField.highestFullRowIndexAfterInsertion(squaresAdded);
 
-    ArrayList<Integer> sinkingPieceAnchors = new ArrayList<>();
+    ArrayList<Integer> sinkingBlockAnchors = new ArrayList<>();
 
     if (lowestFullRow == -1) {
       score.resetCombo();
 
-      return sinkingPieceAnchors;
+      return sinkingBlockAnchors;
     }
 
     score.incrCombo();
@@ -44,7 +44,7 @@ public abstract class ClearRows {
       int contigDeleted = playField.rowIsFull(i) ? playField.clearFullRowsAndShiftNonFull(i, total) : 0;
 
       if (contigDeleted != 0 && i != 0) {
-        sinkingPieceAnchors.add(i);
+        sinkingBlockAnchors.add(i);
       }
 
       highestFullRow -= contigDeleted;
@@ -55,9 +55,9 @@ public abstract class ClearRows {
     }
 
     if (playField.get().size() == 0) {
-      sinkingPieceAnchors.clear();
+      sinkingBlockAnchors.clear();
     }
 
-    return sinkingPieceAnchors;
+    return sinkingBlockAnchors;
   }
 }

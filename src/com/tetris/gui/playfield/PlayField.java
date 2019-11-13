@@ -76,14 +76,14 @@ public class PlayField extends JPanel {
   private void drawBoard(Graphics2D gbi) {
     if (null == runTetris) return;
 
-    if (null != runTetris.getCurrentPiece())
-      drawSquares(gbi, runTetris.getCurrentPiece().getSquares());
+    if (null != runTetris.getActiveBlock())
+      drawSquares(gbi, runTetris.getActiveBlock().getSquares());
 
     if (null != runTetris.getPlayfield())
       IntStream.range(0, Constants.height).forEach(i -> drawSquares(gbi, runTetris.getPlayfield()));
 
-    if (null != runTetris.getSinkingPieces())
-      runTetris.getSinkingPieces().forEach(block -> drawSquares(gbi, block));
+    if (null != runTetris.getSinkingBlocks())
+      runTetris.getSinkingBlocks().forEach(block -> drawSquares(gbi, block));
 
     Dimension size = getSize();
     height = (int) size.getHeight();

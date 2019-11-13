@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  * A `RowList` is an `ArrayList` of `Row`s. It represents a few different things in the game.
  *    * The playfield is stored as a `RowList`. Its size is unrestricted, but the mechanics of the game make it impossible for an
  *      instance's size to exceed the visible height of the playfield (which is 20)
- *    * What I call ["sinkingblocks"](https://github.com/smk291/tetris/blob/master/src/com/tetrisrevision/actions/SinkingPieceFinder.java) are also represented by `RowList`s. A sinking block is a set of squares that
+ *    * What I call ["sinkingblocks"](https://github.com/smk291/tetris/blob/master/src/com/tetrisrevision/actions/SinkingBlockFinder.java) are also represented by `RowList`s. A sinking block is a set of squares that
  *      are contiguous with one another but not with the bottom of the playfield.
  *    * Tetrominos aren't themselves stored as `RowList`s, but `RowList`s are derived from tetrominos
  *      when computing actions like collision, movement and rotation.

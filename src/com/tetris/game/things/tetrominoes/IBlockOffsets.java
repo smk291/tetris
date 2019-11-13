@@ -2,7 +2,7 @@ package com.tetris.game.things.tetrominoes;
 
 import com.tetris.game.constants.RelativeCoords;
 
-abstract public class IPieceOffsets {
+abstract public class IBlockOffsets {
   static final int[][][] seqs = {
     {
       RelativeCoords.l2, RelativeCoords.r1, RelativeCoords.l2d1, RelativeCoords.r1u2,

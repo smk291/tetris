@@ -18,8 +18,8 @@ import java.util.ArrayList;
  * `RunTetris` is an instance of the game. It stores all the state that the game needs
  * and contains methods that call the methods that amount to the game's mechanics. It
  * wasn't necessary to put all of these methods-calling-methods in RunTetris.
- * They're there to encapsulate the highest-level logic that the game uses. These are the
- * methods that amount to the complete game and all of its rules.
+ * They're meant to encapsulate the highest-level logic (or encapsulate its encapsulations)
+ * that the game uses, the methods that amount to the complete game and all of its rules.
  *
  * Adding multiplayer will require a lot of changes, but solely adding another instance
  * of the game ought to be no harder than instantiating this class a second time.
@@ -27,18 +27,18 @@ import java.util.ArrayList;
 public class RunTetris {
   private ActiveBlock currentBlock = new ActiveBlock();
   private TetrominoQueue tetrominoQueue = new TetrominoQueue(currentBlock);
-  private Tetromino holdPiece;
+  private Tetromino holdBlock;
   private RowList playfield = new RowList();
-  private ArrayList<RowList> sinkingPieces = new ArrayList<>();
+  private ArrayList<RowList> sinkingBlocks = new ArrayList<>();
   private LockDelay lockDelay;
   private GameRecordKeeping recordKeeping = new GameRecordKeeping();
 
   public RunTetris() {
-    tetrominoQueue.resetCurrentPiece(currentBlock);
+    tetrominoQueue.resetCurrentBlock(currentBlock);
     lockDelay = new LockDelay(this);
   }
 
-  public ActiveBlock getCurrentPiece() {
+  public ActiveBlock getActiveBlock() {
     return currentBlock;
   }
 
@@ -50,36 +50,36 @@ public class RunTetris {
     return lockDelay;
   }
 
-  public ArrayList<RowList> getSinkingPieces() {
-    return sinkingPieces;
+  public ArrayList<RowList> getSinkingBlocks() {
+    return sinkingBlocks;
   }
 
-  public void setSinkingPieces(ArrayList<RowList> rls) {
-    sinkingPieces.addAll(rls);
+  public void setSinkingBlocks(ArrayList<RowList> rls) {
+    sinkingBlocks.addAll(rls);
   }
 
   public GameRecordKeeping getRecordKeeping() {
     return recordKeeping;
   }
 
-  public void dropSinkingPieces() {
-    Movement.dropSinkingPieces(this);
+  public void dropSinkingBlocks() {
+    Movement.dropSinkingBlocks(this);
   }
 
-  public void addSinkingPieceToBoard(RowList sinkingPiece) {
-    ChangePlayfield.addSinkingPieceToBoard(this, sinkingPiece);
+  public void addSinkingBlockToPlayfield(RowList sinkingBlock) {
+    ChangePlayfield.addSinkingBlockToBoard(this, sinkingBlock);
   }
 
-  public void addPieceToPlayfield(ActiveBlock block) {
-    ChangePlayfield.addPieceToPlayfield(this, block);
+  public void addBlockToPlayfield(ActiveBlock block) {
+    ChangePlayfield.addBlockToPlayfield(this, block);
   }
 
-  public void dropCurrentPiece(JFrame frame) {
-    Movement.translatePiece(this, frame, 0, Constants.down);
+  public void dropActiveBlock(JFrame frame) {
+    Movement.translateBlock(this, frame, 0, Constants.down);
   }
 
-  public void translatePiece(JFrame frame, int x, int y) {
-    Movement.translatePiece(this, frame, x, y);
+  public void translate(JFrame frame, int x, int y) {
+    Movement.translateBlock(this, frame, x, y);
   }
 
   public void rotate(JFrame frame, int incr) {
@@ -91,16 +91,16 @@ public class RunTetris {
   }
 
   public @Nullable Tetromino getHoldPiece() {
-    return holdPiece;
+    return holdBlock;
   }
 
   public void setHoldPiece() {
-    if (holdPiece == null) {
-      holdPiece = currentBlock.getTetromino();
-      tetrominoQueue.resetCurrentPiece(currentBlock);
+    if (holdBlock == null) {
+      holdBlock = currentBlock.getTetromino();
+      tetrominoQueue.resetCurrentBlock(currentBlock);
     } else {
-      Tetromino tmp = holdPiece;
-      holdPiece = currentBlock.getTetromino();
+      Tetromino tmp = holdBlock;
+      holdBlock = currentBlock.getTetromino();
       currentBlock.reset(tmp);
     }
   }

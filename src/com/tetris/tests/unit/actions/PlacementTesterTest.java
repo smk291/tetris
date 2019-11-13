@@ -62,14 +62,14 @@ class PlacementTesterTest {
   // Ensure method correctly determines whether a cell can be occupied
   @Test
   void cellsCanBeOccupied() {
-    // Piece and bottom row should overlap. Squares in block should not be able to fill corresponding
+    // Block and bottom row should overlap. Squares in block should not be able to fill corresponding
     // cells on board
     assertFalse(
         ccbo(t, playField),
         "Function should return false, as not all cells filled by block can be filled on playfield. There is overlap.");
     // Move block up 1
     t.setCenter(fromLeft(4), fromBottom(1));
-    // Piece and row shouldn't overlap. All cells block fields should be empty on playfield.
+    // Block and row shouldn't overlap. All cells block fields should be empty on playfield.
     assertTrue(
         ccbo(t, playField),
         "Function should return true. All cells filled by block can be filled on playfield");
@@ -78,7 +78,7 @@ class PlacementTesterTest {
     // Cells are out of bounds
     assertFalse(
         ccbo(t, playField),
-        "Function should return false. Piece position is out of bounds. Cells out of bounds cannot be filled.");
+        "Function should return false. Block position is out of bounds. Cells out of bounds cannot be filled.");
   }
 
   @Test

@@ -22,8 +22,8 @@ public class MainJPanel extends JPanel {
   JPanel rightmost = new JPanel();
   GridBagConstraints rightmostC = new GridBagConstraints();
 
-  JPanel holdPiece;
-  GridBagConstraints holdPieceC = new GridBagConstraints();
+  JPanel holdBlock;
+  GridBagConstraints holdBlockC = new GridBagConstraints();
 
   JPanel subHoldPieceLeft = new JPanel();
   GridBagConstraints subHoldPieceLeftC = new GridBagConstraints();
@@ -111,7 +111,7 @@ public class MainJPanel extends JPanel {
 
     //    System.out.println(playFieldContainer.getComponent().)
 
-    holdPiece = new HoldPiece(runTetris);
+    holdBlock = new HoldPiece(runTetris);
 
     init();
   }
@@ -150,7 +150,7 @@ public class MainJPanel extends JPanel {
         topmost, 4.5, 0, 1, 0, 4, 1, GridBagConstraints.HORIZONTAL, new JLabel("T"), topmostC);
 
     insertPanel(
-        holdPiece,
+        holdBlock,
         .50,
         .05,
         1,
@@ -158,8 +158,8 @@ public class MainJPanel extends JPanel {
         2,
         2,
         GridBagConstraints.BOTH,
-        new JLabel("holdPiece"),
-        holdPieceC);
+        new JLabel("holdBlock"),
+        holdBlockC);
 
     insertPanel(
         subHoldPieceLeft,

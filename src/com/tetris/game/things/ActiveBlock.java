@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * `TetrisPiece` is the actively falling tetromino, the tetromino (or block) that the user manipulates. It spawns on
+ * `TetrisBlock` is the actively falling tetromino, the tetromino (or block) that the user manipulates. It spawns on
  * 20th row from the bottom. Rather than store the position of all four squares, and move all four squares each time
- * the user rotates or moves the block, `TetrisPiece` stores a single set of coordinates. When the block moves or
+ * the user rotates or moves the block, `TetrisBlock` stores a single set of coordinates. When the block moves or
  * rotates, the program gets absolute coordiantes by getting the appropriate offsets (relative coordinates) from the
  * tetromino and converting them to a `RowList`.
  *

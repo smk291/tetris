@@ -43,7 +43,7 @@ class PrintToConsole {
     return pad(c.getX()) + ", " + pad(y);
   }
 
-  private void paintAndPrint(RowList rowList, ArrayList<RowList> sinkingPieces, ActiveBlock block) {
+  private void paintAndPrint(RowList rowList, ArrayList<RowList> sinkingBlocks, ActiveBlock block) {
     printBoardCustom(
         rowList,
         (int x, int y, Integer rowY, Optional<Square> square) -> {
@@ -61,7 +61,7 @@ class PrintToConsole {
           }
         });
 
-    getBoard(rowList, sinkingPieces, block);
+    getBoard(rowList, sinkingBlocks, block);
 
     printStringBoardCustom(
         (int x, int y, Integer rowY, String[] cell) -> {
@@ -95,7 +95,7 @@ class PrintToConsole {
     //                    + (square.getColor() != null ? square.getColor().toString() : "NC")));
   }
 
-  private void getBoard(RowList rowList, ArrayList<RowList> sinkingPieces, ActiveBlock block) {
+  private void getBoard(RowList rowList, ArrayList<RowList> sinkingBlocks, ActiveBlock block) {
     String[][][] board = new String[Constants.height][Constants.width][5];
 
     for (String[][] row : board) {
@@ -116,7 +116,7 @@ class PrintToConsole {
             space[1] = "c";
           }
 
-          if (sinkingPiecesContainCell(x, y, sinkingPieces)) {
+          if (sinkingBlocksContainCell(x, y, sinkingBlocks)) {
             space[2] = "s";
           }
 
@@ -124,7 +124,7 @@ class PrintToConsole {
             space[3] = "!";
           }
 
-          if (fallingPieceContainsCell(x, y, block)) {
+          if (fallingBlockContainsCell(x, y, block)) {
             space[4] = "f";
           }
         }
@@ -134,8 +134,8 @@ class PrintToConsole {
     this.board = board;
   }
 
-  private boolean sinkingPiecesContainCell(int x, int y, ArrayList<RowList> sinkingPieces) {
-    for (RowList block : sinkingPieces) {
+  private boolean sinkingBlocksContainCell(int x, int y, ArrayList<RowList> sinkingBlocks) {
+    for (RowList block : sinkingBlocks) {
       for (Row r : block.get()) {
         for (Square square : r.get()) {
           if (square.getX() == x && r.getY() == y) return true;
@@ -146,8 +146,8 @@ class PrintToConsole {
     return false;
   }
 
-  private boolean sinkingPiecesContainCell(Square c, ArrayList<RowList> sinkingPieces) {
-    for (RowList block : sinkingPieces) {
+  private boolean sinkingBlocksContainCell(Square c, ArrayList<RowList> sinkingBlocks) {
+    for (RowList block : sinkingBlocks) {
       for (Row r : block.get()) {
         for (Square square : r.get()) {
           if (square.getX() == c.getX()) return true;
@@ -158,7 +158,7 @@ class PrintToConsole {
     return false;
   }
 
-  private boolean fallingPieceContainsCell(int x, int y, ActiveBlock currentBlock2d) {
+  private boolean fallingBlockContainsCell(int x, int y, ActiveBlock currentBlock2d) {
     for (Row r : currentBlock2d.getSquares().get()) {
       if (r.getY() == y) {
         for (Square b : r.get()) {

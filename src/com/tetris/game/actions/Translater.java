@@ -43,7 +43,7 @@ public abstract class Translater {
         block.getCenter().translate(-x, -y);
       }
 
-      if (block.getTetromino().isTPiece()) {
+      if (block.getTetromino().isTBlock()) {
         block.gettSpinTracker().reset();
       }
 
@@ -63,7 +63,7 @@ public abstract class Translater {
 
     } while (translate(block, field, 0, Constants.down, false));
 
-    if (cells > 0 && block.getTetromino().isTPiece()) {
+    if (cells > 0 && block.getTetromino().isTBlock()) {
       block.gettSpinTracker().reset();
     }
 

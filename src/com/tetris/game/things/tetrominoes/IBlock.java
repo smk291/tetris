@@ -21,32 +21,32 @@ public class IBlock extends Tetromino {
               0,
               new HashMap<>() {
                 {
-                  put(1, IPieceOffsets.seqs[0]);
-                  put(3, IPieceOffsets.seqs[1]);
+                  put(1, IBlockOffsets.seqs[0]);
+                  put(3, IBlockOffsets.seqs[1]);
                 }
               });
           put(
               1,
               new HashMap<>() {
                 {
-                  put(0, IPieceOffsets.seqs[2]);
-                  put(2, IPieceOffsets.seqs[1]);
+                  put(0, IBlockOffsets.seqs[2]);
+                  put(2, IBlockOffsets.seqs[1]);
                 }
               });
           put(
               2,
               new HashMap<>() {
                 {
-                  put(1, IPieceOffsets.seqs[3]);
-                  put(3, IPieceOffsets.seqs[2]);
+                  put(1, IBlockOffsets.seqs[3]);
+                  put(3, IBlockOffsets.seqs[2]);
                 }
               });
           put(
               3,
               new HashMap<>() {
                 {
-                  put(0, IPieceOffsets.seqs[3]);
-                  put(2, IPieceOffsets.seqs[0]);
+                  put(0, IBlockOffsets.seqs[3]);
+                  put(2, IBlockOffsets.seqs[0]);
                 }
               });
         }

@@ -99,12 +99,12 @@ class TetrominoTester {
     return () -> assertEquals(expectedColor, tetromino.getColor());
   }
 
-  Executable isTPiece() {
+  Executable isTBlock() {
     return () -> {
       if (tetromino instanceof TBlock) {
-        assertTrue(tetromino.isTPiece());
+        assertTrue(tetromino.isTBlock());
       } else {
-        assertFalse(tetromino.isTPiece());
+        assertFalse(tetromino.isTBlock());
       }
     };
   }
@@ -129,7 +129,7 @@ class TetrominoTest {
           DynamicTest.dynamicTest("getKickData", tester.getKickData()),
           DynamicTest.dynamicTest("getKickData", tester.getKickData()),
           DynamicTest.dynamicTest("getColor", tester.getColor()),
-          DynamicTest.dynamicTest("isTPiece", tester.isTPiece()));
+          DynamicTest.dynamicTest("isTBlock", tester.isTBlock()));
     }
 
     return tests;

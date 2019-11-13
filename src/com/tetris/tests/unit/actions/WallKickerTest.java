@@ -94,7 +94,7 @@ public class WallKickerTest {
   }
 
   @Test
-  void runTestsByPiece() {
+  void runTestsByBlock() {
     Constants.setWidth(20);
 
     c = new Center(Constants.width / 2, 10);

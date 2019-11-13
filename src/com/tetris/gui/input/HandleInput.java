@@ -26,31 +26,31 @@ abstract public class HandleInput {
       } else if (k == CommandKeyCodes.getClockwise()) {
         runTetris.rotate(frame, Constants.clockwise);
       } else if (k == CommandKeyCodes.getHardDrop()) {
-        while (!runTetris.getSinkingPieces().isEmpty()) runTetris.dropSinkingPieces();
+        while (!runTetris.getSinkingBlocks().isEmpty()) runTetris.dropSinkingBlocks();
         int rowsTraversed =
-            Translater.hardDrop(runTetris.getCurrentPiece(), runTetris.getPlayfield());
+            Translater.hardDrop(runTetris.getActiveBlock(), runTetris.getPlayfield());
         runTetris.getRecordKeeping().hardDrop(rowsTraversed);
-        runTetris.addPieceToPlayfield(runTetris.getCurrentPiece());
+        runTetris.addBlockToPlayfield(runTetris.getActiveBlock());
       } else {
         IntegrationTests.accept(
             Character.toString(e.getKeyChar()),
-            runTetris.getCurrentPiece(),
+            runTetris.getActiveBlock(),
             runTetris.getPlayfield());
       }
     } else {
       if (k == CommandKeyCodes.getLeft()) {
-        runTetris.translatePiece(frame, Constants.left, 0);
+        runTetris.translate(frame, Constants.left, 0);
       } else if (k == CommandKeyCodes.getRight()) {
-        runTetris.translatePiece(frame, Constants.right, 0);
+        runTetris.translate(frame, Constants.right, 0);
       } else if (k == CommandKeyCodes.getDrop()) {
-        runTetris.translatePiece(frame, 0, Constants.down);
+        runTetris.translate(frame, 0, Constants.down);
         runTetris.getRecordKeeping().softDrop();
 //      } else if (k == CommandKeyCodes.getUp()) {
-//        runTetris.translatePiece(0, Constants.up);
+//        runTetris.translateBlock(0, Constants.up);
       } else {
         IntegrationTests.accept(
             Character.toString(e.getKeyChar()),
-            runTetris.getCurrentPiece(),
+            runTetris.getActiveBlock(),
             runTetris.getPlayfield());
       }
     }

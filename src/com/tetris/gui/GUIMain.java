@@ -59,7 +59,7 @@ public class GUIMain {
         new Timer(
             1000,
             e -> {
-              runTetris.dropCurrentPiece(tetrisFrame);
+              runTetris.dropActiveBlock(tetrisFrame);
 
               tetrisFrame.repaint();
             });
@@ -69,7 +69,7 @@ public class GUIMain {
         new Timer(
             200,
             e -> {
-              runTetris.dropSinkingPieces();
+              runTetris.dropSinkingBlocks();
 
               tetrisFrame.repaint();
             });
@@ -87,31 +87,31 @@ public class GUIMain {
       } else if (k == CommandKeyCodes.getClockwise()) {
         runTetris.rotate(tetrisFrame, Constants.clockwise);
       } else if (k == CommandKeyCodes.getHardDrop()) {
-        while (!runTetris.getSinkingPieces().isEmpty()) runTetris.dropSinkingPieces();
+        while (!runTetris.getSinkingBlocks().isEmpty()) runTetris.dropSinkingBlocks();
         int rowsTraversed =
-            Translater.hardDrop(runTetris.getCurrentPiece(), runTetris.getPlayfield());
+            Translater.hardDrop(runTetris.getActiveBlock(), runTetris.getPlayfield());
         runTetris.getRecordKeeping().hardDrop(rowsTraversed);
-        runTetris.addPieceToPlayfield(runTetris.getCurrentPiece());
+        runTetris.addBlockToPlayfield(runTetris.getActiveBlock());
       } else {
         IntegrationTests.accept(
             Character.toString(e.getKeyChar()),
-            runTetris.getCurrentPiece(),
+            runTetris.getActiveBlock(),
             runTetris.getPlayfield());
       }
     } else {
       if (k == CommandKeyCodes.getLeft()) {
-        runTetris.translatePiece(tetrisFrame, Constants.left, 0);
+        runTetris.translate(tetrisFrame, Constants.left, 0);
       } else if (k == CommandKeyCodes.getRight()) {
-        runTetris.translatePiece(tetrisFrame, Constants.right, 0);
+        runTetris.translate(tetrisFrame, Constants.right, 0);
       } else if (k == CommandKeyCodes.getDrop()) {
-        runTetris.translatePiece(tetrisFrame, 0, Constants.down);
+        runTetris.translate(tetrisFrame, 0, Constants.down);
         runTetris.getRecordKeeping().softDrop();
       } else if (k == CommandKeyCodes.getUp()) {
-        runTetris.translatePiece(tetrisFrame, 0, Constants.up);
+        runTetris.translate(tetrisFrame, 0, Constants.up);
       } else {
         IntegrationTests.accept(
             Character.toString(e.getKeyChar()),
-            runTetris.getCurrentPiece(),
+            runTetris.getActiveBlock(),
             runTetris.getPlayfield());
       }
     }

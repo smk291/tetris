@@ -8,12 +8,12 @@ import com.tetris.game.things.ActiveBlock;
  * `Rotator` contains all logic for rotating a block. Only tetrominos rotate.
  *
  * Rotation works as follows:
- * (1) Increment the `TetrisPiece`'s `rotation` value.
+ * (1) Increment the `TetrisBlock`'s `rotation` value.
  * (2) Test the validity of the tetromino's resulting position.
  * (3) If the position is valid (meaning it's not overlapping with any squares and isn't out of bounds), the function returns an integer greater than -1
  * (4) If the position isn't valid (meaning it's either out of bounds or overlaps with other squares), first attempt a wall kick.
  * (5) If wall kick doesn't return -1, one of the walk kicks is a valid position. The block's center has moved accordingly. The function returns an integer.
- *     Possible wall kicks are stored in tetrominos as arrays of relative coordinates; the TetrisPiece moves, changing its x and y, by those numbers.
+ *     Possible wall kicks are stored in tetrominos as arrays of relative coordinates; the TetrisBlock moves, changing its x and y, by those numbers.
  *     If the resulting position is valid, the kick function returns the index of the relative coordinates that resulted in a successful `kick`.
  * (6) If the kick function returns -1, none of the wall kicks is a valid position.
  * (7) Next, attempt a floor kick, raising the block up by one row. If this produces a valid position, return a positive (and meaningless) positive integer
@@ -49,7 +49,7 @@ public abstract class Rotator {
       return -1;
     }
 
-    if (block.getTetromino().isTPiece()) {
+    if (block.getTetromino().isTBlock()) {
       setTSpinData(block, null, false);
     }
 
@@ -65,7 +65,7 @@ public abstract class Rotator {
       return -1;
     }
 
-    if (block.getTetromino().isTPiece()) {
+    if (block.getTetromino().isTBlock()) {
       setTSpinData(block, kickIdx, true);
     }
 
@@ -76,7 +76,7 @@ public abstract class Rotator {
     boolean canDrop = Translater.translate(block, rowList, 0, Constants.down, true);
 
     if (!canDrop && Translater.translate(block, rowList, 0, Constants.up, false)) {
-      if (block.getTetromino().isTPiece()) {
+      if (block.getTetromino().isTBlock()) {
         setTSpinData(block, null, false);
       }
 

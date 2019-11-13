@@ -11,26 +11,26 @@ import com.tetris.game.things.ActiveBlock;
 import java.util.ArrayList;
 
 public class ChangePlayfield {
-  public static void addSinkingPieceToBoard(RunTetris rt, RowList sinkingPiece) {
+  public static void addSinkingBlockToBoard(RunTetris rt, RowList sinkingBlock) {
     RowList playfield = rt.getPlayfield();
-    ActiveBlock currentBlock = rt.getCurrentPiece();
+    ActiveBlock currentBlock = rt.getActiveBlock();
     GameRecordKeeping records = rt.getRecordKeeping();
-    ArrayList<RowList> sinkingPieces = rt.getSinkingPieces();
+    ArrayList<RowList> sinkingBlocks = rt.getSinkingBlocks();
 
-    playfield.addRowList(sinkingPiece);
+    playfield.addRowList(sinkingBlock);
 
     ArrayList<Integer> deletedRowIdx =
-        ClearRows.apply(sinkingPiece, currentBlock, playfield, records);
+        ClearRows.apply(sinkingBlock, currentBlock, playfield, records);
 
-    sinkingPieces.remove(sinkingPiece);
+    sinkingBlocks.remove(sinkingBlock);
 
     if (deletedRowIdx.size() > 0) {
       deletedRowIdx.forEach(
-          i -> new SinkingBlockFinder().findSinkingPieces(i, playfield, sinkingPieces));
+          i -> new SinkingBlockFinder().findSinkingBlocks(i, playfield, sinkingBlocks));
     }
   }
 
-  public static void addPieceToPlayfield(RunTetris rt, ActiveBlock block) {
+  public static void addBlockToPlayfield(RunTetris rt, ActiveBlock block) {
     RowList playfield = rt.getPlayfield();
     GameRecordKeeping records = rt.getRecordKeeping();
 
@@ -41,11 +41,11 @@ public class ChangePlayfield {
 
     if (deletedRowIdx.size() > 0) {
       deletedRowIdx.forEach(
-          i -> new SinkingBlockFinder().findSinkingPieces(i, playfield, rt.getSinkingPieces()));
+          i -> new SinkingBlockFinder().findSinkingBlocks(i, playfield, rt.getSinkingBlocks()));
     }
 
     // If blocks other than current block can be added, then this needs to change
-    rt.getTetrominoQueue().resetCurrentPiece(block);
+    rt.getTetrominoQueue().resetCurrentBlock(block);
 
     if (!PlacementTester.cellsCanBeOccupied(block, playfield)) {
       //

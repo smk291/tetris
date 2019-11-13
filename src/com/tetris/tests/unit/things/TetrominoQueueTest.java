@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TetrominoQueueTest {
   @Test
-  void resetCurrentPiece() {
+  void resetCurrentBlock() {
     ActiveBlock t = new ActiveBlock();
     assertNull(t.getTetromino());
 
@@ -43,7 +43,7 @@ class TetrominoQueueTest {
       }
 
       lastOccurrences.put(tr, i);
-      q.resetCurrentPiece(t);
+      q.resetCurrentBlock(t);
     }
   }
 }

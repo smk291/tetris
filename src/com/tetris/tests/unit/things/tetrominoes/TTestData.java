@@ -13,7 +13,7 @@ class TTestData {
   static final Tetromino[] tetrominoes = {
     new IBlock(), new JBlock(), new LBlock(), new OBlock(), new SBlock(), new TBlock(), new ZBlock()
   };
-  static final RowList[][] expectedShapes = ExpectedShapes.shapesByPiece;
+  static final RowList[][] expectedShapes = ExpectedShapes.shapesByBlock;
   static final Color[] colors = {
     new IBlock().getColor(),
     new JBlock().getColor(),
@@ -167,5 +167,5 @@ class ExpectedShapes {
             {{3, 5}, {2, 4}, {3, 4}, {2, 3}}
           });
 
-  static RowList[][] shapesByPiece = {iblock, jblock, lblock, oblock, sblock, tblock, zblock};
+  static RowList[][] shapesByBlock = {iblock, jblock, lblock, oblock, sblock, tblock, zblock};
 }

@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SinkingBlockFinderTest {
   private RowList rl = new RowList();
-  private ArrayList<RowList> sinkingPieces = new ArrayList<>();
+  private ArrayList<RowList> sinkingBlocks = new ArrayList<>();
   private final int[][] skip = new int[Constants.height][Constants.width];
   private final int[] startIdx = {7, 15};
-  private final int[][][][] expectedSinkingPieces = {
+  private final int[][][][] expectedSinkingBlocks = {
       {
           {{0,7}},
           {{4,7},{4,8}}
@@ -47,18 +47,18 @@ class SinkingBlockFinderTest {
 
   @BeforeEach
   void reset() {
-    sinkingPieces.clear();
+    sinkingBlocks.clear();
   }
 
   public RowList fillPlayField() {
     RowList rl2 = new RowList();
 
     rl2.add(UnitTestHelper.getRowWithSquares(16,new int[]{              7,8,9}));
-    rl2.add(UnitTestHelper.getRowWithSquares(15,new int[]{                8,9}));    // <-- findPiecesOnBothLines
+    rl2.add(UnitTestHelper.getRowWithSquares(15,new int[]{                8,9}));    // <-- findBlocksOnBothLines
     rl2.add(UnitTestHelper.getRowWithSquares(14,new int[]{            6,7    }));
     // ...
     rl2.add(UnitTestHelper.getRowWithSquares(8, new int[]{        4,  6      }));
-    rl2.add(UnitTestHelper.getRowWithSquares(7, new int[]{0,      4,  6      }));    // <-- findPiecesonDeletedLine
+    rl2.add(UnitTestHelper.getRowWithSquares(7, new int[]{0,      4,  6      }));    // <-- findBlocksonDeletedLine
     rl2.add(UnitTestHelper.getRowWithSquares(6, new int[]{  1,2,3,  5,6,7    }));
     rl2.add(UnitTestHelper.getRowWithSquares(5, new int[]{0,  2,  4,  6,  8,9}));
     rl2.add(UnitTestHelper.getRowWithSquares(4, new int[]{0,1,2,3,4,5,6,7    }));
@@ -70,15 +70,15 @@ class SinkingBlockFinderTest {
     return rl2;
   }
 
-  void findSinkingPieces(int idx) {
-    new SinkingBlockFinder().findSinkingPieces(startIdx[idx], rl, sinkingPieces);
+  void findSinkingBlocks(int idx) {
+    new SinkingBlockFinder().findSinkingBlocks(startIdx[idx], rl, sinkingBlocks);
 
-    assertEquals(expectedSinkingPieces[idx].length, sinkingPieces.size());
+    assertEquals(expectedSinkingBlocks[idx].length, sinkingBlocks.size());
 
-    for (int[][] coordsArray : expectedSinkingPieces[idx]) {
+    for (int[][] coordsArray : expectedSinkingBlocks[idx]) {
       RowList p = null;
 
-      for (RowList t : sinkingPieces) {
+      for (RowList t : sinkingBlocks) {
         int i = 0;
 
         for (Row r : t.get())
@@ -97,13 +97,13 @@ class SinkingBlockFinderTest {
   }
 
   @Test
-  void findPiecesOnDeletedLine() {
-    findSinkingPieces(0);
+  void findBlocksOnDeletedLine() {
+    findSinkingBlocks(0);
   }
 
   @Test
-  void findPiecesOnBothLines() {
-    findSinkingPieces(1);
+  void findBlocksOnBothLines() {
+    findSinkingBlocks(1);
   }
 
   @Test
@@ -112,7 +112,7 @@ class SinkingBlockFinderTest {
   void doSkipCell(int idx) {
     SinkingBlockFinder spf = new SinkingBlockFinder();
 
-    spf.findSinkingPieces(startIdx[idx], rl, sinkingPieces);
+    spf.findSinkingBlocks(startIdx[idx], rl, sinkingBlocks);
 
     for (int[] coords : expectedSkipCells[idx]) {
       assertTrue(spf.doSkipCell(coords[0], coords[1]));

@@ -11,7 +11,7 @@ public final class GameRecordKeeping {
   private String last;
   private int comboCount;
   private int linesPerLevel = 20;
-  private Tetromino holdPiece;
+  private Tetromino holdBlock;
 
   public GameRecordKeeping() {
     reset();
@@ -69,8 +69,8 @@ public final class GameRecordKeeping {
     TSpinTracker tst = block.gettSpinTracker();
     Tetromino t = block.getTetromino();
 
-    if (t.isTPiece() && tst.isTSpinMini(block, rowList)) computeScoreTSpinMini(rows);
-    else if (t.isTPiece() && tst.isTSpin(block, rowList)) computerScoreTSpin(rows);
+    if (t.isTBlock() && tst.isTSpinMini(block, rowList)) computeScoreTSpinMini(rows);
+    else if (t.isTBlock() && tst.isTSpin(block, rowList)) computerScoreTSpin(rows);
     else computeAndAdd(rows);
   }
 

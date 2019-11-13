@@ -23,7 +23,7 @@ public class LockDelay {
         new Timer(
             ms,
             e -> {
-              Movement.dropSinkingPieces(rt);
+              Movement.dropSinkingBlocks(rt);
             });
 
   } 
@@ -33,7 +33,7 @@ public class LockDelay {
   }
 
   private void handleLockDelay(RunTetris rt, Timer t) {
-    ActiveBlock tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getActiveBlock();
     RowList playfield = rt.getPlayfield();
 
     movementLockDelay.restart();
@@ -48,7 +48,7 @@ public class LockDelay {
   }
 
   public void handleRotationLockDelay(RunTetris rt) {
-    ActiveBlock tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getActiveBlock();
     RowList playfield = rt.getPlayfield();
 
     boolean canDrop = Translater.translate(tp, playfield, 0, Constants.down, true);
@@ -60,13 +60,13 @@ public class LockDelay {
 
     if (canDrop) return;
 
-    rotationTimer = new Timer(Constants.rotationLockDelay, e -> rt.addPieceToPlayfield(tp));
+    rotationTimer = new Timer(Constants.rotationLockDelay, e -> rt.addBlockToPlayfield(tp));
     rotationTimer.setRepeats(false);
     rotationTimer.start();
   }
 
   public void handleMovementLockDelay(RunTetris rt) {
-    ActiveBlock tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getActiveBlock();
     RowList playfield = rt.getPlayfield();
 
     boolean canDrop = Translater.translate(tp, playfield, 0, Constants.down, true);
@@ -78,7 +78,7 @@ public class LockDelay {
     }
 
     if (null == movementTimer || !movementTimer.isRunning()) {
-      movementTimer = new Timer(Constants.movementLockDelay, e -> rt.addPieceToPlayfield(tp));
+      movementTimer = new Timer(Constants.movementLockDelay, e -> rt.addBlockToPlayfield(tp));
       movementTimer.setRepeats(false);
       movementTimer.start();
     }

@@ -11,8 +11,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 abstract public class Movement {
-  public static void translatePiece(RunTetris rt, JFrame frame, int x, int y) {
-    ActiveBlock tp = rt.getCurrentPiece();
+  public static void translateBlock(RunTetris rt, JFrame frame, int x, int y) {
+    ActiveBlock tp = rt.getActiveBlock();
     RowList playfield = rt.getPlayfield();
     LockDelay ld = rt.getLockDelay();
 
@@ -21,13 +21,13 @@ abstract public class Movement {
     if (canTranslate) {
       tp.gettSpinTracker().reset();
     } else if (y == Constants.down) {
-      rt.addPieceToPlayfield(rt.getCurrentPiece());
+      rt.addBlockToPlayfield(rt.getActiveBlock());
 //      ld.handleMovementLockDelay(rt);
     }
   }
 
   public static void rotate(RunTetris rt, JFrame frame, int incr) {
-    ActiveBlock tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getActiveBlock();
     RowList playfield = rt.getPlayfield();
     LockDelay ld = rt.getLockDelay();
 
@@ -41,17 +41,17 @@ abstract public class Movement {
   }
 
 
-  public static void dropSinkingPieces(RunTetris rt) {
-    ArrayList<RowList> sinkingPieces = rt.getSinkingPieces();
+  public static void dropSinkingBlocks(RunTetris rt) {
+    ArrayList<RowList> sinkingBlocks = rt.getSinkingBlocks();
     RowList playfield = rt.getPlayfield();
 
-    for (int i = 0; !sinkingPieces.isEmpty() && i < sinkingPieces.size(); i++) {
-      RowList sinkingPiece = sinkingPieces.get(i);
+    for (int i = 0; !sinkingBlocks.isEmpty() && i < sinkingBlocks.size(); i++) {
+      RowList sinkingBlock = sinkingBlocks.get(i);
 
-      boolean canSink = Translater.translate(sinkingPiece, playfield, Constants.down);
+      boolean canSink = Translater.translate(sinkingBlock, playfield, Constants.down);
 
       if (!canSink) {
-        rt.addSinkingPieceToBoard(sinkingPiece);
+        rt.addSinkingBlockToPlayfield(sinkingBlock);
 
         i--;
       }

@@ -17,7 +17,7 @@ public class TetrominoQueue {
 
   public TetrominoQueue(ActiveBlock p) {
     setQs();
-    resetCurrentPiece(p);
+    resetCurrentBlock(p);
   }
 
   private void setQs() {
@@ -33,7 +33,7 @@ public class TetrominoQueue {
     return tetrominosAsList;
   }
 
-  public void resetCurrentPiece(ActiveBlock block) {
+  public void resetCurrentBlock(ActiveBlock block) {
     block.reset(queue.get(0).get());
 
     queue.remove(0);

@@ -16,6 +16,6 @@ public class TBlock extends Tetromino {
   public TBlock() {
     super.setOffsets(offsets);
     super.setColor(Color.magenta);
-    super.setTPiece(true);
+    super.setTBlock(true);
   }
 }
