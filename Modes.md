@@ -9,7 +9,7 @@ The active block falls automatically, as in regular Tetris. This, too, adds mome
 
 Collisions will cause bounce, potentially deforming the tetromino, the squares already settled at the bottom of the playfield, or both. This makes "smashing" blocks against a wall or the bottom row a viable strategy.
 
-Float Mode offers the possibility of an extremely extremely fun, vicious competitive mode, in which players can apply force to one another's blocks, not just their own. Once you're sure your block is traveling in the desired direction (and will land with the desired speed), move your cursor to your opponent's playfield and start interfering.
+Float Mode offers the possibility of a particularly fun, vicious competitive mode. If players use a cursor to apply force, then they could move their cursor to the opposing player's playfield and apply force there as well. Thus, in a two player game, once one player is sure his/her block is traveling in the desired direction and will land with the desired speed, that player can move his/her cursor to the opposing playfield and try to interfere.
 
 #### Tank Tetris
 In Tank Tetris, blocks move like tanks: they can rotate and move forward or backward, but the direction of "forward" and "backward" depends on the direction the block is facing. This should be challenging for experienced Tetris players, especially when combined with float/newtonian mode.
