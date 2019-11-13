@@ -1,9 +1,9 @@
 package com.tetris.gui.holdpiece;
 
-import com.tetris.RunTetris;
-import com.tetris.gui.DrawSquare;
-import com.tetris.things.ActiveBlock;
-import com.tetris.things.Tetromino;
+import com.tetris.game.RunTetris;
+import com.tetris.gui.helpers.DrawSquare;
+import com.tetris.game.things.ActiveBlock;
+import com.tetris.game.things.Tetromino;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,10 +1,10 @@
 package com.tetris.gui.playfield;
 
-import com.tetris.RunTetris;
-import com.tetris.constants.Constants;
-import com.tetris.things.Square;
-import com.tetris.things.Row;
-import com.tetris.things.RowList;
+import com.tetris.game.RunTetris;
+import com.tetris.game.constants.Constants;
+import com.tetris.game.things.Square;
+import com.tetris.game.things.Row;
+import com.tetris.game.things.RowList;
 
 import javax.swing.*;
 import java.awt.*;

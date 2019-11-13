@@ -1,10 +1,10 @@
 package com.tetris.logging;
 
-import com.tetris.constants.Constants;
-import com.tetris.things.Square;
-import com.tetris.things.Row;
-import com.tetris.things.RowList;
-import com.tetris.things.ActiveBlock;
+import com.tetris.game.constants.Constants;
+import com.tetris.game.things.Square;
+import com.tetris.game.things.Row;
+import com.tetris.game.things.RowList;
+import com.tetris.game.things.ActiveBlock;
 
 import java.util.ArrayList;
 import java.util.Optional;

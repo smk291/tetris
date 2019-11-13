@@ -1,9 +1,9 @@
 package com.tetris.gui.input;
 
-import com.tetris.RunTetris;
-import com.tetris.actions.Translater;
-import com.tetris.constants.Constants;
-import com.tetris.unittests.integration.IntegrationTests;
+import com.tetris.game.RunTetris;
+import com.tetris.game.actions.Translater;
+import com.tetris.game.constants.Constants;
+import com.tetris.tests.integration.IntegrationTests;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

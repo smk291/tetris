@@ -1,9 +1,9 @@
 package com.tetris.gui.blockqueue;
 
-import com.tetris.RunTetris;
-import com.tetris.gui.DrawSquare;
-import com.tetris.things.*;
-import com.tetris.things.tetrominoes.TetrominoEnum;
+import com.tetris.game.RunTetris;
+import com.tetris.gui.helpers.DrawSquare;
+import com.tetris.game.things.*;
+import com.tetris.game.things.tetrominoes.TetrominoEnum;
 
 import javax.swing.*;
 import java.awt.*;
