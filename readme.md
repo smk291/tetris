@@ -1,10 +1,3 @@
-<style>
-table {
-  width: 250px;
-}
-</style>
-
-
 # Java Tetris
 
 ##### Contents
