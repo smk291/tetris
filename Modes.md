@@ -7,7 +7,7 @@ To make things worse, actions don't directly move the block. They apply force to
 
 The active block falls automatically, as in regular Tetris. This, too, adds momentum, so that blocks fall faster and faster as they reach the bottom of the playfield. The player will be able to apply upward force, slowing but not halting its descent. The higher the level, the higher the minimum speed of descent.
 
-Collisions will cause bounce, potentially deforming the tetromino, the squares already settled at the bottom of the playfield, or both. This makes "smashing" blocks against a wall or the bottom row a viable strategy.
+Collisions will cause bounce and collisions at high enough speeds will deform tetrominos (changing their shape) and/or move squares already settled at the bottom of the playfield. This makes "smashing" blocks against a wall or the bottom row a viable strategy.
 
 Float Mode offers the possibility of a particularly fun, vicious competitive mode. If players use a cursor to apply force, then they could move their cursor to the opposing player's playfield and apply force there as well. Thus, in a two player game, once one player is sure his/her block is traveling in the desired direction and will land with the desired speed, that player can move his/her cursor to the opposing playfield and try to interfere.
 
