@@ -16,7 +16,7 @@ table {
 
 #### Description <a name="description"></a> 
 
-This is project is an implementation of Tetris. More speciically, it is a full implementation of the official Tetris Guidline (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS). The basic goals of the project are nearly complete; apart from the scoring system, I've implemented nearly everything required for the game to be counted as an implementation of "official" Tetris (though obviously this isn't an official release). I use unit tests (JUnit, contained in `com.tetris.unittests` and integration tests (`accessible in game via keystrokes`) to confirm that the game behaves correctly and "officially."
+This is project is an implementation of Tetris. More speciically, it is a full implementation of the official Tetris Guidline (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS). The basic goals of the project are nearly complete; apart from the scoring system, I've implemented nearly everything required for the game to be counted as an implementation of "official" Tetris (and it should be obvious this isn't an official release. I have no connection to the copyright owners.). I use unit tests (JUnit, contained in `com.tetris.unittests` and integration tests (`accessible in game via keystrokes`) to confirm that the game behaves correctly and "officially."
 
 The GUI is a rough work in progress, but the game is playable. The easiest way to play will be to open the tetris.jar file included in this repository. On Linux and Apple machines you'll need to change the file's permissions in order to make it executable.
 
@@ -90,7 +90,7 @@ Here are the actions, ordered roughly from simplest to most complex, that the pr
 
 #### Plans for the future
 
-In the immediate future, I'll clean up the interface, add more tests, compute score and level, add [DAS](https://tetris.fandom.com/wiki/DAS), fix some incorrect delay durations, decided between [20G, 2.36G and 0G](https://harddrop.com/wiki/20G)
+In the immediate future, I'll clean up the interface, add more tests, compute score and level, add [DAS](https://tetris.fandom.com/wiki/DAS), fix some incorrect delay durations, decided between [20G, 2.36G and 0G](https://harddrop.com/wiki/20G), and fix the lock delay.
 
 I expect to continue working on this into the foreseeable future, but for ease of development I'll likely switch to C# or C++ so that I can use the Unity or Unreal engine.
 

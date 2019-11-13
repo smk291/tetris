@@ -166,7 +166,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.unittests in tetris">
+  <component name="RunManager" selected="Application.Tetris">
     <configuration name="Tetris" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tetris.Tetris" />
       <module name="tetris" />
