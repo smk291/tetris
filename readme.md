@@ -7,11 +7,11 @@ table {
 
 # Java Tetris
 
-#####Contents
+##### Contents
 1. [Description](#description)
 1. [Tetris-related reading material](#tetris)
 1. [Discussion of source code](#code)
-1. [Key Concepts](#Key concepts)
+1. [Key Concepts](#keyconcepts)
 1. [Plans for the future](#plans)
 
 #### Description <a name="description"></a> 
@@ -33,13 +33,15 @@ Movement:||
 Left|left arrow|
 Right|Right arrow|
 Down oner row ("soft drop")| down arrow|
-Up one row |up arrow (*Can be enabled in TetrisGUI.java*)
+Up one row |up arrow*
+
+*Disabled. Can be enabled in HandleInput.java
 
 #### Tetris-related reading material<a name="tetris"></a>
 
 See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to the game and [this article](https://tetris.wiki/Tetris_Guideline) for the official Tetris guidelines.
 
-#### Key concepts:<a name="key concepts"></a>
+#### Key concepts:<a name="keyconcepts"></a>
 
 * The play controls a [**tetromino**](https://tetris.fandom.com/wiki/Tetromino) as it falls.
 * A tetromino is a geometric shape consisting of four colored **squares** connected by their edges.
