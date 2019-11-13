@@ -5,9 +5,9 @@ In Float/Newtonian Tetris, this is no longer true. Actions are now gradual and p
 
 Even worse, actions don't directly move the block. They apply force, adding a momentum that results in directional movement or rotation. The longer the player performs the action, the more momentum the block gains. Like all objects that have momentum, a tetromino in motion will remain in motion unless acted upon by an outside force. In other words, the player can halt an action only by applying force in the opposite direction.
 
-The active block falls automatically, as in regular Tetris. This, too, adds momentum, so that blocks fall faster and faster as they reach the bottom of the playfield. The player will be able to apply upward force, slowing but not halting descent. The higher the level, the higher the minimum descent speed.
+The active block falls automatically, as in regular Tetris. This, too, adds momentum, so that blocks fall faster and faster as they reach the bottom of the playfield. The player can apply upward force, slowing but not halting descent. The higher the level, the higher the minimum descent speed.
 
-Collisions will cause bounce and collisions at high enough speeds will deform tetrominos (changing their shape) and/or move squares already settled at the bottom of the playfield. This makes "smashing" blocks against a wall or the bottom row a viable strategy.
+Collisions cause bounce. At high enough speeds, they deform tetrominos (changing their shape) and/or potentially move squares already settled on the playfield. This makes "smashing" blocks against a wall or the bottom row a viable strategy.
 
 Float Mode offers the possibility of a particularly fun, vicious competitive mode. If players use a cursor to apply force, then they could move their cursor to the opposing player's playfield and apply force there as well. Thus, in a two player game, once one player is sure his/her block is traveling in the desired direction and will land with the desired speed, that player can move his/her cursor to the opposing playfield and try to interfere.
 
