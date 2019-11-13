@@ -1,4 +1,4 @@
-#####Float Tetris (or Newtonian Tetris)
+##### Float Tetris (or Newtonian Tetris)
 In normal Tetris ("integer" Tetris?), executing an action causes the tetromino to perform that action in its entirety and then (if we imagine that action as motion) come to a complete stop. 
 
 In Float/Newtonian Tetris, this is no longer true. Actions are now gradual and partial. When a piece drops, it doesn't drop by a full row and then stop. It will drop by, say, 0.1 of a row. When it rotates, it won't rotate a full 90 degrees and then stop. It will rotate, say, 1 degree.
@@ -9,14 +9,17 @@ Pieces will fall automatically, as they do in regular Tetris. This, too, will ad
 
 Collisions will cause bounce, potentially deforming the tetromino, the blocks already settled at the bottom of the playfield, or both. So "smashing" a piece against a wall or the bottom row becomes a viable strategy.
 
-####Tank Tetris
+#### Tank Tetris
 In Tank Tetris, pieces move like tanks: they can rotate and move forward or backward, but the direction of "forward" and "backward" depends on the direction the piece is facing. This should be challenging for experienced Tetris players, especially when combined with float/newtonian mode.
 
-####Asteroids/Geometry Wars Mode
+#### Asteroids/Geometry Wars Mode
 Evade enemies/obstacles. If one collides with the pieces the that player is controlling, it (and the player) suffer damage. I think this would pair well with a competitive mode that allows players to add or transfer enemies and obstacles to the opponents' playfield.
 
-####Capablanca Mode
+#### Capablanca Mode
 Settled pieces are invisible, so the board always appears to be empty. Good luck memorizing the playfield!
 
-####Drunken-Master Mode
+#### Drunken-Master Mode
 Double vision, wavy vision, a slowly spinning playfield, and controls that are less accurate and sometimes inverted. May cause dizziness or motion sickness. Safe with most medications.
+
+#### Archery Mode
+Turn the playfield 90 or so degrees. Notch your piece in what used to be the line that draws the top border. Draw it back like a bow string. 

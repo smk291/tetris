@@ -51,13 +51,13 @@ public class HoldPiece extends JPanel {
   private void drawQueue(Graphics2D gbi) {
     Dimension d = getSize();
     int w = d.width / 2 * 3;
-    BufferedImage buffImg = new BufferedImage(w / 12 * 4, w / 12 * 14, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage buffImg = new BufferedImage(w / 3, w / 6 * 7, BufferedImage.TYPE_INT_ARGB);
     Tetromino t = runTetris.getHoldPiece();
 
     if (t != null) {
       remove(labelHoldPiece);
       ActiveBlock tp = new ActiveBlock(t);
-      tp.setCenter(2, (4 - 0) * 4);
+      tp.setCenter(2, 16);
       DrawSquare.drawSquares(gbi, tp.getSquares(), this);
       gbi.drawImage(buffImg, null, height * 4, 0);
     } else {

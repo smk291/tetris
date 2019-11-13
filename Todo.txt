@@ -1,1 +1,0 @@
-When user settles piece, timer doesn't stop, resulting in a piece settling at the top of the board.
