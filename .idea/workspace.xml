@@ -7,75 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/RunTetris.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/Tetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/Tetris.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/actions/BoundsTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/actions/BoundsTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/actions/ClearRows.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/actions/ClearRows.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/actions/PlacementTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/actions/PlacementTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/actions/Rotator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/actions/Rotator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/actions/SinkingBlockFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/actions/SinkingBlockFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/actions/Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/actions/Translater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/actions/WallKicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/actions/WallKicker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/constants/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/constants/RelativeCoords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/constants/RelativeCoords.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gamemechanics/ChangePlayfield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/mechanics/ChangePlayfield.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gamemechanics/LockDelay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/mechanics/LockDelay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gamemechanics/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/mechanics/Movement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/DrawSquare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/helpers/DrawSquare.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/GameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/displaydata/GameData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/GameDataRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/displaydata/GameDataRow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/MainTetrisGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/MainJFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/PanelMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/MainJPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/TetrisGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/GUIMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/holdpiece/HoldPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/holdpiece/HoldPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/input/HandleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/input/HandleInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/piecequeue/Queue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/piecequeue/Queue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/playfield/PlayField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/playfield/PlayField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/logging/PrintToConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/logging/PrintToConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/recordkeeping/GameRecordKeeping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/recordkeeping/GameRecordKeeping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/recordkeeping/TSpinTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/recordkeeping/TSpinTracker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/ActiveBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/ActiveBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/Center.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/Center.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/KickSequences.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/KickSequences.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/Row.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/Row.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/RowList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/RowList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/Square.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/Tetromino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/Tetromino.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/TetrominoQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/TetrominoQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/IBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/IBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/IPieceOffsets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/IPieceOffsets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/JBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/JBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/LBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/LBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/OBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/OBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/SBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/SBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/TBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/TBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/TetrominoEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/TetrominoEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/tetrominoes/ZBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/things/tetrominoes/ZBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/UnitTestHelperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/UnitTestHelperTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/integration/IntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/integration/IntegrationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/RunTetrisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/RunTetrisTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/UnitTestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/UnitTestHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/actions/BoundsTesterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/actions/BoundsTesterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/actions/ClearRowsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/actions/ClearRowsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/actions/PlacementTesterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/actions/PlacementTesterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/actions/RotatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/actions/RotatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/actions/SinkingBlockFinderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/actions/SinkingBlockFinderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/actions/TranslaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/actions/TranslaterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/actions/WallKickerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/actions/WallKickerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/helpers/ConstantsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/helpers/ConstantsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/recordkeeping/GameRecordKeepingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/recordkeeping/GameRecordKeepingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/recordkeeping/TSpinTrackerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/recordkeeping/TSpinTrackerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/ActiveBlockTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/ActiveBlockTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/CenterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/CenterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/RowListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/RowListTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/RowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/RowTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/SquareTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/SquareTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/TetrominoQueueTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/TetrominoQueueTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/tetrominoes/TTestData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/tetrominoes/TTestData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/tetrominoes/TetrominoEnumTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/tetrominoes/TetrominoEnumTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/unit/things/tetrominoes/TetrominoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/things/tetrominoes/TetrominoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/game/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/RunTetris.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

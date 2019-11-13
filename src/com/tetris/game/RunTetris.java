@@ -18,11 +18,11 @@ import java.util.ArrayList;
  * `RunTetris` is an instance of the game. It stores all the state that the game needs
  * and contains methods that call the methods that amount to the game's mechanics. It
  * wasn't necessary to put all of these methods-calling-methods in RunTetris.
- * They're there to signal that they're the methods that handle the essential functions
- * and interactions that amount to the complete game and all of its rules.
+ * They're there to encapsulate the highest-level logic that the game uses. These are the
+ * methods that amount to the complete game and all of its rules.
  *
  * Adding multiplayer will require a lot of changes, but solely adding another instance
- * of the game ought to be not harder than instantiating this class.
+ * of the game ought to be no harder than instantiating this class a second time.
  */
 public class RunTetris {
   private ActiveBlock currentBlock = new ActiveBlock();
