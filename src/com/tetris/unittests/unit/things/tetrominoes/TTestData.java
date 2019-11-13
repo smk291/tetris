@@ -1,9 +1,9 @@
-package com.tetris.unittests.things.tetrominoes;
+package com.tetris.unittests.unit.things.tetrominoes;
 
 import com.tetris.things.RowList;
 import com.tetris.things.Tetromino;
 import com.tetris.things.tetrominoes.*;
-import com.tetris.unittests.UnitTestHelper;
+import com.tetris.unittests.unit.UnitTestHelper;
 
 import java.awt.*;
 import java.util.HashMap;

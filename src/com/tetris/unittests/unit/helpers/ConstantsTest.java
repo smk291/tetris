@@ -1,4 +1,4 @@
-package com.tetris.unittests.helpers;
+package com.tetris.unittests.unit.helpers;
 
 import com.tetris.constants.Constants;
 import org.junit.jupiter.api.Test;

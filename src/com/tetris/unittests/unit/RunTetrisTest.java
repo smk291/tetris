@@ -1,9 +1,10 @@
-package com.tetris.unittests;
+package com.tetris.unittests.unit;
 
 import com.tetris.RunTetris;
 import com.tetris.constants.Constants;
 import com.tetris.things.*;
 import com.tetris.things.Tetromino;
+import com.tetris.unittests.unit.UnitTestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  *  The `sinkingPieceAnchors` are explained in the notes on `SinkingPieceFinder`
  */
-public abstract class RowDeleter {
+public abstract class ClearRows {
   public static ArrayList<Integer> apply(
       RowList squaresAdded, ActiveBlock block, RowList playField, GameRecordKeeping score) {
     playField.sortByY();
@@ -41,7 +41,7 @@ public abstract class RowDeleter {
     for (int i = lowestFullRow, total = 0;
         playField.size() > 0 && i < playField.size() && i <= highestFullRow;
         i++) {
-      int contigDeleted = playField.rowIsFull(i) ? playField.deleteContiguousAndShift(i, total) : 0;
+      int contigDeleted = playField.rowIsFull(i) ? playField.clearFullRowsAndShiftNonFull(i, total) : 0;
 
       if (contigDeleted != 0 && i != 0) {
         sinkingPieceAnchors.add(i);

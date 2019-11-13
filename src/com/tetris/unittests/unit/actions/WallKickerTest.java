@@ -1,4 +1,4 @@
-package com.tetris.unittests.actions;
+package com.tetris.unittests.unit.actions;
 
 import com.tetris.actions.Rotator;
 import com.tetris.constants.Constants;
@@ -7,7 +7,7 @@ import com.tetris.things.tetrominoes.IBlock;
 import com.tetris.things.tetrominoes.OBlock;
 import com.tetris.things.Tetromino;
 import com.tetris.things.tetrominoes.TetrominoEnum;
-import com.tetris.unittests.UnitTestHelper;
+import com.tetris.unittests.unit.UnitTestHelper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.tetris.unittests;
+package com.tetris.unittests.unit;
 
 import com.tetris.constants.Constants;
 import com.tetris.things.Square;

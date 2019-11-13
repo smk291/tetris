@@ -1,4 +1,4 @@
-package com.tetris.unittests.actions;
+package com.tetris.unittests.unit.actions;
 
 import com.tetris.actions.PlacementTester;
 import com.tetris.things.Square;
@@ -6,7 +6,7 @@ import com.tetris.things.Row;
 import com.tetris.things.RowList;
 import com.tetris.things.ActiveBlock;
 import com.tetris.things.tetrominoes.OBlock;
-import com.tetris.unittests.UnitTestHelper;
+import com.tetris.unittests.unit.UnitTestHelper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import static com.tetris.constants.Constants.*;
-import static com.tetris.unittests.UnitTestHelper.*;
+import static com.tetris.unittests.unit.UnitTestHelper.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlacementTesterTest {

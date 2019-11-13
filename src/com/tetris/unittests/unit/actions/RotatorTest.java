@@ -1,11 +1,11 @@
-package com.tetris.unittests.actions;
+package com.tetris.unittests.unit.actions;
 
 import com.tetris.actions.Rotator;
 import com.tetris.things.Row;
 import com.tetris.things.RowList;
 import com.tetris.things.ActiveBlock;
 import com.tetris.things.tetrominoes.IBlock;
-import com.tetris.unittests.UnitTestHelper;
+import com.tetris.unittests.unit.UnitTestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

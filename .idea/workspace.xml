@@ -8,9 +8,14 @@
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/actions/RowDeleter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/actions/ClearRows.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/gamemechanics/ChangePlayfield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gamemechanics/ChangePlayfield.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/TetrisGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/TetrisGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/input/HandleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/input/HandleInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/testing/InputTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/testing/IntegrationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/testing/IntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/integrationtests/IntegrationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/things/RowList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/things/RowList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/actions/RowDeleterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/unittests/actions/ClearRowsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/unittests/things/RowListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/unittests/things/RowListTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -116,12 +121,12 @@
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetris.unittests.*" />
+          <option name="PATTERN" value="com.tetris.unittests.unit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetris.unittests" />
-      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.RunTetrisTest" />
+      <option name="PACKAGE_NAME" value="com.tetris.unittests.unit" />
+      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.unit.RunTetrisTest" />
       <option name="METHOD_NAME" value="addPieceToBoard" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
@@ -133,12 +138,12 @@
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetris.unittests.*" />
+          <option name="PATTERN" value="com.tetris.unittests.unit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetris.unittests" />
-      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.RunTetrisTest" />
+      <option name="PACKAGE_NAME" value="com.tetris.unittests.unit" />
+      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.unit.RunTetrisTest" />
       <option name="METHOD_NAME" value="dropCurrentPiece" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
@@ -150,12 +155,12 @@
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetris.unittests.*" />
+          <option name="PATTERN" value="com.tetris.unittests.unit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetris.unittests" />
-      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.RunTetrisTest" />
+      <option name="PACKAGE_NAME" value="com.tetris.unittests.unit" />
+      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.unit.RunTetrisTest" />
       <option name="METHOD_NAME" value="getHoldPiece" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
@@ -167,12 +172,12 @@
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetris.unittests.*" />
+          <option name="PATTERN" value="com.tetris.unittests.unit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetris.unittests" />
-      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.RunTetrisTest" />
+      <option name="PACKAGE_NAME" value="com.tetris.unittests.unit" />
+      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.unit.RunTetrisTest" />
       <option name="METHOD_NAME" value="setHoldPiece" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />
@@ -184,12 +189,12 @@
       <module name="tetris" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tetris.unittests.*" />
+          <option name="PATTERN" value="com.tetris.unittests.unit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tetris.unittests" />
-      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.RunTetrisTest" />
+      <option name="PACKAGE_NAME" value="com.tetris.unittests.unit" />
+      <option name="MAIN_CLASS_NAME" value="com.tetris.unittests.unit.RunTetrisTest" />
       <option name="METHOD_NAME" value="translatePiece" />
       <option name="TEST_OBJECT" value="method" />
       <option name="PARAMETERS" value="" />

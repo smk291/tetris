@@ -1,4 +1,4 @@
-package com.tetris.testing;
+package com.tetris.unittests.integration;
 
 import com.tetris.constants.Constants;
 import com.tetris.things.Square;
@@ -7,7 +7,7 @@ import com.tetris.things.RowList;
 import com.tetris.things.ActiveBlock;
 import com.tetris.things.tetrominoes.IBlock;
 import com.tetris.things.tetrominoes.TetrominoEnum;
-import com.tetris.unittests.actions.WallKickerTest;
+import com.tetris.unittests.unit.actions.WallKickerTest;
 
 import java.awt.*;
 

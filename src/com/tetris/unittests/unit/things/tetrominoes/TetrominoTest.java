@@ -1,4 +1,4 @@
-package com.tetris.unittests.things.tetrominoes;
+package com.tetris.unittests.unit.things.tetrominoes;
 
 import com.tetris.things.*;
 import com.tetris.things.Square;

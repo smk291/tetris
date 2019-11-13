@@ -1,19 +1,19 @@
-package com.tetris.unittests.actions;
+package com.tetris.unittests.unit.actions;
 
-import com.tetris.actions.RowDeleter;
+import com.tetris.actions.ClearRows;
 import com.tetris.recordkeeping.GameRecordKeeping;
 import com.tetris.things.Center;
 import com.tetris.things.RowList;
 import com.tetris.things.ActiveBlock;
 import com.tetris.things.tetrominoes.OBlock;
-import com.tetris.unittests.UnitTestHelper;
+import com.tetris.unittests.unit.UnitTestHelper;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RowDeleterTest {
+class ClearRowsTest {
   private RowList rl = new RowList();
   private RowList inserted = new RowList();
   private ActiveBlock t = new ActiveBlock(new OBlock());
@@ -53,7 +53,7 @@ class RowDeleterTest {
     fillPlayField();
     fillInserted();
 
-    ArrayList<Integer> r = RowDeleter.apply(t.getSquares(), t, rl, g);
+    ArrayList<Integer> r = ClearRows.apply(t.getSquares(), t, rl, g);
 
     assertTrue(r.contains(5));
     assertEquals(1, r.size());

@@ -1,4 +1,4 @@
-package com.tetris.unittests.actions;
+package com.tetris.unittests.unit.actions;
 
 import com.tetris.actions.Translater;
 import com.tetris.constants.Constants;

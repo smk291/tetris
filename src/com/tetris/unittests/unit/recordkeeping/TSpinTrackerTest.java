@@ -1,4 +1,4 @@
-package com.tetris.unittests.recordkeeping;
+package com.tetris.unittests.unit.recordkeeping;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

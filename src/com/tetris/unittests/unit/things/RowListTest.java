@@ -1,10 +1,10 @@
-package com.tetris.unittests.things;
+package com.tetris.unittests.unit.things;
 
 import com.tetris.constants.Constants;
 import com.tetris.things.Square;
 import com.tetris.things.Row;
 import com.tetris.things.RowList;
-import com.tetris.unittests.UnitTestHelper;
+import com.tetris.unittests.unit.UnitTestHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -363,7 +363,7 @@ class RowListTest {
     // The RowList has the right number of rows
     assertEquals(fullRows.length + nonFullRows.length, rl.get().size());
 
-    int contigDeleted = rl.deleteContiguousAndShift(fullRows[0], 0);
+    int contigDeleted = rl.clearFullRowsAndShiftNonFull(fullRows[0], 0);
     int expectedContigDeleted = 0;
 
     do {

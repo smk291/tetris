@@ -113,7 +113,7 @@ public class RowList implements Cloneable {
    * @return returns number of contiguous deleted rows
    *
    */
-  public int deleteContiguousAndShift(int idx, int offset) {
+  public int clearFullRowsAndShiftNonFull(int idx, int offset) {
     int contigDeleted = 0;
 
     for (int i = idx; i < rows.size(); ) {

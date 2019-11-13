@@ -5,7 +5,7 @@ import com.tetris.actions.Translater;
 import com.tetris.gui.constants.GUIConstants;
 import com.tetris.gui.input.CommandKeyCodes;
 import com.tetris.constants.Constants;
-import com.tetris.testing.IntegrationTests;
+import com.tetris.unittests.integration.IntegrationTests;
 
 import javax.swing.*;
 import java.awt.*;

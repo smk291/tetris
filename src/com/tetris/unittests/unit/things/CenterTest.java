@@ -1,4 +1,4 @@
-package com.tetris.unittests.things;
+package com.tetris.unittests.unit.things;
 
 import com.tetris.things.Center;
 import org.junit.jupiter.api.Test;

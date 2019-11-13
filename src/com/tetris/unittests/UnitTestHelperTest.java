@@ -4,6 +4,7 @@ import com.tetris.constants.Constants;
 import com.tetris.things.Square;
 import com.tetris.things.Row;
 import com.tetris.things.RowList;
+import com.tetris.unittests.unit.UnitTestHelper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
