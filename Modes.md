@@ -3,7 +3,7 @@ In normal Tetris ("integer" Tetris?), executing an action causes the tetromino t
 
 In Float/Newtonian Tetris, this is no longer true. Actions are now gradual and partial. When a block drops, it doesn't drop by a full row and then stop. It will drop by, say, 0.1 of a row. When it rotates, it won't rotate a full 90 degrees and then stop. It will rotate, say, 1 degree.
 
-To make things worse, actions don't directly move the block. They apply force to the block, adding momentum. That momentum results in directional movement or rotation. The longer the player performs the action, the more momentum the block gains. Because a tetromino in motion will remain in motion unless acted upon by an outside force, the player can halt an action only by applying force in the opposite direction.
+To make things worse, actions don't directly move the block. They apply force, adding momentum. That momentum results in directional movement or rotation. The longer the player performs the action, the more momentum the block gains. Because a tetromino in motion will remain in motion unless acted upon by an outside force, the player can halt an action only by applying force in the opposite direction.
 
 The active block falls automatically, as in regular Tetris. This, too, adds momentum, so that blocks fall faster and faster as they reach the bottom of the playfield. The player will be able to apply upward force, slowing but not halting its descent. The higher the level, the higher the minimum speed of descent.
 
