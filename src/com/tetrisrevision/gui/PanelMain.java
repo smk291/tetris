@@ -2,7 +2,7 @@ package com.tetrisrevision.gui;
 
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.gui.holdpiece.HoldPiece;
-import com.tetrisrevision.gui.piecequeue.Queue;
+import com.tetrisrevision.gui.blockqueue.Queue;
 import com.tetrisrevision.gui.playfield.PlayField;
 
 import javax.swing.*;

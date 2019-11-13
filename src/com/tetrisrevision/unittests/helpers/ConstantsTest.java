@@ -1,6 +1,6 @@
 package com.tetrisrevision.unittests.helpers;
 
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

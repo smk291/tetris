@@ -1,21 +1,32 @@
 package com.tetrisrevision.things;
 
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.recordkeeping.TSpinTracker;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class TetrisPiece {
+/**
+ * `TetrisPiece` is the actively falling tetromino, the tetromino (or block) that the user manipulates. It spawns on
+ * 20th row from the bottom. Rather than store the position of all four squares, and move all four squares each time
+ * the user rotates or moves the block, `TetrisPiece` stores a single set of coordinates. When the block moves or
+ * rotates, the program gets absolute coordiantes by getting the appropriate offsets (relative coordinates) from the
+ * tetromino and converting them to a `RowList`.
+ *
+ * Apart from that one method (`getSquares`), this is basically a data class that stores everything the program needs in
+ * order to do everything the program does to and with tetrominos.
+ *
+ * NOTE: Maybe this should extend the Tetromino class.
+ */
+public class ActiveBlock {
   private int rotation;
   private int prevRotation;
   private Center center;
   private Tetromino tetromino;
   private TSpinTracker tSpinTracker;
-  public TetrisPiece() {}
+  public ActiveBlock() {}
 
-  public TetrisPiece(Tetromino t) {
+  public ActiveBlock(Tetromino t) {
     reset();
     tetromino = t;
   }
@@ -59,7 +70,7 @@ public class TetrisPiece {
     return prevRotation;
   }
 
-  public RowList getBlocks() {
+  public RowList getSquares() {
     RowList rows = new RowList();
 
     Arrays.stream(tetromino.getOffsets()[rotation])
@@ -68,9 +79,9 @@ public class TetrisPiece {
               int x = center.getX() + p[0];
               int y = center.getY() + p[1];
 
-              Block b = new Block(x, tetromino.getColor());
+              Square b = new Square(x, tetromino.getColor());
 
-              rows.addBlock(y, b);
+              rows.addSquare(y, b);
             });
 
     return rows;

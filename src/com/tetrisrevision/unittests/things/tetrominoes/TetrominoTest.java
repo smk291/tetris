@@ -1,11 +1,8 @@
 package com.tetrisrevision.unittests.things.tetrominoes;
 
-import com.tetrisrevision.things.Block;
-import com.tetrisrevision.things.Row;
-import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.things.tetrominoes.TPiece;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
+import com.tetrisrevision.things.*;
+import com.tetrisrevision.things.Square;
+import com.tetrisrevision.things.tetrominoes.TBlock;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.function.Executable;
@@ -20,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TetrominoTester {
   private final Tetromino tetromino;
-  private final TetrisPiece t = new TetrisPiece();
+  private final ActiveBlock t = new ActiveBlock();
   private final RowList[] expectedShapes;
   private final HashMap<Integer, HashMap<Integer, int[][]>> expectedKickData;
   private final Color expectedColor;
@@ -43,13 +40,13 @@ class TetrominoTester {
       t.setTetromino(tetromino);
 
       for (RowList expected : expectedShapes) {
-        RowList actual = t.getBlocks();
+        RowList actual = t.getSquares();
 
         for (Row actualRow : actual.get()) {
           Optional<Row> expectedRow = expected.getRowByY(actualRow.getY());
           assertTrue(expectedRow.isPresent());
 
-          for (Block b : actualRow.get())
+          for (Square b : actualRow.get())
             assertTrue(expected.cellIsNotEmpty(b.getX(), actualRow.getY()));
         }
 
@@ -104,7 +101,7 @@ class TetrominoTester {
 
   Executable isTPiece() {
     return () -> {
-      if (tetromino instanceof TPiece) {
+      if (tetromino instanceof TBlock) {
         assertTrue(tetromino.isTPiece());
       } else {
         assertFalse(tetromino.isTPiece());

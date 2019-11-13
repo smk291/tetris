@@ -1,6 +1,7 @@
 package com.tetrisrevision.unittests.things.tetrominoes;
 
 import com.tetrisrevision.things.RowList;
+import com.tetrisrevision.things.Tetromino;
 import com.tetrisrevision.things.tetrominoes.*;
 import com.tetrisrevision.unittests.UnitTestHelper;
 
@@ -10,28 +11,28 @@ import java.util.HashMap;
 class TTestData {
   static final int[] center = {3, 4};
   static final Tetromino[] tetrominoes = {
-    new IPiece(), new JPiece(), new LPiece(), new OPiece(), new SPiece(), new TPiece(), new ZPiece()
+    new IBlock(), new JBlock(), new LBlock(), new OBlock(), new SBlock(), new TBlock(), new ZBlock()
   };
   static final RowList[][] expectedShapes = ExpectedShapes.shapesByPiece;
   static final Color[] colors = {
-    new IPiece().getColor(),
-    new JPiece().getColor(),
-    new LPiece().getColor(),
-    new OPiece().getColor(),
-    new SPiece().getColor(),
-    new TPiece().getColor(),
-    new ZPiece().getColor()
+    new IBlock().getColor(),
+    new JBlock().getColor(),
+    new LBlock().getColor(),
+    new OBlock().getColor(),
+    new SBlock().getColor(),
+    new TBlock().getColor(),
+    new ZBlock().getColor()
   };
 
   static HashMap<Integer, HashMap<Integer, int[][]>> getKick(int i) {
-    if (tetrominoes[i] instanceof IPiece) return ExpectedKickValues.ipiece;
-    else return ExpectedKickValues.nonipiece;
+    if (tetrominoes[i] instanceof IBlock) return ExpectedKickValues.iblock;
+    else return ExpectedKickValues.noniblock;
   }
 }
 
 // https://tetris.wiki/Super_Rotation_System
 abstract class ExpectedKickValues {
-  static final HashMap<Integer, HashMap<Integer, int[][]>> nonipiece =
+  static final HashMap<Integer, HashMap<Integer, int[][]>> noniblock =
       new HashMap<>() {
         {
           put(
@@ -69,7 +70,7 @@ abstract class ExpectedKickValues {
         }
       };
 
-  static final HashMap<Integer, HashMap<Integer, int[][]>> ipiece =
+  static final HashMap<Integer, HashMap<Integer, int[][]>> iblock =
       new HashMap<>() {
         {
           put(
@@ -109,7 +110,7 @@ abstract class ExpectedKickValues {
 }
 
 class ExpectedShapes {
-  private static final RowList[] ipiece =
+  private static final RowList[] iblock =
       UnitTestHelper.getRowListArrays(
           new int[][][] {
             {{2, 4}, {3, 4}, {4, 4}, {5, 4}},
@@ -118,7 +119,7 @@ class ExpectedShapes {
             {{3, 5}, {3, 4}, {3, 3}, {3, 2}}
           });
 
-  private static final RowList[] jpiece =
+  private static final RowList[] jblock =
       UnitTestHelper.getRowListArrays(
           new int[][][] {
             {{2, 5}, {2, 4}, {3, 4}, {4, 4}},
@@ -127,7 +128,7 @@ class ExpectedShapes {
             {{3, 3}, {3, 4}, {2, 3}, {3, 5}}
           });
 
-  private static final RowList[] lpiece =
+  private static final RowList[] lblock =
       UnitTestHelper.getRowListArrays(
           new int[][][] {
             {{4, 5}, {2, 4}, {3, 4}, {4, 4}},
@@ -136,10 +137,10 @@ class ExpectedShapes {
             {{2, 5}, {3, 5}, {3, 4}, {3, 3}}
           });
 
-  private static final RowList[] opiece =
+  private static final RowList[] oblock =
       UnitTestHelper.getRowListArrays(new int[][][] {{{3, 5}, {4, 5}, {3, 4}, {4, 4}}});
 
-  private static final RowList[] spiece =
+  private static final RowList[] sblock =
       UnitTestHelper.getRowListArrays(
           new int[][][] {
             {{3, 5}, {4, 5}, {2, 4}, {3, 4}},
@@ -148,7 +149,7 @@ class ExpectedShapes {
             {{2, 5}, {2, 4}, {3, 4}, {3, 3}}
           });
 
-  private static final RowList[] tpiece =
+  private static final RowList[] tblock =
       UnitTestHelper.getRowListArrays(
           new int[][][] {
             {{3, 5}, {2, 4}, {3, 4}, {4, 4}},
@@ -157,7 +158,7 @@ class ExpectedShapes {
             {{3, 5}, {2, 4}, {3, 4}, {3, 3}}
           });
 
-  private static final RowList[] zpiece =
+  private static final RowList[] zblock =
       UnitTestHelper.getRowListArrays(
           new int[][][] {
             {{2, 5}, {3, 5}, {3, 4}, {4, 4}},
@@ -166,5 +167,5 @@ class ExpectedShapes {
             {{3, 5}, {2, 4}, {3, 4}, {2, 3}}
           });
 
-  static RowList[][] shapesByPiece = {ipiece, jpiece, lpiece, opiece, spiece, tpiece, zpiece};
+  static RowList[][] shapesByPiece = {iblock, jblock, lblock, oblock, sblock, tblock, zblock};
 }

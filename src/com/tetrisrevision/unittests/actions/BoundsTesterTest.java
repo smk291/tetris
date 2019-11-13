@@ -10,7 +10,7 @@ class BoundsTesterTest {
   }
 
   private Boolean yInBNUL(int y) {
-    return BoundsTester.yInBoundsNoUpperLimit(y);
+    return BoundsTester.yInLowerBound(y);
   }
 
   private Boolean yInB(int y) {

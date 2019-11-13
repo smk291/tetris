@@ -1,10 +1,11 @@
 package com.tetrisrevision.things.tetrominoes;
 
-import com.tetrisrevision.helpers.RelativeCoords;
+import com.tetrisrevision.constants.RelativeCoords;
+import com.tetrisrevision.things.Tetromino;
 
 import java.awt.*;
 
-public class TPiece extends Tetromino {
+public class TBlock extends Tetromino {
   private static final int[][][] offsets = {
     {RelativeCoords.u1, RelativeCoords.l1, RelativeCoords.center, RelativeCoords.r1}, // 0 up
     {RelativeCoords.u1, RelativeCoords.center, RelativeCoords.r1, RelativeCoords.d1}, // 1 right
@@ -12,7 +13,7 @@ public class TPiece extends Tetromino {
     {RelativeCoords.u1, RelativeCoords.l1, RelativeCoords.center, RelativeCoords.d1} // 3 left
   };
 
-  public TPiece() {
+  public TBlock() {
     super.setOffsets(offsets);
     super.setColor(Color.magenta);
     super.setTPiece(true);

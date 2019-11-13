@@ -1,62 +1,70 @@
 package com.tetrisrevision.actions;
 
-import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.Block;
+import com.tetrisrevision.constants.Constants;
+import com.tetrisrevision.things.Square;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.ActiveBlock;
 
+/**
+ * `Translater` works much like `Rotator` (see notes in `Rotator.java` and the readme): it applies the desired action,
+ * and then undoes it if the resulting position is invalid.
+ *
+ *
+ */
 public abstract class Translater {
-  public static boolean translate(RowList blocks, RowList field, int y) {
-    blocks.forEach(r -> r.setY(r.getY() + y));
+  public static boolean translate(RowList squares, RowList field, int y) {
+    squares.forEach(r -> r.setY(r.getY() + y));
 
     boolean validPosition = true;
 
-    for (Row r : blocks.get()) {
-      for (Block b : r.get()) {
+    // NOTE: needless. simplify.
+    // Overload `cellsCannotBeOccupied`, adding code below, so that it takes a `RowList` as a parameter
+    for (Row r : squares.get()) {
+      for (Square b : r.get()) {
         if (PlacementTester.cellCannotBeOccupied(r.getY(), b.getX(), field)) {
           validPosition = false;
         }
       }
     }
 
-    if (!validPosition) blocks.forEach(r -> r.setY(r.getY() - y));
+    if (!validPosition) squares.forEach(r -> r.setY(r.getY() - y));
 
     return validPosition;
   }
 
-  public static boolean translate(TetrisPiece piece, RowList field, int x, int y, boolean test) {
-    piece.getCenter().translate(x, y);
+  public static boolean translate(ActiveBlock block, RowList field, int x, int y, boolean test) {
+    block.getCenter().translate(x, y);
 
-    boolean validPosition = PlacementTester.cellsCanBeOccupied(piece, field);
+    boolean validPosition = PlacementTester.cellsCanBeOccupied(block, field);
 
     if (validPosition) {
       if (test) {
-        piece.getCenter().translate(-x, -y);
+        block.getCenter().translate(-x, -y);
       }
 
-      if (piece.getTetromino().isTPiece()) {
-        piece.gettSpinTracker().reset();
+      if (block.getTetromino().isTPiece()) {
+        block.gettSpinTracker().reset();
       }
 
       return true;
     }
 
-    piece.getCenter().translate(-x, -y);
+    block.getCenter().translate(-x, -y);
 
     return false;
   }
 
-  public static int hardDrop(TetrisPiece piece, RowList field) {
+  public static int hardDrop(ActiveBlock block, RowList field) {
     int cells = 0;
 
     do {
       cells++;
 
-    } while (translate(piece, field, 0, Constants.down, false));
+    } while (translate(block, field, 0, Constants.down, false));
 
-    if (cells > 0 && piece.getTetromino().isTPiece()) {
-      piece.gettSpinTracker().reset();
+    if (cells > 0 && block.getTetromino().isTPiece()) {
+      block.gettSpinTracker().reset();
     }
 
     return cells;

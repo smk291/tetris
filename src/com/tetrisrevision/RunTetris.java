@@ -3,12 +3,12 @@ package com.tetrisrevision;
 import com.tetrisrevision.gamemechanics.ChangePlayfield;
 import com.tetrisrevision.gamemechanics.LockDelay;
 import com.tetrisrevision.gamemechanics.Movement;
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.recordkeeping.GameRecordKeeping;
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.ActiveBlock;
 import com.tetrisrevision.things.TetrominoQueue;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
+import com.tetrisrevision.things.Tetromino;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -25,8 +25,8 @@ import java.util.ArrayList;
  * of the game ought to be not harder than instantiating this class.
  */
 public class RunTetris {
-  private TetrisPiece currentPiece = new TetrisPiece();
-  private TetrominoQueue tetrominoQueue = new TetrominoQueue(currentPiece);
+  private ActiveBlock currentBlock = new ActiveBlock();
+  private TetrominoQueue tetrominoQueue = new TetrominoQueue(currentBlock);
   private Tetromino holdPiece;
   private RowList playfield = new RowList();
   private ArrayList<RowList> sinkingPieces = new ArrayList<>();
@@ -34,12 +34,12 @@ public class RunTetris {
   private GameRecordKeeping recordKeeping = new GameRecordKeeping();
 
   public RunTetris() {
-    tetrominoQueue.resetCurrentPiece(currentPiece);
+    tetrominoQueue.resetCurrentPiece(currentBlock);
     lockDelay = new LockDelay(this);
   }
 
-  public TetrisPiece getCurrentPiece() {
-    return currentPiece;
+  public ActiveBlock getCurrentPiece() {
+    return currentBlock;
   }
 
   public RowList getPlayfield() {
@@ -70,8 +70,8 @@ public class RunTetris {
     ChangePlayfield.addSinkingPieceToBoard(this, sinkingPiece);
   }
 
-  public void addPieceToPlayfield(TetrisPiece piece) {
-    ChangePlayfield.addPieceToPlayfield(this, piece);
+  public void addPieceToPlayfield(ActiveBlock block) {
+    ChangePlayfield.addPieceToPlayfield(this, block);
   }
 
   public void dropCurrentPiece(JFrame frame) {
@@ -96,12 +96,12 @@ public class RunTetris {
 
   public void setHoldPiece() {
     if (holdPiece == null) {
-      holdPiece = currentPiece.getTetromino();
-      tetrominoQueue.resetCurrentPiece(currentPiece);
+      holdPiece = currentBlock.getTetromino();
+      tetrominoQueue.resetCurrentPiece(currentBlock);
     } else {
       Tetromino tmp = holdPiece;
-      holdPiece = currentPiece.getTetromino();
-      currentPiece.reset(tmp);
+      holdPiece = currentBlock.getTetromino();
+      currentBlock.reset(tmp);
     }
   }
 }

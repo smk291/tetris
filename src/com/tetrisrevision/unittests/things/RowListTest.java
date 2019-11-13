@@ -1,7 +1,7 @@
 package com.tetrisrevision.unittests.things;
 
-import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.Block;
+import com.tetrisrevision.constants.Constants;
+import com.tetrisrevision.things.Square;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.unittests.UnitTestHelper;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +27,7 @@ class RowListTest {
   void tearDown() {}
 
   void insert(RowList r, int y, int x, Color c) {
-    r.addBlock(y, new Block(x, c));
+    r.addSquare(y, new Square(x, c));
   }
 
   @Test
@@ -57,8 +56,8 @@ class RowListTest {
     assertNotSame(rCloned, rl);
     assertEquals(rCloned.get().size(), r.get().size());
 
-    Block b = r.get().get(0);
-    Block bCloned = rCloned.get().get(0);
+    Square b = r.get().get(0);
+    Square bCloned = rCloned.get().get(0);
 
     assertNotEquals(bCloned, b);
     assertEquals(bCloned.getX(), b.getX());
@@ -96,60 +95,60 @@ class RowListTest {
       assertSame(newRL.get().get(i), rl.get().get(i));
     }
 
-    int[] newBlock = {2, 2};
-    Color newBlockColor = Color.green;
-    newRL.addBlock(newBlock[0], new Block(newBlock[1], newBlockColor));
+    int[] newSquare = {2, 2};
+    Color newSquareColor = Color.green;
+    newRL.addSquare(newSquare[0], new Square(newSquare[1], newSquareColor));
 
     rl.addRowList(newRL);
 
-    Optional<Row> newRLRow = newRL.getRowByY(newBlock[1]);
-    Optional<Row> rlRow = rl.getRowByY(newBlock[1]);
+    Optional<Row> newRLRow = newRL.getRowByY(newSquare[1]);
+    Optional<Row> rlRow = rl.getRowByY(newSquare[1]);
 
     assertTrue(newRLRow.isPresent());
     assertTrue(rlRow.isPresent());
 
-    Optional<Block> newRLBlock = newRLRow.get().get(newBlock[0]);
-    Optional<Block> rlBlock = rlRow.get().get(newBlock[0]);
+    Optional<Square> newRLSquare = newRLRow.get().get(newSquare[0]);
+    Optional<Square> rlSquare = rlRow.get().get(newSquare[0]);
 
-    assertTrue(newRLBlock.isPresent());
-    assertTrue(rlBlock.isPresent());
-    assertSame(newRLBlock.get(), rlBlock.get());
-    assertEquals(newRLBlock.get().getX(), rlBlock.get().getX());
-    assertEquals(newRLBlock.get().getColor(), rlBlock.get().getColor());
+    assertTrue(newRLSquare.isPresent());
+    assertTrue(rlSquare.isPresent());
+    assertSame(newRLSquare.get(), rlSquare.get());
+    assertEquals(newRLSquare.get().getX(), rlSquare.get().getX());
+    assertEquals(newRLSquare.get().getColor(), rlSquare.get().getColor());
   }
 
   @Test
-  void addBlock() {
-    int[] block = {1, 1};
+  void addSquare() {
+    int[] square = {1, 1};
     Color c = Color.green;
-    rl.addBlock(block[1], new Block(block[0], c));
+    rl.addSquare(square[1], new Square(square[0], c));
 
     assertEquals(1, rl.get().size());
-    assertEquals(block[1], rl.get().get(0).getY());
+    assertEquals(square[1], rl.get().get(0).getY());
 
-    Optional<Block> b = rl.getBlock(block[0], block[1]);
+    Optional<Square> b = rl.getSquare(square[0], square[1]);
 
     assertTrue(b.isPresent());
-    assertEquals(block[0], b.get().getX());
+    assertEquals(square[0], b.get().getX());
     assertEquals(c, b.get().getColor());
   }
 
   @Test
   void cellIsNotEmpty() {
-    int[] block = {3, 2};
+    int[] square = {3, 2};
     Color c = Color.yellow;
-    rl.addBlock(block[1], new Block(block[0], c));
+    rl.addSquare(square[1], new Square(square[0], c));
 
-    assertTrue(rl.cellIsNotEmpty(block[0], block[1]));
+    assertTrue(rl.cellIsNotEmpty(square[0], square[1]));
   }
 
   @Test
   void clear() {
-    int[] block = {3, 2};
+    int[] square = {3, 2};
     Color c = Color.yellow;
-    rl.addBlock(block[1], new Block(block[0], c));
+    rl.addSquare(square[1], new Square(square[0], c));
 
-    assertTrue(rl.cellIsNotEmpty(block[0], block[1]));
+    assertTrue(rl.cellIsNotEmpty(square[0], square[1]));
 
     rl.clear();
 
@@ -160,7 +159,7 @@ class RowListTest {
   void forEach() {
     int[][] coords = new int[][] {{0, 0}, {1, 1}};
     int incr = 1;
-    rl = UnitTestHelper.getRowsWithBlocks(coords);
+    rl = UnitTestHelper.getRowsWithSquares(coords);
 
     assertAll(
         () -> {
@@ -190,16 +189,16 @@ class RowListTest {
   }
 
   @Test
-  void getBlock() {
+  void getSquare() {
     int[][] coords = {{0, 2}, {1, 3}};
-    rl = UnitTestHelper.getRowsWithBlocks(coords);
+    rl = UnitTestHelper.getRowsWithSquares(coords);
 
-    Optional<Block> b = rl.getBlock(coords[0][0], coords[0][1]);
+    Optional<Square> b = rl.getSquare(coords[0][0], coords[0][1]);
 
     assertTrue(b.isPresent());
     assertEquals(coords[0][0], b.get().getX());
 
-    Optional<Block> b1 = rl.getBlock(coords[1][0], coords[1][1]);
+    Optional<Square> b1 = rl.getSquare(coords[1][0], coords[1][1]);
 
     assertTrue(b1.isPresent());
     assertEquals(coords[1][0], b1.get().getX());
@@ -277,31 +276,31 @@ class RowListTest {
   }
 
   @Test
-  void removeBlock() {
+  void removeSquare() {
     int[][] coords = {{0, 2}, {1, 3}};
-    rl = UnitTestHelper.getRowsWithBlocks(coords);
+    rl = UnitTestHelper.getRowsWithSquares(coords);
 
-    Optional<Block> b = rl.getBlock(coords[0][0], coords[0][1]);
+    Optional<Square> b = rl.getSquare(coords[0][0], coords[0][1]);
 
     assertTrue(b.isPresent());
 
-    rl.removeBlock(coords[0][0], coords[0][1]);
-    b = rl.getBlock(coords[0][0], coords[0][1]);
+    rl.removeSquare(coords[0][0], coords[0][1]);
+    b = rl.getSquare(coords[0][0], coords[0][1]);
 
     assertFalse(b.isPresent());
   }
 
   @Test
-  void removeBlocks() {
+  void removeSquares() {
     int[][] coords = {{0, 2}, {1, 3}, {2, 4}, {4, 6}};
-    rl = UnitTestHelper.getRowsWithBlocks(coords);
+    rl = UnitTestHelper.getRowsWithSquares(coords);
     int[][] removeCoords = {coords[1], coords[3]};
     int[][] remainingCoords = {coords[0], coords[2]};
-    RowList rl2 = UnitTestHelper.getRowsWithBlocks(removeCoords);
+    RowList rl2 = UnitTestHelper.getRowsWithSquares(removeCoords);
 
     for (int[] c : coords) assertTrue(rl.cellIsNotEmpty(c[0], c[1]));
 
-    rl.removeBlocks(rl2);
+    rl.removeSquares(rl2);
 
     for (int[] c : remainingCoords) assertTrue(rl.cellIsNotEmpty(c[0], c[1]));
 
@@ -357,7 +356,7 @@ class RowListTest {
     rl = UnitTestHelper.getFullRowList(fullRows);
 
     for (int i = 0; i < nonFullRowIdx.length; i++)
-      rl.add(UnitTestHelper.getRowWithBlocks(nonFullRowIdx[i], nonFullRows[i]));
+      rl.add(UnitTestHelper.getRowWithSquares(nonFullRowIdx[i], nonFullRows[i]));
 
     rl.sortByY();
 
@@ -379,7 +378,7 @@ class RowListTest {
       int[] nonFullRow = nonFullRows[i];
 
       for (int value : nonFullRow) {
-        // Rows/blocks below the lowest deleted row are unchanged
+        // Rows/squares below the lowest deleted row are unchanged
         assertTrue(rl.cellIsNotEmpty(value, nonFullY));
       }
     }
@@ -419,14 +418,14 @@ class RowListTest {
       assertTrue(optR.isPresent());
 
       Row r = optR.get();
-      int[] expectedBlocks = nonFullRows[l];
+      int[] expectedSquares = nonFullRows[l];
 
-      // The row contains the expected number of blocks
-      assertEquals(expectedBlocks.length, r.get().size());
+      // The row contains the expected number of squares
+      assertEquals(expectedSquares.length, r.get().size());
 
-      for (int x : expectedBlocks)
-        // The row contains the expected blocks
-        assertTrue(rl.getBlock(x, nonFullY).isPresent());
+      for (int x : expectedSquares)
+        // The row contains the expected squares
+        assertTrue(rl.getSquare(x, nonFullY).isPresent());
     }
 
     System.out.println("3");

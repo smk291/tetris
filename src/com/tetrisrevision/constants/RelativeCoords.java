@@ -1,4 +1,4 @@
-package com.tetrisrevision.helpers;
+package com.tetrisrevision.constants;
 
 public abstract class RelativeCoords {
   public static final int[] center = {0, 0};

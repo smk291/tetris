@@ -1,4 +1,4 @@
-package com.tetrisrevision.helpers;
+package com.tetrisrevision.constants;
 
 public abstract class Constants {
   public static int down = -1;

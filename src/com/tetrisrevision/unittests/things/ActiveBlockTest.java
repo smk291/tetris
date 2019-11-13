@@ -1,11 +1,11 @@
 package com.tetrisrevision.unittests.things;
 
-import com.tetrisrevision.things.Block;
+import com.tetrisrevision.things.Square;
 import com.tetrisrevision.things.Center;
 import com.tetrisrevision.things.Row;
-import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.things.tetrominoes.IPiece;
-import com.tetrisrevision.things.tetrominoes.SPiece;
+import com.tetrisrevision.things.ActiveBlock;
+import com.tetrisrevision.things.tetrominoes.IBlock;
+import com.tetrisrevision.things.tetrominoes.SBlock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +13,8 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TetrisPieceTest {
-  private TetrisPiece t = new TetrisPiece(new IPiece());
+class ActiveBlockTest {
+  private ActiveBlock t = new ActiveBlock(new IBlock());
   private int[] newCenter = {7, 5};
   private int newRotation = 3;
   private int[] resetCenter = {4, 19};
@@ -23,7 +23,7 @@ class TetrisPieceTest {
   @BeforeEach
   void setUp() {
     t.setCenter(3, 4);
-    t.reset(new IPiece());
+    t.reset(new IBlock());
   }
 
   @Test
@@ -87,23 +87,23 @@ class TetrisPieceTest {
   }
 
   @Test
-  void getBlocks() {
-    int blockCount = 0;
-    int[][] blocks = new int[4][2];
+  void getSquares() {
+    int squareCount = 0;
+    int[][] squares = new int[4][2];
     int[][] shape = t.getTetromino().getOffsets()[resetRotation];
 
-    for (Row r : t.getBlocks().get()) {
-      for (Block b : r.get()) {
-        blocks[blockCount][0] = b.getX();
-        blocks[blockCount][1] = r.getY();
+    for (Row r : t.getSquares().get()) {
+      for (Square b : r.get()) {
+        squares[squareCount][0] = b.getX();
+        squares[squareCount][1] = r.getY();
 
-        blockCount++;
+        squareCount++;
       }
     }
 
-    assertEquals(shape.length, blockCount);
+    assertEquals(shape.length, squareCount);
 
-    for (int[] b : blocks) {
+    for (int[] b : squares) {
       assertTrue(
           Arrays.stream(shape)
               .anyMatch(
@@ -146,9 +146,9 @@ class TetrisPieceTest {
 
   @Test
   void setTetromino() {
-    assertTrue(t.getTetromino() instanceof IPiece);
-    t.setTetromino(new SPiece());
-    assertTrue(t.getTetromino() instanceof SPiece);
+    assertTrue(t.getTetromino() instanceof IBlock);
+    t.setTetromino(new SBlock());
+    assertTrue(t.getTetromino() instanceof SBlock);
   }
 
   @Test

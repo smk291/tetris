@@ -1,9 +1,9 @@
 package com.tetrisrevision.unittests;
 
 import com.tetrisrevision.RunTetris;
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.things.*;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
+import com.tetrisrevision.things.Tetromino;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -173,30 +173,30 @@ class RunTetrisTest {
   // methods used are tested elsewhere
   @Test
   void addPieceToBoard() {
-    TetrisPiece p = rt.getCurrentPiece();
+    ActiveBlock p = rt.getCurrentPiece();
     Tetromino t = p.getTetromino();
     p.setCenter(c);
 
-    UnitTestHelper.printNonFullLines(p.getBlocks());
+    UnitTestHelper.printNonFullLines(p.getSquares());
 
-    RowList rl = p.getBlocks();
+    RowList rl = p.getSquares();
 
     rt.addPieceToPlayfield(p);
 
     for (Row r : rl.get()) {
-      for (Block b : r.get()) {
+      for (Square b : r.get()) {
         rt.getPlayfield().cellIsNotEmpty(b.getX(), r.getY());
       }
     }
 
-    UnitTestHelper.printNonFullLines(p.getBlocks());
+    UnitTestHelper.printNonFullLines(p.getSquares());
 
     assertNotSame(t, p.getTetromino());
   }
 
   @Test
   void dropCurrentPiece() {
-    TetrisPiece t = rt.getCurrentPiece();
+    ActiveBlock t = rt.getCurrentPiece();
 
     assertEquals(4, t.getCenter().getX());
     assertEquals(Constants.topRow, t.getCenter().getY());
@@ -209,16 +209,16 @@ class RunTetrisTest {
 
   @Test
   void translatePiece() {
-    TetrisPiece t = rt.getCurrentPiece();
+    ActiveBlock t = rt.getCurrentPiece();
 
     t.setCenter(5,0);
 
-    RowList pieceLocation = t.getBlocks();
+    RowList blockLocation = t.getSquares();
 
     rt.translatePiece(frame,0, Constants.down);
 
-    for (Row r : pieceLocation.get()) {
-      for (Block b : r.get()) {
+    for (Row r : blockLocation.get()) {
+      for (Square b : r.get()) {
         assertTrue(rt.getPlayfield().cellIsNotEmpty(b.getX(), r.getY()));
       }
     }

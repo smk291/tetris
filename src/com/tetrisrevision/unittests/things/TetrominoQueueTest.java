@@ -1,8 +1,8 @@
 package com.tetrisrevision.unittests.things;
 
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.ActiveBlock;
 import com.tetrisrevision.things.TetrominoQueue;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
+import com.tetrisrevision.things.Tetromino;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TetrominoQueueTest {
   @Test
   void resetCurrentPiece() {
-    TetrisPiece t = new TetrisPiece();
+    ActiveBlock t = new ActiveBlock();
     assertNull(t.getTetromino());
 
     var q = new TetrominoQueue(t);
@@ -23,7 +23,7 @@ class TetrominoQueueTest {
 
   @Test
   void getQueue() {
-    assertEquals(7, new TetrominoQueue(new TetrisPiece()).getQueue().size());
+    assertEquals(7, new TetrominoQueue(new ActiveBlock()).getQueue().size());
   }
 
   @Test
@@ -32,7 +32,7 @@ class TetrominoQueueTest {
     int maxLoopIterations = 84;
     int maxSeparation = 13;
 
-    TetrisPiece t = new TetrisPiece();
+    ActiveBlock t = new ActiveBlock();
     TetrominoQueue q = new TetrominoQueue(t);
 
     for (int i = 0; i < maxLoopIterations; i++) {

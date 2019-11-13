@@ -1,8 +1,8 @@
 package com.tetrisrevision.recordkeeping;
 
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
+import com.tetrisrevision.things.ActiveBlock;
+import com.tetrisrevision.things.Tetromino;
 
 public final class GameRecordKeeping {
   private double score;
@@ -65,12 +65,12 @@ public final class GameRecordKeeping {
     score += (level == 0 ? 1 : level) * amount * (comboCount > 1 ? 50 * comboCount : 1);
   }
 
-  public void computeAndAdd(int rows, TetrisPiece piece, RowList rowList) {
-    TSpinTracker tst = piece.gettSpinTracker();
-    Tetromino t = piece.getTetromino();
+  public void computeAndAdd(int rows, ActiveBlock block, RowList rowList) {
+    TSpinTracker tst = block.gettSpinTracker();
+    Tetromino t = block.getTetromino();
 
-    if (t.isTPiece() && tst.isTSpinMini(piece, rowList)) computeScoreTSpinMini(rows);
-    else if (t.isTPiece() && tst.isTSpin(piece, rowList)) computerScoreTSpin(rows);
+    if (t.isTPiece() && tst.isTSpinMini(block, rowList)) computeScoreTSpinMini(rows);
+    else if (t.isTPiece() && tst.isTSpin(block, rowList)) computerScoreTSpin(rows);
     else computeAndAdd(rows);
   }
 

@@ -1,15 +1,15 @@
 package com.tetrisrevision.unittests.things;
 
-import com.tetrisrevision.things.Block;
+import com.tetrisrevision.things.Square;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BlockTest {
+class SquareTest {
   private int x = 4;
-  private Block b = new Block(x, Color.red);
+  private Square b = new Square(x, Color.red);
 
   @Test
   void getX() {
@@ -23,7 +23,7 @@ class BlockTest {
 
   @Test
   void testClone() throws CloneNotSupportedException {
-    Block bClone = b.clone();
+    Square bClone = b.clone();
 
     assertAll(
         () -> {

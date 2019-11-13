@@ -1,31 +1,33 @@
 package com.tetrisrevision.things.tetrominoes;
 
+import com.tetrisrevision.things.Tetromino;
+
 import java.util.Random;
 
 public enum TetrominoEnum {
-  I(new IPiece()),
-  O(new OPiece()),
-  L(new LPiece()),
-  J(new JPiece()),
-  T(new TPiece()),
-  S(new SPiece()),
-  Z(new ZPiece());
+  I(new IBlock()),
+  O(new OBlock()),
+  L(new LBlock()),
+  J(new JBlock()),
+  T(new TBlock()),
+  S(new SBlock()),
+  Z(new ZBlock());
 
-  public static final TetrominoEnum[] piecesArray = values();
-  public static final int enumSize = piecesArray.length;
+  public static final TetrominoEnum[] blocksArray = values();
+  public static final int enumSize = blocksArray.length;
   public static final Random r = new Random();
 
-  Tetromino piece;
+  Tetromino block;
 
-  TetrominoEnum(Tetromino piece) {
-    this.piece = piece;
+  TetrominoEnum(Tetromino block) {
+    this.block = block;
   }
 
   public static Tetromino getTetromino() {
-    return piecesArray[r.nextInt(enumSize)].piece;
+    return blocksArray[r.nextInt(enumSize)].block;
   }
 
   public Tetromino get() {
-    return this.piece;
+    return this.block;
   }
 }

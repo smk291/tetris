@@ -2,9 +2,9 @@ package com.tetrisrevision.gamemechanics;
 
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.actions.Translater;
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.ActiveBlock;
 
 import javax.swing.*;
 
@@ -33,7 +33,7 @@ public class LockDelay {
   }
 
   private void handleLockDelay(RunTetris rt, Timer t) {
-    TetrisPiece tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getCurrentPiece();
     RowList playfield = rt.getPlayfield();
 
     movementLockDelay.restart();
@@ -48,7 +48,7 @@ public class LockDelay {
   }
 
   public void handleRotationLockDelay(RunTetris rt) {
-    TetrisPiece tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getCurrentPiece();
     RowList playfield = rt.getPlayfield();
 
     boolean canDrop = Translater.translate(tp, playfield, 0, Constants.down, true);
@@ -66,7 +66,7 @@ public class LockDelay {
   }
 
   public void handleMovementLockDelay(RunTetris rt) {
-    TetrisPiece tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getCurrentPiece();
     RowList playfield = rt.getPlayfield();
 
     boolean canDrop = Translater.translate(tp, playfield, 0, Constants.down, true);

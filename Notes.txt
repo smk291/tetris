@@ -10,9 +10,9 @@
     // Check for valid position
         // If not, return
     // Loop through row
-        // Check whether block already searched
-        // Check whether block empty
-        // Check whether block above is full
+        // Check whether square already searched
+        // Check whether square empty
+        // Check whether square above is full
     // Recursively search for floating piece above
     // Check length of array of blocks
     // (If not 0) Store in list of floatin pieces
@@ -20,7 +20,7 @@
 // Recursively search for floating piece
     // Check for valid position
         // If not, return
-    // Check whether current block is full
+    // Check whether current square is full
     // (If y is below lowest row deleted) stop recursive function and clear piece
     // (If position valid and not already searched)
         // Add coord to piece
@@ -45,8 +45,8 @@
     // Getter
         // Get width
         // Get blocks
-        // Get block
-        // Get block row
+        // Get square
+        // Get square row
     // Test
         // Row is full
         // Row is empty
@@ -77,7 +77,7 @@
 
 // NoOverlapCoords
     // Takes Coords
-        // return -- block isn'tester valid or block isn'tester full
+        // return -- square isn'tester valid or square isn'tester full
 
 // XBoundsTester
     // setWidth

@@ -1,23 +1,18 @@
 package com.tetrisrevision.gui.holdpiece;
 
 import com.tetrisrevision.RunTetris;
-import com.tetrisrevision.gui.DrawBlock;
-import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.Block;
-import com.tetrisrevision.things.Row;
-import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
+import com.tetrisrevision.gui.DrawSquare;
+import com.tetrisrevision.things.ActiveBlock;
+import com.tetrisrevision.things.Tetromino;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class HoldPiece extends JPanel {
   private RunTetris runTetris;
   private int height;
-  private int blockWidth;
+  private int squareWidth;
   private JLabel labelHoldPiece = new JLabel("Press q");
 
   public HoldPiece(RunTetris runTetris) {
@@ -38,7 +33,7 @@ public class HoldPiece extends JPanel {
     if (d.getWidth() == 0 || d.getHeight() == 0) return;
 
     height = (int) d.getHeight();
-    blockWidth = height / 22;
+    squareWidth = height / 22;
     setBackground(Color.black);
     BufferedImage buffImg =
         new BufferedImage(getWidth(), getHeight() * 5, BufferedImage.TYPE_INT_ARGB);
@@ -61,9 +56,9 @@ public class HoldPiece extends JPanel {
 
     if (t != null) {
       remove(labelHoldPiece);
-      TetrisPiece tp = new TetrisPiece(t);
+      ActiveBlock tp = new ActiveBlock(t);
       tp.setCenter(2, (4 - 0) * 4);
-      DrawBlock.drawBlocks(gbi, tp.getBlocks(), this);
+      DrawSquare.drawSquares(gbi, tp.getSquares(), this);
       gbi.drawImage(buffImg, null, height * 4, 0);
     } else {
       this.add(labelHoldPiece);

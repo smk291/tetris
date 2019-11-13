@@ -4,7 +4,7 @@ import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.actions.Translater;
 import com.tetrisrevision.gui.constants.GUIConstants;
 import com.tetrisrevision.gui.input.CommandKeyCodes;
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.testing.InputTests;
 
 import javax.swing.*;

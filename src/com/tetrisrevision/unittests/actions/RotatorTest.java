@@ -3,19 +3,17 @@ package com.tetrisrevision.unittests.actions;
 import com.tetrisrevision.actions.Rotator;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.things.tetrominoes.IPiece;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
+import com.tetrisrevision.things.ActiveBlock;
+import com.tetrisrevision.things.tetrominoes.IBlock;
 import com.tetrisrevision.unittests.UnitTestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RotatorTest {
   RowList rl = new RowList();
-  TetrisPiece t = new TetrisPiece(new IPiece());
+  ActiveBlock t = new ActiveBlock(new IBlock());
 
   RotatorTest() {
 
@@ -61,7 +59,7 @@ class RotatorTest {
     }
 
     UnitTestHelper.printLines(rl);
-    UnitTestHelper.printLines(t.getBlocks());
+    UnitTestHelper.printLines(t.getSquares());
 
     for (int r : new int[]{-1,1}) {
       Rotator.apply(r, t, rl);

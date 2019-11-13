@@ -2,7 +2,7 @@ package com.tetrisrevision.recordkeeping;
 
 import com.tetrisrevision.things.Center;
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.ActiveBlock;
 
 public class TSpinTracker {
   private boolean lastActionIsRotation;
@@ -13,9 +13,9 @@ public class TSpinTracker {
     reset();
   }
 
-  private static boolean areThreeOrMoreCornersFilled(TetrisPiece piece, RowList rowList) {
+  private static boolean areThreeOrMoreCornersFilled(ActiveBlock block, RowList rowList) {
     int cornersFilled = 0;
-    Center center = piece.getCenter();
+    Center center = block.getCenter();
 
     int x = center.getX();
     int y = center.getY();
@@ -50,13 +50,13 @@ public class TSpinTracker {
     this.lastKick = nullableInteger;
   }
 
-  public boolean isTSpin(TetrisPiece piece, RowList rowList) {
-    return areThreeOrMoreCornersFilled(piece, rowList)
+  public boolean isTSpin(ActiveBlock block, RowList rowList) {
+    return areThreeOrMoreCornersFilled(block, rowList)
         || (null != lastKick && lastKick == 4)
-        || (!areThreeOrMoreCornersFilled(piece, rowList) && lastKick != null && lastKick == 4);
+        || (!areThreeOrMoreCornersFilled(block, rowList) && lastKick != null && lastKick == 4);
   }
 
-  public boolean isTSpinMini(TetrisPiece piece, RowList rowList) {
-    return areThreeOrMoreCornersFilled(piece, rowList) && (lastKick == null || lastKick != 4);
+  public boolean isTSpinMini(ActiveBlock block, RowList rowList) {
+    return areThreeOrMoreCornersFilled(block, rowList) && (lastKick == null || lastKick != 4);
   }
 }

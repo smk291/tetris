@@ -2,7 +2,7 @@ package com.tetrisrevision.gui.input;
 
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.actions.Translater;
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.testing.InputTests;
 
 import javax.swing.*;

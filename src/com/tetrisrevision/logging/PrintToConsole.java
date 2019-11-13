@@ -1,10 +1,10 @@
 package com.tetrisrevision.logging;
 
-import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.Block;
+import com.tetrisrevision.constants.Constants;
+import com.tetrisrevision.things.Square;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.ActiveBlock;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -23,7 +23,7 @@ class PrintToConsole {
 
   PrintToConsole() {}
 
-  public String printCell(int y, Block cell) {
+  public String printCell(int y, Square cell) {
     return "{ " + cell.getX() + ", " + y + " }";
   }
 
@@ -39,29 +39,29 @@ class PrintToConsole {
     return pad(x) + ", " + pad(y);
   }
 
-  private String printCoords(int y, Block c) {
+  private String printCoords(int y, Square c) {
     return pad(c.getX()) + ", " + pad(y);
   }
 
-  private void paintAndPrint(RowList rowList, ArrayList<RowList> sinkingPieces, TetrisPiece piece) {
+  private void paintAndPrint(RowList rowList, ArrayList<RowList> sinkingPieces, ActiveBlock block) {
     printBoardCustom(
         rowList,
-        (int x, int y, Integer rowY, Optional<Block> block) -> {
-          if (block.isEmpty()) return;
+        (int x, int y, Integer rowY, Optional<Square> square) -> {
+          if (square.isEmpty()) return;
 
-          if (block.get().getX() != x || !rowY.equals(y)) {
+          if (square.get().getX() != x || !rowY.equals(y)) {
             System.out.print(
                 "("
                     + printCoords(x, y)
                     + ") -> ("
-                    + printCoords(block.get().getX(), rowY)
+                    + printCoords(square.get().getX(), rowY)
                     + ") :: ");
           } else {
             System.out.print("(      ) -> (      ) :: ");
           }
         });
 
-    getBoard(rowList, sinkingPieces, piece);
+    getBoard(rowList, sinkingPieces, block);
 
     printStringBoardCustom(
         (int x, int y, Integer rowY, String[] cell) -> {
@@ -80,22 +80,22 @@ class PrintToConsole {
           else return "  ";
         });
 
-    //    Optional<Block> block1 = playField.getBlock(0, 22);
-    //    Optional<Block> block2 = playField.getBlock(4,22);
+    //    Optional<Square> square1 = playField.getSquare(0, 22);
+    //    Optional<Square> square2 = playField.getSquare(4,22);
 
-    //    block1.ifPresent(block -> System.out.println(
+    //    square1.ifPresent(square -> System.out.println(
     //            "22, 0"
-    //                    + printCell(block)
+    //                    + printCell(square)
     //                    + " "
-    //                    + (block.getColor() != null ? block.getColor().toString() : "NC")));
-    //    block2.ifPresent(block -> System.out.println(
+    //                    + (square.getColor() != null ? square.getColor().toString() : "NC")));
+    //    square2.ifPresent(square -> System.out.println(
     //            "22, 4"
-    //                    + printCell(block)
+    //                    + printCell(square)
     //                    + " "
-    //                    + (block.getColor() != null ? block.getColor().toString() : "NC")));
+    //                    + (square.getColor() != null ? square.getColor().toString() : "NC")));
   }
 
-  private void getBoard(RowList rowList, ArrayList<RowList> sinkingPieces, TetrisPiece piece) {
+  private void getBoard(RowList rowList, ArrayList<RowList> sinkingPieces, ActiveBlock block) {
     String[][][] board = new String[Constants.height][Constants.width][5];
 
     for (String[][] row : board) {
@@ -107,7 +107,7 @@ class PrintToConsole {
 
       for (int x = 0; x < row.length; x++) {
         String[] space = row[x];
-        Optional<Block> cell = rowList.getBlock(x, y);
+        Optional<Square> cell = rowList.getSquare(x, y);
 
         if (cell.isPresent()) {
           space[0] = "x";
@@ -124,7 +124,7 @@ class PrintToConsole {
             space[3] = "!";
           }
 
-          if (fallingPieceContainsCell(x, y, piece)) {
+          if (fallingPieceContainsCell(x, y, block)) {
             space[4] = "f";
           }
         }
@@ -135,10 +135,10 @@ class PrintToConsole {
   }
 
   private boolean sinkingPiecesContainCell(int x, int y, ArrayList<RowList> sinkingPieces) {
-    for (RowList piece : sinkingPieces) {
-      for (Row r : piece.get()) {
-        for (Block block : r.get()) {
-          if (block.getX() == x && r.getY() == y) return true;
+    for (RowList block : sinkingPieces) {
+      for (Row r : block.get()) {
+        for (Square square : r.get()) {
+          if (square.getX() == x && r.getY() == y) return true;
         }
       }
     }
@@ -146,11 +146,11 @@ class PrintToConsole {
     return false;
   }
 
-  private boolean sinkingPiecesContainCell(Block c, ArrayList<RowList> sinkingPieces) {
-    for (RowList piece : sinkingPieces) {
-      for (Row r : piece.get()) {
-        for (Block block : r.get()) {
-          if (block.getX() == c.getX()) return true;
+  private boolean sinkingPiecesContainCell(Square c, ArrayList<RowList> sinkingPieces) {
+    for (RowList block : sinkingPieces) {
+      for (Row r : block.get()) {
+        for (Square square : r.get()) {
+          if (square.getX() == c.getX()) return true;
         }
       }
     }
@@ -158,10 +158,10 @@ class PrintToConsole {
     return false;
   }
 
-  private boolean fallingPieceContainsCell(int x, int y, TetrisPiece currentPiece2d) {
-    for (Row r : currentPiece2d.getBlocks().get()) {
+  private boolean fallingPieceContainsCell(int x, int y, ActiveBlock currentBlock2d) {
+    for (Row r : currentBlock2d.getSquares().get()) {
       if (r.getY() == y) {
-        for (Block b : r.get()) {
+        for (Square b : r.get()) {
           if (b.getX() == x) return true;
         }
       }
@@ -170,11 +170,11 @@ class PrintToConsole {
     return false;
   }
 
-  private <T> void printBoardCustom(RowList rowList, QuadConsumer<Optional<Block>> print) {
+  private <T> void printBoardCustom(RowList rowList, QuadConsumer<Optional<Square>> print) {
     for (Row row : rowList.get()) {
       if (row == null || row.isEmpty()) continue;
 
-      for (Block b : row.get()) {
+      for (Square b : row.get()) {
         print.accept(b.getX(), row.getY(), row.getY(), row.get(b.getX()));
 
         System.out.print(" ");

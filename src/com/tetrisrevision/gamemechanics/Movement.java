@@ -3,16 +3,16 @@ package com.tetrisrevision.gamemechanics;
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.actions.Rotator;
 import com.tetrisrevision.actions.Translater;
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.ActiveBlock;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
 abstract public class Movement {
   public static void translatePiece(RunTetris rt, JFrame frame, int x, int y) {
-    TetrisPiece tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getCurrentPiece();
     RowList playfield = rt.getPlayfield();
     LockDelay ld = rt.getLockDelay();
 
@@ -27,7 +27,7 @@ abstract public class Movement {
   }
 
   public static void rotate(RunTetris rt, JFrame frame, int incr) {
-    TetrisPiece tp = rt.getCurrentPiece();
+    ActiveBlock tp = rt.getCurrentPiece();
     RowList playfield = rt.getPlayfield();
     LockDelay ld = rt.getLockDelay();
 

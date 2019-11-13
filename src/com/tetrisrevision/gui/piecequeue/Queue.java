@@ -1,7 +1,7 @@
-package com.tetrisrevision.gui.piecequeue;
+package com.tetrisrevision.gui.blockqueue;
 
 import com.tetrisrevision.RunTetris;
-import com.tetrisrevision.gui.DrawBlock;
+import com.tetrisrevision.gui.DrawSquare;
 import com.tetrisrevision.things.*;
 import com.tetrisrevision.things.tetrominoes.TetrominoEnum;
 
@@ -50,9 +50,9 @@ public class Queue extends JPanel {
 
     for (int i = 0; i < 4; i++) {
       TetrominoEnum t = runTetris.getTetrominoQueue().getQueue().get(i);
-      TetrisPiece tp = new TetrisPiece(t.get());
+      ActiveBlock tp = new ActiveBlock(t.get());
       tp.setCenter(2, (4 - i) * 4);
-      DrawBlock.drawBlocks(gbi, tp.getBlocks(), this);
+      DrawSquare.drawSquares(gbi, tp.getSquares(), this);
       gbi.drawImage(buffImg, null, height * 20, 0);
     }
   }

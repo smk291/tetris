@@ -1,30 +1,30 @@
 package com.tetrisrevision.actions;
 
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
+import com.tetrisrevision.things.ActiveBlock;
 
 import java.util.HashMap;
 
 public abstract class WallKicker {
-  public static Integer tryKick(TetrisPiece piece, RowList field) {
-    HashMap<Integer, HashMap<Integer, int[][]>> kickData = piece.getKickData();
+  public static Integer tryKick(ActiveBlock block, RowList field) {
+    HashMap<Integer, HashMap<Integer, int[][]>> kickData = block.getKickData();
 
     if (null == kickData) return null;
 
-    HashMap<Integer, int[][]> kickOffsets1 = kickData.get(piece.getPrevRotation());
+    HashMap<Integer, int[][]> kickOffsets1 = kickData.get(block.getPrevRotation());
 
     if (kickOffsets1 == null) return null;
 
-    int[][] kickOffsets2 = kickOffsets1.get(piece.getRotation());
+    int[][] kickOffsets2 = kickOffsets1.get(block.getRotation());
 
     for (int i = 0; i < kickOffsets2.length; i++) {
       int[] offset = kickOffsets2[i];
 
-      piece.getCenter().translate(offset[0], offset[1]);
+      block.getCenter().translate(offset[0], offset[1]);
 
-      if (PlacementTester.cellsCanBeOccupied(piece, field)) return i;
+      if (PlacementTester.cellsCanBeOccupied(block, field)) return i;
 
-      piece.getCenter().translate(-offset[0], -offset[1]);
+      block.getCenter().translate(-offset[0], -offset[1]);
     }
 
     return null;

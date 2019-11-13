@@ -1,7 +1,7 @@
 package com.tetrisrevision.unittests;
 
-import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.Block;
+import com.tetrisrevision.constants.Constants;
+import com.tetrisrevision.things.Square;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
 
@@ -32,7 +32,7 @@ public class UnitTestHelper {
     Row r = new Row(y);
 
     for (int i = Constants.leftBound; i < Constants.width; i += Constants.right)
-      r.add(new Block(i, Color.black));
+      r.add(new Square(i, Color.black));
 
     return r;
   }
@@ -59,18 +59,18 @@ public class UnitTestHelper {
     return rl;
   }
 
-  public static Row getRowWithBlocks(int y, int[] cellsToFill) {
+  public static Row getRowWithSquares(int y, int[] cellsToFill) {
     Row row = new Row(y);
 
-    for (int x : cellsToFill) row.add(new Block(x, Color.red));
+    for (int x : cellsToFill) row.add(new Square(x, Color.red));
 
     return row;
   }
 
-  public static RowList getRowsWithBlocks(int[][] coordinateArray) {
+  public static RowList getRowsWithSquares(int[][] coordinateArray) {
     RowList rl = new RowList();
 
-    for (int[] coords : coordinateArray) rl.addBlock(coords[1], new Block(coords[0], Color.blue));
+    for (int[] coords : coordinateArray) rl.addSquare(coords[1], new Square(coords[0], Color.blue));
 
     return rl;
   }
@@ -79,7 +79,7 @@ public class UnitTestHelper {
     RowList[] rlArr = new RowList[coordinateArrays.length];
 
     for (int i = 0; i < coordinateArrays.length; i++)
-      rlArr[i] = getRowsWithBlocks(coordinateArrays[i]);
+      rlArr[i] = getRowsWithSquares(coordinateArrays[i]);
 
     return rlArr;
   }
@@ -87,7 +87,7 @@ public class UnitTestHelper {
   public static String printRow(Row r) {
     StringBuilder s = new StringBuilder();
 
-    for (Block b : r.get()) {
+    for (Square b : r.get()) {
       s.append("{").append(b.getX()).append(", ").append(r.getY()).append("}, ");
     }
 
@@ -98,7 +98,7 @@ public class UnitTestHelper {
     StringBuilder s = new StringBuilder();
 
     for (Row r : rl.get()) {
-      for (Block b : r.get()) {
+      for (Square b : r.get()) {
         s.append("{").append(b.getX()).append(",").append(r.getY()).append("},");
       }
     }

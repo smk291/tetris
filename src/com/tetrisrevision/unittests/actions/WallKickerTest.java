@@ -1,11 +1,11 @@
 package com.tetrisrevision.unittests.actions;
 
 import com.tetrisrevision.actions.Rotator;
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.things.*;
-import com.tetrisrevision.things.tetrominoes.IPiece;
-import com.tetrisrevision.things.tetrominoes.OPiece;
-import com.tetrisrevision.things.tetrominoes.Tetromino;
+import com.tetrisrevision.things.tetrominoes.IBlock;
+import com.tetrisrevision.things.tetrominoes.OBlock;
+import com.tetrisrevision.things.Tetromino;
 import com.tetrisrevision.things.tetrominoes.TetrominoEnum;
 import com.tetrisrevision.unittests.UnitTestHelper;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WallKickerTest {
-  private TetrisPiece t = new TetrisPiece(new IPiece());
+  private ActiveBlock t = new ActiveBlock(new IBlock());
   private RowList rl = new RowList();
   private static Center c;
 
@@ -52,13 +52,13 @@ public class WallKickerTest {
         t.setPrevRotation(prevRotation);
         t.setCenter(t.getCenter().getX() + kick[0], t.getCenter().getY() + kick[1]);
 
-        RowList kickedPosition = t.getBlocks();
+        RowList kickedPosition = t.getSquares();
 
         UnitTestHelper.fillPlayField(rl);
-        rl.removeBlocks(t.getBlocks());
+        rl.removeSquares(t.getSquares());
 
-        for (Row r : t.getBlocks().get())
-          for (Block b : r.get()) {
+        for (Row r : t.getSquares().get())
+          for (Square b : r.get()) {
             assertFalse(rl.cellIsNotEmpty(b.getX(), r.getY()));
           }
 
@@ -73,12 +73,12 @@ public class WallKickerTest {
 
         assertEquals(j, rotateResult);
 
-        // UnitTestHelper.printNonFullLines(t.getBlocks(), "\t\t\t");
+        // UnitTestHelper.printNonFullLines(t.getSquares(), "\t\t\t");
 
         for (Row r : kickedPosition.get())
-          for (Block b : r.get()) {
+          for (Square b : r.get()) {
             assertFalse(rl.cellIsNotEmpty(b.getX(), r.getY()));
-            assertTrue(t.getBlocks().cellIsNotEmpty(b.getX(), r.getY()));
+            assertTrue(t.getSquares().cellIsNotEmpty(b.getX(), r.getY()));
           }
       }
     }
@@ -93,7 +93,7 @@ public class WallKickerTest {
     t.setCenter(c);
     Tetromino[] tetrominoes =
         Arrays.stream(TetrominoEnum.values())
-            .filter(te -> !(te.get() instanceof OPiece))
+            .filter(te -> !(te.get() instanceof OBlock))
             .map(TetrominoEnum::get)
             .toArray(Tetromino[]::new);
 

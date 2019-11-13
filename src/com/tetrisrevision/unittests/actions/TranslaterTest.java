@@ -1,18 +1,18 @@
 package com.tetrisrevision.unittests.actions;
 
 import com.tetrisrevision.actions.Translater;
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 import com.tetrisrevision.things.Center;
 import com.tetrisrevision.things.RowList;
-import com.tetrisrevision.things.TetrisPiece;
-import com.tetrisrevision.things.tetrominoes.IPiece;
+import com.tetrisrevision.things.ActiveBlock;
+import com.tetrisrevision.things.tetrominoes.IBlock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TranslaterTest {
-  private final TetrisPiece t = new TetrisPiece(new IPiece());
+  private final ActiveBlock t = new ActiveBlock(new IBlock());
   private final Center c = new Center(5,10);
   private final RowList rl = new RowList();
   private final int[] translateValue = {-1, -1};

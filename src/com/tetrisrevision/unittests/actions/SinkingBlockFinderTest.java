@@ -1,8 +1,8 @@
 package com.tetrisrevision.unittests.actions;
 
-import com.tetrisrevision.actions.SinkingPieceFinder;
-import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.Block;
+import com.tetrisrevision.actions.SinkingBlockFinder;
+import com.tetrisrevision.constants.Constants;
+import com.tetrisrevision.things.Square;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.unittests.UnitTestHelper;
@@ -10,11 +10,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SinkingPieceFinderTest {
+class SinkingBlockFinderTest {
   private RowList rl = new RowList();
   private ArrayList<RowList> sinkingPieces = new ArrayList<>();
   private final int[][] skip = new int[Constants.height][Constants.width];
@@ -30,9 +29,9 @@ class SinkingPieceFinderTest {
       }
   };
   // Empty cells are never added to the skip-cell 2d array.
-  // If a block is connected both to the bottom of the playfield
-  // and to a block that appears in one of the two lines examined
-  // for sinking pieces, it will be in the table of values to skip
+  // If a square is connected both to the bottom of the playfield
+  // and to a square that appears in one of the two lines examined
+  // for sinking blocks, it will be in the table of values to skip
   private final int[][][] expectedSkipCells = {
     {{1,6},{0,7},{6,0}},
     {{9,15},{7,16}}
@@ -42,7 +41,7 @@ class SinkingPieceFinderTest {
       {{0,6},{6,16}}
   };
 
-  SinkingPieceFinderTest() {
+  SinkingBlockFinderTest() {
     rl = fillPlayField();
   }
 
@@ -54,25 +53,25 @@ class SinkingPieceFinderTest {
   public RowList fillPlayField() {
     RowList rl2 = new RowList();
 
-    rl2.add(UnitTestHelper.getRowWithBlocks(16,new int[]{              7,8,9}));
-    rl2.add(UnitTestHelper.getRowWithBlocks(15,new int[]{                8,9}));    // <-- findPiecesOnBothLines
-    rl2.add(UnitTestHelper.getRowWithBlocks(14,new int[]{            6,7    }));
+    rl2.add(UnitTestHelper.getRowWithSquares(16,new int[]{              7,8,9}));
+    rl2.add(UnitTestHelper.getRowWithSquares(15,new int[]{                8,9}));    // <-- findPiecesOnBothLines
+    rl2.add(UnitTestHelper.getRowWithSquares(14,new int[]{            6,7    }));
     // ...
-    rl2.add(UnitTestHelper.getRowWithBlocks(8, new int[]{        4,  6      }));
-    rl2.add(UnitTestHelper.getRowWithBlocks(7, new int[]{0,      4,  6      }));    // <-- findPiecesonDeletedLine
-    rl2.add(UnitTestHelper.getRowWithBlocks(6, new int[]{  1,2,3,  5,6,7    }));
-    rl2.add(UnitTestHelper.getRowWithBlocks(5, new int[]{0,  2,  4,  6,  8,9}));
-    rl2.add(UnitTestHelper.getRowWithBlocks(4, new int[]{0,1,2,3,4,5,6,7    }));
-    rl2.add(UnitTestHelper.getRowWithBlocks(3, new int[]{0,  2,  4,  6,  8,9}));
-    rl2.add(UnitTestHelper.getRowWithBlocks(2, new int[]{0,1,2,3,4,5,6,7    }));
-    rl2.add(UnitTestHelper.getRowWithBlocks(1, new int[]{0,  2,  4,  6,  8,9}));
-    rl2.add(UnitTestHelper.getRowWithBlocks(0, new int[]{0,  2,  4,  6      }));
+    rl2.add(UnitTestHelper.getRowWithSquares(8, new int[]{        4,  6      }));
+    rl2.add(UnitTestHelper.getRowWithSquares(7, new int[]{0,      4,  6      }));    // <-- findPiecesonDeletedLine
+    rl2.add(UnitTestHelper.getRowWithSquares(6, new int[]{  1,2,3,  5,6,7    }));
+    rl2.add(UnitTestHelper.getRowWithSquares(5, new int[]{0,  2,  4,  6,  8,9}));
+    rl2.add(UnitTestHelper.getRowWithSquares(4, new int[]{0,1,2,3,4,5,6,7    }));
+    rl2.add(UnitTestHelper.getRowWithSquares(3, new int[]{0,  2,  4,  6,  8,9}));
+    rl2.add(UnitTestHelper.getRowWithSquares(2, new int[]{0,1,2,3,4,5,6,7    }));
+    rl2.add(UnitTestHelper.getRowWithSquares(1, new int[]{0,  2,  4,  6,  8,9}));
+    rl2.add(UnitTestHelper.getRowWithSquares(0, new int[]{0,  2,  4,  6      }));
 
     return rl2;
   }
 
   void findSinkingPieces(int idx) {
-    new SinkingPieceFinder().findSinkingPieces(startIdx[idx], rl, sinkingPieces);
+    new SinkingBlockFinder().findSinkingPieces(startIdx[idx], rl, sinkingPieces);
 
     assertEquals(expectedSinkingPieces[idx].length, sinkingPieces.size());
 
@@ -83,7 +82,7 @@ class SinkingPieceFinderTest {
         int i = 0;
 
         for (Row r : t.get())
-          for (Block b : r.get())
+          for (Square b : r.get())
             i++;
 
         if (i == coordsArray.length)
@@ -108,10 +107,10 @@ class SinkingPieceFinderTest {
   }
 
   @Test
-  void getAdjacentBlocks() {}
+  void getAdjacentSquares() {}
 
   void doSkipCell(int idx) {
-    SinkingPieceFinder spf = new SinkingPieceFinder();
+    SinkingBlockFinder spf = new SinkingBlockFinder();
 
     spf.findSinkingPieces(startIdx[idx], rl, sinkingPieces);
 

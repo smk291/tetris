@@ -1,7 +1,10 @@
 package com.tetrisrevision.actions;
 
-import com.tetrisrevision.helpers.Constants;
+import com.tetrisrevision.constants.Constants;
 
+/*
+ * These methods just test whether a given x or y value is within bounds.
+ */
 public abstract class BoundsTester {
   /**
    *
@@ -12,7 +15,7 @@ public abstract class BoundsTester {
     return x >= Constants.leftBound && x < Constants.width;
   }
 
-  public static boolean yInBoundsNoUpperLimit(int y) {
+  public static boolean yInLowerBound(int y) {
     return y >= Constants.bottomRow;
   }
 

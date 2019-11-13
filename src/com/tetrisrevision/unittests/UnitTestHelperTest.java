@@ -1,7 +1,7 @@
 package com.tetrisrevision.unittests;
 
-import com.tetrisrevision.helpers.Constants;
-import com.tetrisrevision.things.Block;
+import com.tetrisrevision.constants.Constants;
+import com.tetrisrevision.things.Square;
 import com.tetrisrevision.things.Row;
 import com.tetrisrevision.things.RowList;
 import org.junit.jupiter.api.Test;
@@ -16,13 +16,13 @@ public class UnitTestHelperTest {
   static void getFullRow() {
     Row r = UnitTestHelper.getFullRow(0);
     assertEquals(
-        10, r.get().size(), "Row should contain ten blocks. It contains " + r.get().size());
+        10, r.get().size(), "Row should contain ten squares. It contains " + r.get().size());
   }
 
   @Test
   void getEmptyRow() {
     assertTrue(
-        UnitTestHelper.getEmptyRow(0).isEmpty(), "Row should be empty, containing no blocks");
+        UnitTestHelper.getEmptyRow(0).isEmpty(), "Row should be empty, containing no squares");
   }
 
   @Test
@@ -57,7 +57,7 @@ public class UnitTestHelperTest {
             assertTrue(rl.getRowByY(y).isPresent(), "Row " + y + " is not present.");
             r = rl.getRowByY(y).get();
 
-            Integer[] filledCells = r.get().stream().map(Block::getX).toArray(Integer[]::new);
+            Integer[] filledCells = r.get().stream().map(Square::getX).toArray(Integer[]::new);
 
             assertAll(
                 () -> {
@@ -84,28 +84,28 @@ public class UnitTestHelperTest {
               "Row should be 10 wide, i.e. full, not " + rl.get().get(0).get().size());
 
           int[] allCells = IntStream.range(Constants.leftBound, Constants.width).toArray();
-          Integer[] blocks =
-              rl.get().get(0).get().stream().map(Block::getX).toArray(Integer[]::new);
+          Integer[] squares =
+              rl.get().get(0).get().stream().map(Square::getX).toArray(Integer[]::new);
 
           assertAll(
               () -> {
-                assertEquals(allCells.length, blocks.length);
-                for (int i : blocks) assertTrue(Arrays.stream(allCells).anyMatch(c -> c == i));
+                assertEquals(allCells.length, squares.length);
+                for (int i : squares) assertTrue(Arrays.stream(allCells).anyMatch(c -> c == i));
               });
         });
   }
 
   @Test
-  void getRowWithBlocks() {
+  void getRowWithSquares() {
     int[] testInts = {0, 2, 5, 6};
-    Row r = UnitTestHelper.getRowWithBlocks(0, testInts);
+    Row r = UnitTestHelper.getRowWithSquares(0, testInts);
     RowList rl = new RowList();
     rl.add(r);
 
     assertAll(
         () -> {
           assertEquals(1, rl.size());
-          Integer[] row0 = rl.get().get(0).get().stream().map(Block::getX).toArray(Integer[]::new);
+          Integer[] row0 = rl.get().get(0).get().stream().map(Square::getX).toArray(Integer[]::new);
 
           assertAll(
               () -> {
@@ -115,9 +115,9 @@ public class UnitTestHelperTest {
   }
 
   @Test
-  void getRowsWithBlocks() {
+  void getRowsWithSquares() {
     int[][] testCoords = {{0, 0}, {2, 0}, {5, 0}, {6, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}};
-    RowList rl = UnitTestHelper.getRowsWithBlocks(testCoords);
+    RowList rl = UnitTestHelper.getRowsWithSquares(testCoords);
 
     assertAll(
         () -> {
@@ -128,11 +128,11 @@ public class UnitTestHelperTest {
                 for (int[] c : testCoords) assertTrue(rl.cellIsNotEmpty(c[0], c[1]));
               });
 
-          int blocks = 0;
+          int squares = 0;
 
-          for (Row r : rl.get()) blocks += r.get().size();
+          for (Row r : rl.get()) squares += r.get().size();
 
-          assertEquals(testCoords.length, blocks);
+          assertEquals(testCoords.length, squares);
         });
   }
 }
