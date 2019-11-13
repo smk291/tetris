@@ -5,7 +5,7 @@ import com.tetris.actions.Translater;
 import com.tetris.gui.constants.GUIConstants;
 import com.tetris.gui.input.CommandKeyCodes;
 import com.tetris.constants.Constants;
-import com.tetris.testing.InputTests;
+import com.tetris.testing.IntegrationTests;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,7 +93,7 @@ public class TetrisGUI {
         runTetris.getRecordKeeping().hardDrop(rowsTraversed);
         runTetris.addPieceToPlayfield(runTetris.getCurrentPiece());
       } else {
-        InputTests.accept(
+        IntegrationTests.accept(
             Character.toString(e.getKeyChar()),
             runTetris.getCurrentPiece(),
             runTetris.getPlayfield());
@@ -109,7 +109,7 @@ public class TetrisGUI {
       } else if (k == CommandKeyCodes.getUp()) {
         runTetris.translatePiece(tetrisFrame, 0, Constants.up);
       } else {
-        InputTests.accept(
+        IntegrationTests.accept(
             Character.toString(e.getKeyChar()),
             runTetris.getCurrentPiece(),
             runTetris.getPlayfield());

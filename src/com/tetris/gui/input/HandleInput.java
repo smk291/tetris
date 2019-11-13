@@ -3,7 +3,7 @@ package com.tetris.gui.input;
 import com.tetris.RunTetris;
 import com.tetris.actions.Translater;
 import com.tetris.constants.Constants;
-import com.tetris.testing.InputTests;
+import com.tetris.testing.IntegrationTests;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -32,7 +32,7 @@ abstract public class HandleInput {
         runTetris.getRecordKeeping().hardDrop(rowsTraversed);
         runTetris.addPieceToPlayfield(runTetris.getCurrentPiece());
       } else {
-        InputTests.accept(
+        IntegrationTests.accept(
             Character.toString(e.getKeyChar()),
             runTetris.getCurrentPiece(),
             runTetris.getPlayfield());
@@ -48,7 +48,7 @@ abstract public class HandleInput {
 //      } else if (k == CommandKeyCodes.getUp()) {
 //        runTetris.translatePiece(0, Constants.up);
       } else {
-        InputTests.accept(
+        IntegrationTests.accept(
             Character.toString(e.getKeyChar()),
             runTetris.getCurrentPiece(),
             runTetris.getPlayfield());
