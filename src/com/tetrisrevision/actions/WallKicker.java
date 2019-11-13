@@ -2,6 +2,7 @@ package com.tetrisrevision.actions;
 
 import com.tetrisrevision.things.RowList;
 import com.tetrisrevision.things.ActiveBlock;
+import com.tetrisrevision.things.tetrominoes.OBlock;
 
 import java.util.HashMap;
 
@@ -9,7 +10,7 @@ public abstract class WallKicker {
   public static Integer tryKick(ActiveBlock block, RowList field) {
     HashMap<Integer, HashMap<Integer, int[][]>> kickData = block.getKickData();
 
-    if (null == kickData) return null;
+    if (null == kickData || block.getTetromino() instanceof OBlock) return null;
 
     HashMap<Integer, int[][]> kickOffsets1 = kickData.get(block.getPrevRotation());
 

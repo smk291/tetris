@@ -14,6 +14,15 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * For each kick position, I compute what the active block's final position should be after it rotates and kicks.
+ * I then fill the playfield completely and remove the squares that the kicked block should fill. I then reposition the
+ * piece in its original location, with its original rotation value, and attempt the same rotation+kick. If the piece
+ * rotates successfully and fills the expected cells, I know it kicked correctly. The kick function returns the index
+ * of that kick in the array of four possible kick values. The test ensures that the correct value is returned, which
+ * ensures that kicks are tested in the proper order.
+ */
+
 public class WallKickerTest {
   private ActiveBlock t = new ActiveBlock(new IBlock());
   private RowList rl = new RowList();

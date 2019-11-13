@@ -9,12 +9,8 @@ import java.util.HashMap;
 public class IBlock extends Tetromino {
   private static final int[][][] offsets = {
     {RelativeCoords.l1, RelativeCoords.center, RelativeCoords.r1, RelativeCoords.r2},
-    {
-      RelativeCoords.r1u1, RelativeCoords.r1, RelativeCoords.r1d1, RelativeCoords.r1d2,
-    },
-    {
-      RelativeCoords.l1d1, RelativeCoords.d1, RelativeCoords.r1d1, RelativeCoords.r2d1,
-    },
+    {RelativeCoords.r1u1, RelativeCoords.r1, RelativeCoords.r1d1, RelativeCoords.r1d2},
+    {RelativeCoords.l1d1, RelativeCoords.d1, RelativeCoords.r1d1, RelativeCoords.r2d1},
     {RelativeCoords.u1, RelativeCoords.center, RelativeCoords.d1, RelativeCoords.d2}
   };
 

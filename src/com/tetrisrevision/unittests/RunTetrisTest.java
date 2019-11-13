@@ -169,8 +169,8 @@ class RunTetrisTest {
     }
   }
 
-  // Could add more tests, e.g. to ensure proper deletion, but that shouldn't be necessary, as all
-  // methods used are tested elsewhere
+  // Could add more tests for this method, e.g. to ensure proper deletion, but that shouldn't be necessary,
+  // as all methods this method uses are tested elsewhere.
   @Test
   void addPieceToBoard() {
     ActiveBlock p = rt.getCurrentPiece();
