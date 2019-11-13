@@ -111,3 +111,7 @@ The roadmap for more distant additions/changes includes the following:
 * User accounts
 * Leaderboards
 * Different game modes meant to be funny and infuriating, described [here](https://github.com/smk291/tetris/blob/master/Modes.md)
+
+### License
+
+This project is [MIT licensed](./LICENSE). God help you if decide to sell it.
