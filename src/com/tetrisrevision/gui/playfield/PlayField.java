@@ -1,4 +1,4 @@
-package com.tetrisrevision.gui;
+package com.tetrisrevision.gui.playfield;
 
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.helpers.Constants;
@@ -79,8 +79,8 @@ public class PlayField extends JPanel {
     if (null != runTetris.getCurrentPiece())
       drawBlocks(gbi, runTetris.getCurrentPiece().getBlocks());
 
-    if (null != runTetris.getPlayField())
-      IntStream.range(0, Constants.height).forEach(i -> drawBlocks(gbi, runTetris.getPlayField()));
+    if (null != runTetris.getPlayfield())
+      IntStream.range(0, Constants.height).forEach(i -> drawBlocks(gbi, runTetris.getPlayfield()));
 
     if (null != runTetris.getSinkingPieces())
       runTetris.getSinkingPieces().forEach(piece -> drawBlocks(gbi, piece));

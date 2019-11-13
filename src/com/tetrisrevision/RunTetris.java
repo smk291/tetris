@@ -1,6 +1,8 @@
 package com.tetrisrevision;
 
-import com.tetrisrevision.actions.*;
+import com.tetrisrevision.gamemechanics.ChangePlayfield;
+import com.tetrisrevision.gamemechanics.LockDelay;
+import com.tetrisrevision.gamemechanics.Movement;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.recordkeeping.GameRecordKeeping;
 import com.tetrisrevision.things.RowList;
@@ -12,26 +14,37 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ *
+ *  
+ *
+ *
+ */
+
 public class RunTetris {
   private TetrisPiece currentPiece = new TetrisPiece();
   private TetrominoQueue tetrominoQueue = new TetrominoQueue(currentPiece);
   private Tetromino holdPiece;
-  private RowList playField = new RowList();
+  private RowList playfield = new RowList();
   private ArrayList<RowList> sinkingPieces = new ArrayList<>();
-  private Timer movementTimer;
-  private Timer rotationTimer;
+  private LockDelay lockDelay;
   private GameRecordKeeping recordKeeping = new GameRecordKeeping();
 
   public RunTetris() {
     tetrominoQueue.resetCurrentPiece(currentPiece);
+    lockDelay = new LockDelay(this);
   }
 
   public TetrisPiece getCurrentPiece() {
     return currentPiece;
   }
 
-  public RowList getPlayField() {
-    return playField;
+  public RowList getPlayfield() {
+    return playfield;
+  }
+
+  public LockDelay getLockDelay() {
+    return lockDelay;
   }
 
   public ArrayList<RowList> getSinkingPieces() {
@@ -43,105 +56,27 @@ public class RunTetris {
   }
 
   public void dropSinkingPieces() {
-    for (int i = 0; !sinkingPieces.isEmpty() && i < sinkingPieces.size(); i++) {
-      RowList sinkingPiece = sinkingPieces.get(i);
-
-      boolean canSink = Translater.translate(sinkingPiece, playField, Constants.down);
-
-      if (!canSink) {
-        addSinkingPieceToBoard(sinkingPiece);
-
-        i--;
-      }
-    }
+    Movement.dropSinkingPieces(this);
   }
 
-  private void addSinkingPieceToBoard(RowList sinkingPiece) {
-    playField.addRowList(sinkingPiece);
-
-    ArrayList<Integer> deletedRowIdx =
-        RowDeleter.apply(sinkingPiece, currentPiece, playField, recordKeeping);
-
-    sinkingPieces.remove(sinkingPiece);
-
-    if (deletedRowIdx.size() > 0) {
-      deletedRowIdx.forEach(
-          i -> new SinkingPieceFinder().findSinkingPieces(i, playField, sinkingPieces));
-    }
+  public void addSinkingPieceToBoard(RowList sinkingPiece) {
+    ChangePlayfield.addSinkingPieceToBoard(this, sinkingPiece);
   }
 
-  public void addPieceToBoard(TetrisPiece piece) {
-    playField.addRowList(piece.getBlocks());
-
-    ArrayList<Integer> deletedRowIdx =
-        RowDeleter.apply(piece.getBlocks(), piece, playField, recordKeeping);
-
-    if (deletedRowIdx.size() > 0) {
-      deletedRowIdx.forEach(
-          i -> new SinkingPieceFinder().findSinkingPieces(i, playField, sinkingPieces));
-    }
-
-    tetrominoQueue.resetCurrentPiece(piece);
-
-    if (!PlacementTester.cellsCanBeOccupied(piece, playField)) {
-      return;
-      // End game
-    }
+  public void addPieceToPlayfield(TetrisPiece piece) {
+    ChangePlayfield.addPieceToPlayfield(this, piece);
   }
 
-  public void dropCurrentPiece() {
-    translatePiece(0, Constants.down);
+  public void dropCurrentPiece(JFrame frame) {
+    Movement.translatePiece(this, frame, 0, Constants.down);
   }
 
-  public void translatePiece(int x, int y) {
-    boolean canTranslate = Translater.translate(currentPiece, playField, x, y, false);
-
-    if (canTranslate) {
-      currentPiece.gettSpinTracker().reset();
-    } else if (y == Constants.down) {
-      addPieceToBoard(currentPiece);
-    }
+  public void translatePiece(JFrame frame, int x, int y) {
+    Movement.translatePiece(this, frame, x, y);
   }
 
-  private void handleMovementTimer() {
-    boolean canDrop = Translater.translate(currentPiece, playField, 0, Constants.down, true);
-
-    if (canDrop) {
-      if (null != movementTimer && movementTimer.isRunning()) movementTimer.stop();
-
-      return;
-    }
-
-    if (null == movementTimer || !movementTimer.isRunning()) {
-      movementTimer = new Timer(Constants.timerDelay, e -> addPieceToBoard(currentPiece));
-      movementTimer.setRepeats(false);
-      movementTimer.start();
-    }
-  }
-
-  public void rotate(int incr) {
-    int canRotate = Rotator.apply(incr, currentPiece, playField);
-
-    if (canRotate > -1) {
-      return;
-    }
-
-    handleRotationTimer();
-  }
-
-  private void handleRotationTimer() {
-    boolean canDrop = Translater.translate(currentPiece, playField, 0, Constants.down, true);
-
-    if (null != rotationTimer) {
-      rotationTimer.restart();
-      rotationTimer.stop();
-    }
-
-    if (canDrop) return;
-
-    rotationTimer = new Timer(Constants.timerDelay, e -> addPieceToBoard(currentPiece));
-    rotationTimer.setRepeats(false);
-    rotationTimer.start();
+  public void rotate(JFrame frame, int incr) {
+    Movement.rotate(this, frame, incr);
   }
 
   public TetrominoQueue getTetrominoQueue() {

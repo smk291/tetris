@@ -3,6 +3,11 @@ package com.tetrisrevision.actions;
 import com.tetrisrevision.helpers.Constants;
 
 public abstract class BoundsTester {
+  /**
+   *
+    * @param x
+   * @return
+   */
   public static boolean xInBounds(int x) {
     return x >= Constants.leftBound && x < Constants.width;
   }

@@ -3,18 +3,19 @@ package com.tetrisrevision.unittests;
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.things.*;
-import com.tetrisrevision.things.tetrominoes.IPiece;
-import com.tetrisrevision.things.tetrominoes.TPiece;
 import com.tetrisrevision.things.tetrominoes.Tetromino;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RunTetrisTest {
+  JFrame frame = new JFrame();
+
   private RunTetris rt = new RunTetris();
   private Center c = new Center(5,5);
 
@@ -35,7 +36,7 @@ class RunTetrisTest {
 
   @Test
   void getPlayField() {
-    assertNotNull(rt.getPlayField());
+    assertNotNull(rt.getPlayfield());
   }
 
   @Test
@@ -52,12 +53,12 @@ class RunTetrisTest {
   void rotate() {
     assertEquals(0, rt.getCurrentPiece().getRotation());
 
-    rt.rotate(1);
+    rt.rotate(frame, 1);
 
     assertEquals(1, rt.getCurrentPiece().getRotation());
     assertEquals(0, rt.getCurrentPiece().getPrevRotation());
 
-    rt.rotate(-1);
+    rt.rotate(frame, -1);
 
     assertEquals(0, rt.getCurrentPiece().getRotation());
     assertEquals(1, rt.getCurrentPiece().getPrevRotation());
@@ -180,11 +181,11 @@ class RunTetrisTest {
 
     RowList rl = p.getBlocks();
 
-    rt.addPieceToBoard(p);
+    rt.addPieceToPlayfield(p);
 
     for (Row r : rl.get()) {
       for (Block b : r.get()) {
-        rt.getPlayField().cellIsNotEmpty(b.getX(), r.getY());
+        rt.getPlayfield().cellIsNotEmpty(b.getX(), r.getY());
       }
     }
 
@@ -200,7 +201,7 @@ class RunTetrisTest {
     assertEquals(4, t.getCenter().getX());
     assertEquals(Constants.topRow, t.getCenter().getY());
 
-    rt.dropCurrentPiece();
+    rt.dropCurrentPiece(frame);
 
     assertEquals(4, t.getCenter().getX());
     assertEquals(Constants.topRow - 1, t.getCenter().getY());
@@ -214,11 +215,11 @@ class RunTetrisTest {
 
     RowList pieceLocation = t.getBlocks();
 
-    rt.translatePiece(0, Constants.down);
+    rt.translatePiece(frame,0, Constants.down);
 
     for (Row r : pieceLocation.get()) {
       for (Block b : r.get()) {
-        assertTrue(rt.getPlayField().cellIsNotEmpty(b.getX(), r.getY()));
+        assertTrue(rt.getPlayfield().cellIsNotEmpty(b.getX(), r.getY()));
       }
     }
   }

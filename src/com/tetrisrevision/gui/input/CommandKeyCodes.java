@@ -1,4 +1,4 @@
-package com.tetrisrevision.helpers;
+package com.tetrisrevision.gui.input;
 
 import java.awt.event.KeyEvent;
 

@@ -1,6 +1,9 @@
 package com.tetrisrevision.gui;
 
 import com.tetrisrevision.RunTetris;
+import com.tetrisrevision.gui.holdpiece.HoldPiece;
+import com.tetrisrevision.gui.piecequeue.Queue;
+import com.tetrisrevision.gui.playfield.PlayField;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -75,28 +78,28 @@ public class PanelMain extends JPanel {
     playFieldUpperC.weighty = 0.0;
     playFieldUpperC.weightx = 1.0;
 
-    //    JPanel playFieldLeft = new JPanel();
-    //    GridBagConstraints playFieldLeftC = new GridBagConstraints();
-    //    playFieldLeftC.gridx = 0;
-    //    playFieldLeftC.gridy = 1;
-    //    playFieldLeftC.gridwidth = 1;
-    //    playFieldLeftC.gridheight = 1;
-    //    playFieldLeftC.weighty = 1.0;
-    //    playFieldLeftC.weightx = 0.0;
-
-    //    JPanel playFieldRight = new JPanel();
-    //    GridBagConstraints playFieldRightC = new GridBagConstraints();
-    //    playFieldRightC.gridx = 2;
-    //    playFieldRightC.gridy = 1;
-    //    playFieldRightC.gridwidth = 1;
-    //    playFieldRightC.gridheight = 1;
-    //    playFieldRightC.weighty = 1.0;
-    //    playFieldRightC.weightx = 0.0;
+//        JPanel playFieldLeft = new JPanel();
+//        GridBagConstraints playFieldLeftC = new GridBagConstraints();
+//        playFieldLeftC.gridx = 0;
+//        playFieldLeftC.gridy = 1;
+//        playFieldLeftC.gridwidth = 1;
+//        playFieldLeftC.gridheight = 1;
+//        playFieldLeftC.weighty = 1.0;
+//        playFieldLeftC.weightx = 0.0;
+////
+//        JPanel playFieldRight = new JPanel();
+//        GridBagConstraints playFieldRightC = new GridBagConstraints();
+//        playFieldRightC.gridx = 2;
+//        playFieldRightC.gridy = 1;
+//        playFieldRightC.gridwidth = 1;
+//        playFieldRightC.gridheight = 1;
+//        playFieldRightC.weighty = 1.0;
+//        playFieldRightC.weightx = 0.0;
 
     playFieldContainer.add(playFieldUpper, playFieldUpperC);
-    //    playFieldContainer.add(playFieldLeft, playFieldLeftC);
+//        playFieldContainer.add(playFieldLeft, playFieldLeftC);
     playFieldContainer.add(playField, playFieldC);
-    //    playFieldContainer.add(playFieldRight, playFieldRightC);
+//        playFieldContainer.add(playFieldRight, playFieldRightC);
     playFieldContainer.add(playfieldLower, playFieldLowerC);
 
     if (runTetris != null) queue = new Queue(runTetris, runTetris.getTetrominoQueue());

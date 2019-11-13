@@ -46,7 +46,7 @@ public class GameData extends JPanel {
     gbi.drawString(String.valueOf(s), offsetx, offsety);
   }
 
-  void drawAllText(Graphics2D gbi) {
+  private void drawAllText(Graphics2D gbi) {
     drawText(gbi, runTetris.getRecordKeeping().getScore(), 150, 150, Color.BLUE);
     drawText(gbi, runTetris.getRecordKeeping().getLinesCleared(), 200, 250, Color.RED);
     drawText(gbi, runTetris.getRecordKeeping().getLevel(), 300, 300, Color.MAGENTA);

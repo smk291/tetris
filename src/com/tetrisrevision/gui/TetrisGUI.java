@@ -2,7 +2,8 @@ package com.tetrisrevision.gui;
 
 import com.tetrisrevision.RunTetris;
 import com.tetrisrevision.actions.Translater;
-import com.tetrisrevision.helpers.CommandKeyCodes;
+import com.tetrisrevision.gui.constants.GUIConstants;
+import com.tetrisrevision.gui.input.CommandKeyCodes;
 import com.tetrisrevision.helpers.Constants;
 import com.tetrisrevision.testing.InputTests;
 
@@ -12,11 +13,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class TetrisGUI {
-  boolean shift = false;
+  private boolean shift = false;
   private Timer timer;
   private Timer timer2;
   private RunTetris runTetris;
-  private PlayField bc;
   private JFrame tetrisFrame;
 
   public TetrisGUI() {}
@@ -27,11 +27,10 @@ public class TetrisGUI {
    */
   private void createAndShowGUI() {
     runTetris = new RunTetris();
-    bc = new PlayField(runTetris);
-    tetrisFrame = new MainTetris(runTetris);
+    tetrisFrame = new MainTetrisGUI(runTetris);
 
     tetrisFrame.pack();
-    tetrisFrame.setSize(new Dimension(600, 450));
+    tetrisFrame.setSize(new Dimension(GUIConstants.frameWidth, GUIConstants.frameHeight));
     tetrisFrame.setVisible(true);
     tetrisFrame.setFocusable(true);
 
@@ -60,7 +59,7 @@ public class TetrisGUI {
         new Timer(
             1000,
             e -> {
-              runTetris.dropCurrentPiece();
+              runTetris.dropCurrentPiece(tetrisFrame);
 
               tetrisFrame.repaint();
             });
@@ -84,36 +83,36 @@ public class TetrisGUI {
       runTetris.setHoldPiece();
     } else if (shift) {
       if (k == CommandKeyCodes.getCounterClockwise()) {
-        runTetris.rotate(Constants.counterClockwise);
+        runTetris.rotate(tetrisFrame, Constants.counterClockwise);
       } else if (k == CommandKeyCodes.getClockwise()) {
-        runTetris.rotate(Constants.clockwise);
+        runTetris.rotate(tetrisFrame, Constants.clockwise);
       } else if (k == CommandKeyCodes.getHardDrop()) {
         while (!runTetris.getSinkingPieces().isEmpty()) runTetris.dropSinkingPieces();
         int rowsTraversed =
-            Translater.hardDrop(runTetris.getCurrentPiece(), runTetris.getPlayField());
+            Translater.hardDrop(runTetris.getCurrentPiece(), runTetris.getPlayfield());
         runTetris.getRecordKeeping().hardDrop(rowsTraversed);
-        runTetris.addPieceToBoard(runTetris.getCurrentPiece());
+        runTetris.addPieceToPlayfield(runTetris.getCurrentPiece());
       } else {
         InputTests.accept(
             Character.toString(e.getKeyChar()),
             runTetris.getCurrentPiece(),
-            runTetris.getPlayField());
+            runTetris.getPlayfield());
       }
     } else {
       if (k == CommandKeyCodes.getLeft()) {
-        runTetris.translatePiece(Constants.left, 0);
+        runTetris.translatePiece(tetrisFrame, Constants.left, 0);
       } else if (k == CommandKeyCodes.getRight()) {
-        runTetris.translatePiece(Constants.right, 0);
+        runTetris.translatePiece(tetrisFrame, Constants.right, 0);
       } else if (k == CommandKeyCodes.getDrop()) {
-        runTetris.translatePiece(0, Constants.down);
+        runTetris.translatePiece(tetrisFrame, 0, Constants.down);
         runTetris.getRecordKeeping().softDrop();
       } else if (k == CommandKeyCodes.getUp()) {
-        runTetris.translatePiece(0, Constants.up);
+        runTetris.translatePiece(tetrisFrame, 0, Constants.up);
       } else {
         InputTests.accept(
             Character.toString(e.getKeyChar()),
             runTetris.getCurrentPiece(),
-            runTetris.getPlayField());
+            runTetris.getPlayfield());
       }
     }
   }
