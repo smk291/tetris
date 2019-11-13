@@ -15,12 +15,15 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 /**
+ * `RunTetris` is an instance of the game. It stores all the state that the game needs
+ * and contains methods that call the methods that amount to the game's mechanics. It
+ * wasn't necessary to put all of these methods-calling-methods in RunTetris.
+ * They're there to signal that they're the methods that handle the essential functions
+ * and interactions that amount to the complete game and all of its rules.
  *
- *  
- *
- *
+ * Adding multiplayer will require a lot of changes, but solely adding another instance
+ * of the game ought to be not harder than instantiating this class.
  */
-
 public class RunTetris {
   private TetrisPiece currentPiece = new TetrisPiece();
   private TetrominoQueue tetrominoQueue = new TetrominoQueue(currentPiece);
@@ -49,6 +52,10 @@ public class RunTetris {
 
   public ArrayList<RowList> getSinkingPieces() {
     return sinkingPieces;
+  }
+
+  public void setSinkingPieces(ArrayList<RowList> rls) {
+    sinkingPieces.addAll(rls);
   }
 
   public GameRecordKeeping getRecordKeeping() {
@@ -96,9 +103,5 @@ public class RunTetris {
       holdPiece = currentPiece.getTetromino();
       currentPiece.reset(tmp);
     }
-  }
-
-  public void setSinkingPieces(ArrayList<RowList> rls) {
-    sinkingPieces.addAll(rls);
   }
 }
