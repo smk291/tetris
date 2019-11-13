@@ -3,7 +3,7 @@ In normal Tetris ("integer" Tetris?), executing an action causes the tetromino t
 
 In Float/Newtonian Tetris, this is no longer true. Actions are now gradual and partial. When a piece drops, it doesn't drop by a full row and then stop. It will drop by, say, 0.1 of a row. When it rotates, it won't rotate a full 90 degrees and then stop. It will rotate, say, 1 degree.
 
-To make things worse, actions don't directly move the piece. They apply force to the piece, adding momentum. That momentum results in directional movement or rotation. The longer the player performs the action, the more momentum the piece gains. Moreover, a tetromino in motion will remain in motion unless acted upon by an outside force. Thus, in order to halt an action, the player must apply force in the opposite direction.
+To make things worse, actions don't directly move the piece. They apply force to the piece, adding momentum. That momentum results in directional movement or rotation. The longer the player performs the action, the more momentum the piece gains. Because a tetromino in motion will remain in motion unless acted upon by an outside force, the player can halt an action only by applying force in the opposite direction.
 
 Pieces will fall automatically, as they do in regular Tetris. This, too, will add momentum, so that pieces fall faster and faster as they reach the bottom of the playfield. The player will be able to apply upward force to the piece, slowing but not halting its descent. The higher the level, the higher the minimum speed of descent.
 
