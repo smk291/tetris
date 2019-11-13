@@ -37,7 +37,7 @@ See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to 
 #### Key concepts:<a name="keyconcepts"></a>
 
 * The play controls a [**tetromino**](https://tetris.fandom.com/wiki/Tetromino) as it falls.
-* A tetromino is a geometric shape consisting of four colored **squares** connected by their edges.
+* A tetromino is a geometric shape consisting of four colored **squares** connected at their edges.
 * There are seven different shapes, and thus seven different tetrominoes. Each is named after the letter in the alphabet that it most resembles: I block, j block, l block, o block, s block, t block, and z block. 
 * The tetromino that the player currently controls is what I call the **active block**.
 * The game takes place on the [**playfield**](https://tetris.fandom.com/wiki/Playfield).
