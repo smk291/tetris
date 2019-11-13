@@ -5,7 +5,7 @@ In Float/Newtonian Tetris, this is no longer true. Actions are now gradual and p
 
 Even worse, actions don't directly move the block. They apply force, adding a momentum that results in directional movement or rotation. The longer the player performs the action, the more momentum the block gains. Like all objects that have momentum, a tetromino in motion will remain in motion unless acted upon by an outside force. In other words, the player can halt an action only by applying force in the opposite direction.
 
-The active block falls automatically, as in regular Tetris. This, too, adds momentum, so that blocks fall faster and faster as they reach the bottom of the playfield. The player will be able to apply upward force, slowing but not halting its descent. The higher the level, the higher the minimum speed of descent.
+The active block falls automatically, as in regular Tetris. This, too, adds momentum, so that blocks fall faster and faster as they reach the bottom of the playfield. The player will be able to apply upward force, slowing but not halting descent. The higher the level, the higher the minimum descent speed.
 
 Collisions will cause bounce and collisions at high enough speeds will deform tetrominos (changing their shape) and/or move squares already settled at the bottom of the playfield. This makes "smashing" blocks against a wall or the bottom row a viable strategy.
 
