@@ -19,7 +19,7 @@ This project is a full implementation of all official Tetris rules, guidelines, 
 
 The GUI is still rough and obviously a work in progress, but the game is playable. The easiest way to play will be to open the tetris.jar file included in this repository. On Linux and Apple machines you'll need to change the file's permissions in order to make it executable.
 
-####Controls
+#### Controls
 Rotation||
 :---|---|
 Clockwise|shift + right
@@ -32,13 +32,15 @@ Right|Right arrow|
 Down oner row ("soft drop")| down arrow|
 Up one row |up arrow (*Can be enabled in TetrisGUI.java*)
 
-####Tetris-related reading material<a name="tetris"></a>
+#### Tetris-related reading material<a name="tetris"></a>
+
 See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to the game and [this article](https://tetris.wiki/Tetris_Guideline) for the official Tetris guidelines.
 
-####Source code<a name="code"></a>
+#### Source code<a name="code"></a>
 
 
-####Plans for the future
+#### Plans for the future
+
 In the immediate future, I'll clean up the interface, add a couple more tests, and compute score and level.
 
 I expect to continue working on this into the foreseeable future, but for ease of development I'll likely switch to C# or C++ so that I can use the Unity and/or Unreal engines.
