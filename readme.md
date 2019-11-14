@@ -38,19 +38,21 @@ See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to 
 
 Important terms and concepts are **highlighted**.
 
-* The play controls a [**tetromino**](https://tetris.fandom.com/wiki/Tetromino) as it falls.
+* The play controls a [**tetromino**](https://tetris.fandom.com/wiki/Tetromino), also called a **block** or sometimes a **piece**, as it falls.
 * A tetromino is a geometric shape consisting of four colored **squares** connected at their edges.
-* There are seven different shapes, and thus seven different tetrominoes. Each is named after the letter in the alphabet that it most resembles: I block, j block, l block, o block, s block, t block, and z block. 
+* There are seven different shapes, and thus seven different tetrominoes. Each is named after the letter in the alphabet that it most resembles: i, j, l, o, s, t, and z. 
 * The tetromino that the player currently controls is what I call the **active block**.
 * The game takes place on the [**playfield**](https://tetris.fandom.com/wiki/Playfield).
 * The playfield is a grid 10 **cells** wide and 20 cells high. Rows and cells are typically counted like a Cartesian coordinate system, with x increasing from left to right and y increasing from bottom to top.)
 * The active block spawns on the 20th row. 
-* Within the playfield the player can [**rotate**](https://tetris.fandom.com/wiki/SRS) or **move**(/**translate**/**shift**) the active block. Rotation and movement happen in discrete units. Blocks cannot move less or more than one square's width left, right, or down (but not up), and can rotate only 90s left or right.
-* Lowering a block once, from its current row to the row below, is a [**soft drop**](https://harddrop.com/wiki/Drop). Lowering a block instantly to the lowest possible position and instantly inserting it into the playfield is a [**hard drop**](https://harddrop.com/wiki/Drop).
+* Within the playfield the player can [**rotate**](https://tetris.fandom.com/wiki/SRS) or **move**(/**translate**/**shift**) the active block. 
+* Rotation and movement occur in discrete units. Blocks cannot move less or more than one square's width left, right, or down (but not up), and can rotate only 90 degrees left or right.
+* Lowering a block once (i.e. from its current row to the row below), is a [**soft drop**](https://harddrop.com/wiki/Drop). Lowering a block to the lowest possible position instantly is a [**hard drop**](https://harddrop.com/wiki/Drop).
 * The player cannot directly raise a block from its current row to the row above (though this is possible indirectly).
-* When the active block moves to the lowest row or comes into contact with a square connected (by other squares) to the lowest row, a timer starts. This is the [**lock delay**](https://tetris.fandom.com/wiki/Lock_delay), the time within which the player can continue to move or rotate the block before it **settles** in place.
-* There are separate lock delays for rotation and movement. Rotating a block resets the rotational and movement lock delays. Moving the block does *not* reset the movement or rotational lock delays.
+* When the active block moves to the lowest row or comes into contact with a square connected (by other squares) to the lowest row, a timer starts. This is the [**lock delay**](https://tetris.fandom.com/wiki/Lock_delay), the time within which the player can continue to move or rotate the block before it **settles** in place and becomes an immovable part of the playfield.
+* There are separate lock delays for rotation and movement. Rotating a block resets the rotational and movement lock delays. Moving the block does *not* reset the movement lock delay.
 * When the active block is adjacent to a settled square or is on the bottom row, and the lock delay hasn't yet elapsed, a soft drop will immediately settle the block.
+* There is no lock delay after a hard drop. The piece settle instantly.
 * Once a block settles, a new active block spawns at the top of the playfield.
 * When all cells in a row are full, that row is [**cleared**](https://tetris.fandom.com/wiki/Line_clear), meaning that it is deleted from teh board. Rows above it sink accordingly and the player's score increases.
 * Clearing multiple contiguous rows adds a significantly greater number of points to the player's score.
