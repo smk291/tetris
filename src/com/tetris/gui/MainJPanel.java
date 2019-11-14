@@ -10,8 +10,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class MainJPanel extends JPanel {
-  Border borderMain = BorderFactory.createLineBorder(new Color(0, 145, 155));
+class MainJPanel extends JPanel {
+  private Border borderMain = BorderFactory.createLineBorder(new Color(0, 145, 155));
   GridBagLayout gblMain = new GridBagLayout();
 
   JPanel leftMost = new JPanel();
@@ -120,7 +120,7 @@ public class MainJPanel extends JPanel {
     init();
   }
 
-  void insertPanel(
+  private void insertPanel(
       JPanel panel,
       double weightx,
       double weighty,
