@@ -36,6 +36,7 @@ public class RunTetris {
   private GUIMain gui;
   private Timer timer;
   private Timer timer2;
+  private boolean gameOver = false;
 
   public RunTetris(GUIMain gui) {
     tetrominoQueue.resetCurrentBlock(currentBlock);
@@ -153,5 +154,14 @@ public class RunTetris {
   public void endGame() {
     timer.stop();
     timer2.stop();
+    gameOver = true;
+  }
+
+  public boolean isGameOver() {
+    return gameOver;
+  }
+
+  public void setGameOver(boolean gameOver) {
+    this.gameOver = gameOver;
   }
 }
