@@ -9,6 +9,7 @@ import com.tetris.game.things.RowList;
 import com.tetris.game.things.ActiveBlock;
 import com.tetris.game.things.TetrominoQueue;
 import com.tetris.game.things.Tetromino;
+import com.tetris.gui.GUIMain;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -32,10 +33,17 @@ public class RunTetris {
   private ArrayList<RowList> sinkingBlocks = new ArrayList<>();
   private LockDelay lockDelay;
   private GameRecordKeeping recordKeeping = new GameRecordKeeping();
+  private GUIMain gui;
+  private Timer timer;
+  private Timer timer2;
 
-  public RunTetris() {
+  public RunTetris(GUIMain gui) {
     tetrominoQueue.resetCurrentBlock(currentBlock);
     lockDelay = new LockDelay(this);
+    this.gui = gui;
+
+    setActiveBlockTimer();
+    setSinkingBlockTimer();
   }
 
   public ActiveBlock getActiveBlock() {
@@ -56,6 +64,8 @@ public class RunTetris {
 
   public void setSinkingBlocks(ArrayList<RowList> rls) {
     sinkingBlocks.addAll(rls);
+
+    setSinkingBlockTimer();
   }
 
   public GameRecordKeeping getRecordKeeping() {
@@ -71,19 +81,19 @@ public class RunTetris {
   }
 
   public void addBlockToPlayfield(ActiveBlock block) {
-    ChangePlayfield.addBlockToPlayfield(this, block);
+    ChangePlayfield.addActiveBlockToPlayfield(this, block);
   }
 
-  public void dropActiveBlock(JFrame frame) {
-    Movement.translateBlock(this, frame, 0, Constants.down);
+  public void dropActiveBlock() {
+    Movement.translateBlock(this, 0, Constants.down);
   }
 
-  public void translate(JFrame frame, int x, int y) {
-    Movement.translateBlock(this, frame, x, y);
+  public void translate(int x, int y) {
+    Movement.translateBlock(this, x, y);
   }
 
-  public void rotate(JFrame frame, int incr) {
-    Movement.rotate(this, frame, incr);
+  public void rotate(int incr) {
+    Movement.rotate(this, incr);
   }
 
   public TetrominoQueue getTetrominoQueue() {
@@ -103,5 +113,45 @@ public class RunTetris {
       holdBlock = currentBlock.getTetromino();
       currentBlock.reset(tmp);
     }
+  }
+
+  void setDropTimerDelay(int ms) {
+    timer.setDelay(ms);
+  }
+
+  public void setActiveBlockTimer() {
+    if (timer != null && timer.isRunning())
+      timer.stop();
+
+    timer =
+        new Timer(
+            recordKeeping.getDelayByLevel((int) recordKeeping.getLevel()),
+            e -> {
+              dropActiveBlock();
+
+              gui.repaintFrame();
+            });
+    timer.start();
+
+  }
+
+  public void setSinkingBlockTimer() {
+    if (timer2 != null && timer2.isRunning())
+      timer2.stop();
+
+    timer2 =
+        new Timer(
+            200,
+            e -> {
+              dropSinkingBlocks();
+
+              gui.repaintFrame();
+            });
+    timer2.start();
+  }
+
+  public void endGame() {
+    timer.stop();
+    timer2.stop();
   }
 }

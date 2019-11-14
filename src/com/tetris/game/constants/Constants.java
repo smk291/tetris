@@ -20,7 +20,7 @@ public abstract class Constants {
   public static int initialTimerDelay = 1000;
   public static int movementLockDelay = 500;
   public static int rotationLockDelay = 250;
-
+  public static int clearRowDelay = 200;
   public static int fromLeft(int i) {
     return left + right * i;
   }

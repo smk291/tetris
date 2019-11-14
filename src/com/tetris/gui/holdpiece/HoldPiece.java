@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 public class HoldPiece extends JPanel {
   private RunTetris runTetris;
   private int height;
-  private int squareWidth;
   private JLabel labelHoldPiece = new JLabel("Press q");
 
   public HoldPiece(RunTetris runTetris) {
@@ -33,7 +32,6 @@ public class HoldPiece extends JPanel {
     if (d.getWidth() == 0 || d.getHeight() == 0) return;
 
     height = (int) d.getHeight();
-    squareWidth = height / 22;
     setBackground(Color.black);
     BufferedImage buffImg =
         new BufferedImage(getWidth(), getHeight() * 5, BufferedImage.TYPE_INT_ARGB);

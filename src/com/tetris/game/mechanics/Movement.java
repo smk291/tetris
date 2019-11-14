@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 abstract public class Movement {
-  public static void translateBlock(RunTetris rt, JFrame frame, int x, int y) {
+  public static void translateBlock(RunTetris rt, int x, int y) {
     ActiveBlock tp = rt.getActiveBlock();
     RowList playfield = rt.getPlayfield();
     LockDelay ld = rt.getLockDelay();
@@ -26,7 +26,7 @@ abstract public class Movement {
     }
   }
 
-  public static void rotate(RunTetris rt, JFrame frame, int incr) {
+  public static void rotate(RunTetris rt, int incr) {
     ActiveBlock tp = rt.getActiveBlock();
     RowList playfield = rt.getPlayfield();
     LockDelay ld = rt.getLockDelay();

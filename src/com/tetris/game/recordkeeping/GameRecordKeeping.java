@@ -185,7 +185,7 @@ public final class GameRecordKeeping {
     }
   }
 
-  private int getDelayByLevel(int i) {
+  public int getDelayByLevel(int i) {
     while (true) {
       switch (i) {
         case 0:

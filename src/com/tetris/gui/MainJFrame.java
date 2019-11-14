@@ -7,17 +7,15 @@ import javax.swing.*;
 import java.awt.*;
 
 class MainJFrame extends JFrame {
-  private JPanel panelMain;
-  private GridBagConstraints gbcMain = new GridBagConstraints();
-  private GridBagLayout layout = new GridBagLayout();
-
   MainJFrame(RunTetris run) {
-    panelMain = new MainJPanel(run);
+    JPanel panelMain = new MainJPanel(run);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBackground(GUIConstants.frameBackGround);
+    GridBagLayout layout = new GridBagLayout();
     setLayout(layout);
 
+    GridBagConstraints gbcMain = new GridBagConstraints();
     gbcMain.weightx = 1.0;
     gbcMain.weighty = 1.0;
     gbcMain.fill = GridBagConstraints.BOTH;

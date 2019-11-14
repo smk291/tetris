@@ -1,6 +1,7 @@
 package com.tetris.gui;
 
 import com.tetris.game.RunTetris;
+import com.tetris.gui.displaydata.GameData;
 import com.tetris.gui.holdpiece.HoldPiece;
 import com.tetris.gui.blockqueue.Queue;
 import com.tetris.gui.playfield.PlayField;
@@ -44,8 +45,10 @@ public class MainJPanel extends JPanel {
 
   JPanel info = new JPanel();
   GridBagConstraints infoC = new GridBagConstraints();
+  RunTetris rt;
 
   public MainJPanel(RunTetris runTetris) {
+    rt = runTetris;
     GridBagLayout gblPlayfield = new GridBagLayout();
     playFieldContainer.setLayout(gblPlayfield);
     playFieldContainerC.gridwidth = 3;
@@ -78,23 +81,23 @@ public class MainJPanel extends JPanel {
     playFieldUpperC.weighty = 0.0;
     playFieldUpperC.weightx = 1.0;
 
-//        JPanel playFieldLeft = new JPanel();
-//        GridBagConstraints playFieldLeftC = new GridBagConstraints();
-//        playFieldLeftC.gridx = 0;
-//        playFieldLeftC.gridy = 1;
-//        playFieldLeftC.gridwidth = 1;
-//        playFieldLeftC.gridheight = 1;
-//        playFieldLeftC.weighty = 1.0;
-//        playFieldLeftC.weightx = 0.0;
-////
-//        JPanel playFieldRight = new JPanel();
-//        GridBagConstraints playFieldRightC = new GridBagConstraints();
-//        playFieldRightC.gridx = 2;
-//        playFieldRightC.gridy = 1;
-//        playFieldRightC.gridwidth = 1;
-//        playFieldRightC.gridheight = 1;
-//        playFieldRightC.weighty = 1.0;
-//        playFieldRightC.weightx = 0.0;
+        JPanel playFieldLeft = new JPanel();
+        GridBagConstraints playFieldLeftC = new GridBagConstraints();
+        playFieldLeftC.gridx = 0;
+        playFieldLeftC.gridy = 1;
+        playFieldLeftC.gridwidth = 1;
+        playFieldLeftC.gridheight = 1;
+        playFieldLeftC.weighty = 1.0;
+        playFieldLeftC.weightx = 0.0;
+//
+        JPanel playFieldRight = new JPanel();
+        GridBagConstraints playFieldRightC = new GridBagConstraints();
+        playFieldRightC.gridx = 2;
+        playFieldRightC.gridy = 1;
+        playFieldRightC.gridwidth = 1;
+        playFieldRightC.gridheight = 1;
+        playFieldRightC.weighty = 1.0;
+        playFieldRightC.weightx = 0.0;
 
     playFieldContainer.add(playFieldUpper, playFieldUpperC);
 //        playFieldContainer.add(playFieldLeft, playFieldLeftC);
@@ -110,7 +113,8 @@ public class MainJPanel extends JPanel {
     setForeground(Color.white);
 
     //    System.out.println(playFieldContainer.getComponent().)
-
+//    topmost.setLayout(new BorderLayout());
+//    topmost.add(new GameData(runTetris), playFieldC);
     holdBlock = new HoldPiece(runTetris);
 
     init();
@@ -130,7 +134,7 @@ public class MainJPanel extends JPanel {
     panel.setBackground(Color.darkGray);
     panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
     label.setForeground(Color.white);
-    //    panel.add(label);
+//        panel.add(label);
 
     gbc.weightx = weightx;
     gbc.weighty = weighty;
@@ -148,6 +152,12 @@ public class MainJPanel extends JPanel {
 
     insertPanel(
         topmost, 4.5, 0, 1, 0, 4, 1, GridBagConstraints.HORIZONTAL, new JLabel("T"), topmostC);
+
+    topmost.setForeground(Color.white);
+    topmost.add(new Score(rt));
+    topmost.add(new Level(rt));
+    topmost.add(new Lines(rt));
+    topmost.add(new Combo(rt));
 
     insertPanel(
         holdBlock,
@@ -215,5 +225,79 @@ public class MainJPanel extends JPanel {
 
     insertPanel(
         rightmost, 4, 1.0, 5, 0, 1, 11, GridBagConstraints.BOTH, new JLabel("R"), rightmostC);
+  }
+}
+
+abstract class Data extends JLabel {
+  RunTetris rt;
+
+  Data(RunTetris rt) {
+    this.rt = rt;
+  }
+
+  abstract void createLabel();
+
+  void create(String s) {
+    setForeground(Color.white);
+    if (rt != null)
+      setText(s);
+  }
+
+  @Override
+  public void paint(Graphics g) {
+    super.paint(g);
+
+    if (rt != null)
+      createLabel();
+  }
+
+  @Override
+  public void repaint() {
+    super.repaint();
+
+    if (rt != null)
+      createLabel();
+  }
+}
+
+class Level extends Data {
+  void createLabel() {
+     create("Level: " + String.format("%.0f", rt.getRecordKeeping().getLevel()));
+  }
+
+  Level(RunTetris rt) {
+    super(rt);
+  }
+}
+
+class Score extends Data {
+  Score(RunTetris rt) {
+    super(rt);
+  }
+
+  void createLabel() {
+      create("Score: " + String.format("%.0f", rt.getRecordKeeping().getScore()));
+  }
+}
+
+class Lines extends Data {
+  Lines(RunTetris rt) {
+    super(rt);
+  }
+
+  @Override
+  void createLabel() {
+    create("Lines: " + String.format("%.0f", rt.getRecordKeeping().getLinesCleared()));
+  }
+}
+
+class Combo extends Data {
+  Combo(RunTetris rt) {
+    super(rt);
+  }
+
+  @Override
+  void createLabel() {
+    create("Combo : " + String.format("%.0f", rt.getRecordKeeping().getComboCount()));
   }
 }

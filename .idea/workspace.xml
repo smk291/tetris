@@ -7,13 +7,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetris/game/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/RunTetris.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/game/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/constants/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetris/game/mechanics/ChangePlayfield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/mechanics/ChangePlayfield.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/game/mechanics/LockDelay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/mechanics/LockDelay.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetris/game/mechanics/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/mechanics/Movement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/game/recordkeeping/GameRecordKeeping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/recordkeeping/GameRecordKeeping.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/GUIMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/GUIMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/MainJFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/MainJFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/MainJPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/MainJPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/constants/GUIConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/constants/GUIConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/displaydata/GameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/displaydata/GameData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/displaydata/GameDataRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/displaydata/GameDataRow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/holdpiece/HoldPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/holdpiece/HoldPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/input/HandleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/input/HandleInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/playfield/PlayField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/playfield/PlayField.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tetris/tests/unit/RunTetrisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/tests/unit/RunTetrisTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

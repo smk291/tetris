@@ -15,16 +15,17 @@ abstract public class HandleInput {
     return shift;
   }
 
-  public static void keyboardInput(RunTetris runTetris, JFrame frame, KeyEvent e, boolean shift) {
+  public static void keyboardInput(RunTetris runTetris, KeyEvent e, boolean shift) {
     int k = e.getKeyCode();
 
     if (k == CommandKeyCodes.getSwitchHoldPiece()) {
       runTetris.setHoldPiece();
     } else if (shift) {
       if (k == CommandKeyCodes.getCounterClockwise()) {
-        runTetris.rotate(frame, Constants.counterClockwise);
+        runTetris.rotate(Constants.counterClockwise);
+
       } else if (k == CommandKeyCodes.getClockwise()) {
-        runTetris.rotate(frame, Constants.clockwise);
+        runTetris.rotate(Constants.clockwise);
       } else if (k == CommandKeyCodes.getHardDrop()) {
         while (!runTetris.getSinkingBlocks().isEmpty()) runTetris.dropSinkingBlocks();
         int rowsTraversed =
@@ -39,11 +40,11 @@ abstract public class HandleInput {
       }
     } else {
       if (k == CommandKeyCodes.getLeft()) {
-        runTetris.translate(frame, Constants.left, 0);
+        runTetris.translate(Constants.left, 0);
       } else if (k == CommandKeyCodes.getRight()) {
-        runTetris.translate(frame, Constants.right, 0);
+        runTetris.translate(Constants.right, 0);
       } else if (k == CommandKeyCodes.getDrop()) {
-        runTetris.translate(frame, 0, Constants.down);
+        runTetris.translate(0, Constants.down);
         runTetris.getRecordKeeping().softDrop();
 //      } else if (k == CommandKeyCodes.getUp()) {
 //        runTetris.translateBlock(0, Constants.up);

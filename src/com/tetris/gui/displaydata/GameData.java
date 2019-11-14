@@ -10,9 +10,8 @@ import java.awt.image.BufferedImage;
 public class GameData extends JPanel {
   private RunTetris runTetris;
 
-  GameData(RunTetris runTetris) {
+  public GameData(RunTetris runTetris) {
     this.runTetris = runTetris;
-
     validate();
   }
 
@@ -34,8 +33,10 @@ public class GameData extends JPanel {
   }
 
   private void drawText(Graphics2D gbi, double s, int offsetx, int offsety, Color c) {
-    setBackground(new Color(0, 0, 0, 124));
-    gbi.setColor(c);
+    setForeground(Color.white);
+    setBackground(Color.black);
+//    setBackground(new Color(225, 0, 0, 124));
+    gbi.setColor(Color.red);
     Font font = new Font("Serif", Font.BOLD, 20);
     gbi.setFont(font);
     FontRenderContext frc = gbi.getFontRenderContext();
@@ -59,7 +60,7 @@ public class GameData extends JPanel {
 
     Graphics g = getGraphics();
     Graphics2D g2 = (Graphics2D) g;
-    setBackground(new Color(0, 0, 0, 124));
+//    setBackground(new Color(150, 0, 0, 124));
 
     BufferedImage buffImg = new BufferedImage(300, 300, BufferedImage.TYPE_INT_ARGB);
     Graphics2D gbi = buffImg.createGraphics();

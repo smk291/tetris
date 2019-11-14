@@ -4,6 +4,7 @@ import com.tetris.game.RunTetris;
 import com.tetris.game.constants.Constants;
 import com.tetris.game.things.*;
 import com.tetris.game.things.Tetromino;
+import com.tetris.gui.GUIMain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RunTetrisTest {
   JFrame frame = new JFrame();
+  GUIMain gui = new GUIMain();
 
-  private RunTetris rt = new RunTetris();
+  private RunTetris rt = new RunTetris(gui);
   private Center c = new Center(5,5);
 
   private int[][][] insert = {
@@ -26,7 +28,7 @@ class RunTetrisTest {
 
   @BeforeEach
   void beforeTest() {
-    rt = new RunTetris();
+    rt = new RunTetris(gui);
   }
 
   @Test
@@ -53,12 +55,12 @@ class RunTetrisTest {
   void rotate() {
     assertEquals(0, rt.getActiveBlock().getRotation());
 
-    rt.rotate(frame, 1);
+    rt.rotate(1);
 
     assertEquals(1, rt.getActiveBlock().getRotation());
     assertEquals(0, rt.getActiveBlock().getPrevRotation());
 
-    rt.rotate(frame, -1);
+    rt.rotate(-1);
 
     assertEquals(0, rt.getActiveBlock().getRotation());
     assertEquals(1, rt.getActiveBlock().getPrevRotation());
@@ -201,7 +203,7 @@ class RunTetrisTest {
     assertEquals(4, t.getCenter().getX());
     assertEquals(Constants.topRow, t.getCenter().getY());
 
-    rt.dropActiveBlock(frame);
+    rt.dropActiveBlock();
 
     assertEquals(4, t.getCenter().getX());
     assertEquals(Constants.topRow - 1, t.getCenter().getY());
@@ -215,7 +217,7 @@ class RunTetrisTest {
 
     RowList blockLocation = t.getSquares();
 
-    rt.translate(frame,0, Constants.down);
+    rt.translate(0, Constants.down);
 
     for (Row r : blockLocation.get()) {
       for (Square b : r.get()) {
