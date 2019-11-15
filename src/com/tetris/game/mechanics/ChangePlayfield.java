@@ -2,14 +2,12 @@ package com.tetris.game.mechanics;
 
 import com.tetris.game.RunTetris;
 import com.tetris.game.actions.PlacementTester;
-import com.tetris.game.actions.ClearRows;
+import com.tetris.game.actions.RowDeleter;
 import com.tetris.game.actions.SinkingBlockFinder;
-import com.tetris.game.constants.Constants;
 import com.tetris.game.recordkeeping.GameRecordKeeping;
 import com.tetris.game.things.RowList;
 import com.tetris.game.things.ActiveBlock;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class ChangePlayfield {
@@ -22,7 +20,7 @@ public class ChangePlayfield {
     playfield.addRowList(sinkingBlock);
 
     ArrayList<Integer> deletedRowIdx =
-        ClearRows.apply(sinkingBlock, currentBlock, playfield, records);
+        RowDeleter.apply(sinkingBlock, currentBlock, playfield, records);
 
     sinkingBlocks.remove(sinkingBlock);
 
@@ -38,7 +36,7 @@ public class ChangePlayfield {
 
     playfield.addRowList(block.getSquares());
 
-    ArrayList<Integer> deletedRowIdx = ClearRows.apply(block.getSquares(), block, playfield, records);
+    ArrayList<Integer> deletedRowIdx = RowDeleter.apply(block.getSquares(), block, playfield, records);
 
     rt.getRecordKeeping().incrLinesCleared(deletedRowIdx.size());
 

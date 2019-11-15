@@ -41,7 +41,7 @@ public class UnitTestHelper {
     return new Row(y);
   }
 
-  public static RowList fillPlayField(RowList rl) {
+  public static RowList fillPlayfield(RowList rl) {
     rl.clear();
 
     for (int i = Constants.bottomRow; i != Constants.height; i += Constants.up) {

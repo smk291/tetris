@@ -37,7 +37,7 @@ class RunTetrisTest {
   }
 
   @Test
-  void getPlayField() {
+  void getPlayfield() {
     assertNotNull(rt.getPlayfield());
   }
 

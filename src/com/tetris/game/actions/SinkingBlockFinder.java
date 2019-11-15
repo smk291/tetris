@@ -66,26 +66,26 @@ public class SinkingBlockFinder {
     return true;
   }
 
-  public void findSinkingBlocks(int idx, RowList playField, ArrayList<RowList> sinkingBlocks) {
+  public void findSinkingBlocks(int idx, RowList playfield, ArrayList<RowList> sinkingBlocks) {
     if (!BoundsTester.yInLowerBound(idx)) {
       return;
     }
 
-    runSearch(idx, sinkingBlocks, playField);
-    runSearch(idx + Constants.down, sinkingBlocks, playField);
+    runSearch(idx, sinkingBlocks, playfield);
+    runSearch(idx + Constants.down, sinkingBlocks, playfield);
   }
 
-  public void runSearch(int y, ArrayList<RowList> sinkingBlocks, RowList playField) {
+  public void runSearch(int y, ArrayList<RowList> sinkingBlocks, RowList playfield) {
     IntStream.range(0, Constants.width)
         .forEach(
             x -> {
               tmpRowList.clear();
               willSink = true;
 
-              getAdjacentSquares(x, y, playField);
+              getAdjacentSquares(x, y, playfield);
 
               if (!tmpRowList.get().isEmpty() && willSink) {
-                playField.removeSquares(tmpRowList);
+                playfield.removeSquares(tmpRowList);
 
                 try {
                   sinkingBlocks.add(tmpRowList.clone());

@@ -18,7 +18,7 @@ abstract public class HandleInput {
   public static void keyboardInput(RunTetris runTetris, KeyEvent e, boolean shift) {
     if (runTetris.isGameOver())
       return;
-    
+
     int k = e.getKeyCode();
 
     if (k == CommandKeyCodes.getSwitchHoldPiece()) {

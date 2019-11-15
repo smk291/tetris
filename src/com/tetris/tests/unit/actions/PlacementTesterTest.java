@@ -24,12 +24,12 @@ class PlacementTesterTest {
           new int[] {fromLeft(5), bottomRow},
           new int[] {fromLeft(4), fromBottom(1)},
           new int[] {fromLeft(5), fromBottom(1)});
-  private RowList playField = new RowList();
+  private RowList playfield = new RowList();
   private ActiveBlock t = new ActiveBlock(new OBlock());
 
   PlacementTesterTest() {
     // Fill bottom row
-    playField.add(getFullRow(0));
+    playfield.add(getFullRow(0));
     // Position o block such that it overlaps with bottom row
     t.setCenter(fromLeft(4), bottomRow);
   }
@@ -65,19 +65,19 @@ class PlacementTesterTest {
     // Block and bottom row should overlap. Squares in block should not be able to fill corresponding
     // cells on board
     assertFalse(
-        ccbo(t, playField),
+        ccbo(t, playfield),
         "Function should return false, as not all cells filled by block can be filled on playfield. There is overlap.");
     // Move block up 1
     t.setCenter(fromLeft(4), fromBottom(1));
     // Block and row shouldn't overlap. All cells block fields should be empty on playfield.
     assertTrue(
-        ccbo(t, playField),
+        ccbo(t, playfield),
         "Function should return true. All cells filled by block can be filled on playfield");
     // Move block to disallowed position
     t.setCenter(fromLeft(-1), fromBottom(1));
     // Cells are out of bounds
     assertFalse(
-        ccbo(t, playField),
+        ccbo(t, playfield),
         "Function should return false. Block position is out of bounds. Cells out of bounds cannot be filled.");
   }
 
@@ -95,7 +95,7 @@ class PlacementTesterTest {
         }
   }
 
-  void testCannotOccupy(RowList squaresToTest, RowList fullCells, RowList playField) {
+  void testCannotOccupy(RowList squaresToTest, RowList fullCells, RowList playfield) {
     // Loop through rows to be tested
     for (Row r : squaresToTest.get()) {
       Row row = null;
@@ -109,12 +109,12 @@ class PlacementTesterTest {
         // then it shouldn't be possible to occupy the cell
         if (row != null && fullCells.cellIsNotEmpty(b.getX(), row.getY())) {
           assertTrue(
-              PlacementTester.cellCannotBeOccupied(r.getY(), b.getX(), playField),
+              PlacementTester.cellCannotBeOccupied(r.getY(), b.getX(), playfield),
               "Cell at {" + b.getX() + ", " + r.getY() + "} should be full or out of bounds");
           // Else there's a square in squaresToTest that isn't present in fullCells;
         } else {
           assertFalse(
-              PlacementTester.cellCannotBeOccupied(r.getY(), b.getX(), this.playField),
+              PlacementTester.cellCannotBeOccupied(r.getY(), b.getX(), this.playfield),
               "Cell at {" + b.getX() + ", " + r.getY() + "} should be empty and in bounds");
         }
     }
@@ -125,18 +125,18 @@ class PlacementTesterTest {
     RowList rlTest = UnitTestHelper.getFullRowList(new int[] {0, 1});
     RowList rlFull = UnitTestHelper.getFullRowList(new int[] {0});
 
-    testCannotOccupy(rlTest, rlFull, playField);
+    testCannotOccupy(rlTest, rlFull, playfield);
 
-    playField.get().clear();
+    playfield.get().clear();
 
     RowList rlTest2 = UnitTestHelper.getFullRowList(IntStream.range(bottomRow, height).toArray());
     RowList rlFull2 = UnitTestHelper.getFullRowList(new int[] {});
 
-    testCannotOccupy(rlTest2, rlFull2, playField);
+    testCannotOccupy(rlTest2, rlFull2, playfield);
 
-    playField = rlTest2.clone();
+    playfield = rlTest2.clone();
     rlFull2 = rlTest2.clone();
 
-    testCannotOccupy(rlTest2, rlFull2, playField);
+    testCannotOccupy(rlTest2, rlFull2, playfield);
   }
 }

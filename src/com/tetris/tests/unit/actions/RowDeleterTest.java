@@ -1,6 +1,6 @@
 package com.tetris.tests.unit.actions;
 
-import com.tetris.game.actions.ClearRows;
+import com.tetris.game.actions.RowDeleter;
 import com.tetris.game.recordkeeping.GameRecordKeeping;
 import com.tetris.game.things.Center;
 import com.tetris.game.things.RowList;
@@ -13,14 +13,14 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ClearRowsTest {
+class RowDeleterTest {
   private RowList rl = new RowList();
   private RowList inserted = new RowList();
   private ActiveBlock t = new ActiveBlock(new OBlock());
   private Center c = new Center(5,5);
   private GameRecordKeeping g = new GameRecordKeeping();
 
-  void fillPlayField() {
+  void fillPlayfield() {
     rl.clear();
 
     rl.add(UnitTestHelper.getRowWithSquares(16,new int[] {                     7, 8, 9}));
@@ -50,10 +50,10 @@ class ClearRowsTest {
 
   @Test
   void testRowDeleter() {
-    fillPlayField();
+    fillPlayfield();
     fillInserted();
 
-    ArrayList<Integer> r = ClearRows.apply(t.getSquares(), t, rl, g);
+    ArrayList<Integer> r = RowDeleter.apply(t.getSquares(), t, rl, g);
 
     assertTrue(r.contains(5));
     assertEquals(1, r.size());

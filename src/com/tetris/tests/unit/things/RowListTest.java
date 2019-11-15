@@ -226,9 +226,9 @@ class RowListTest {
     assertEquals(ys.length, rl.get().size());
     assertEquals(ys2.length, rl2.get().size());
 
-    for (int i : new int[] {0, 1, 2}) assertTrue(rl.rowIsFull(i));
+    for (int i : new int[] {0, 1, 2}) assertTrue(rl.rowIsFullByIdx(i));
 
-    assertEquals(ys.length - 1, rl.highestFullRowIndexAfterInsertion(rl2));
+    assertEquals(ys.length - 1, rl.highestFullSharedRow(rl2));
   }
 
   @Test
@@ -252,9 +252,9 @@ class RowListTest {
     assertEquals(ys.length, rl.get().size());
     assertEquals(ys2.length, rl2.get().size());
 
-    for (int i : new int[] {0, 1, 2}) assertTrue(rl.rowIsFull(i));
+    for (int i : new int[] {0, 1, 2}) assertTrue(rl.rowIsFullByIdx(i));
 
-    assertEquals(ys[0], rl.lowestFullRowIndexAfterInsertion(rl2));
+    assertEquals(ys[0], rl.lowestFullSharedRow(rl2));
   }
 
   @Test
@@ -313,7 +313,7 @@ class RowListTest {
     rl = UnitTestHelper.getFullRowList(ys);
 
     assertEquals(ys.length, rl.get().size());
-    assertTrue(rl.rowIsFull(0));
+    assertTrue(rl.rowIsFullByIdx(0));
   }
 
   @Test

@@ -27,7 +27,7 @@ public class UnitTestHelperTest {
   }
 
   @Test
-  void fillPlayField() {
+  void fillPlayfield() {
     int[] allCells = IntStream.range(Constants.leftBound, Constants.width).toArray();
     int[] allRows = IntStream.range(Constants.bottomRow, Constants.height).toArray();
 
@@ -51,7 +51,7 @@ public class UnitTestHelperTest {
                     }) assertTrue(Arrays.stream(allRows).anyMatch(r -> r == i));
               });
 
-          RowList rl = UnitTestHelper.fillPlayField(new RowList());
+          RowList rl = UnitTestHelper.fillPlayfield(new RowList());
 
           for (int y : allRows) {
             Row r;

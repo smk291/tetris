@@ -63,7 +63,7 @@ public class WallKickerTest {
 
         RowList kickedPosition = t.getSquares();
 
-        UnitTestHelper.fillPlayField(rl);
+        UnitTestHelper.fillPlayfield(rl);
         rl.removeSquares(t.getSquares());
 
         for (Row r : t.getSquares().get())

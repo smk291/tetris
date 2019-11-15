@@ -42,7 +42,7 @@ class SinkingBlockFinderTest {
   };
 
   SinkingBlockFinderTest() {
-    rl = fillPlayField();
+    rl = fillPlayfield();
   }
 
   @BeforeEach
@@ -50,7 +50,7 @@ class SinkingBlockFinderTest {
     sinkingBlocks.clear();
   }
 
-  public RowList fillPlayField() {
+  public RowList fillPlayfield() {
     RowList rl2 = new RowList();
 
     rl2.add(UnitTestHelper.getRowWithSquares(16,new int[]{              7,8,9}));

@@ -80,8 +80,8 @@ class PrintToConsole {
           else return "  ";
         });
 
-    //    Optional<Square> square1 = playField.getSquare(0, 22);
-    //    Optional<Square> square2 = playField.getSquare(4,22);
+    //    Optional<Square> square1 = playfield.getSquare(0, 22);
+    //    Optional<Square> square2 = playfield.getSquare(4,22);
 
     //    square1.ifPresent(square -> System.out.println(
     //            "22, 0"

@@ -1,5 +1,6 @@
 package com.tetris.game.things;
 
+import com.tetris.game.constants.Constants;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -77,6 +78,10 @@ public class Row implements Cloneable, Iterable {
 
   public boolean isEmpty() {
     return squares.isEmpty();
+  }
+
+  public boolean isFull() {
+    return squares.size() == Constants.width;
   }
 
   public int size() {

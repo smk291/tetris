@@ -22,6 +22,8 @@ import java.util.ArrayList;
  * They're meant to encapsulate the highest-level logic (or encapsulate its encapsulations)
  * that the game uses, the methods that amount to the complete game and all of its rules.
  *
+ * I don't particularly like the way this code is organized.
+ *
  * Adding multiplayer will require a lot of changes, but solely adding another instance
  * of the game ought to be no harder than instantiating this class a second time.
  */
@@ -159,9 +161,5 @@ public class RunTetris {
 
   public boolean isGameOver() {
     return gameOver;
-  }
-
-  public void setGameOver(boolean gameOver) {
-    this.gameOver = gameOver;
   }
 }

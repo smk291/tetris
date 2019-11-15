@@ -4,10 +4,11 @@ import com.tetris.game.constants.Constants;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * A `RowList` is an `ArrayList` of `Row`s. It represents a few different things in the game.
@@ -84,7 +85,7 @@ public class RowList implements Cloneable {
   }
 
   /**
-   * `deleteContiguousAndShift` doesn't work properly unless `rows` is sorted by `y`, ascending.
+   * `clearFullRowsAndShiftNonFull` doesn't work properly unless `rows` is sorted by `y`, ascending.
    *
    * This method does a few things (maybe too many). It starts looping through `rows` at `idx` increments through the
    * list elements.
@@ -183,7 +184,7 @@ public class RowList implements Cloneable {
    *
    * Thus I use this function and another below to bound the search for full rows and reduce wasted work.
    **/
-  public int highestFullRowIndexAfterInsertion(RowList insertedSquares) {
+  public int highestFullSharedRow(RowList insertedSquares) {
     sortByY();
     insertedSquares.sortByY();
 
@@ -191,7 +192,7 @@ public class RowList implements Cloneable {
     int startIdx = getRowIdxFromY(startY);
 
     for (int i = startIdx; i >= 0; i--) {
-      if (rowIsFull(i)) {
+      if (rowIsFullByIdx(i)) {
         return i;
       }
     }
@@ -216,7 +217,7 @@ public class RowList implements Cloneable {
   }
 
   // See notes on `highestFullRowIndexAfterInsertion`
-  public int lowestFullRowIndexAfterInsertion(RowList p) {
+  public int lowestFullSharedRow(RowList p) {
     sortByY();
     p.sortByY();
 
@@ -226,7 +227,7 @@ public class RowList implements Cloneable {
     if (lowestY == -1 || startIdx == -1) return -1;
 
     for (int i = startIdx; i < rows.size(); i++) {
-      if (rowIsFull(i)) {
+      if (rowIsFullByIdx(i)) {
         return i;
       }
     }
@@ -274,7 +275,7 @@ public class RowList implements Cloneable {
     return allRemovalsSuccessful;
   }
 
-  public boolean rowIsFull(int i) {
+  public boolean rowIsFullByIdx(int i) {
     return rows.get(i).size() == Constants.width;
   }
 
@@ -283,6 +284,6 @@ public class RowList implements Cloneable {
   }
 
   public void sortByY() {
-    rows.sort((Row r, Row r2) -> r.getY() - r2.getY());
+    rows.sort(Comparator.comparingInt(Row::getY));
   }
 }

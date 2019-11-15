@@ -13,13 +13,13 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.stream.IntStream;
 
-public class PlayField extends JPanel {
+public class Playfield extends JPanel {
   private AffineTransform at = new AffineTransform();
   private RunTetris runTetris;
   private int height;
   private int squareWidth;
 
-  public PlayField(RunTetris runTetris) {
+  public Playfield(RunTetris runTetris) {
     this.runTetris = runTetris;
 
     validate();
