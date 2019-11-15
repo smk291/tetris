@@ -2,6 +2,7 @@
 
 ##### Contents
 1. [Description](#description)
+1. [Controls](#controls)
 1. [Tetris-related reading material](#tetris)
 1. [Discussion of source code](#code)
 1. [Key Concepts](#keyconcepts)
@@ -15,7 +16,7 @@ The GUI is a rough work in progress, but the game is playable. The easiest way t
 
 The game should build successfully in Eclipse or IntelliJ. These IDEs also allow you to run the full suite of unit tests.
 
-#### Controls
+#### Controls<a name="controls"></a>
 Rotation||
 :---|---|
 Clockwise|shift + right
@@ -88,7 +89,7 @@ I've tried to enforce a strict separation between actions and things. Here are t
 * `ActiveBlock`
 * `TetrominoQueue`
 
-The `RowList` is the only item not discuss above, in [key concepts](#keyconcepts). It's used to represent every collection of squares: the playfield, sinking pieces and active block. While the game is played, the squares the player sees on the screen always represent at least two `RowLists`: the active block and the playfield. 
+The `RowList` is the only item not discussed in [key terms and concepts](#keyconcepts), in [key concepts](#keyconcepts). It's used to represent every collection of squares: the playfield, sinking pieces and active block. While the game is played, the squares the player sees on the screen always represent at least two `RowLists`: the active block and the playfield. 
 
 Here are the classes representing actions, ordered roughly from simplest to most complex: 
 * `BoundsTester` && `PlacementTester`: These test whether a coordinate or set of coordinates is in bounds and whether already contains a square.
