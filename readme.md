@@ -10,9 +10,9 @@
 
 #### Description <a name="description"></a> 
 
-This is project is an implementation of Tetris. More speciically, it is a full implementation of the official [Tetris Guidline](https://tetris.fandom.com/wiki/Tetris_Guideline) (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS)). The basic goals of the project are nearly complete; apart from the scoring system, I've implemented nearly everything required for the game to be considered an implementation of "official" Tetris (though, obviously, this isn't an official release.). I use unit tests (JUnit, contained in `com.tetris.tests.unit`) and integration tests (`com.tetris.tests.integration`) to confirm that the game behaves as expected, correctly, and "officially." The GUI is a rough work in progress, but the game is playable. 
+This project is an implementation of the game Tetris. More speciically, it is intend to be a full implementation of the official [Tetris Guidline](https://tetris.fandom.com/wiki/Tetris_Guideline) (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS)). The basic goals of the project are complete; I've used unit tests (JUnit, contained in `com.tetris.tests.unit`) and integration tests (`com.tetris.tests.integration`) to confirm that the game behaves "officially." The GUI is a work in progress, but the game is playable. 
 
-My implementation of the game is currently written in Java using no outside libraries. The interface is written from scratch with JavaFX and Swing. The overriding goals of the project has been to practice writing effective, clear, readable, maintainable, well-tested object-oriented code, test different data structures, refine my coding process, practice writing documentation, and have fun.
+My implementation is currently written in Java using no outside libraries. The interface is written from scratch with JavaFX and Swing. The overriding goals of the project has been to practice writing effective, clear, readable, maintainable, well-tested object-oriented code, test different data structures, refine my coding process, practice writing documentation, and have fun.
 
 Use an IDE like IntelliJ or Eclipse to build the project and run unit tests.
 
