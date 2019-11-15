@@ -4,7 +4,7 @@
 1. [Description](#description)
 1. [Tetris-related reading material](#tetris)
 1. [How to play](#howtoplay)
-1. [Key Concepts](#keyconcepts)
+1. [Key Terms and Concepts](#keyconcepts)
 1. [The source code](#code)
 1. [Plans for the future](#plans)
 
