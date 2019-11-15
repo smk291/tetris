@@ -17,7 +17,7 @@ My implementation is currently written in Java using no outside libraries. The i
 Use an IDE like IntelliJ or Eclipse to build the project and run unit tests.
 
 #### How to Play<a name="howtoplay"></a>
-The easiest way to play will be to open the tetris.jar file included in this repository. On Linux and Apple machines you'll first need to change the file's permissions in order to make it executable.
+The easiest way to play will be to open the tetris.jar file included in this repository. In a Linux or macOS environment you'll first need to change the file's permissions in order to make the file executable.
 
 Rotation||
 :---|---|
