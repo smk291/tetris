@@ -15,8 +15,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RunTetrisTest {
-  JFrame frame = new JFrame();
-  GUIMain gui = new GUIMain();
+  private GUIMain gui = new GUIMain();
 
   private RunTetris rt = new RunTetris(gui);
   private Center c = new Center(5,5);
@@ -53,9 +52,20 @@ class RunTetrisTest {
 
   @Test
   void rotate() {
+    rt.getActiveBlock().reset();
     assertEquals(0, rt.getActiveBlock().getRotation());
 
+//    System.out.println("Playfield 1:");
+//    UnitTestHelper.printNonFullLines(rt.getPlayfield());
+//    System.out.println("Active block 1:");
+//    UnitTestHelper.printNonFullLines(rt.getActiveBlock().getSquares());
+
     rt.rotate(1);
+
+//    System.out.println("Playfield 2:");
+//    UnitTestHelper.printNonFullLines(rt.getPlayfield());
+//    System.out.println("Active block 2:");
+//    UnitTestHelper.printNonFullLines(rt.getActiveBlock().getSquares());
 
     assertEquals(1, rt.getActiveBlock().getRotation());
     assertEquals(0, rt.getActiveBlock().getPrevRotation());
@@ -179,7 +189,7 @@ class RunTetrisTest {
     Tetromino t = p.getTetromino();
     p.setCenter(c);
 
-    UnitTestHelper.printNonFullLines(p.getSquares());
+//    UnitTestHelper.printNonFullLines(p.getSquares());
 
     RowList rl = p.getSquares();
 
@@ -191,7 +201,7 @@ class RunTetrisTest {
       }
     }
 
-    UnitTestHelper.printNonFullLines(p.getSquares());
+//    UnitTestHelper.printNonFullLines(p.getSquares());
 
     assertNotSame(t, p.getTetromino());
   }
