@@ -7,8 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7747c3-e5fa-4c28-9206-84980cbd7860" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/game/RunTetris.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/game/RunTetris.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tetris/gui/input/HandleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tetris/gui/input/HandleInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +51,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/tetrisrevision/unittests" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/tetris/tests/unit" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -97,7 +96,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Tetris">
+  <component name="RunManager" selected="JUnit.unit in tetris">
     <configuration name="Tetris" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tetris.Tetris" />
       <module name="tetris" />
@@ -206,20 +205,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="unittests in tetris" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <configuration name="unit in tetris" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="tetris" />
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="directory" />
       <option name="PARAMETERS" value="" />
-      <dir value="$PROJECT_DIR$/src/com/tetrisrevision/unittests" />
+      <dir value="$PROJECT_DIR$/src/com/tetris/tests/unit" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Tetris" />
-      <item itemvalue="JUnit.unittests in tetris" />
+      <item itemvalue="JUnit.unit in tetris" />
       <item itemvalue="JUnit.RunTetrisTest.addPieceToBoard" />
       <item itemvalue="JUnit.RunTetrisTest.dropCurrentPiece" />
       <item itemvalue="JUnit.RunTetrisTest.translatePiece" />
