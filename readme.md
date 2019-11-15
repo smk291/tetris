@@ -35,7 +35,7 @@ Up one row |up arrow*
 
 #### Tetris-related reading material<a name="tetris"></a>
 
-See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to the game and [this article](https://tetris.wiki/Tetris_Guideline) for the official Tetris guidelines.
+See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to the game and [this article](https://tetris.wiki/Tetris_Guideline) for the official Tetris Guideline.
 
 #### Key terms and concepts:<a name="keyconcepts"></a>
 
