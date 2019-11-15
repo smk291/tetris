@@ -2,7 +2,7 @@
 
 ##### Contents
 1. [Description](#description)
-1. [Controls](#controls)
+1. [How to play](#howtoplay)
 1. [Tetris-related reading material](#tetris)
 1. [Discussion of source code](#code)
 1. [Key Concepts](#keyconcepts)
@@ -12,11 +12,13 @@
 
 This is project is an implementation of Tetris. More speciically, it is a full implementation of the official [Tetris Guidline](https://tetris.fandom.com/wiki/Tetris_Guideline) (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS)). The basic goals of the project are nearly complete; apart from the scoring system, I've implemented nearly everything required for the game to be considered an implementation of "official" Tetris (though, obviously, this isn't an official release.). I use unit tests (JUnit, contained in `com.tetris.tests.unit`) and integration tests (`com.tetris.tests.integration`) to confirm that the game behaves as expected, correctly, and "officially."
 
-The GUI is a rough work in progress, but the game is playable. The easiest way to play will be to open the tetris.jar file included in this repository. On Linux and Apple machines you'll need to change the file's permissions in order to make it executable.
+The GUI is a rough work in progress, but the game is playable. 
 
-The game should build successfully in Eclipse or IntelliJ. These IDEs also allow you to run the full suite of unit tests.
+The game should build successfully in Eclipse or IntelliJ. Use an IDE like IntelliJ or Eclipse to run the full suite of unit tests.
 
-#### Controls<a name="controls"></a>
+#### Controls<a name="howtoplay"></a>
+The easiest way to play will be to open the tetris.jar file included in this repository. On Linux and Apple machines you'll need to change the file's permissions in order to make it executable.
+
 Rotation||
 :---|---|
 Clockwise|shift + right
