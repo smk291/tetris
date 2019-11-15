@@ -52,7 +52,7 @@ Important terms and concepts are **highlighted**.
 * When the active block moves to the lowest row or its base comes into contact with a square connected (by other squares) to the lowest row, a timer starts. This is the [**lock delay**](https://tetris.fandom.com/wiki/Lock_delay), the time within which the player can continue to move or rotate the block before it **settles** in place and becomes an immovable part of the playfield.
 * There are separate lock delays for rotation and movement. Rotating a block resets the rotational and movement lock delays. Moving the block does *not* reset the movement lock delay.
 * When the base of the active block is on top of a settled square or is on the bottom row, and the lock delay hasn't yet elapsed, a soft drop will immediately settle the block.
-* There is no lock delay after a hard drop. The piece settle instantly.
+* There is no lock delay after a hard drop. The block settles instantly.
 * Once a block settles, a new active block spawns at the top of the playfield.
 * When all cells in a row are full, that row is [**cleared**](https://tetris.fandom.com/wiki/Line_clear), meaning that it is deleted from teh board. Rows above it sink accordingly and the player's score increases.
 * Clearing multiple contiguous rows adds a significantly greater number of points to the player's score.
