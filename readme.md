@@ -80,7 +80,7 @@ The `Tetris` class contains `main`.
 
 `Constants` and `RelativeCoords` contain all constant values. `Constants` includes methods that I used like constants: `Constants.fromLeft(4)` is four cells from the left bound of the playfield; `Constants.fromRight(4)` is four cells from the right bound.
 
-I've tried to enforce a strict separation between actions and things. Here are the important classes that represent 'things' in the game:
+I've tried to enforce a strict separation between actions and things. The following classes are the 'things':
 
 * `Square`
 * `Row`
@@ -89,9 +89,9 @@ I've tried to enforce a strict separation between actions and things. Here are t
 * `ActiveBlock`
 * `TetrominoQueue`
 
-The `RowList` is the only item not discussed in [key terms and concepts](#keyconcepts). It's represents any collection of squares: the squares that fill the playfield, the squares that comprise a sinking block, and the squares that comprise the active block. Thus the squares the player sees on the screen during gameplay always represent at least two `RowLists`: the active block and the playfield. 
+The only item not discussed in [key terms and concepts](#keyconcepts) is the `RowList`. A `RowList` is a collection of any number of `Squares`, which are always contained in `Rows`: the squares that fill the playfield are one `RowList`, the squares that comprise each sinking block are a `RowList`, and the squares that comprise the active block are a `RowList`. Thus the squares the player sees on the screen during gameplay always represent at least two `RowLists`: the active block and the playfield. 
 
-Here are the classes representing actions, ordered roughly from simplest to most complex: 
+The following classes are the 'actions', ordered roughly from simplest to most complex: 
 * `BoundsTester` && `PlacementTester`: These test whether a coordinate or set of coordinates is in bounds and whether already contains a square.
 * `Rotator` && `Translater` change the cells that the `ActiveBlock` occupies, using `BoundsTester` and `PlacementTester` to check for validity. Rotation and translation work similarly: first, without testing for validity, the program moves or rotates the block in the manner requested. If the resulting change produce a valid configuration of blocks (i.e. none are out of bounds or overlap with others), the function returns `true` (for translation/movement) or an integer greater than `-1` (for rotation). If the resulting configuration is invalid, the program undoes the action it just performed and returns `false` or `-1`.
 * `WallKicker`: when a rotation creates an invalid position/configuration, the game attempts four 'kicks,' moving the block by a certain number of cells in some direction. `WallKicker` works much like `Rotator` and `Translater` -- i.e. by performing an action, testing its validity, and undoing it if it's invalid.
