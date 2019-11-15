@@ -2,10 +2,10 @@
 
 ##### Contents
 1. [Description](#description)
-1. [How to play](#howtoplay)
 1. [Tetris-related reading material](#tetris)
-1. [Discussion of source code](#code)
+1. [How to play](#howtoplay)
 1. [Key Concepts](#keyconcepts)
+1. [The source code](#code)
 1. [Plans for the future](#plans)
 
 #### Description <a name="description"></a> 
@@ -15,6 +15,10 @@ This project is an implementation of the game Tetris. More speciically, it is a 
 My implementation is currently written in Java using no outside libraries. The interface is written from scratch with JavaFX and Swing. The overriding goals of the project has been to practice writing effective, clear, readable, maintainable, well-tested object-oriented code, test different data structures, refine my coding process, practice writing documentation, and have fun.
 
 Use an IDE like IntelliJ or Eclipse to build the project and run unit tests.
+
+#### Tetris-related reading material<a name="tetris"></a>
+
+See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to the game and [this article](https://tetris.wiki/Tetris_Guideline) for the official Tetris Guideline.
 
 #### How to Play<a name="howtoplay"></a>
 The easiest way to play will be to open the tetris.jar file included in this repository. In a Linux or macOS environment you'll first need to change the file's permissions in order to make it executable.
@@ -33,9 +37,6 @@ Up one row |up arrow*
 
 *Disabled. Can be enabled in HandleInput.java
 
-#### Tetris-related reading material<a name="tetris"></a>
-
-See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to the game and [this article](https://tetris.wiki/Tetris_Guideline) for the official Tetris Guideline.
 
 #### Key terms and concepts:<a name="keyconcepts"></a>
 
