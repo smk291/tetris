@@ -43,7 +43,7 @@ Important terms and concepts are **highlighted**.
 * There are seven different configurations of squares arranged this way, and thus there are seven different tetrominoes. Each is named after the letter in the alphabet that it most resembles: [i](https://tetris.fandom.com/wiki/I-Block), [j](https://tetris.fandom.com/wiki/J-Block), [l](http://tetris.fandom.com/wiki/L-Block), [o](https://tetris.fandom.com/wiki/O-Block), [s](https://tetris.fandom.com/wiki/S-Block), [t](https://tetris.fandom.com/wiki/T-Block), and [z](https://tetris.fandom.com/wiki/Z-Block). 
 * The tetromino that the player currently controls is what I call the **active block**.
 * The game takes place on the [**playfield**](https://tetris.fandom.com/wiki/Playfield).
-* The playfield is a grid 10 **cells** wide and 20 cells high. Rows and cells are typically counted like a Cartesian coordinate system, with x increasing from left to right and y increasing from bottom to top.)
+* The playfield is a grid 10 **cells** wide and 20 cells high. Rows and cells are typically counted as they are in a Cartesian coordinate system, with x increasing from left to right and y increasing from bottom to top.)
 * The active block spawns on the 20th row. 
 * Within the playfield the player can [**rotate**](https://tetris.fandom.com/wiki/SRS) or **move**(/**translate**/**shift**) the active block. 
 * Rotation and movement occur in discrete units. Blocks cannot move less or more than one square's width left, right, or down (but not up), and can rotate only 90 degrees left or right.
