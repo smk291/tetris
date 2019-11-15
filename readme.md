@@ -40,7 +40,7 @@ Important terms and concepts are **highlighted**.
 
 * The play controls a [**tetromino**](https://tetris.fandom.com/wiki/Tetromino), also called a **block** or sometimes a **piece**, as it falls.
 * A tetromino is a geometric shape consisting of four colored **squares** connected at their edges.
-* There are seven different shapes, and thus seven different tetrominoes. Each is named after the letter in the alphabet that it most resembles: i, j, l, o, s, t, and z. 
+* There are seven different configurations of squares arranged this way, and thus there are seven different tetrominoes. Each is named after the letter in the alphabet that it most resembles: i, j, l, o, s, t, and z. 
 * The tetromino that the player currently controls is what I call the **active block**.
 * The game takes place on the [**playfield**](https://tetris.fandom.com/wiki/Playfield).
 * The playfield is a grid 10 **cells** wide and 20 cells high. Rows and cells are typically counted like a Cartesian coordinate system, with x increasing from left to right and y increasing from bottom to top.)
