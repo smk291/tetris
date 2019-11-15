@@ -10,14 +10,14 @@
 
 #### Description <a name="description"></a> 
 
-This is project is an implementation of Tetris. More speciically, it is a full implementation of the official [Tetris Guidline](https://tetris.fandom.com/wiki/Tetris_Guideline) (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS)). The basic goals of the project are nearly complete; apart from the scoring system, I've implemented nearly everything required for the game to be considered an implementation of "official" Tetris (though, obviously, this isn't an official release.). I use unit tests (JUnit, contained in `com.tetris.tests.unit`) and integration tests (`com.tetris.tests.integration`) to confirm that the game behaves as expected, correctly, and "officially."
+This is project is an implementation of Tetris. More speciically, it is a full implementation of the official [Tetris Guidline](https://tetris.fandom.com/wiki/Tetris_Guideline) (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS)). The basic goals of the project are nearly complete; apart from the scoring system, I've implemented nearly everything required for the game to be considered an implementation of "official" Tetris (though, obviously, this isn't an official release.). I use unit tests (JUnit, contained in `com.tetris.tests.unit`) and integration tests (`com.tetris.tests.integration`) to confirm that the game behaves as expected, correctly, and "officially." The GUI is a rough work in progress, but the game is playable. 
 
-The GUI is a rough work in progress, but the game is playable. 
+My implementation of the game is currently written in Java using no outside libraries. The interface is written from scratch with JavaFX and Swing. The overriding goals of the project has been to practice writing effective, clear, readable, maintainable, well-tested object-oriented code, test different data structures, refine my coding process, practice writing documentation, and have fun.
 
-The game should build successfully in Eclipse or IntelliJ. Use an IDE like IntelliJ or Eclipse to run the full suite of unit tests.
+Use an IDE like IntelliJ or Eclipse to build the project and run unit tests.
 
-#### Controls<a name="howtoplay"></a>
-The easiest way to play will be to open the tetris.jar file included in this repository. On Linux and Apple machines you'll need to change the file's permissions in order to make it executable.
+#### How to Play<a name="howtoplay"></a>
+The easiest way to play will be to open the tetris.jar file included in this repository. On Linux and Apple machines you'll first need to change the file's permissions in order to make it executable.
 
 Rotation||
 :---|---|
@@ -37,7 +37,7 @@ Up one row |up arrow*
 
 See [this article](https://en.wikipedia.org/wiki/Tetris) for an introduction to the game and [this article](https://tetris.wiki/Tetris_Guideline) for the official Tetris guidelines.
 
-#### Key concepts:<a name="keyconcepts"></a>
+#### Key terms and concepts:<a name="keyconcepts"></a>
 
 Important terms and concepts are **highlighted**.
 
