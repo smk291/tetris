@@ -72,10 +72,12 @@ Important terms and concepts are **highlighted**.
 My implementation of the game is currently written in Java using no outside libraries. The interface is written from scratch with JavaFX and Swing. The overriding goals of the project has been to practice writing effective, clear, readable, maintainable, well-tested object-oriented code, test different data structures, refine my coding process, and just have fun.
 
 The `Tetris` class contains `main`.
-`TetrisGUI` creates the user interface.
-`RunTetris`, contained in TetrisGUI, encapsulates game logic.
 
-`Constants` and `RelativeCoords` contain all constant values. I included some methods in the list of constants, just because, effectively, the results of those methods serve the same function as a constant: `Constants.fromLeft(4)` and `Constants.fromRight(4)` will always provide the same (and correct) `x` value fourth from the left and right edges, respectively, of the playfield.
+`TetrisGUI` creates the user interface.
+
+`RunTetris`, instantiated inside an instance of `TetrisGUI`, encapsulates game state and game logic.
+
+`Constants` and `RelativeCoords` contain all constant values. `Constants` includes methods that I used like constants: `Constants.fromLeft(4)` is four cells from the left bound of the playfield; `Constants.fromRight(4)` is four cells from the right bound.
 
 I've tried to enforce a strict separation between actions and things. Here are the important classes that represent 'things' in the game:
 
