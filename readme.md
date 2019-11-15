@@ -54,7 +54,7 @@ Important terms and concepts are **highlighted**.
 * When the base of the active block is on top of a settled square or is on the bottom row, and the lock delay hasn't yet elapsed, a soft drop will immediately settle the block.
 * There is no lock delay after a hard drop. The block settles instantly.
 * Once a block settles, a new active block spawns at the top of the playfield.
-* When all cells in a row are full, that row is [**cleared**](https://tetris.fandom.com/wiki/Line_clear), meaning that it is deleted from teh board. Rows above it sink accordingly and the player's score increases.
+* When all cells in a row are full, that row is [**cleared**](https://tetris.fandom.com/wiki/Line_clear), i.e. deleted from the playfield. Rows above it sink accordingly and the player's score increases.
 * Clearing multiple contiguous rows adds a significantly greater number of points to the player's score.
 * The next active block is drawn from a randomized **queue**, also called the **bag**. There is an official [Random Generator](https://harddrop.com/wiki/Bag) algorithm. In this algorithm, a block can appear twice but not three times in a row, and there can be up to but not more than 12 blocks in the queue its first instance and second instance.  
 * When the player deletes the maximum number of rows possible, clearing four contiguous rows (ordinarily achievable only by inserting an i block vertically), the player is said to have earned a **tetris**.
