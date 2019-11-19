@@ -35,7 +35,7 @@ Right|Right arrow|
 Down oner row ("soft drop")| down arrow|
 Up one row |up arrow*
 
-* This is disabled, but it can be enabled in HandleInput.java
+* This is disabled, but it can be enabled in [/src/com/tetris/gui/input/HandleInput.java](https://github.com/smk291/tetris/blob/master/src/com/tetris/gui/input/HandleInput.java#L52)
 
 
 #### Key terms and concepts:<a name="keyconcepts"></a>
