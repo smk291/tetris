@@ -46,6 +46,7 @@ Important terms and concepts are **highlighted**.
 * A tetromino is a geometric shape consisting of four colored **squares** connected at their edges.
 * There are seven different configurations of squares arranged this way, and thus there are seven different tetrominoes. Each is named after the letter in the alphabet that it most resembles: [i](https://tetris.fandom.com/wiki/I-Block), [j](https://tetris.fandom.com/wiki/J-Block), [l](http://tetris.fandom.com/wiki/L-Block), [o](https://tetris.fandom.com/wiki/O-Block), [s](https://tetris.fandom.com/wiki/S-Block), [t](https://tetris.fandom.com/wiki/T-Block), and [z](https://tetris.fandom.com/wiki/Z-Block). 
 * The tetromino that the player currently controls is what I call the **active block**.
+* The tetromino falls faster and faster as the game progresses, leaving the player less time to manipulate it.
 * The game takes place on the [**playfield**](https://tetris.fandom.com/wiki/Playfield).
 * The playfield is a grid 10 **cells** wide and 20 cells high. Rows and cells are typically counted as they are in a Cartesian coordinate system, with x increasing from left to right and y increasing from bottom to top.
 * The active block spawns on the 20th row. 
@@ -63,7 +64,8 @@ Important terms and concepts are **highlighted**.
 * When all cells in a row are full, that row is [**cleared**](https://tetris.fandom.com/wiki/Line_clear), i.e. deleted from the playfield. Rows above it sink accordingly and the player's score increases.
 * Clearing multiple contiguous rows adds a significantly greater number of points to the player's score.
 * Four is the maximum number of contiguous rows that may be deleted after the block settles; this is achievable only by inserting an i block vertically. When this happens, the player is said to have earned a **tetris**.
-* With the exception of the o block, all tetrominos have four permutations -- four distinct rotational states or [**rotations**](https://tetris.fandom.com/wiki/SRS) -- achieved by turning the block 90 degrees around a central point.
+* Clearing a row will sometimes produce a set of squares that are not connected to the bottom row; they appear to be floating in the air). These are what I call *sinking blocks*. Sinking blocks fall at a constant rate (faster than the rate at which the tetromino falls), settle into position on the playfield according to the same rules as tetrominoes, and become part of the playfield. Like tetrominoes, they can fill and clear rows, resulting in, potentially, yet another sinking block.
+* With the exception of the o block, all tetrominoes have four permutations -- four distinct rotational states or [**rotations**](https://tetris.fandom.com/wiki/SRS) -- achieved by turning the block 90 degrees around a central point.
 * When the player attempts a rotation that would produce an invalid position (i.e. the block would be out of bounds or overlap with squares already present on the playfield), a [**kick**](https://harddrop.com/wiki/SRS#How_Guideline_SRS_Really_Works) is automatically attempted.<a name="kick"></a>
 * When a block is kicked, its center moves 0-2 cells vertically and 0-2 cells horizontally. A kick succeeds when the rotation and movement produce a valid position. The active block will then remain in that new position after rotating in the direction indicated by the player. A kick fails when it results in an invalid position. If the kick fails, the piece will appear not to have moved or rotated.
 * When rotation results in an invalid position, the game tests a sequence of four different kicks, stopping when/if one succeeds.
@@ -74,7 +76,7 @@ Important terms and concepts are **highlighted**.
 * Tetris has no win conditions. The goal is to continue playing for as long as possible. The game ends when the next active block spawns on a square already present on the playfield, meaning that at least one cell on the top row already contains a square (i.e. the board is at least partly full).
 
 #### Source code<a name="code"></a>
-My implementation of the game is currently written in Java using no outside libraries. The interface is written from scratch with JavaFX and Swing. The overriding goals of the project has been to practice writing effective, clear, readable, maintainable, well-tested object-oriented code, test different data structures, refine my coding process, practice writing documentation, and have fun.
+My implementation of the game is currently written in Java using no outside libraries. The interface is written from scratch with JavaFX and Swing.
 
 The `Tetris` class contains `main`.
 
@@ -82,9 +84,9 @@ The `Tetris` class contains `main`.
 
 `RunTetris`, instantiated inside an instance of `TetrisGUI`, encapsulates game state and game logic.
 
-`Constants` and `RelativeCoords` contain all constant values. `Constants` includes methods that I used like constants: `Constants.fromLeft(4)` is four cells from the left bound of the playfield; `Constants.fromRight(4)` is four cells from the right bound.
+`Constants` and `RelativeCoords` contain all constant values. `Constants` includes methods that I use like constants: `Constants.fromLeft(4)` is four cells from the left bound of the playfield; `Constants.fromRight(4)` is four cells from the right bound.
 
-I've tried to enforce a strict separation between classes that serve as 'things' and 'classes' that serve as 'actions.' Classes for actions are typically abstract and include methods but no member variables. Classes for things are never abtract and contain no abstract or static methods and no static variables.
+I've tried to enforce a strict separation between classes that serve as 'things' and classes that serve as 'actions.' Classes for actions are typically abstract and include static methods and no member variables. Classes for things are never abtract and contain no abstract or static methods and no static variables.
 
 The 'things':
 
@@ -105,15 +107,15 @@ The actions:
 * `RowDeleter`
 * `SinkingBlockFinder`
 
-The only 'thing' class not clearly discussed in [key terms and concepts](#keyconcepts) is the `RowList`. A `RowList` is an abstraction representing any collection of any number of squares (which are always contained in rows): the squares that fill the playfield, the squares that comprise a sinking block, and the squares that comprise the active block are each one `RowList`. Thus the squares the player sees on the screen during gameplay always represent at least two `RowLists`: the active block and the playfield. 
+The only 'thing' class not clearly discussed in [key terms and concepts](#keyconcepts) is the `RowList`. A `RowList` is an abstraction representing a collection of any number of squares (which are always contained in rows): the squares that fill the playfield, the squares that comprise a sinking block, and the squares that comprise the active block are each one `RowList`. Thus the squares the player sees on the screen during gameplay always represent at least two `RowLists`: the active block and the playfield. 
 
 The [key terms and concepts](#keyconcepts) describe every thing the 'action' classes do, but now how they do them. Below I summarize the logic I use for each action:
 
 * `BoundsTester` && `PlacementTester`: These test whether a coordinate or set of coordinates is in bounds and whether already contains a square, respectively.
-* `Rotator` && `Translater` change what cells that the `ActiveBlock` occupies, using `BoundsTester` and `PlacementTester` to check for validity. Rotation and translation work similarly: first, without testing for validity, the block moves or rotates  in a given manner. If the resulting change produce a valid configuration of blocks (i.e. none are out of bounds or overlap with others), the function returns `true` (for translation/movement) or an integer greater than `-1` (for rotation). If the resulting configuration is invalid, the program undoes the action it just performed and returns `false` or `-1`.
-* `WallKicker`: when a rotation creates an invalid position/configuration, the game tests loops through an array of possible ['kicks'](#kick) and tests each. `WallKicker` works much like `Rotator` and `Translater` -- i.e. by performing an action, testing the validity of the position, and undoing the action if necessary.
-* `RowDeleter` deletes rows from the playfield. Because row deletion happens only after one `RowList`'s blocks/`Row`s are added to another, the inserted `RowList`'s upper and lower `y` values (that is, its the highest and lowest row) also bound the rows that may be full. RowDeleter searches through those rows for full rows to delete, and lowers other, non-full rows as needed.
-* `SinkingBlockFinder`: row deletion sometimes produces what I call "sinking blocks" or "floating blocks." These are blocks that aren't tetrominos, aren't controllable by the player, and aren't connected to the bottom row. They appear to be floating in the air. Thus they sink, as if affected by gravity. Not all versions of Tetris implement this behavior. (It's absent from the original Nintendo release.) Sinking is a potentially recursive pattern: row deletion can produce a sinking block that, when it sinks, fills another row, causing another deletion, which produces yet another sinking block, etc. To see this behavior in the game, type "c", lower case; this will run the integration test for recursive sinking-piece behavior. Type "d" or "x" to run the other integration tests related to sinking pieces.
+* `Rotator` && `Translater` change what cells the `ActiveBlock`'s squares occupy, using `BoundsTester` and `PlacementTester` to check for validity. Rotation and translation work similarly: first, without testing for validity, the block moves or rotates  in a given manner. If the resulting change produce a valid configuration of blocks (i.e. none are out of bounds or overlap with other squares), the function returns either `true` (for translation/movement) or an integer greater than `-1` (for rotation). If the resulting configuration is invalid, the program undoes the action it just performed and returns `false` or `-1`.
+* `WallKicker`: when a rotation creates an invalid position/configuration, the game loops through an array of possible ['kicks'](#kick) and tests each. `WallKicker` works much like `Rotator` and `Translater`: it performs an action, tests the validity of the position, and undoes the action if necessary.
+* `RowDeleter` clears rows from the playfield. Because row deletion happens only after one `RowList`'s blocks/`Row`s are added to the `RowList` representing the playfield, the inserted `RowList`'s upper and lower `y` values (that is, its the highest and lowest row) also bound the rows that may be full. `RowDeleter` tests only those rows to determine whether they're full, removes them if necessary, and lowers other, non-full rows as needed.
+* `SinkingBlockFinder`: row deletion sometimes produces what I call "sinking blocks" or "floating blocks." These are blocks that aren't tetrominoes, aren't controllable by the player, and aren't connected to the bottom row. They appear to be floating in the air. Thus they sink, as if affected by gravity. Not all versions of Tetris implement this behavior. (It's absent from the original Nintendo release.) Sinking is a potentially recursive pattern: row deletion can produce a sinking block that, when it sinks, fills another row, causing another deletion, which produces yet another sinking block, etc. To see this behavior in the game, type "c", lower case; this will run the integration test for recursive sinking-piece behavior. Type "d" or "x" to run the other integration tests related to sinking pieces.
 
 #### Plans for the future
 
@@ -125,9 +127,9 @@ A few small tasks remain:
 * Streamline the interface, changing some of the timing (e.g. add a short pause before clearing a row and then lower rows gradually, not instantly).
 * Decide between [20G, 2.36G and 0G](https://harddrop.com/wiki/20G).
 
-I expect to continue working on this into the foreseeable future, but for ease of development I'll likely switch to C# or C++ so that I can use the Unity or Unreal engine.
+I expect to continue working on this well into the foreseeable future, but for ease of development I'll likely switch to C# or C++ so that I can use the Unity or Unreal engine.
 
-The roadmap for more distant additions/changes includes the following:
+The roadmap for additions/changes includes the following:
 * 3d interface/engine
 * Competitive, cross-platform multiplayer for desktop, iOS, and Android
 * User accounts
@@ -136,4 +138,4 @@ The roadmap for more distant additions/changes includes the following:
 
 ### License
 
-This project is [MIT licensed](./LICENSE). God help you if decide to try to make money off it.
+This project is [MIT licensed](./LICENSE). Do with the code as you please. God help you if decide to try to make money off it.
