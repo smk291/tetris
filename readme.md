@@ -51,7 +51,7 @@ Important terms and concepts are **highlighted**.
 * The active block spawns on the 20th row. 
 * Within the playfield the player can [**rotate**](https://tetris.fandom.com/wiki/SRS) or **move**(/**translate**/**shift**) the active block. 
 * Rotation and movement occur in discrete units. Blocks cannot move less or more than one square's width left, right, or down (but not up), and can rotate only 90 degrees left or right.
-* Lowering a block once (i.e. from its current row to the row below), is a [**soft drop**](https://harddrop.com/wiki/Drop). Lowering a block to the lowest possible position instantly is a [**hard drop**](https://harddrop.com/wiki/Drop).
+* Lowering a block once (i.e. from its current row to the row below) is a [**soft drop**](https://harddrop.com/wiki/Drop). Lowering a block to the lowest possible position instantly is a [**hard drop**](https://harddrop.com/wiki/Drop).
 * The player cannot directly raise a block from its current row to the row above (though this is possible indirectly).
 * When the active block moves to the lowest row or its base comes into contact with a square connected (by other squares) to the lowest row, a timer starts. This is the [**lock delay**](https://tetris.fandom.com/wiki/Lock_delay), the time within which the player can continue to move or rotate the block before it **settles** in place and becomes an immovable part of the playfield.
 * There are separate lock delays for rotation and movement. Rotating a block resets the rotational and movement lock delays. Moving the block does *not* reset the movement lock delay.
