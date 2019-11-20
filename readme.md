@@ -134,7 +134,6 @@ The roadmap for additions/changes includes the following:
 * Competitive, cross-platform multiplayer for desktop, iOS, and Android
 * User accounts
 * Leaderboards
-* Different game modes meant to be funny and infuriating, described [here](https://github.com/smk291/tetris/blob/master/Modes.md)
 
 ### License
 
