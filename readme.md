@@ -10,7 +10,7 @@
 
 #### Description <a name="description"></a> 
 
-This project is an implementation of Tetris, a classic video game first released in 1984. More specifically, the project is a full implementation of the present-day official [Tetris Guidline](https://tetris.fandom.com/wiki/Tetris_Guideline) (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS)). The basic goals of the project are complete. I've used unit tests (JUnit, contained in `com.tetris.tests.unit`) and integration tests (`com.tetris.tests.integration`) to confirm that the game behaves "officially." The GUI is a work in progress, but the game is playable. 
+This project is an implementation of Tetris, the classic video game first released in 1984. More specifically, the project is a full implementation of the present-day official [Tetris Guidline](https://tetris.fandom.com/wiki/Tetris_Guideline) (using, for instance, the [Super Rotation System or SRS](https://tetris.wiki/SRS), not the [Arika Rotation System or ARS](https://harddrop.com/wiki/ARS)). The basic goals of the project are complete. I've used unit tests (JUnit, contained in `com.tetris.tests.unit`) and integration tests (`com.tetris.tests.integration`) to confirm that the game behaves "officially." The GUI is a work in progress, but the game is playable. 
 
 My implementation is currently written in Java using no outside libraries. The interface is written from scratch with JavaFX and Swing. The overriding goals of the project have been to practice writing effective, clear, readable, maintainable, well-tested, object-oriented code; to test different data structures; to refine my coding process; to write documentation; and to have fun.
 
