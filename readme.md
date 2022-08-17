@@ -125,7 +125,6 @@ A few small tasks remain:
 * Add tests for scoring and lock delay.
 * Add [DAS](https://tetris.fandom.com/wiki/DAS)
 * Streamline the interface, changing some of the timing (e.g. add a short pause before clearing a row and then lower rows gradually, not instantly).
-* Decide between [20G, 2.36G and 0G](https://harddrop.com/wiki/20G).
 
 I expect to continue working on this well into the foreseeable future, but for ease of development I'll likely switch to C# or C++ so that I can use the Unity or Unreal engine.
 
